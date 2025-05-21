@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+import Header from './components/Header';
 import Main from './Main';
 
 export default function App() {
