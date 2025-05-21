@@ -1,6 +1,3 @@
-// src/components/Header.jsx
-import { FaDiscord, FaInstagram, FaFacebook, FaYoutube, FaHeart } from "react-icons/fa";
-
 export default function Header({ onSupportClick }) {
   return (
     <header className="header">
