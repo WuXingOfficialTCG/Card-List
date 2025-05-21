@@ -17,8 +17,8 @@ export default function CardGrid() {
         {cards.map(card => (
           <img 
             key={card.id} 
-            src={card.image} 
-            alt={card.name} 
+            src={card.immagine} 
+            alt={card.nome} 
             className="card-image" 
           />
         ))}
