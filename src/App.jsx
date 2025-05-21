@@ -4,19 +4,23 @@ import CardGrid from './components/CardGrid';
 import Popup from './components/Popup';
 
 export default function App() {
-  const [popupOpen, setPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
-  // Funzione per aprire il popup
-  const openPopup = () => setPopupOpen(true);
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  };
 
-  // Funzione per chiudere il popup
-  const closePopup = () => setPopupOpen(false);
+  const handleClose = () => {
+    setSelectedCard(null);
+  };
 
   return (
     <>
       <Header />
-      <CardGrid onCardClick={openPopup} />
-      {popupOpen && <Popup onClose={closePopup} />}
+      <CardGrid onCardClick={handleCardClick} />
+      {selectedCard && (
+        <Popup card={selectedCard} onClose={handleClose} />
+      )}
     </>
   );
 }
