@@ -4,71 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wu Xing TCG - CardList</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div class="cardlist-container">
-      <!-- Sidebar -->
-      <aside class="sidebar" id="sidebar">
-        <div class="filter-header">
-          <h2>Filtri</h2>
-          <button class="collapse-btn" id="collapseBtn">←</button>
-        </div>
-
-        <!-- Filtro nome -->
-        <label for="nameInput">Nome</label>
-        <input type="text" id="nameInput" class="filter-input" placeholder="Cerca per nome" />
-
-        <!-- Linea separatrice -->
-        <hr />
-
-        <!-- Filtro tipo carta -->
-        <label>Tipo</label>
-        <div class="checkbox-group two-rows" id="typeFilters">
-          <label><input type="checkbox" value="Creatura" /> Creatura</label>
-          <label><input type="checkbox" value="Tecnica" /> Tecnica</label>
-          <label><input type="checkbox" value="Equipaggiamento" /> Equipaggiamento</label>
-        </div>
-
-        <hr />
-
-        <!-- Range ATK -->
-        <label>Attacco</label>
-        <div class="range-group">
-          <input type="number" class="filter-input range-input" id="minAtk" placeholder="Min" />
-          <input type="number" class="filter-input range-input" id="maxAtk" placeholder="Max" />
-        </div>
-
-        <!-- Range RES -->
-        <label>Resistenza</label>
-        <div class="range-group">
-          <input type="number" class="filter-input range-input" id="minRes" placeholder="Min" />
-          <input type="number" class="filter-input range-input" id="maxRes" placeholder="Max" />
-        </div>
-      </aside>
-
-      <!-- Griglia delle carte -->
-      <main class="card-grid" id="cardGrid">
-        <!-- Le carte verranno inserite via JS -->
-      </main>
-    </div>
-
-    <!-- Popup dettaglio carta -->
-    <div class="popup" id="popup">
-      <div class="popup-content" id="popupContent">
-        <button class="popup-close-btn" id="closePopupBtn">×</button>
-        <div class="popup-left">
-          <img src="" alt="Carta" class="popup-img" id="popupImg" />
-        </div>
-        <div class="popup-right" id="popupInfo">
-          <!-- Testo dinamico -->
-        </div>
-      </div>
-    </div>
-
-    <script src="js/data.js"></script>
-    <script src="js/script.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
