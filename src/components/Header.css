@@ -1,79 +1,108 @@
+/* === Header principale === */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #111;
-  color: #f5f5f5;
-  font-family: 'Oswald', sans-serif;
-  border-bottom: 2px solid #444;
+  padding: 20px 40px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  border-bottom: 1px solid #444;
 }
 
-/* Zona sinistra: support button + paypal link */
+/* === Sezione sinistra === */
 .header-left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 12px;
 }
 
 .support-btn {
-  background-color: #1e90ff;
+  background-color: #4CAF50;
+  color: #fff;
   border: none;
-  color: white;
-  padding: 0.5rem 1rem;
-  font-weight: 700;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: 'Oswald', sans-serif;
 }
 
 .support-btn:hover {
-  background-color: #005bb5;
+  background-color: #45a045;
 }
 
 .paypal-link {
-  color: #f5f5f5;
-  text-decoration: underline;
-  font-weight: 600;
-  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #003087;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .paypal-link:hover {
-  color: #1e90ff;
+  background-color: #001f5f;
 }
 
-/* Zona centrale: logo + nome */
+/* === Sezione centrale === */
 .header-center {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
+  text-align: center;
 }
 
-.header-center img.logo {
-  height: 40px;
+.logo-img {
+  height: 48px;
   width: auto;
 }
 
-.header-center .site-name {
-  font-size: 2rem;
+.logo-text {
+  font-size: 24px;
   font-weight: 700;
+  color: #ffffff;
 }
 
-/* Zona destra: social icons */
+/* === Sezione destra (social) === */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 12px;
 }
 
-.header-right img.social-icon {
-  width: 28px;
+.social-icon {
   height: 28px;
-  cursor: pointer;
+  width: 28px;
   transition: transform 0.2s ease;
 }
 
-.header-right img.social-icon:hover {
+.social-icon:hover {
   transform: scale(1.1);
+}
+
+/* === Responsive (mobile) === */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .header-left,
+  .header-center,
+  .header-right {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .logo-img {
+    height: 40px;
+  }
 }
