@@ -6,7 +6,7 @@ import SidebarFilter from "./components/SidebarFilter";
 import CardGrid from "./components/CardGrid";
 import DeckArea from "./components/DeckArea";
 import PopupSupport from "./components/PopupSupport";
-import "./index.css";
+import "./style.css";
 
 function App() {
   const [showPopup, setShowPopup] = useState(true);
