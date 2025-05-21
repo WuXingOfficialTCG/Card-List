@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-
 /* === Variabili colore === */
 :root {
   --background-color: #222;
@@ -10,6 +9,7 @@
   --sidebar-background: #2a2a2a;
   --input-background: #333;
   --popup-background: #2d2d2d;
+  --accent-color: #4CAF50;
 }
 
 /* === Reset base === */
@@ -23,6 +23,74 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+/* === HEADER === */
+.header {
+  width: 100%;
+  background-color: #111;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #444;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-center {
+  text-align: center;
+  flex: 1;
+}
+
+.logo {
+  font-family: 'Oswald', sans-serif;
+  font-size: 28px;
+  color: var(--text-color);
+}
+
+/* === Support Button === */
+.support-btn {
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 20px;
+  padding: 6px 14px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.support-btn:hover {
+  background-color: #45a049;
+}
+
+.paypal-link {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* === Social links === */
+.social-links a img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s ease;
+}
+
+.social-links a:hover img {
+  transform: scale(1.2);
 }
 
 /* === Layout principale === */
@@ -122,7 +190,7 @@ body {
 
 /* === Collapse button === */
 .collapse-btn {
-  background-color: #4CAF50;
+  background-color: var(--accent-color);
   color: white;
   border: none;
   border-radius: 50%;
@@ -245,8 +313,19 @@ body {
   cursor: pointer;
 }
 
-/* === Responsive popup === */
+/* === Responsive header e popup === */
 @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .header-center {
+    text-align: left;
+    width: 100%;
+  }
+
   .popup-content {
     flex-direction: column;
   }
