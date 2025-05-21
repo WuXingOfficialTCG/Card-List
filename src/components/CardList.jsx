@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './style.css';
+import cards from './data/cards.js'
+
 
 const mockCards = [
   { id: 1, name: 'Carta Fuoco', img: '/img/fire.png', desc: 'Elemento Fuoco.' },
