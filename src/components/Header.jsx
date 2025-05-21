@@ -13,7 +13,7 @@ export default function Header() {
       </div>
 
       <div className="center">
-        Nome Sito
+        Wu Xing TCG
       </div>
 
       <nav className="right" aria-label="Social media links">
