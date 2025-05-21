@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #222;
+  color: white;
+}
+
+.left, .center-left, .center, .right {
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  flex: 0 0 auto;
+}
+
+.center-left {
+  flex: 0 0 auto;
+  margin-left: 20px;
+}
+
+.center {
+  flex: 1 1 auto;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.right {
+  flex: 0 0 auto;
+  gap: 12px;
+}
+
+button.donate {
+  background: #ff4d4d;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.donate:hover {
+  background: #e04444;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+  background: #444;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.social-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
