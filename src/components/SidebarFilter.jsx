@@ -67,45 +67,27 @@ export default function SidebarFilter({ filters, setFilters }) {
 
           <hr />
 
-          <label>Attacco</label>
-          <div className="range-group">
-            <input
-              type="number"
-              name="minAtk"
-              className="filter-input range-input"
-              placeholder="Min"
-              value={filters.minAtk}
-              onChange={handleInputChange}
-            />
-            <input
-              type="number"
-              name="maxAtk"
-              className="filter-input range-input"
-              placeholder="Max"
-              value={filters.maxAtk}
-              onChange={handleInputChange}
-            />
-          </div>
+          <label>Attacco (ATK)</label>
+          <input
+            type="number"
+            name="atk"
+            className="filter-input"
+            placeholder="Valore ATK"
+            value={filters.atk || ""}
+            onChange={handleInputChange}
+          />
 
-          <label>Resistenza</label>
-          <div className="range-group">
-            <input
-              type="number"
-              name="minRes"
-              className="filter-input range-input"
-              placeholder="Min"
-              value={filters.minRes}
-              onChange={handleInputChange}
-            />
-            <input
-              type="number"
-              name="maxRes"
-              className="filter-input range-input"
-              placeholder="Max"
-              value={filters.maxRes}
-              onChange={handleInputChange}
-            />
-          </div>
+          <hr />
+
+          <label>Resistenza (RES)</label>
+          <input
+            type="number"
+            name="res"
+            className="filter-input"
+            placeholder="Valore RES"
+            value={filters.res || ""}
+            onChange={handleInputChange}
+          />
         </>
       )}
     </aside>
