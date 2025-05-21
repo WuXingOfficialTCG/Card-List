@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './cardgrid.css';
 
-export default function CardGrid() {
+export default function CardGrid({ onCardClick }) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,9 @@ export default function CardGrid() {
             key={card.id} 
             src={card.immagine} 
             alt={card.nome} 
-            className="card-image" 
+            className="card-image"
+            onClick={() => onCardClick(card)}
+            style={{ cursor: 'pointer' }}
           />
         ))}
       </div>
