@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './CardGrid.css';
+import './cardgrid.css';
 
 export default function CardGrid() {
   const [cards, setCards] = useState([]);
