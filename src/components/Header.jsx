@@ -1,32 +1,28 @@
-import "./../styles/header.css";
-import logo from "../assets/logo.png"; // Inserisci il tuo logo
+import React from 'react';
+import './header.css';
 
-const Header = () => {
+export default function Header() {
   return (
-    <header className="site-header">
-      <div className="header-left">
-        <button className="donate-button">Dona</button>
-        <img src={logo} alt="Logo" className="site-logo" />
+    <header>
+      <div className="left">
+        <button className="donate" onClick={() => alert('Dona cliccato!')}>Dona</button>
       </div>
 
-      <h1 className="site-name">Nome del Sito</h1>
-
-      <div className="header-right">
-        <a href="#" className="social-icon" aria-label="Discord">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/discord.svg" alt="Discord" />
-        </a>
-        <a href="#" className="social-icon" aria-label="Instagram">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" />
-        </a>
-        <a href="#" className="social-icon" aria-label="Facebook">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" />
-        </a>
-        <a href="#" className="social-icon" aria-label="YouTube">
-          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" />
-        </a>
+      <div className="center-left logo">
+        <img src="https://i.imgur.com/yourlogo.png" alt="Logo" />
       </div>
+
+      <div className="center">
+        Nome Sito
+      </div>
+
+      <nav className="right" aria-label="Social media links">
+        {/* esempio Discord */}
+        <a href="https://discord.com" target="_blank" rel="noopener" className="social-icon" aria-label="Discord">
+          <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">...</svg>
+        </a>
+        {/* altre icone */}
+      </nav>
     </header>
   );
-};
-
-export default Header;
+}
