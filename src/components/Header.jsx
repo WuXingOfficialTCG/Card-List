@@ -1,9 +1,14 @@
+import './Header.css';
+
 export default function Header({ onSupportClick }) {
   return (
     <header className="header">
-      {/* Zona sinistra */}
+      
+      {/* Sezione Sinistra: Supporto e Donazione */}
       <div className="header-left">
-        <button className="support-btn" onClick={onSupportClick}>Support Us</button>
+        <button className="support-btn" onClick={onSupportClick}>
+          Support Us
+        </button>
         <a
           href="https://www.paypal.com/donate/tuolink"
           target="_blank"
@@ -14,27 +19,56 @@ export default function Header({ onSupportClick }) {
         </a>
       </div>
 
-      {/* Zona centrale */}
+      {/* Sezione Centrale: Logo */}
       <div className="header-center">
-        <img src="https://i.imgur.com/TUO_LOGO.png" alt="Logo" className="logo-img" />
+        <img
+          src="https://i.imgur.com/TUO_LOGO.png"
+          alt="Wu Xing Logo"
+          className="logo-img"
+        />
         <h1 className="logo-text">Wu Xing TCG</h1>
       </div>
 
-      {/* Zona destra */}
-      <nav className="header-right social-links">
-        <a href="https://discord.gg/tuo-invito" target="_blank" rel="noopener noreferrer" title="Discord">
-          <img src="https://i.imgur.com/discord-icon.png" alt="Discord" className="social-icon" />
-        </a>
-        <a href="https://instagram.com/tuoprofilo" target="_blank" rel="noopener noreferrer" title="Instagram">
-          <img src="https://i.imgur.com/instagram-icon.png" alt="Instagram" className="social-icon" />
-        </a>
-        <a href="https://facebook.com/tuoprofilo" target="_blank" rel="noopener noreferrer" title="Facebook">
-          <img src="https://i.imgur.com/facebook-icon.png" alt="Facebook" className="social-icon" />
-        </a>
-        <a href="https://youtube.com/tuoprofilo" target="_blank" rel="noopener noreferrer" title="YouTube">
-          <img src="https://i.imgur.com/youtube-icon.png" alt="YouTube" className="social-icon" />
-        </a>
+      {/* Sezione Destra: Social Links */}
+      <nav className="header-right">
+        {[
+          {
+            href: "https://discord.gg/tuo-invito",
+            src: "https://i.imgur.com/discord-icon.png",
+            alt: "Discord",
+            title: "Discord",
+          },
+          {
+            href: "https://instagram.com/tuoprofilo",
+            src: "https://i.imgur.com/instagram-icon.png",
+            alt: "Instagram",
+            title: "Instagram",
+          },
+          {
+            href: "https://facebook.com/tuoprofilo",
+            src: "https://i.imgur.com/facebook-icon.png",
+            alt: "Facebook",
+            title: "Facebook",
+          },
+          {
+            href: "https://youtube.com/tuoprofilo",
+            src: "https://i.imgur.com/youtube-icon.png",
+            alt: "YouTube",
+            title: "YouTube",
+          },
+        ].map((link) => (
+          <a
+            key={link.title}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={link.title}
+          >
+            <img src={link.src} alt={link.alt} className="social-icon" />
+          </a>
+        ))}
       </nav>
+      
     </header>
   );
 }
