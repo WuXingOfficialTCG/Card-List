@@ -1,12 +1,12 @@
-import Header from "./components/Header";
+import React from 'react';
+import Header from './Header';
+import Main from './Main';
 
-function App() {
+export default function App() {
   return (
     <>
       <Header />
-      {/* Altri componenti dopo */}
+      <Main />
     </>
   );
 }
-
-export default App;
