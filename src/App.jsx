@@ -26,32 +26,44 @@ function App() {
 
   // Applica i filtri ogni volta che cambiano
   useEffect(() => {
-    let result = cards.filter((card) => {
-      const matchName = card.nome.toLowerCase().includes(filters.name.toLowerCase());
-      const matchType = filters.types.length === 0 || filters.types.includes(card.tipo);
+    const result = cards.filter((card) => {
+      if (!card || typeof card !== "object") return false;
+
+      const matchName =
+        !filters.name ||
+        (card.nome && card.nome.toLowerCase().includes(filters.name.toLowerCase()));
+
+      const matchType =
+        filters.types.length === 0 || (card.tipo && filters.types.includes(card.tipo));
+
       const matchAtk =
-        filters.minAtk === null || (card.atk !== undefined && card.atk >= filters.minAtk);
+        filters.minAtk === null || (typeof card.atk === "number" && card.atk >= filters.minAtk);
       const matchAtkMax =
-        filters.maxAtk === null || (card.atk !== undefined && card.atk <= filters.maxAtk);
+        filters.maxAtk === null || (typeof card.atk === "number" && card.atk <= filters.maxAtk);
+
       const matchRes =
-        filters.minRes === null || (card.res !== undefined && card.res >= filters.minRes);
+        filters.minRes === null || (typeof card.res === "number" && card.res >= filters.minRes);
       const matchResMax =
-        filters.maxRes === null || (card.res !== undefined && card.res <= filters.maxRes);
+        filters.maxRes === null || (typeof card.res === "number" && card.res <= filters.maxRes);
 
       return matchName && matchType && matchAtk && matchAtkMax && matchRes && matchResMax;
     });
+
     setFilteredCards(result);
   }, [filters]);
 
-  // Funzioni
+  // Funzione per aggiungere una carta al mazzo
   const addToDeck = (card) => {
-    setDeck([...deck, card]);
+    setDeck((prevDeck) => [...prevDeck, card]);
   };
 
+  // Funzione per rimuovere una carta dal mazzo
   const removeFromDeck = (index) => {
-    const newDeck = [...deck];
-    newDeck.splice(index, 1);
-    setDeck(newDeck);
+    setDeck((prevDeck) => {
+      const newDeck = [...prevDeck];
+      newDeck.splice(index, 1);
+      return newDeck;
+    });
   };
 
   return (
