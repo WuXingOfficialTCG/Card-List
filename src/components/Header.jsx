@@ -9,7 +9,7 @@ export default function Header() {
       </div>
 
       <div className="center-left logo">
-        <img src="https://i.imgur.com/yourlogo.png" alt="Logo" />
+        <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" />
       </div>
 
       <div className="center">
