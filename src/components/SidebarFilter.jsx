@@ -1,6 +1,4 @@
-// src/components/SidebarFilter.jsx
 import { useState } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function SidebarFilter({ filters, setFilters }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -27,7 +25,13 @@ export default function SidebarFilter({ filters, setFilters }) {
       <div className="filter-header">
         <h2>Filtri</h2>
         <button onClick={toggleCollapse} className="collapse-btn" title="Chiudi/apri filtri">
-          {collapsed ? <FaChevronRight /> : <FaChevronLeft />}
+          <img
+            src={collapsed
+              ? "https://i.imgur.com/chevron-right.png"
+              : "https://i.imgur.com/chevron-left.png"}
+            alt="Toggle"
+            className="chevron-icon"
+          />
         </button>
       </div>
 
