@@ -108,4 +108,155 @@ body {
   padding: 5px;
   font-size: 14px;
   background-color: var(--input-background);
-  color: var(--text
+  color: var(--text-color);
+  border: none;
+  border-radius: 6px;
+}
+
+/* === Separatori === */
+.sidebar hr {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 10px 0;
+}
+
+/* === Collapse button === */
+.collapse-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar.collapsed .collapse-btn {
+  align-self: center;
+}
+
+/* === Griglia carte === */
+.card-grid {
+  display: grid;
+  flex: 1;
+  padding: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background-color: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* === Nessuna carta trovata === */
+.no-cards-message {
+  color: var(--text-color);
+  font-size: 18px;
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* === Popup === */
+.popup {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1000;
+}
+
+.popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === Popup contenuto === */
+.popup-content {
+  display: flex;
+  background-color: var(--popup-background);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  gap: 20px;
+  position: relative;
+}
+
+/* === Colonna immagine popup === */
+.popup-left {
+  flex: 0 0 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* === Colonna testo popup === */
+.popup-right {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* === Bottone chiudi popup === */
+.popup-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .popup-content {
+    flex-direction: column;
+  }
+
+  .popup-img {
+    max-width: 90%;
+    max-height: 250px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
