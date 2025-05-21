@@ -7,15 +7,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background: #222;
-  color: white;
-}
-
 .left, .center-left, .center, .right {
   display: flex;
   align-items: center;
@@ -78,4 +69,3 @@ button.donate:hover {
   width: 24px;
   height: 24px;
 }
-
