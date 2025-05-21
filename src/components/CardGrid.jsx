@@ -3,19 +3,19 @@ import CardItem from "./CardItem";
 
 export default function CardGrid({ cards, onCardClick, filters }) {
   const filterCards = (card) => {
-    const { nome, tipo, minAtk, maxAtk, minRes, maxRes } = filters;
+    const { name, types, minAtk, maxAtk, minRes, maxRes } = filters;
 
-    if (nome && !card.nome.toLowerCase().includes(nome.toLowerCase())) return false;
-    if (tipo.length && !tipo.includes(card.tipo)) return false;
+    if (name && !card.nome.toLowerCase().includes(name.toLowerCase())) return false;
+    if (types.length && !types.includes(card.tipo)) return false;
 
     if (typeof card.atk === "number") {
-      if (minAtk && card.atk < parseInt(minAtk)) return false;
-      if (maxAtk && card.atk > parseInt(maxAtk)) return false;
+      if (minAtk !== null && card.atk < parseInt(minAtk)) return false;
+      if (maxAtk !== null && card.atk > parseInt(maxAtk)) return false;
     }
 
     if (typeof card.res === "number") {
-      if (minRes && card.res < parseInt(minRes)) return false;
-      if (maxRes && card.res > parseInt(maxRes)) return false;
+      if (minRes !== null && card.res < parseInt(minRes)) return false;
+      if (maxRes !== null && card.res > parseInt(maxRes)) return false;
     }
 
     return true;
