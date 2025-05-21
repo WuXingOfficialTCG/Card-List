@@ -17,11 +17,38 @@ export default function Header() {
       </div>
 
       <nav className="right" aria-label="Social media links">
-        {/* esempio Discord */}
-        <a href="https://discord.com" target="_blank" rel="noopener" className="social-icon" aria-label="Discord">
-          <svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24">...</svg>
+        {/* Discord */}
+        <a 
+          href="https://discord.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="social-icon" 
+          aria-label="Discord"
+        >
+          <img src="https://i.imgur.com/iXb26SA.png" alt="Discord" width="24" height="24" />
         </a>
-        {/* altre icone */}
+
+        {/* Instagram */}
+        <a 
+          href="https://instagram.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="social-icon" 
+          aria-label="Instagram"
+        >
+          <img src="https://i.imgur.com/ISEyV5G.png" alt="Instagram" width="24" height="24" />
+        </a>
+
+        {/* YouTube */}
+        <a 
+          href="https://youtube.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="social-icon" 
+          aria-label="YouTube"
+        >
+          <img src="https://i.imgur.com/YHoAhki.png" alt="YouTube" width="24" height="24" />
+        </a>
       </nav>
     </header>
   );
