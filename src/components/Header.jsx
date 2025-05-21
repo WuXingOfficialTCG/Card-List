@@ -1,18 +1,62 @@
 // src/components/Header.jsx
-import { FaGithub, FaDiscord, FaHeart } from "react-icons/fa";
+import { FaDiscord, FaInstagram, FaFacebook, FaYoutube, FaHeart } from "react-icons/fa";
 
-export default function Header() {
+export default function Header({ onSupportClick }) {
   return (
     <header className="header">
-      <h1 className="logo">
-        <FaHeart className="inline-icon" /> Wu Xing TCG
-      </h1>
-      <nav className="social-links">
-        <a href="https://github.com/tuo-repo" target="_blank" rel="noopener noreferrer" title="GitHub">
-          <FaGithub />
+      {/* Zona sinistra */}
+      <div className="header-left">
+        <button className="support-btn" onClick={onSupportClick}>Support Us</button>
+        <a
+          href="https://www.paypal.com/donate/tuolink"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="paypal-link"
+        >
+          PayPal
         </a>
-        <a href="https://discord.gg/tuo-invito" target="_blank" rel="noopener noreferrer" title="Discord">
+      </div>
+
+      {/* Zona centrale */}
+      <div className="header-center">
+        <h1 className="logo">
+          <FaHeart className="inline-icon" /> Wu Xing TCG
+        </h1>
+      </div>
+
+      {/* Zona destra */}
+      <nav className="header-right social-links">
+        <a
+          href="https://discord.gg/tuo-invito"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Discord"
+        >
           <FaDiscord />
+        </a>
+        <a
+          href="https://instagram.com/tuoprofilo"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+        >
+          <FaInstagram />
+        </a>
+        <a
+          href="https://facebook.com/tuoprofilo"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+        >
+          <FaFacebook />
+        </a>
+        <a
+          href="https://youtube.com/tuoprofilo"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="YouTube"
+        >
+          <FaYoutube />
         </a>
       </nav>
     </header>
