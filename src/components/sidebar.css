@@ -4,7 +4,7 @@
   position: fixed;
   left: 0;
   top: 0;
-  background-color: #ffffff; /* Colore chiaro per maggiore contrasto */
+  background-color: #ffffff;
   border-right: 1px solid #ccc;
   padding: 20px;
   box-sizing: border-box;
@@ -13,12 +13,11 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  color: #333; /* Testo più scuro */
+  color: #333;
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
   z-index: 10;
 }
 
-/* Stato collassato: sidebar sparisce con larghezza 0, padding 0 e nessun bordo */
 .sidebar.collapsed {
   width: 0;
   padding: 0;
@@ -26,7 +25,6 @@
   overflow: hidden;
 }
 
-/* Intestazione filtri con bottone collassa */
 .filters-header {
   display: flex;
   justify-content: space-between;
@@ -42,7 +40,6 @@
   font-size: 1.3rem;
 }
 
-/* Bottone collassa */
 .collapse-btn {
   background: transparent;
   border: none;
@@ -58,19 +55,16 @@
   color: #000;
 }
 
-/* Zona invisibile per hover a sinistra dello schermo che riapre la sidebar */
 .sidebar-hover-trigger {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;  /* area sensibile a hover */
+  width: 8px;
   height: 100vh;
   z-index: 20;
   background: transparent;
   cursor: pointer;
 }
-
-/* Mantieni il resto del tuo CSS originale */
 
 .filters-section {
   flex: none;
@@ -108,7 +102,7 @@ hr {
   background: #f9f9f9;
   border: 2px dashed #888;
   border-radius: 6px;
-  padding: 6px 8px 10px 8px; /* padding ridotto a sinistra e destra */
+  padding: 6px 8px 10px 8px;
   overflow-y: auto;
   color: #222;
 }
@@ -142,27 +136,27 @@ hr {
 .deck-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px 12px; /* gap verticale e orizzontale */
+  gap: 10px 12px;
   margin-top: 10px;
 }
 
 .deck-card-wrapper {
   position: relative;
-  width: 100%;    /* larghezza cella grid */
-  height: 84px;   /* altezza fissa */
-  margin-bottom: 0; /* margin gestito da gap */
+  width: 100%;
+  margin-bottom: 0;
+  aspect-ratio: 5 / 7;
 }
 
 .deck-card-img {
-  width: 100%;    /* immagine riempie il wrapper */
-  height: 84px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   border: 1px solid #999;
   background-color: #eee;
   object-fit: cover;
+  display: block;
 }
 
-/* Cerchio conteggio carte */
 .card-count-badge {
   position: absolute;
   top: -6px;
@@ -194,12 +188,10 @@ hr {
   max-width: 65px;
 }
 
-/* Nasconde la sezione filtri */
 .filters-section.collapsed {
   display: none;
 }
 
-/* Quando i filtri sono collassati, dropzone occupa più spazio */
 .filters-collapsed .deck-dropzone {
-  flex-grow: 2; /* o altro valore per aumentare */
+  flex-grow: 2;
 }
