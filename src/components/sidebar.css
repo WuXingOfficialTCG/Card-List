@@ -1,108 +1,31 @@
-.sidebar {
-  width: 220px;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  background-color: #ffffff; /* Colore chiaro per maggiore contrasto */
-  border-right: 1px solid #ccc;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  color: #333; /* Testo più scuro */
-}
-
-.filters-section {
-  flex: none;
-}
-
-hr {
-  margin: 20px 0;
-  border: 0;
-  border-top: 1px solid #bbb;
-}
-
-.filter-group {
-  margin-bottom: 20px;
-}
-
-.filter-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #222;
-}
-
-.filter-group select {
-  width: 100%;
-  padding: 6px 8px;
-  border: 1px solid #999;
-  border-radius: 4px;
-  font-size: 1rem;
-  background-color: #fafafa;
-  color: #111;
-}
-
-.deck-dropzone {
-  flex-grow: 1;
-  background: #f9f9f9;
-  border: 2px dashed #888;
-  border-radius: 6px;
-  padding: 10px;
-  overflow-y: auto;
-  color: #222;
-}
-
-.deck-dropzone h3 {
-  margin-top: 0;
-  font-size: 1.1rem;
-  color: #111;
-}
-
-.deck-dropzone p {
-  font-style: italic;
-  color: #555;
-  font-size: 0.9rem;
-  margin: 10px 0;
-}
-
-.deck-dropzone ul {
-  list-style: none;
-  padding-left: 0;
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
   margin-top: 10px;
 }
 
-.deck-dropzone li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+.deck-card-wrapper {
   position: relative;
+  width: 60px;
 }
 
 .deck-card-img {
-  width: 40px;
-  height: auto;
-  margin-right: 10px;
+  width: 100%;
   border-radius: 4px;
-  border: 1px solid #999;
-  background-color: #eee;
+  border: 1px solid #ccc;
 }
 
-/* Cerchio conteggio carte */
 .card-count-badge {
   position: absolute;
   top: -6px;
   right: -6px;
-  background-color: #cc0000;
+  background-color: #c00;
   color: #fff;
   font-size: 12px;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
   text-align: center;
   border-radius: 50%;
   font-weight: bold;
