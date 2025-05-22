@@ -193,3 +193,13 @@ hr {
 .atk-res-field input {
   max-width: 65px;
 }
+
+/* Nasconde la sezione filtri */
+.filters-section.collapsed {
+  display: none;
+}
+
+/* Quando i filtri sono collassati, dropzone occupa più spazio */
+.filters-collapsed .deck-dropzone {
+  flex-grow: 2; /* o altro valore per aumentare */
+}
