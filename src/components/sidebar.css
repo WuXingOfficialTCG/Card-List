@@ -4,8 +4,8 @@
   position: fixed;
   left: 0;
   top: 0;
-  background-color: #f4f4f4;
-  border-right: 1px solid #ddd;
+  background-color: #ffffff; /* Colore chiaro per maggiore contrasto */
+  border-right: 1px solid #ccc;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -13,6 +13,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  color: #333; /* Testo più scuro */
 }
 
 .filters-section {
@@ -22,7 +23,7 @@
 hr {
   margin: 20px 0;
   border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #bbb;
 }
 
 .filter-group {
@@ -32,33 +33,39 @@ hr {
 .filter-group label {
   display: block;
   margin-bottom: 6px;
-  font-weight: 500;
+  font-weight: bold;
+  color: #222;
 }
 
 .filter-group select {
   width: 100%;
   padding: 6px 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #999;
   border-radius: 4px;
   font-size: 1rem;
+  background-color: #fafafa;
+  color: #111;
 }
 
 .deck-dropzone {
   flex-grow: 1;
-  background: #fff;
-  border: 2px dashed #aaa;
+  background: #f9f9f9;
+  border: 2px dashed #888;
   border-radius: 6px;
   padding: 10px;
   overflow-y: auto;
+  color: #222;
 }
 
 .deck-dropzone h3 {
   margin-top: 0;
+  font-size: 1.1rem;
+  color: #111;
 }
 
 .deck-dropzone p {
   font-style: italic;
-  color: #666;
+  color: #555;
   font-size: 0.9rem;
   margin: 10px 0;
 }
@@ -73,6 +80,7 @@ hr {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  position: relative;
 }
 
 .deck-card-img {
@@ -80,5 +88,23 @@ hr {
   height: auto;
   margin-right: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid #999;
+  background-color: #eee;
+}
+
+/* Cerchio conteggio carte */
+.card-count-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #cc0000;
+  color: #fff;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px #fff;
 }
