@@ -165,18 +165,21 @@ hr {
   box-shadow: 0 0 0 2px #fff;
 }
 
-.deck-cards-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
+.deck-card-img {
+  width: 84px;       /* larghezza aggiornata */
+  height: 112px;     /* altezza aggiornata per mantenere proporzioni */
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid #999;
+  background-color: #eee;
 }
 
 .deck-card-wrapper {
   position: relative;
-  width: 90px;
-  height: 120px;
+  width: 84px;       /* larghezza wrapper aggiornata */
+  height: 112px;     /* altezza wrapper aggiornata */
 }
+
 
 .atk-res-inline {
   display: flex;
