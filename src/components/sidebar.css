@@ -166,8 +166,8 @@ hr {
 }
 
 .deck-card-img {
-  width: 66px;       /* larghezza aggiornata */
-  height: 88px;     /* altezza aggiornata per mantenere proporzioni */
+  width: 63px;       /* larghezza aggiornata */
+  height: 84px;     /* altezza aggiornata per mantenere proporzioni */
   margin-right: 10px;
   border-radius: 4px;
   border: 1px solid #999;
@@ -176,8 +176,9 @@ hr {
 
 .deck-card-wrapper {
   position: relative;
-  width: 66px;       /* larghezza wrapper aggiornata */
-  height: 88px;     /* altezza wrapper aggiornata */
+  width: 63px;       /* larghezza wrapper aggiornata */
+  height: 84px;     /* altezza wrapper aggiornata */
+  margin-bottom: 10px
 }
 
 
