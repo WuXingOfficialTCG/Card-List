@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import CardGrid from './components/CardGrid';
@@ -6,7 +7,7 @@ import Sidebar from './components/Sidebar';
 import SupportPopup from './components/SupportPopup';
 
 export default function App() {
-  const [popupIndex, setPopupIndex] = useState(null);
+  const [popupCard, setPopupCard] = useState(null);
   const [filters, setFilters] = useState({ elemento: '', tipo: '' });
   const [deck, setDeck] = useState([]);
   const [showSupport, setShowSupport] = useState(false);
@@ -50,42 +51,14 @@ export default function App() {
   };
 
   const handleRemoveOneFromDeck = (card) => {
-    setDeck(prevDeck =>
-      prevDeck
-        .map(c =>
-          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
-        )
-        .filter(c => c.count > 0)
-    );
-  };
-
-  // Supponiamo che CardGrid riceva i filtri e restituisca le carte filtrate, ma per Popup serve l'elenco filtrato:
-  // Qui devi avere le carte filtrate, esempio simulato (sostituisci con il tuo filtro reale)
-  // Puoi spostare la logica filtraggio qui o in CardGrid e passarla su.
-  // Per ora facciamo un mock di filteredCards:
-  const allCards = []; // Sostituisci con il tuo array completo di carte
-  const filteredCards = allCards.filter(card => {
-    return (
-      (filters.elemento === '' || card.elemento === filters.elemento) &&
-      (filters.tipo === '' || card.tipo === filters.tipo)
-    );
-  });
-
-  const openPopup = (card, index) => {
-    setPopupIndex(index);
-  };
-
-  const closePopup = () => {
-    setPopupIndex(null);
-  };
-
-  const goPrev = () => {
-    setPopupIndex(i => (i > 0 ? i - 1 : i));
-  };
-
-  const goNext = () => {
-    setPopupIndex(i => (i < filteredCards.length - 1 ? i + 1 : i));
-  };
+  setDeck(prevDeck =>
+    prevDeck
+      .map(c =>
+        c.card.id === card.id ? { ...c, count: c.count - 1 } : c
+      )
+      .filter(c => c.count > 0)
+  );
+};
 
   return (
     <>
@@ -95,30 +68,12 @@ export default function App() {
         onFilterChange={handleFilterChange}
         deck={deck}
         onAddCard={handleAddCardToDeck}
-        onCardClick={(card) => {
-          const index = filteredCards.findIndex(c => c.id === card.id);
-          openPopup(card, index);
-        }}
-        onRemoveOne={handleRemoveOneFromDeck}
+        onCardClick={setPopupCard} // ✅ Passaggio aggiunto
+        onRemoveOne={handleRemoveOneFromDeck} 
       />
       <div style={{ marginLeft: 220 }}>
-        <CardGrid
-          filters={filters}
-          onCardClick={(card) => {
-            const index = filteredCards.findIndex(c => c.id === card.id);
-            openPopup(card, index);
-          }}
-        />
-        {popupIndex !== null && (
-          <Popup
-            card={filteredCards[popupIndex]}
-            onClose={closePopup}
-            onPrev={goPrev}
-            onNext={goNext}
-            isFirst={popupIndex === 0}
-            isLast={popupIndex === filteredCards.length - 1}
-          />
-        )}
+        <CardGrid filters={filters} onCardClick={setPopupCard} />
+        {popupCard && <Popup card={popupCard} onClose={() => setPopupCard(null)} />}
         {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
       </div>
     </>
