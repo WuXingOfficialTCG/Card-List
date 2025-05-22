@@ -14,7 +14,63 @@
   flex-direction: column;
   justify-content: flex-start;
   color: #333; /* Testo più scuro */
+  transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
+  z-index: 10;
 }
+
+/* Stato collassato: sidebar sparisce con larghezza 0, padding 0 e nessun bordo */
+.sidebar.collapsed {
+  width: 0;
+  padding: 0;
+  border-right: none;
+  overflow: hidden;
+}
+
+/* Intestazione filtri con bottone collassa */
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  user-select: none;
+}
+
+.filters-header h3 {
+  margin: 0;
+  font-weight: bold;
+  color: #222;
+  font-size: 1.3rem;
+}
+
+/* Bottone collassa */
+.collapse-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  color: #666;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+.collapse-btn:hover {
+  color: #000;
+}
+
+/* Zona invisibile per hover a sinistra dello schermo che riapre la sidebar */
+.sidebar-hover-trigger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;  /* area sensibile a hover */
+  height: 100vh;
+  z-index: 20;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Mantieni il resto del tuo CSS originale */
 
 .filters-section {
   flex: none;
