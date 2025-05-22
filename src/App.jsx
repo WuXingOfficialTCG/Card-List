@@ -1,16 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import CardGrid from './components/CardGrid';
-import Popup from './components/Popup';
-import Sidebar from './components/Sidebar';
-import SupportPopup from './components/SupportPopup';
+// ... importazioni componenti
 
 export default function App() {
-  const [popupCard, setPopupCard] = useState(null);
+  const [popupIndex, setPopupIndex] = useState(null);
   const [filters, setFilters] = useState({ elemento: '', tipo: '' });
   const [deck, setDeck] = useState([]);
   const [showSupport, setShowSupport] = useState(false);
+  const [cards, setCards] = useState([]); // memorizziamo tutte le carte
 
   const SUPPORT_INTERVAL_HOURS = 6;
 
@@ -22,6 +18,12 @@ export default function App() {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
+
+    // Carica le carte qui (in App) per poter filtrare e gestire l'indice
+    fetch('/data/cards.json')
+      .then(res => res.json())
+      .then(data => setCards(data))
+      .catch(err => console.error('Errore caricamento carte:', err));
   }, []);
 
   const availableFilters = {
@@ -29,36 +31,36 @@ export default function App() {
     tipo: ['Entity', 'Chakra']
   };
 
+  const filteredCards = cards.filter(card => {
+    return (
+      (filters.elemento === '' || card.elemento === filters.elemento) &&
+      (filters.tipo === '' || card.tipo === filters.tipo)
+    );
+  });
+
   const handleFilterChange = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
 
   const handleAddCardToDeck = (card) => {
-    setDeck(prevDeck => {
-      const found = prevDeck.find(c => c.card.id === card.id);
-      if (found) {
-        if (found.count >= 3) return prevDeck;
-        return prevDeck.map(c =>
-          c.card.id === card.id ? { ...c, count: c.count + 1 } : c
-        );
-      }
-
-      const totalCards = prevDeck.reduce((acc, c) => acc + c.count, 0);
-      if (totalCards >= 40) return prevDeck;
-
-      return [...prevDeck, { card, count: 1 }];
-    });
+    // codice come prima ...
   };
 
   const handleRemoveOneFromDeck = (card) => {
-  setDeck(prevDeck =>
-    prevDeck
-      .map(c =>
-        c.card.id === card.id ? { ...c, count: c.count - 1 } : c
-      )
-      .filter(c => c.count > 0)
-  );
-};
+    // codice come prima ...
+  };
+
+  // Apri popup passando indice
+  const openPopup = (card) => {
+    const index = filteredCards.findIndex(c => c.id === card.id);
+    if (index !== -1) setPopupIndex(index);
+  };
+
+  const closePopup = () => setPopupIndex(null);
+
+  const goPrev = () => setPopupIndex(i => (i > 0 ? i - 1 : i));
+
+  const goNext = () => setPopupIndex(i => (i < filteredCards.length - 1 ? i + 1 : i));
 
   return (
     <>
@@ -68,12 +70,21 @@ export default function App() {
         onFilterChange={handleFilterChange}
         deck={deck}
         onAddCard={handleAddCardToDeck}
-        onCardClick={setPopupCard} // ✅ Passaggio aggiunto
-        onRemoveOne={handleRemoveOneFromDeck} 
+        onCardClick={openPopup}  // usa openPopup con indice
+        onRemoveOne={handleRemoveOneFromDeck}
       />
       <div style={{ marginLeft: 220 }}>
-        <CardGrid filters={filters} onCardClick={setPopupCard} />
-        {popupCard && <Popup card={popupCard} onClose={() => setPopupCard(null)} />}
+        <CardGrid filters={filters} onCardClick={openPopup} />
+        {popupIndex !== null && (
+          <Popup
+            card={filteredCards[popupIndex]}
+            onClose={closePopup}
+            onPrev={goPrev}
+            onNext={goNext}
+            isFirst={popupIndex === 0}
+            isLast={popupIndex === filteredCards.length - 1}
+          />
+        )}
         {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
       </div>
     </>
