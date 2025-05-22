@@ -49,6 +49,16 @@ export default function App() {
     });
   };
 
+  const handleRemoveOneFromDeck = (card) => {
+  setDeck(prevDeck =>
+    prevDeck
+      .map(c =>
+        c.card.id === card.id ? { ...c, count: c.count - 1 } : c
+      )
+      .filter(c => c.count > 0)
+  );
+};
+
   return (
     <>
       <Header />
@@ -58,6 +68,7 @@ export default function App() {
         deck={deck}
         onAddCard={handleAddCardToDeck}
         onCardClick={setPopupCard} // ✅ Passaggio aggiunto
+        onRemoveOne={handleRemoveOneFromDeck} 
       />
       <div style={{ marginLeft: 220 }}>
         <CardGrid filters={filters} onCardClick={setPopupCard} />
