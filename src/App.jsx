@@ -7,10 +7,18 @@ import SupportPopup from './components/SupportPopup';
 
 export default function App() {
   const [cards, setCards] = useState([]); // tutte le carte caricate
-  const [filters, setFilters] = useState({ elemento: '', tipo: '' });
+
+  const [filters, setFilters] = useState({
+    elemento: [],
+    tipo: [],
+    nome: '',
+    effetti: '',
+    atk: '',
+    res: '',
+  });
+
   const [deck, setDeck] = useState([]);
   const [showSupport, setShowSupport] = useState(false);
-
   const [popupIndex, setPopupIndex] = useState(null); // indice carta nel popup
 
   const SUPPORT_INTERVAL_HOURS = 6;
@@ -36,12 +44,27 @@ export default function App() {
     tipo: ['Entity', 'Chakra']
   };
 
-  // Carte filtrate da mostrare
+  // Filtra le carte secondo tutti i filtri
   const filteredCards = cards.filter(card => {
-    return (
-      (filters.elemento === '' || card.elemento === filters.elemento) &&
-      (filters.tipo === '' || card.tipo === filters.tipo)
-    );
+    // elemento: se array non vuoto, controlla inclusione
+    if (filters.elemento.length > 0 && !filters.elemento.includes(card.elemento)) return false;
+
+    // tipo: come sopra
+    if (filters.tipo.length > 0 && !filters.tipo.includes(card.tipo)) return false;
+
+    // nome (case insensitive, contiene)
+    if (filters.nome && !card.nome.toLowerCase().includes(filters.nome.toLowerCase())) return false;
+
+    // effetti (case insensitive, contiene) - assumo card.effetti stringa
+    if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
+
+    // atk: controllo valore esatto se specificato (stringa input trasformata in numero)
+    if (filters.atk !== '' && Number(card.atk) !== Number(filters.atk)) return false;
+
+    // res: idem
+    if (filters.res !== '' && Number(card.res) !== Number(filters.res)) return false;
+
+    return true;
   });
 
   const handleFilterChange = (field, value) => {
@@ -95,7 +118,7 @@ export default function App() {
         onFilterChange={handleFilterChange}
         deck={deck}
         onAddCard={handleAddCardToDeck}
-        onCardClick={openPopup}  // usa openPopup per gestire indice
+        onCardClick={openPopup}
         onRemoveOne={handleRemoveOneFromDeck}
       />
       <div style={{ marginLeft: 220 }}>
