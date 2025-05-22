@@ -83,7 +83,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   return (
     <>
-      {/* Invisible hover area to trigger open sidebar */}
       {collapsed && (
         <div
           className="sidebar-hover-trigger"
@@ -96,7 +95,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
         <div className="filters-header">
           <h3>Filtri</h3>
 
-          {/* Bottone collapse sidebar */}
           <button
             className="collapse-btn"
             onClick={toggleCollapse}
@@ -105,7 +103,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
             {collapsed ? '›' : '‹'}
           </button>
 
-          {/* Bottone collapse filtri */}
           {!collapsed && (
             <button
               className="collapse-btn"
@@ -122,7 +119,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
           <>
             {!filtersCollapsed && (
               <div className="filters-section">
-                {/* Filtro nome */}
                 <div className="filter-group">
                   <label>Nome</label>
                   <input
@@ -133,7 +129,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
                   />
                 </div>
 
-                {/* Filtro effetti */}
                 <div className="filter-group">
                   <label>Effetti</label>
                   <input
@@ -144,7 +139,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
                   />
                 </div>
 
-                {/* Filtro elemento come checkbox */}
                 <div className="filter-group">
                   <label>Elemento</label>
                   <div className="checkbox-group">
@@ -161,7 +155,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
                   </div>
                 </div>
 
-                {/* Filtro tipo come checkbox */}
                 <div className="filter-group">
                   <label>Tipo</label>
                   <div className="checkbox-group">
@@ -178,7 +171,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
                   </div>
                 </div>
 
-                {/* Filtro atk e res affiancati */}
                 <div className="filter-group">
                   <div className="atk-res-inline">
                     <div className="atk-res-field">
@@ -225,7 +217,9 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
                     title="Clicca per rimuovere 1 copia"
                   >
                     <img src={card.immagine} alt={card.nome} className="deck-card-img" />
-                    <span className="card-count-badge">{count}</span>
+                    <span className={`card-count-badge ${count === 3 ? 'max-copies' : ''}`}>
+                      {count}
+                    </span>
                   </div>
                 ))}
               </div>
