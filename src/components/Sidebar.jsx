@@ -1,9 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './sidebar.css';
 
 export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne }) {
   const maxDeckSize = 40;
   const maxCopies = 3;
+
+  // Stati locali per i filtri complessi
+  const [nameFilter, setNameFilter] = useState('');
+  const [effectsFilter, setEffectsFilter] = useState('');
+  const [atkFilter, setAtkFilter] = useState('');
+  const [resFilter, setResFilter] = useState('');
+
+  // Stato checkbox multipla per elemento e tipo (array di selezionati)
+  const [selectedElementi, setSelectedElementi] = useState([]);
+  const [selectedTipi, setSelectedTipi] = useState([]);
+
+  // Aggiorna i filtri checkbox e avvisa il genitore
+  const toggleElemento = (elemento) => {
+    setSelectedElementi(prev => {
+      const isSelected = prev.includes(elemento);
+      const newSelection = isSelected
+        ? prev.filter(el => el !== elemento)
+        : [...prev, elemento];
+      onFilterChange('elemento', newSelection);
+      return newSelection;
+    });
+  };
+
+  const toggleTipo = (tipo) => {
+    setSelectedTipi(prev => {
+      const isSelected = prev.includes(tipo);
+      const newSelection = isSelected
+        ? prev.filter(t => t !== tipo)
+        : [...prev, tipo];
+      onFilterChange('tipo', newSelection);
+      return newSelection;
+    });
+  };
+
+  // Aggiorna filtro testo e numerici e invia a onFilterChange
+  useEffect(() => {
+    onFilterChange('nome', nameFilter);
+  }, [nameFilter]);
+
+  useEffect(() => {
+    onFilterChange('effetti', effectsFilter);
+  }, [effectsFilter]);
+
+  useEffect(() => {
+    onFilterChange('atk', atkFilter);
+  }, [atkFilter]);
+
+  useEffect(() => {
+    onFilterChange('res', resFilter);
+  }, [resFilter]);
 
   const handleDrop = e => {
     e.preventDefault();
@@ -33,24 +83,82 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
     <aside className="sidebar">
       <div className="filters-section">
         <h3>Filtri</h3>
+
+        {/* Filtro nome */}
         <div className="filter-group">
-          <label>Elemento</label>
-          <select onChange={e => onFilterChange('elemento', e.target.value)} defaultValue="">
-            <option value="">Tutti</option>
-            {filters.elemento.map(el => (
-              <option key={el} value={el}>{el}</option>
-            ))}
-          </select>
+          <label>Nome</label>
+          <input
+            type="text"
+            value={nameFilter}
+            onChange={e => setNameFilter(e.target.value)}
+            placeholder="Filtra per nome"
+          />
         </div>
 
+        {/* Filtro effetti */}
+        <div className="filter-group">
+          <label>Effetti</label>
+          <input
+            type="text"
+            value={effectsFilter}
+            onChange={e => setEffectsFilter(e.target.value)}
+            placeholder="Filtra per effetti"
+          />
+        </div>
+
+        {/* Filtro elemento come checkbox */}
+        <div className="filter-group">
+          <label>Elemento</label>
+          <div className="checkbox-group">
+            {filters.elemento.map(el => (
+              <label key={el}>
+                <input
+                  type="checkbox"
+                  checked={selectedElementi.includes(el)}
+                  onChange={() => toggleElemento(el)}
+                />
+                {el}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Filtro tipo come checkbox */}
         <div className="filter-group">
           <label>Tipo</label>
-          <select onChange={e => onFilterChange('tipo', e.target.value)} defaultValue="">
-            <option value="">Tutti</option>
+          <div className="checkbox-group">
             {filters.tipo.map(t => (
-              <option key={t} value={t}>{t}</option>
+              <label key={t}>
+                <input
+                  type="checkbox"
+                  checked={selectedTipi.includes(t)}
+                  onChange={() => toggleTipo(t)}
+                />
+                {t}
+              </label>
             ))}
-          </select>
+          </div>
+        </div>
+
+        {/* Filtro atk e res */}
+        <div className="filter-group atk-res-group">
+          <label>Atk</label>
+          <input
+            type="number"
+            value={atkFilter}
+            onChange={e => setAtkFilter(e.target.value)}
+            placeholder="Valore esatto"
+            min="0"
+          />
+
+          <label>Res</label>
+          <input
+            type="number"
+            value={resFilter}
+            onChange={e => setResFilter(e.target.value)}
+            placeholder="Valore esatto"
+            min="0"
+          />
         </div>
       </div>
 
