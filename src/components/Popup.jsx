@@ -9,7 +9,14 @@ export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }
         
         {/* Freccia sinistra */}
         {!isFirst && (
-          <button className="popup-nav popup-prev" onClick={onPrev} aria-label="Carta precedente">
+          <button
+            className="popup-nav popup-prev"
+            onClick={e => {
+              e.stopPropagation();
+              onPrev();
+            }}
+            aria-label="Carta precedente"
+          >
             ‹
           </button>
         )}
@@ -18,7 +25,14 @@ export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }
         
         {/* Freccia destra */}
         {!isLast && (
-          <button className="popup-nav popup-next" onClick={onNext} aria-label="Carta successiva">
+          <button
+            className="popup-nav popup-next"
+            onClick={e => {
+              e.stopPropagation();
+              onNext();
+            }}
+            aria-label="Carta successiva"
+          >
             ›
           </button>
         )}
