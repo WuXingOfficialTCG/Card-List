@@ -1,3 +1,114 @@
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #ffffff; /* Colore chiaro per maggiore contrasto */
+  border-right: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #333; /* Testo più scuro */
+}
+
+.filters-section {
+  flex: none;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #bbb;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #222;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  color: #111;
+}
+
+.deck-dropzone {
+  flex-grow: 1;
+  background: #f9f9f9;
+  border: 2px dashed #888;
+  border-radius: 6px;
+  padding: 10px;
+  overflow-y: auto;
+  color: #222;
+}
+
+.deck-dropzone h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: #111;
+}
+
+.deck-dropzone p {
+  font-style: italic;
+  color: #555;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+.deck-dropzone ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.deck-dropzone li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.deck-card-img {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 1px solid #999;
+  background-color: #eee;
+}
+
+/* Cerchio conteggio carte */
+.card-count-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #cc0000;
+  color: #fff;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px #fff;
+}
+
 .deck-cards-grid {
   display: flex;
   flex-wrap: wrap;
@@ -9,42 +120,4 @@
   position: relative;
   width: 48px;
   height: 64px;
-}
-
-.deck-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #bbb;
-}
-
-.card-count-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: #444;
-  color: white;
-  border-radius: 50%;
-  padding: 4px 6px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  border: 2px solid white;
-}
-
-
-.card-count-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: #c00;
-  color: #fff;
-  font-size: 12px;
-  width: 18px;
-  height: 18px;
-  line-height: 18px;
-  text-align: center;
-  border-radius: 50%;
-  font-weight: bold;
-  box-shadow: 0 0 0 2px #fff;
 }
