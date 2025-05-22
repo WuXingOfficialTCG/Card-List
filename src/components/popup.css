@@ -4,12 +4,9 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-
-  /* Sfondo trasparente + blur */
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,28 +15,29 @@
 
 .popup-content {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 90vw;
   max-height: 90vh;
-  display: inline-block;
 }
 
 .popup-image {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 80vw;
+  max-height: 80vh;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  display: block;
 }
 
 .popup-close {
   position: absolute;
   top: -15px;
-  right: 95px;
+  right: -15px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   background: red;
-  color: #333;
+  color: #fff;
   border: none;
   font-size: 22px;
   font-weight: bold;
@@ -47,17 +45,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* leggera ombra per far risaltare */
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: background-color 0.3s ease;
 }
 
 .popup-close:hover {
-  background-color: #eee;
+  background-color: #c00;
 }
 
-/* Pulsanti navigazione laterali */
 .popup-nav {
   position: absolute;
   top: 50%;
@@ -82,9 +77,9 @@
 }
 
 .popup-prev {
-  left: -50px;
+  left: 10px;
 }
 
 .popup-next {
-  right: -50px;
+  right: 10px;
 }
