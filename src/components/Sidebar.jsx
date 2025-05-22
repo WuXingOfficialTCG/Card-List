@@ -5,14 +5,12 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
   const maxDeckSize = 40;
   const maxCopies = 3;
 
-  // Funzione per gestire drop
   const handleDrop = e => {
     e.preventDefault();
     const cardData = e.dataTransfer.getData('application/json');
     if (!cardData) return;
     const card = JSON.parse(cardData);
 
-    // Controlli
     const totalCards = deck.reduce((acc, c) => acc + c.count, 0);
     if (totalCards >= maxDeckSize) {
       alert('Mazzo pieno (max 40 carte)');
@@ -55,21 +53,17 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
 
       <hr />
 
-      <div
-        className="deck-dropzone"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
+      <div className="deck-dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
         <h3>Mazzo ({deck.reduce((acc, c) => acc + c.count, 0)} / 40)</h3>
         {deck.length === 0 && <p>Trascina le carte qui per aggiungerle al mazzo</p>}
-        <ul>
+        <div className="deck-grid">
           {deck.map(({ card, count }) => (
-            <li key={card.id}>
+            <div key={card.id} className="deck-card-wrapper">
               <img src={card.immagine} alt={card.nome} className="deck-card-img" />
-              <span>{card.nome} × {count}</span>
-            </li>
+              <div className="card-count-badge">{count}</div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </aside>
   );
