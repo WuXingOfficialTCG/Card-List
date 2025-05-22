@@ -45,27 +45,28 @@ export default function App() {
   };
 
   // Filtra le carte secondo tutti i filtri
-  const filteredCards = cards.filter(card => {
-    // elemento: se array non vuoto, controlla inclusione
-    if (filters.elemento.length > 0 && !filters.elemento.includes(card.elemento)) return false;
+const filteredCards = cards.filter(card => {
+  // Filtro per elemento (solo se almeno una checkbox è attiva)
+  if (filters.elemento.length > 0 && !filters.elemento.includes(card.elemento)) return false;
 
-    // tipo: come sopra
-    if (filters.tipo.length > 0 && !filters.tipo.includes(card.tipo)) return false;
+  // Filtro per tipo
+  if (filters.tipo.length > 0 && !filters.tipo.includes(card.tipo)) return false;
 
-    // nome (case insensitive, contiene)
-    if (filters.nome && !card.nome.toLowerCase().includes(filters.nome.toLowerCase())) return false;
+  // Filtro per nome (case-insensitive)
+  if (filters.nome && !card.nome?.toLowerCase().includes(filters.nome.toLowerCase())) return false;
 
-    // effetti (case insensitive, contiene) - assumo card.effetti stringa
-    if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
+  // Filtro per effetti (case-insensitive)
+  if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
 
-    // atk: controllo valore esatto se specificato (stringa input trasformata in numero)
-    if (filters.atk !== '' && Number(card.atk) !== Number(filters.atk)) return false;
+  // Filtro per ATK
+  if (filters.atk !== '' && Number(card.atk) !== Number(filters.atk)) return false;
 
-    // res: idem
-    if (filters.res !== '' && Number(card.res) !== Number(filters.res)) return false;
+  // Filtro per RES
+  if (filters.res !== '' && Number(card.res) !== Number(filters.res)) return false;
 
-    return true;
-  });
+  return true;
+});
+
 
   const handleFilterChange = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
