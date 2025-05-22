@@ -121,3 +121,18 @@ hr {
   width: 48px;
   height: 64px;
 }
+
+.atk-res-inline {
+  display: flex;
+  gap: 12px;
+}
+
+.atk-res-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.atk-res-field input {
+  max-width: 100px;
+}
