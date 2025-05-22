@@ -13,11 +13,12 @@ export default function App() {
 
   const SUPPORT_INTERVAL_HOURS = 6;
 
+  // Mostra il popup di supporto ogni 6 ore
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
 
-    if (!lastShown || now - parseInt(lastShown) > SUPPORT_INTERVAL_HOURS * 60 * 60 * 1000) {
+    if (!lastShown || now - parseInt(lastShown, 10) > SUPPORT_INTERVAL_HOURS * 60 * 60 * 1000) {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
@@ -35,15 +36,18 @@ export default function App() {
   const handleAddCardToDeck = (card) => {
     setDeck(prevDeck => {
       const found = prevDeck.find(c => c.card.id === card.id);
+
       if (found) {
-        if (found.count >= 3) return prevDeck;
+        if (found.count >= 3) return prevDeck; // Max 3 copie per carta
         return prevDeck.map(c =>
           c.card.id === card.id ? { ...c, count: c.count + 1 } : c
         );
-      } else {
-        if (prevDeck.reduce((acc, c) => acc + c.count, 0) >= 40) return prevDeck;
-        return [...prevDeck, { card, count: 1 }];
       }
+
+      const totalCards = prevDeck.reduce((acc, c) => acc + c.count, 0);
+      if (totalCards >= 40) return prevDeck; // Max 40 carte nel mazzo
+
+      return [...prevDeck, { card, count: 1 }];
     });
   };
 
