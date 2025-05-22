@@ -20,6 +20,7 @@
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
+  display: inline-block;
 }
 
 .popup-image {
@@ -27,6 +28,7 @@
   max-height: 80%;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: block;
 }
 
 .popup-close {
@@ -53,4 +55,36 @@
 
 .popup-close:hover {
   background-color: #eee;
+}
+
+/* Pulsanti navigazione laterali */
+.popup-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  width: 40px;
+  height: 60px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+  z-index: 1001;
+}
+
+.popup-nav:hover {
+  background-color: #ddd;
+}
+
+.popup-prev {
+  left: -50px;
+}
+
+.popup-next {
+  right: -50px;
 }
