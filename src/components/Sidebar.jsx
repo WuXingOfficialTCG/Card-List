@@ -12,11 +12,13 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
     const card = JSON.parse(cardData);
 
     const totalCards = deck.reduce((acc, c) => acc + c.count, 0);
+    const found = deck.find(c => c.card.id === card.id);
+
     if (totalCards >= maxDeckSize) {
       alert('Mazzo pieno (max 40 carte)');
       return;
     }
-    const found = deck.find(c => c.card.id === card.id);
+
     if (found && found.count >= maxCopies) {
       alert('Max 3 copie per carta');
       return;
@@ -40,6 +42,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
             ))}
           </select>
         </div>
+
         <div className="filter-group">
           <label>Tipo</label>
           <select onChange={e => onFilterChange('tipo', e.target.value)} defaultValue="">
@@ -53,14 +56,19 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
 
       <hr />
 
-      <div className="deck-dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
+      <div
+        className="deck-dropzone"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
         <h3>Mazzo ({deck.reduce((acc, c) => acc + c.count, 0)} / 40)</h3>
-        {deck.length === 0 && <p>Trascina le carte qui per aggiungerle al mazzo</p>}
-        <div className="deck-grid">
+        {deck.length === 0 && <p>Trascina le carte qui per aggiungerle</p>}
+
+        <div className="deck-cards-grid">
           {deck.map(({ card, count }) => (
             <div key={card.id} className="deck-card-wrapper">
               <img src={card.immagine} alt={card.nome} className="deck-card-img" />
-              <div className="card-count-badge">{count}</div>
+              <span className="card-count-badge">{count}</span>
             </div>
           ))}
         </div>
