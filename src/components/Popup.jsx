@@ -5,21 +5,25 @@ export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-content" onClick={e => e.stopPropagation()}>
-        <button className="popup-close" onClick={onClose}>×</button>
-        
+        {/* Pulsante freccia sinistra */}
         {!isFirst && (
-          <button className="popup-nav popup-prev" onClick={onPrev} aria-label="Carta precedente">
+          <button className="popup-nav popup-prev" onClick={onPrev}>
             ‹
           </button>
         )}
 
+        {/* Immagine della carta */}
         <img src={card.immagine} alt={card.nome} className="popup-image" />
 
+        {/* Pulsante freccia destra */}
         {!isLast && (
-          <button className="popup-nav popup-next" onClick={onNext} aria-label="Carta successiva">
+          <button className="popup-nav popup-next" onClick={onNext}>
             ›
           </button>
         )}
+
+        {/* Pulsante di chiusura */}
+        <button className="popup-close" onClick={onClose}>×</button>
       </div>
     </div>
   );
