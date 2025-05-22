@@ -108,7 +108,7 @@ hr {
   background: #f9f9f9;
   border: 2px dashed #888;
   border-radius: 6px;
-  padding: 10px;
+  padding: 6px 8px 10px 8px; /* padding ridotto a sinistra e destra */
   overflow-y: auto;
   color: #222;
 }
@@ -139,13 +139,27 @@ hr {
   position: relative;
 }
 
+.deck-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 12px; /* gap verticale e orizzontale */
+  margin-top: 10px;
+}
+
+.deck-card-wrapper {
+  position: relative;
+  width: 100%;    /* larghezza cella grid */
+  height: 84px;   /* altezza fissa */
+  margin-bottom: 0; /* margin gestito da gap */
+}
+
 .deck-card-img {
-  width: 40px;
-  height: auto;
-  margin-right: 10px;
+  width: 100%;    /* immagine riempie il wrapper */
+  height: 84px;
   border-radius: 4px;
   border: 1px solid #999;
   background-color: #eee;
+  object-fit: cover;
 }
 
 /* Cerchio conteggio carte */
@@ -164,23 +178,6 @@ hr {
   font-weight: bold;
   box-shadow: 0 0 0 2px #fff;
 }
-
-.deck-card-img {
-  width: 63px;       /* larghezza aggiornata */
-  height: 84px;     /* altezza aggiornata per mantenere proporzioni */
-  margin-right: 10px;
-  border-radius: 4px;
-  border: 1px solid #999;
-  background-color: #eee;
-}
-
-.deck-card-wrapper {
-  position: relative;
-  width: 63px;       /* larghezza wrapper aggiornata */
-  height: 84px;     /* altezza wrapper aggiornata */
-  margin-bottom: 10px
-}
-
 
 .atk-res-inline {
   display: flex;
