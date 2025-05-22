@@ -1,7 +1,7 @@
 import React from 'react';
 import './sidebar.css';
 
-export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
+export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne }) {
   const maxDeckSize = 40;
   const maxCopies = 3;
 
@@ -66,7 +66,12 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard }) {
 
         <div className="deck-cards-grid">
           {deck.map(({ card, count }) => (
-            <div key={card.id} className="deck-card-wrapper">
+            <div
+              key={card.id}
+              className="deck-card-wrapper"
+              onClick={() => onRemoveOne(card)}
+              title="Clicca per rimuovere 1 copia"
+            >
               <img src={card.immagine} alt={card.nome} className="deck-card-img" />
               <span className="card-count-badge">{count}</span>
             </div>
