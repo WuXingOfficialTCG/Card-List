@@ -140,25 +140,30 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
           </div>
         </div>
 
-        {/* Filtro atk e res */}
-        <div className="filter-group atk-res-group">
-          <label>Atk</label>
-          <input
-            type="number"
-            value={atkFilter}
-            onChange={e => setAtkFilter(e.target.value)}
-            placeholder="Valore esatto"
-            min="0"
-          />
-
-          <label>Res</label>
-          <input
-            type="number"
-            value={resFilter}
-            onChange={e => setResFilter(e.target.value)}
-            placeholder="Valore esatto"
-            min="0"
-          />
+        {/* Filtro atk e res affiancati */}
+        <div className="filter-group">
+          <div className="atk-res-inline">
+            <div className="atk-res-field">
+              <label>Atk</label>
+              <input
+                type="number"
+                value={atkFilter}
+                onChange={e => setAtkFilter(e.target.value)}
+                placeholder="Valore"
+                min="0"
+              />
+            </div>
+            <div className="atk-res-field">
+              <label>Res</label>
+              <input
+                type="number"
+                value={resFilter}
+                onChange={e => setResFilter(e.target.value)}
+                placeholder="Valore"
+                min="0"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
