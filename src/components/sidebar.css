@@ -161,7 +161,6 @@ hr {
   position: absolute;
   top: -6px;
   right: -6px;
-  background-color: #cc0000;
   color: #fff;
   font-size: 12px;
   width: 20px;
@@ -171,6 +170,11 @@ hr {
   border-radius: 50%;
   font-weight: bold;
   box-shadow: 0 0 0 2px #fff;
+  background-color: #28a745; /* verde default */
+}
+
+.card-count-badge.max-copies {
+  background-color: #cc0000; /* rosso se 3 copie */
 }
 
 .atk-res-inline {
