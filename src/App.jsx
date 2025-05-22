@@ -6,8 +6,7 @@ import Sidebar from './components/Sidebar';
 import SupportPopup from './components/SupportPopup';
 
 export default function App() {
-  const [cards, setCards] = useState([]); // tutte le carte caricate
-
+  const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState({
     elemento: [],
     tipo: [],
@@ -16,10 +15,9 @@ export default function App() {
     atk: '',
     res: '',
   });
-
   const [deck, setDeck] = useState([]);
   const [showSupport, setShowSupport] = useState(false);
-  const [popupIndex, setPopupIndex] = useState(null); // indice carta nel popup
+  const [popupIndex, setPopupIndex] = useState(null);
 
   const SUPPORT_INTERVAL_HOURS = 6;
 
@@ -32,7 +30,6 @@ export default function App() {
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
 
-    // Caricamento carte
     fetch('/data/cards.json')
       .then(res => res.json())
       .then(data => setCards(data))
@@ -44,29 +41,35 @@ export default function App() {
     tipo: ['Entity', 'Chakra']
   };
 
-  // Filtra le carte secondo tutti i filtri
-const filteredCards = cards.filter(card => {
-  // Filtro per elemento (solo se almeno una checkbox è attiva)
-  if (filters.elemento.length > 0 && !filters.elemento.includes(card.elemento)) return false;
+  const filteredCards = cards.filter(card => {
+    // Filtro elemento (se almeno un filtro è attivo)
+    if (filters.elemento.length > 0 && !filters.elemento.includes(card.elemento)) return false;
 
-  // Filtro per tipo
-  if (filters.tipo.length > 0 && !filters.tipo.includes(card.tipo)) return false;
+    // Filtro tipo
+    if (filters.tipo.length > 0 && !filters.tipo.includes(card.tipo)) return false;
 
-  // Filtro per nome (case-insensitive)
-  if (filters.nome && !card.nome?.toLowerCase().includes(filters.nome.toLowerCase())) return false;
+    // Filtro nome (ignora se campo vuoto)
+    if (filters.nome && !card.nome?.toLowerCase().includes(filters.nome.toLowerCase())) return false;
 
-  // Filtro per effetti (case-insensitive)
-  if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
+    // Filtro effetti (ignora se campo vuoto)
+    if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
 
-  // Filtro per ATK
-  if (filters.atk !== '' && Number(card.atk) !== Number(filters.atk)) return false;
+    // Filtro ATK (ignora se vuoto o non numerico o la carta non ha atk)
+    if (filters.atk !== '') {
+      const atkValue = Number(filters.atk);
+      const cardAtk = Number(card.atk);
+      if (isNaN(atkValue) || isNaN(cardAtk) || cardAtk !== atkValue) return false;
+    }
 
-  // Filtro per RES
-  if (filters.res !== '' && Number(card.res) !== Number(filters.res)) return false;
+    // Filtro RES
+    if (filters.res !== '') {
+      const resValue = Number(filters.res);
+      const cardRes = Number(card.res);
+      if (isNaN(resValue) || isNaN(cardRes) || cardRes !== resValue) return false;
+    }
 
-  return true;
-});
-
+    return true;
+  });
 
   const handleFilterChange = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
@@ -92,23 +95,18 @@ const filteredCards = cards.filter(card => {
   const handleRemoveOneFromDeck = (card) => {
     setDeck(prevDeck =>
       prevDeck
-        .map(c =>
-          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
-        )
+        .map(c => (c.card.id === card.id ? { ...c, count: c.count - 1 } : c))
         .filter(c => c.count > 0)
     );
   };
 
-  // Apertura popup: trova indice carta filtrata
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
   const closePopup = () => setPopupIndex(null);
-
   const goPrev = () => setPopupIndex(i => (i > 0 ? i - 1 : i));
-
   const goNext = () => setPopupIndex(i => (i < filteredCards.length - 1 ? i + 1 : i));
 
   return (
@@ -123,7 +121,7 @@ const filteredCards = cards.filter(card => {
         onRemoveOne={handleRemoveOneFromDeck}
       />
       <div style={{ marginLeft: 220 }}>
-        <CardGrid filters={filters} onCardClick={openPopup} />
+        <CardGrid filters={filters} onCardClick={openPopup} cards={filteredCards} />
         {popupIndex !== null && (
           <Popup
             card={filteredCards[popupIndex]}
