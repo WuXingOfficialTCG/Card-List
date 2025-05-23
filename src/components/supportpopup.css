@@ -17,13 +17,14 @@
   text-align: center;
   position: relative;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  color: black; /* <- testo nero */
 }
 
 .close-btn {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: #ddd;
+  background: red;
   border: none;
   border-radius: 50%;
   width: 24px;
