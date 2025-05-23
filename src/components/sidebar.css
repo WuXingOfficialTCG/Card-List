@@ -1,9 +1,10 @@
+/* === Sidebar Container === */
 .sidebar {
   width: 220px;
   height: 100vh;
   position: fixed;
-  left: 0;
   top: 0;
+  left: 0;
   background-color: #ffffff;
   border-right: 1px solid #ccc;
   padding: 20px;
@@ -12,12 +13,12 @@
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   color: #333;
-  transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
   z-index: 10;
+  transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
+/* === Collapsed Sidebar === */
 .sidebar.collapsed {
   width: 0;
   padding: 0;
@@ -25,6 +26,19 @@
   overflow: hidden;
 }
 
+/* === Sidebar Hover Trigger === */
+.sidebar-hover-trigger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100vh;
+  background: transparent;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* === Filters Header === */
 .filters-header {
   display: flex;
   justify-content: space-between;
@@ -36,46 +50,35 @@
 .filters-header h3 {
   margin: 0;
   font-weight: bold;
-  color: #222;
   font-size: 1.3rem;
+  color: #222;
 }
 
+/* === Collapse Buttons === */
 .collapse-btn {
   background: transparent;
   border: none;
   font-size: 1.6rem;
-  cursor: pointer;
-  padding: 2px 6px;
   color: #666;
+  padding: 2px 6px;
+  cursor: pointer;
   transition: color 0.2s ease;
-  user-select: none;
 }
 
 .collapse-btn:hover {
   color: #000;
 }
 
-.sidebar-hover-trigger {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 100vh;
-  z-index: 20;
-  background: transparent;
-  cursor: pointer;
-}
-
+/* === Filters Section === */
 .filters-section {
   flex: none;
 }
 
-hr {
-  margin: 20px 0;
-  border: 0;
-  border-top: 1px solid #bbb;
+.filters-section.collapsed {
+  display: none;
 }
 
+/* === Filter Groups === */
 .filter-group {
   margin-bottom: 20px;
 }
@@ -87,24 +90,42 @@ hr {
   color: #222;
 }
 
+.filter-group input[type="text"],
+.filter-group input[type="number"],
 .filter-group select {
   width: 100%;
   padding: 6px 8px;
+  font-size: 1rem;
   border: 1px solid #999;
   border-radius: 4px;
-  font-size: 1rem;
-  background-color: #fafafa;
+  background-color: #fff;
+  color: #000;
+}
+
+/* === Checkbox Groups === */
+.checkbox-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
   color: #111;
 }
 
+/* === Horizontal Rule === */
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #bbb;
+}
+
+/* === Deck Dropzone === */
 .deck-dropzone {
   flex-grow: 1;
-  background: #f9f9f9;
+  padding: 10px;
   border: 2px dashed #888;
   border-radius: 6px;
-  padding: 6px 8px 10px 8px;
-  overflow-y: auto;
+  background-color: #f9f9f9;
   color: #222;
+  overflow-y: auto;
 }
 
 .deck-dropzone h3 {
@@ -115,24 +136,11 @@ hr {
 
 .deck-dropzone p {
   font-style: italic;
-  color: #555;
   font-size: 0.9rem;
-  margin: 10px 0;
+  color: #555;
 }
 
-.deck-dropzone ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
-}
-
-.deck-dropzone li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  position: relative;
-}
-
+/* === Deck Grid === */
 .deck-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -140,43 +148,45 @@ hr {
   margin-top: 10px;
 }
 
+/* === Deck Card === */
 .deck-card-wrapper {
   position: relative;
-  width: 100%;
-  margin-bottom: 0;
   aspect-ratio: 5 / 7;
+  width: 100%;
 }
 
 .deck-card-img {
   width: 100%;
   height: 100%;
-  border-radius: 4px;
-  border: 1px solid #999;
-  background-color: #eee;
   object-fit: cover;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background-color: #eee;
   display: block;
 }
 
+/* === Badge (Card Copies Count) === */
 .card-count-badge {
   position: absolute;
   top: -6px;
   right: -6px;
+  background-color: #28a745; /* green */
   color: #fff;
   font-size: 12px;
+  font-weight: bold;
   width: 20px;
   height: 20px;
   line-height: 20px;
   text-align: center;
   border-radius: 50%;
-  font-weight: bold;
   box-shadow: 0 0 0 2px #fff;
-  background-color: #28a745; /* verde */
 }
 
 .card-count-badge.max-copies {
-  background-color: #cc0000; /* rosso */
+  background-color: #cc0000; /* red */
 }
 
+/* === ATK & RES Fields === */
 .atk-res-inline {
   display: flex;
   gap: 12px;
@@ -192,10 +202,7 @@ hr {
   max-width: 65px;
 }
 
-.filters-section.collapsed {
-  display: none;
-}
-
+/* === Expanded Dropzone When Filters Collapsed === */
 .filters-collapsed .deck-dropzone {
   flex-grow: 2;
 }
