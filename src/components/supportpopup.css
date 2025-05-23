@@ -24,14 +24,19 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  background: red;
-  border: none;
+  background: transparent;
+  color: black;
+  border: 2px solid black;
   border-radius: 50%;
   width: 24px;
   height: 24px;
   font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
   cursor: pointer;
 }
+
 
 .paypal-btn {
   display: inline-block;
