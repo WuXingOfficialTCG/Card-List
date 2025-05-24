@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DeckDropzone({ deck, onAddCard, onRemoveOne, onSave }) {
+export default function DeckDropzone({ deck, onAddCard, onRemoveOne }) {
   const maxDeckSize = 40;
   const maxCopies = 3;
 
@@ -20,7 +20,11 @@ export default function DeckDropzone({ deck, onAddCard, onRemoveOne, onSave }) {
   };
 
   return (
-    <div className="deck-dropzone" onDrop={handleDrop} onDragOver={e => e.preventDefault()}>
+    <div
+      className="deck-dropzone"
+      onDrop={handleDrop}
+      onDragOver={e => e.preventDefault()}
+    >
       <h3>Mazzo ({deck.reduce((acc, c) => acc + c.count, 0)} / 40)</h3>
       {deck.length === 0 && <p>Trascina le carte qui per aggiungerle</p>}
 
@@ -42,8 +46,6 @@ export default function DeckDropzone({ deck, onAddCard, onRemoveOne, onSave }) {
           </div>
         ))}
       </div>
-
-      <button className="save-deck-button" onClick={onSave}>💾 Salva mazzo</button>
     </div>
   );
 }
