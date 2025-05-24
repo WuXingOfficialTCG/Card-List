@@ -1,18 +1,9 @@
-main {
-  margin-left: 300px; /* larghezza sidebar normale */
-  transition: margin-left 0.3s ease;
-  padding: 20px;
-}
-
-main.expanded {
-  margin-left: 60px; /* larghezza sidebar ridotta */
-}
 
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 16px;
-  /* padding spostato nel main */
+  padding: 20px;
 }
 
 .card-image {
