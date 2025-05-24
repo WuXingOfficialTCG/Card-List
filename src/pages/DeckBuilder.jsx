@@ -22,7 +22,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
-
     if (!lastShown || now - +lastShown > 6 * 60 * 60 * 1000) {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
@@ -58,24 +57,19 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     return true;
   });
 
-  const updateFilter = (field, value) => {
-    setFilters(prevFilters => ({ ...prevFilters, [field]: value }));
-  };
+  const updateFilter = (field, value) => setFilters(f => ({ ...f, [field]: value }));
 
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  const toggleSidebarCollapsed = () => {
-    setSidebarCollapsed(prev => !prev);
-  };
+  const toggleSidebarCollapsed = () => setSidebarCollapsed(prev => !prev);
 
   return (
     <>
       <Header />
-
-      <div className="main-layout" style={{ display: 'flex', gap: '10px' }}>
+      <div className={`main-layout${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}>
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
@@ -85,19 +79,15 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           collapsed={sidebarCollapsed}
           onToggleCollapse={toggleSidebarCollapsed}
         />
-
-        <div style={{ flexGrow: 1 }}>
-          <CardGrid
-            cards={filteredCards}
-            deck={deck}
-            onAddCard={onAddCard}
-            onRemoveOne={onRemoveOne}
-            onCardClick={openPopup}
-            sidebarCollapsed={sidebarCollapsed}
-          />
-        </div>
+        <CardGrid
+          cards={filteredCards}
+          deck={deck}
+          onAddCard={onAddCard}
+          onRemoveOne={onRemoveOne}
+          onCardClick={openPopup}
+          sidebarCollapsed={sidebarCollapsed}
+        />
       </div>
-
       {popupIndex !== null && (
         <Popup
           card={filteredCards[popupIndex]}
@@ -106,7 +96,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
         />
       )}
-
       {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
     </>
   );
