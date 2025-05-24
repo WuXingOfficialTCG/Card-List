@@ -36,7 +36,8 @@ export default function App() {
 
   return (
     <Router>
-      <FloatingMenu onExportDeck={exportDeckAsJSON} deck={deck} />
+      {/* Passa anche setDeck se serve modificare il deck da FloatingMenu */}
+      <FloatingMenu onExportDeck={exportDeckAsJSON} deck={deck} setDeck={setDeck} />
       <Routes>
         {/* Passa deck e setDeck a DeckBuilder così può modificarlo */}
         <Route path="/" element={<DeckBuilder deck={deck} setDeck={setDeck} />} />
