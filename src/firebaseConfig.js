@@ -4,12 +4,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "LA_TUA_API_KEY",
-  authDomain: "IL_TUO_AUTH_DOMAIN",
-  projectId: "IL_TUO_PROJECT_ID",
-  storageBucket: "IL_TUO_STORAGE_BUCKET",
-  messagingSenderId: "IL_TUO_MESSAGING_SENDER_ID",
-  appId: "IL_TUO_APP_ID"
+  apiKey: "AIzaSyAFf_0n74hGJWEN1-e1KhSPffSci7pJhi8",
+  authDomain: "wu-xing-cards-6dfa6.firebaseapp.com",
+  projectId: "wu-xing-cards-6dfa6",
+  storageBucket: "wu-xing-cards-6dfa6.firebasestorage.app",
+  messagingSenderId: "124161312980",
+  appId: "1:124161312980:web:8589a5474727d973ca5341",
+  measurementId: "G-NN9WE59FQR"
 };
 
 const app = initializeApp(firebaseConfig);
