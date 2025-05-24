@@ -17,59 +17,41 @@ export default function App() {
   }, [deck]);
 
   const onAddCard = (card) => {
-    setDeck(prevDeck => {
-      const found = prevDeck.find(c => c.card.id === card.id);
+    setDeck(deck => {
+      const found = deck.find(c => c.card.id === card.id);
+      const total = deck.reduce((sum, c) => sum + c.count, 0);
       if (found) {
-        if (found.count >= 3) return prevDeck;
-        return prevDeck.map(c =>
-          c.card.id === card.id ? { ...c, count: c.count + 1 } : c
-        );
+        if (found.count >= 3) return deck;
+        return deck.map(c => c.card.id === card.id ? { ...c, count: c.count + 1 } : c);
       }
-      const totalCards = prevDeck.reduce((acc, c) => acc + c.count, 0);
-      if (totalCards >= 40) return prevDeck;
-      return [...prevDeck, { card, count: 1 }];
+      if (total >= 40) return deck;
+      return [...deck, { card, count: 1 }];
     });
   };
 
   const onRemoveOne = (card) => {
-    setDeck(prevDeck =>
-      prevDeck
-        .map(c => (c.card.id === card.id ? { ...c, count: c.count - 1 } : c))
+    setDeck(deck =>
+      deck
+        .map(c => c.card.id === card.id ? { ...c, count: c.count - 1 } : c)
         .filter(c => c.count > 0)
     );
   };
 
-  // Funzione di export generica che può essere passata come prop
   const handleExport = () => {
-    const deckData = deck.map(({ card, count }) => ({
-      id: card.id,
-      nome: card.nome,
-      count,
-    }));
-
-    const blob = new Blob([JSON.stringify(deckData, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `deck.json`;
-    link.click();
-    URL.revokeObjectURL(link.href);
+    const data = deck.map(({ card, count }) => ({ id: card.id, nome: card.nome, count }));
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'deck.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
   };
 
   return (
     <Router>
       <FloatingMenu onExport={handleExport} />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <DeckBuilder
-              deck={deck}
-              onAddCard={onAddCard}
-              onRemoveOne={onRemoveOne}
-              setDeck={setDeck}
-            />
-          }
-        />
+        <Route path="/" element={<DeckBuilder deck={deck} onAddCard={onAddCard} onRemoveOne={onRemoveOne} setDeck={setDeck} />} />
       </Routes>
     </Router>
   );
