@@ -5,16 +5,11 @@ import Popup from '../components/Popup/Popup';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 
+import { initialFilters, availableFilters, filterCards } from '../utility/filters';
+
 export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [cards, setCards] = useState([]);
-  const [filters, setFilters] = useState({
-    elemento: [],
-    tipo: [],
-    nome: '',
-    effetti: '',
-    atk: '',
-    res: '',
-  });
+  const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -33,29 +28,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
       .catch(console.error);
   }, []);
 
-  const availableFilters = {
-    elemento: ['Water', 'Wood', 'Metal', 'Fire', 'Earth'],
-    tipo: ['Entity', 'Chakra'],
-  };
-
-  const filteredCards = cards.filter(card => {
-    if (filters.elemento.length && !filters.elemento.includes(card.elemento)) return false;
-    if (filters.tipo.length && !filters.tipo.includes(card.tipo)) return false;
-    if (filters.nome && !card.nome?.toLowerCase().includes(filters.nome.toLowerCase())) return false;
-    if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
-
-    if (filters.atk !== '') {
-      const atkValue = Number(filters.atk);
-      if (isNaN(atkValue) || Number(card.atk) !== atkValue) return false;
-    }
-
-    if (filters.res !== '') {
-      const resValue = Number(filters.res);
-      if (isNaN(resValue) || Number(card.res) !== resValue) return false;
-    }
-
-    return true;
-  });
+  const filteredCards = filterCards(cards, filters);
 
   const updateFilter = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
@@ -108,4 +81,3 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     </>
   );
 }
-
