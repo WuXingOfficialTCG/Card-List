@@ -1,39 +1,55 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './floatingMenu.css';
+import React, { useEffect, useState } from 'react';
+import './FloatingMenu.css';
+import PopupName from './Sidebar/PopupName'; // importa il popup
 
-export default function FloatingMenu({ onSave, onExport, onImport, onShowDeckList }) {
+export default function FloatingMenu({ onSaveDeck }) {
   const [visible, setVisible] = useState(true);
-  const timeoutRef = useRef(null);
+  const [showPopup, setShowPopup] = useState(false);
+  let hideTimer;
 
-  // Nascondi dopo 5s di inattività
+  // Gestione inattività
   useEffect(() => {
     const resetTimer = () => {
       setVisible(true);
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setVisible(false), 5000);
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => setVisible(false), 5000);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    resetTimer(); // primo avvio
+    window.addEventListener('mousemove', (e) => {
+      if (e.clientX >= window.innerWidth - 30) resetTimer();
+    });
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(timeoutRef.current);
+      window.removeEventListener('mousemove', resetTimer);
+      clearTimeout(hideTimer);
     };
   }, []);
 
-  const handleMouseMove = (e) => {
-    if (e.clientX >= window.innerWidth - 50) {
-      setVisible(true);
-    }
+  const handleSaveClick = () => setShowPopup(true);
+
+  const handleConfirm = (filename) => {
+    if (onSaveDeck) onSaveDeck(filename);
+    setShowPopup(false);
   };
 
   return (
-    <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-      <button title="Lista Mazzi" onClick={onShowDeckList}>📋</button>
-      <button title="Salva Mazzo" onClick={onSave}>💾</button>
-      <button title="Esporta Mazzo" onClick={onExport}>📤</button>
-      <button title="Importa Mazzo" onClick={onImport}>📥</button>
-    </div>
+    <>
+      <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
+        <button title="Lista Mazzi">
+          📋
+        </button>
+        <button onClick={handleSaveClick} title="Salva Mazzo">
+          💾
+        </button>
+        <button title="Esporta Mazzo">
+          ⬇️
+        </button>
+        <button title="Importa Mazzo">
+          ⬆️
+        </button>
+      </div>
+
+      {showPopup && <PopupName onConfirm={handleConfirm} onCancel={() => setShowPopup(false)} />}
+    </>
   );
 }
