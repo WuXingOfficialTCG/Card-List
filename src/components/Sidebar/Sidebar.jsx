@@ -18,7 +18,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
       nome: card.nome,
       count,
     }));
-
     const blob = new Blob([JSON.stringify(deckData, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -40,8 +39,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
       if (!cardData) return;
 
       const card = JSON.parse(cardData);
-      const dropTarget = e.target.closest('.deck-dropzone');
-      if (!dropTarget) {
+      if (!e.target.closest('.deck-dropzone')) {
         onRemoveOne(card);
       }
     };
@@ -59,27 +57,16 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   return (
     <>
-      {collapsed && (
-        <div
-          className="sidebar-hover-trigger"
-          onMouseEnter={() => setCollapsed(false)}
-        />
-      )}
+      {collapsed && <div className="sidebar-hover-trigger" onMouseEnter={() => setCollapsed(false)} />}
 
-      <aside
-        className={`sidebar ${collapsed ? 'collapsed' : ''} ${filtersCollapsed ? 'filters-collapsed' : ''}`}
-      >
+      <aside className={`sidebar${collapsed ? ' collapsed' : ''}${filtersCollapsed ? ' filters-collapsed' : ''}`}>
         <div className="filters-header">
           <h3>Filtri</h3>
           <button className="collapse-btn" onClick={toggleCollapse}>
             {collapsed ? '›' : '‹'}
           </button>
           {!collapsed && (
-            <button
-              className="collapse-btn"
-              onClick={toggleFiltersCollapse}
-              style={{ marginLeft: '10px' }}
-            >
+            <button className="collapse-btn" onClick={toggleFiltersCollapse} style={{ marginLeft: 10 }}>
               {filtersCollapsed ? '▼' : '▲'}
             </button>
           )}
@@ -94,20 +81,13 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
             )}
 
             <div className="deckdropzone-container">
-              <DeckDropzone
-                deck={deck}
-                onAddCard={onAddCard}
-                onRemoveOne={onRemoveOne}
-                onSave={handleSaveDeck}
-              />
+              <DeckDropzone deck={deck} onAddCard={onAddCard} onRemoveOne={onRemoveOne} onSave={handleSaveDeck} />
             </div>
           </div>
         )}
       </aside>
 
-      {showPopup && (
-        <PopupName onConfirm={handlePopupConfirm} onCancel={handlePopupCancel} />
-      )}
+      {showPopup && <PopupName onConfirm={handlePopupConfirm} onCancel={handlePopupCancel} />}
     </>
   );
 }
