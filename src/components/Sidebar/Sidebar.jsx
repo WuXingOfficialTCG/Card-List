@@ -4,13 +4,12 @@ import FiltersSection from './FiltersSection';
 import DeckDropzone from './DeckDropzone';
 import PopupName from './PopupName';
 
-export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne }) {
-  const [collapsed, setCollapsed] = useState(false);
+export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onToggleCollapse, collapsed }) {
+  // `collapsed` e `onToggleCollapse` possono essere gestiti dal genitore per sincronizzare con CardGrid
+
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Toggle sidebar collapse
-  const toggleCollapse = () => setCollapsed(prev => !prev);
   // Toggle filters section collapse
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
@@ -69,7 +68,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
       {collapsed && (
         <div
           className="sidebar-hover-trigger"
-          onMouseEnter={() => setCollapsed(false)}
+          onMouseEnter={() => onToggleCollapse(false)}
           aria-label="Expand Sidebar"
         />
       )}
@@ -79,7 +78,11 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
       >
         <div className="filters-header">
           <h3>Filtri</h3>
-          <button className="collapse-btn" onClick={toggleCollapse} aria-label="Toggle Sidebar Collapse">
+          <button
+            className="collapse-btn"
+            onClick={() => onToggleCollapse(!collapsed)}
+            aria-label={collapsed ? "Espandi Sidebar" : "Riduci Sidebar"}
+          >
             {collapsed ? '›' : '‹'}
           </button>
           {!collapsed && (
@@ -87,7 +90,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
               className="collapse-btn"
               onClick={toggleFiltersCollapse}
               style={{ marginLeft: 10 }}
-              aria-label="Toggle Filters Collapse"
+              aria-label={filtersCollapsed ? "Espandi filtri" : "Riduci filtri"}
             >
               {filtersCollapsed ? '▼' : '▲'}
             </button>
