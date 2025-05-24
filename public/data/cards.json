@@ -15,7 +15,7 @@
   {
     "id": 2,
     "nome": "Solar Worshipper",
-    "immagine": "https://i.imgur.com/iD07Be5.png",
+    "immagine": "https://i.imgur.com/7NHsqGf.jpeg",
     "effetti": [
       { "tipo": "Ability", "descrizione": "Destroy 1 Earth entity." }
     ],
@@ -28,7 +28,7 @@
   {
     "id": 3,
     "nome": "Lunar Shadow",
-    "immagine": "https://i.imgur.com/U1WyXUR.png",
+    "immagine": "https://i.imgur.com/eOffALI.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Choose an opponent's entity → Change its position." }
     ],
@@ -41,7 +41,7 @@
   {
     "id": 4,
     "nome": "Solar Egg",
-    "immagine": "https://i.imgur.com/oNnoF0N.png",
+    "immagine": "https://i.imgur.com/bud1LS1.png",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Discard 1 card → Draw 1 card." },
       { "tipo": "Lineage Skill", "descrizione": "Sacrifice 1 Fire → Destroy 1 entity." }
@@ -55,7 +55,7 @@
   {
     "id": 5,
     "nome": "Lunar Egg",
-    "immagine": "https://i.imgur.com/tRwF7wk.png",
+    "immagine": "https://i.imgur.com/d41xCMg.png",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Withdraw 2 entities from your Manifestations → Draw 1 card." },
       { "tipo": "Lineage Skill", "descrizione": "Sacrifice 1 Water → Choose an opponent's card to withdraw" }
@@ -79,6 +79,19 @@
     "rango": "2",
     "atk": 3,
     "res": 1
+  },
+  {
+    "id": 7,
+    "nome": "Rising Solar Dragon",
+    "immagine": "https://i.imgur.com/FNdynfB.jpeg",
+    "effetti": [
+      { "tipo": "Trasmute", "descrizione": "All of your Qi → Fire and inflict 1 damage to your opponent for each modified Qi." }
+    ],
+    "elemento": "Fire",
+    "tipo": "Entity",
+    "rango": "3",
+    "atk": 5,
+    "res": 4
   },
   {
     "id": 8,
