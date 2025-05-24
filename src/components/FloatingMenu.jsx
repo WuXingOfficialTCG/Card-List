@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 
 export default function FloatingMenu({ onExportDeck }) {
   const [visible, setVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
-  let hideTimer;
+  const hideTimer = useRef(null);
 
   useEffect(() => {
     const resetTimer = () => {
       setVisible(true);
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => setVisible(false), 5000);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+      hideTimer.current = setTimeout(() => setVisible(false), 5000);
     };
 
-    window.addEventListener('mousemove', (e) => {
+    const handleMouseMove = (e) => {
       if (e.clientX >= window.innerWidth - 30) resetTimer();
-    });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    // Avvia il timer al montaggio
+    resetTimer();
 
     return () => {
-      window.removeEventListener('mousemove', resetTimer);
-      clearTimeout(hideTimer);
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
     };
   }, []);
 
