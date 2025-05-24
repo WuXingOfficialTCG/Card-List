@@ -1,6 +1,6 @@
 import React from 'react';
 import './popup.css';
-import './PopupResponsive.css;
+import './PopupResponsive.css';
 
 export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }) {
   return (
