@@ -20,7 +20,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
-    // Mostra il popup di supporto massimo ogni 6 ore
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
     if (!lastShown || now - Number(lastShown) > 6 * 60 * 60 * 1000) {
@@ -28,7 +27,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
 
-    // Carica i dati delle carte
     fetch('/data/cards.json')
       .then(res => res.json())
       .then(setCards)
@@ -75,7 +73,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   return (
     <>
       <Header />
-      <div className={`main-layout${sidebarCollapsed ? ' sidebar-collapsed' : ''}`} style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
@@ -85,14 +83,16 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           collapsed={sidebarCollapsed}
           onToggleCollapse={toggleSidebarCollapsed}
         />
-        <CardGrid
-          cards={filteredCards}
-          deck={deck}
-          onAddCard={onAddCard}
-          onRemoveOne={onRemoveOne}
-          onCardClick={openPopup}
-          sidebarCollapsed={sidebarCollapsed}
-        />
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          <CardGrid
+            cards={filteredCards}
+            deck={deck}
+            onAddCard={onAddCard}
+            onRemoveOne={onRemoveOne}
+            onCardClick={openPopup}
+            sidebarCollapsed={sidebarCollapsed}
+          />
+        </div>
       </div>
 
       {popupIndex !== null && (
@@ -108,3 +108,4 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     </>
   );
 }
+
