@@ -3,6 +3,8 @@
   grid-template-columns: repeat(auto-fit, 150px);
   gap: 16px;
   justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .card-image {
