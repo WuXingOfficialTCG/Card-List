@@ -215,7 +215,7 @@
   {
     "id": 19,
     "nome": "Turn",
-    "immagine": "https://i.imgur.com/ESJ1xyk.png",
+    "immagine": "https://i.imgur.com/34FF7LL.png",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Withdraw a Solar entity → Invoke a Rank 1 Lunar one from your hand." },
       { "tipo": "Skill", "descrizione": "Withdraw a Lunar entity → Invoke a Rank 1 Solar one from your hand." }
@@ -226,7 +226,7 @@
   {
     "id": 20,
     "nome": "Solar Eclipse",
-    "immagine": "https://i.imgur.com/ElynFGJ.png",
+    "immagine": "https://i.imgur.com/xCO6UER.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "If your opponent activates an effect against your Solar entity → Negate it." }
     ],
@@ -236,7 +236,7 @@
   {
     "id": 21,
     "nome": "Lunar Flare",
-    "immagine": "https://i.imgur.com/mQkTkHN.png",
+    "immagine": "https://i.imgur.com/yR87hmk.png",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Sacrifice a Lunar entity in your Manifestations → Destroy all the cards on the field." }
     ],
@@ -246,7 +246,7 @@
   {
     "id": 22,
     "nome": "Renewal",
-    "immagine": "https://i.imgur.com/K3pRo4D.png",
+    "immagine": "https://i.imgur.com/HXpFzzk.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Return the cards in your hand to your deck → Draw the same number." }
     ],
@@ -256,7 +256,7 @@
   {
     "id": 23,
     "nome": "River of Benevolence",
-    "immagine": "https://i.imgur.com/LGpfwXp.png",
+    "immagine": "https://i.imgur.com/gv4fWiF.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Gain 1 PM for each entity in your Manifestations." }
     ],
@@ -266,7 +266,7 @@
   {
     "id": 24,
     "nome": "Bone Breaker",
-    "immagine": "https://i.imgur.com/rRqMLKs.png",
+    "immagine": "https://i.imgur.com/t63CG3M.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "If an opponent's entity declares an attack → Put it in defense position." }
     ],
