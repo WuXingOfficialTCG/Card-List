@@ -2,7 +2,7 @@
   {
     "id": 1,
     "nome": "Abyssal Merman",
-    "immagine": "https://i.imgur.com/wwQpM4n.png",
+    "immagine": "https://i.imgur.com/LzAm08W.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "Fire → Water." }
     ],
