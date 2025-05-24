@@ -8,16 +8,12 @@ export default function Header() {
         <button className="donate" onClick={() => alert('Dona cliccato!')}>Dona</button>
       </div>
 
-      <div className="center-left logo">
-        <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" />
-      </div>
-
       <div className="center">
-        Wu Xing TCG
+        <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" className="logo" />
+        <span className="title">Wu Xing TCG</span>
       </div>
 
       <nav className="right" aria-label="Social media links">
-        {/* Discord */}
         <a 
           href="https://discord.com" 
           target="_blank" 
@@ -28,7 +24,6 @@ export default function Header() {
           <img src="https://i.imgur.com/iXb26SA.png" alt="Discord" width="24" height="24" />
         </a>
 
-        {/* Instagram */}
         <a 
           href="https://instagram.com" 
           target="_blank" 
@@ -39,7 +34,6 @@ export default function Header() {
           <img src="https://i.imgur.com/ISEyV5G.png" alt="Instagram" width="24" height="24" />
         </a>
 
-        {/* YouTube */}
         <a 
           href="https://youtube.com" 
           target="_blank" 
