@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SupportPopup from './SupportPopup';
+import SupportPopup from './components/SupportPopup';
 import './header.css';
 import './headerResponsive.css';
 
