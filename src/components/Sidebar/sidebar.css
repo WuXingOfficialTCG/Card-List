@@ -31,7 +31,7 @@
 
 /* === Sidebar Hover Trigger === */
 .sidebar-hover-trigger {
-  position: fixed;
+  position: relative; /* o rimuovi del tutto 'position' */
   top: 0;
   left: 0;
   width: 8px;
