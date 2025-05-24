@@ -18,6 +18,9 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
+  // Stato per sidebar collapsed
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -63,6 +66,9 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     if (index !== -1) setPopupIndex(index);
   };
 
+  // Funzione toggle per la sidebar, passata a Sidebar
+  const toggleSidebarCollapsed = () => setSidebarCollapsed(prev => !prev);
+
   return (
     <>
       <Header />
@@ -72,6 +78,8 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
         deck={deck}
         onAddCard={onAddCard}
         onRemoveOne={onRemoveOne}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={toggleSidebarCollapsed}
       />
       <CardGrid
         cards={filteredCards}
@@ -79,6 +87,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
         onAddCard={onAddCard}
         onRemoveOne={onRemoveOne}
         onCardClick={openPopup}
+        sidebarCollapsed={sidebarCollapsed}
       />
       {popupIndex !== null && (
         <Popup
