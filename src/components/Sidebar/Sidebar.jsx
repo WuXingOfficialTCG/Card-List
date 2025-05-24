@@ -1,20 +1,24 @@
-
 import React, { useState, useEffect } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import DeckDropzone from './DeckDropzone';
 import PopupName from './PopupName';
 
-export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onToggleCollapse, collapsed }) {
-  // `collapsed` e `onToggleCollapse` possono essere gestiti dal genitore per sincronizzare con CardGrid
-
+export default function Sidebar({
+  filters,
+  onFilterChange,
+  deck,
+  onAddCard,
+  onRemoveOne,
+  onToggleCollapse,
+  collapsed
+}) {
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Toggle filters section collapse
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
-  // Save deck as JSON file
+  // Salva deck come JSON
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
@@ -41,7 +45,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   const handlePopupCancel = () => setShowPopup(false);
 
-  // Handle drag & drop outside deck dropzone to remove card from deck
+  // Gestione drag & drop per rimuovere carte trascinate fuori dalla deck dropzone
   useEffect(() => {
     const handleDropOutside = (e) => {
       const cardData = e.dataTransfer.getData('application/deck-card');
@@ -70,7 +74,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
         <div
           className="sidebar-hover-trigger"
           onMouseEnter={() => onToggleCollapse(false)}
-          aria-label="Expand Sidebar"
+          aria-label="Espandi Sidebar"
         />
       )}
 
