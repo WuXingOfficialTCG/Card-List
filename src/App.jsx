@@ -39,7 +39,8 @@ export default function App() {
     );
   };
 
-  const exportDeckAsJSON = (filename) => {
+  // Funzione di export generica che può essere passata come prop
+  const handleExport = () => {
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
       nome: card.nome,
@@ -49,14 +50,14 @@ export default function App() {
     const blob = new Blob([JSON.stringify(deckData, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `${filename || 'deck'}.json`;
+    link.download = `deck.json`;
     link.click();
     URL.revokeObjectURL(link.href);
   };
 
   return (
     <Router>
-      <FloatingMenu onExportDeck={exportDeckAsJSON} />
+      <FloatingMenu onExport={handleExport} />
       <Routes>
         <Route
           path="/"
@@ -65,7 +66,7 @@ export default function App() {
               deck={deck}
               onAddCard={onAddCard}
               onRemoveOne={onRemoveOne}
-              setDeck={setDeck} // se serve per altre modifiche
+              setDeck={setDeck}
             />
           }
         />
