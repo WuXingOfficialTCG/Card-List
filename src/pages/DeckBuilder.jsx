@@ -20,15 +20,15 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
-    // Show support popup max every 6 hours
+    // Mostra il popup di supporto massimo ogni 6 ore
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
-    if (!lastShown || now - +lastShown > 6 * 60 * 60 * 1000) {
+    if (!lastShown || now - Number(lastShown) > 6 * 60 * 60 * 1000) {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
 
-    // Load cards data
+    // Carica i dati delle carte
     fetch('/data/cards.json')
       .then(res => res.json())
       .then(setCards)
@@ -59,14 +59,18 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     return true;
   });
 
-  const updateFilter = (field, value) => setFilters(f => ({ ...f, [field]: value }));
+  const updateFilter = (field, value) => {
+    setFilters(prev => ({ ...prev, [field]: value }));
+  };
 
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  const toggleSidebarCollapsed = () => setSidebarCollapsed(prev => !prev);
+  const toggleSidebarCollapsed = () => {
+    setSidebarCollapsed(prev => !prev);
+  };
 
   return (
     <>
@@ -87,9 +91,10 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOne}
           onCardClick={openPopup}
-          sidebarCollapsed={sidebarCollapsed}  // passa lo stato a CardGrid per adattarsi
+          sidebarCollapsed={sidebarCollapsed}
         />
       </div>
+
       {popupIndex !== null && (
         <Popup
           card={filteredCards[popupIndex]}
@@ -98,6 +103,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
         />
       )}
+
       {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
     </>
   );
