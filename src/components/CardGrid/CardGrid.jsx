@@ -2,14 +2,14 @@ import React from 'react';
 import './cardgrid.css';
 import './cardgridResponsive.css';
 
-export default function CardGrid({ cards, onCardClick }) {
+export default function CardGrid({ cards, onCardClick, sidebarCollapsed }) {
   const handleDragStart = (e, card) => {
     e.dataTransfer.setData('application/json', JSON.stringify(card));
   };
 
   return (
     <main>
-      <div className="card-grid">
+      <div className={`card-grid${sidebarCollapsed ? ' collapsed-sidebar' : ''}`}>
         {cards.length === 0 ? (
           <p>Nessuna carta trovata.</p>
         ) : (
