@@ -18,7 +18,6 @@ export default function Sidebar({
 
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
-  // Salva deck come JSON
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
@@ -35,17 +34,12 @@ export default function Sidebar({
   };
 
   const handleSaveDeck = () => setShowPopup(true);
-
   const handlePopupConfirm = (filename) => {
-    if (filename && filename.trim()) {
-      saveDeckAsJSON(filename.trim());
-    }
+    if (filename && filename.trim()) saveDeckAsJSON(filename.trim());
     setShowPopup(false);
   };
-
   const handlePopupCancel = () => setShowPopup(false);
 
-  // Gestione drag & drop per rimuovere carte trascinate fuori dalla deck dropzone
   useEffect(() => {
     const handleDropOutside = (e) => {
       const cardData = e.dataTransfer.getData('application/deck-card');
@@ -61,7 +55,6 @@ export default function Sidebar({
 
     window.addEventListener('drop', handleDropOutside);
     window.addEventListener('dragover', handleDragOver);
-
     return () => {
       window.removeEventListener('drop', handleDropOutside);
       window.removeEventListener('dragover', handleDragOver);
@@ -80,6 +73,7 @@ export default function Sidebar({
 
       <aside
         className={`sidebar${collapsed ? ' collapsed' : ''}${filtersCollapsed ? ' filters-collapsed' : ''}`}
+        style={{ width: collapsed ? 0 : 220, transition: 'width 0.3s ease' }}
       >
         <div className="filters-header">
           <h3>Filtri</h3>
@@ -109,7 +103,6 @@ export default function Sidebar({
                 <FiltersSection filters={filters} onFilterChange={onFilterChange} />
               </div>
             )}
-
             <div className="deckdropzone-container">
               <DeckDropzone
                 deck={deck}
