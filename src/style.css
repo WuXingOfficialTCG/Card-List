@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #121212; /* sfondo scuro */
   color: #eee; /* testo chiaro */
   height: 100vh;
@@ -14,10 +14,17 @@ main {
   padding: 20px;
 }
 
-.hero h1, .hero p {
+.hero h1,
+.hero p {
   color: #eee;
 }
 
 button {
   cursor: pointer;
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
 }
+
