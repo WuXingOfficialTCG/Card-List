@@ -1,0 +1,36 @@
+.floating-menu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+  transition: opacity 0.5s ease, pointer-events 0.5s ease;
+}
+
+.floating-menu button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #333;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.floating-menu button:hover {
+  background: #555;
+}
+
+.floating-menu.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-menu.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
