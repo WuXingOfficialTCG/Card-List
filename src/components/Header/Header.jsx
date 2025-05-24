@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SupportPopup from './SupportPopup';
 import './header.css';
+import './headerResponsive.css';
 
 export default function Header() {
   const [showSupport, setShowSupport] = useState(false);
