@@ -4,17 +4,24 @@ import FiltersSection from './FiltersSection';
 import DeckDropzone from './DeckDropzone';
 import PopupName from './PopupName';
 
-export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onToggleCollapse, collapsed }) {
-  // `collapsed` e `onToggleCollapse` possono essere gestiti dal genitore per sincronizzare con CardGrid
-
+export default function Sidebar({
+  filters,
+  onFilterChange,
+  deck,
+  onAddCard,
+  onRemoveOne,
+  onToggleCollapse,
+  collapsed,
+}) {
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Toggle filters section collapse
+  // Toggle visibility of the filters section
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
-  // Save deck as JSON file
+  // Save the current deck as a JSON file
   const saveDeckAsJSON = (filename) => {
+    if (!filename.trim()) return;
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
       nome: card.nome,
@@ -24,30 +31,30 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
     const blob = new Blob([JSON.stringify(deckData, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `${filename}.json`;
+    link.download = `${filename.trim()}.json`;
     link.click();
     URL.revokeObjectURL(link.href);
   };
 
+  // Show popup to input filename before saving deck
   const handleSaveDeck = () => setShowPopup(true);
 
   const handlePopupConfirm = (filename) => {
-    if (filename && filename.trim()) {
-      saveDeckAsJSON(filename.trim());
-    }
+    saveDeckAsJSON(filename);
     setShowPopup(false);
   };
 
   const handlePopupCancel = () => setShowPopup(false);
 
-  // Handle drag & drop outside deck dropzone to remove card from deck
+  // Listen for drag & drop outside deck dropzone to remove card from deck
   useEffect(() => {
     const handleDropOutside = (e) => {
       const cardData = e.dataTransfer.getData('application/deck-card');
       if (!cardData) return;
 
-      const card = JSON.parse(cardData);
+      // If dropped outside deck dropzone, remove one copy of card from deck
       if (!e.target.closest('.deck-dropzone')) {
+        const card = JSON.parse(cardData);
         onRemoveOne(card);
       }
     };
@@ -65,6 +72,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   return (
     <>
+      {/* Hover area to expand sidebar when collapsed */}
       {collapsed && (
         <div
           className="sidebar-hover-trigger"
