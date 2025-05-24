@@ -1,0 +1,10 @@
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+}
