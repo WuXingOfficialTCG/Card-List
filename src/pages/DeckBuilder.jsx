@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
-import CardGrid from '../components/CardGrid';
+import CardGrid from '../components/CardGrid/CardGrid';
 import Popup from '../components/Popup';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
