@@ -20,6 +20,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
+    // Show support popup max every 6 hours
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
     if (!lastShown || now - +lastShown > 6 * 60 * 60 * 1000) {
@@ -27,6 +28,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
 
+    // Load cards data
     fetch('/data/cards.json')
       .then(res => res.json())
       .then(setCards)
@@ -69,7 +71,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   return (
     <>
       <Header />
-      <div className={`main-layout${sidebarCollapsed ? ' sidebar-collapsed' : ''}`}>
+      <div className={`main-layout${sidebarCollapsed ? ' sidebar-collapsed' : ''}`} style={{ display: 'flex' }}>
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
@@ -85,7 +87,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOne}
           onCardClick={openPopup}
-          sidebarCollapsed={sidebarCollapsed}
+          sidebarCollapsed={sidebarCollapsed}  // passa lo stato a CardGrid per adattarsi
         />
       </div>
       {popupIndex !== null && (
