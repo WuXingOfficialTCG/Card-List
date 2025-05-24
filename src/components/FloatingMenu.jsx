@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 
-export default function FloatingMenu({ onExportDeck }) {
+export default function FloatingMenu({ onExport }) {
   const [visible, setVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const hideTimer = useRef(null);
@@ -19,7 +19,6 @@ export default function FloatingMenu({ onExportDeck }) {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    // Avvia il timer al montaggio
     resetTimer();
 
     return () => {
@@ -31,7 +30,7 @@ export default function FloatingMenu({ onExportDeck }) {
   const handleExportClick = () => setShowPopup(true);
 
   const handleConfirm = (filename) => {
-    if (onExportDeck) onExportDeck(filename);
+    if (onExport) onExport(filename);
     setShowPopup(false);
   };
 
