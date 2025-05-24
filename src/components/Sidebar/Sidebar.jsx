@@ -9,11 +9,9 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Gestione collapse sidebar e sezione filtri
   const toggleCollapse = () => setCollapsed(prev => !prev);
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
-  // Salva mazzo
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
@@ -36,7 +34,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
   };
   const handlePopupCancel = () => setShowPopup(false);
 
-  // Rimuovi carta trascinata fuori dalla dropzone
   useEffect(() => {
     const handleDropOutside = (e) => {
       const cardData = e.dataTransfer.getData('application/deck-card');
@@ -69,32 +66,42 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
         />
       )}
 
-      <aside className={`sidebar ${collapsed ? 'collapsed' : ''} ${filtersCollapsed ? 'filters-collapsed' : ''}`}>
+      <aside
+        className={`sidebar ${collapsed ? 'collapsed' : ''} ${filtersCollapsed ? 'filters-collapsed' : ''}`}
+      >
         <div className="filters-header">
           <h3>Filtri</h3>
           <button className="collapse-btn" onClick={toggleCollapse}>
             {collapsed ? '›' : '‹'}
           </button>
           {!collapsed && (
-            <button className="collapse-btn" onClick={toggleFiltersCollapse} style={{ marginLeft: '10px' }}>
+            <button
+              className="collapse-btn"
+              onClick={toggleFiltersCollapse}
+              style={{ marginLeft: '10px' }}
+            >
               {filtersCollapsed ? '▼' : '▲'}
             </button>
           )}
         </div>
 
         {!collapsed && (
-          <>
+          <div className="sidebar-main-grid">
             {!filtersCollapsed && (
-              <FiltersSection filters={filters} onFilterChange={onFilterChange} />
+              <div className="filters-container">
+                <FiltersSection filters={filters} onFilterChange={onFilterChange} />
+              </div>
             )}
-            <hr />
-            <DeckDropzone
-              deck={deck}
-              onAddCard={onAddCard}
-              onRemoveOne={onRemoveOne}
-              onSave={handleSaveDeck}
-            />
-          </>
+
+            <div className="deckdropzone-container">
+              <DeckDropzone
+                deck={deck}
+                onAddCard={onAddCard}
+                onRemoveOne={onRemoveOne}
+                onSave={handleSaveDeck}
+              />
+            </div>
+          </div>
         )}
       </aside>
 
