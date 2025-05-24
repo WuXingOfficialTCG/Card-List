@@ -8,17 +8,8 @@ export default function CardGrid({ cards, onCardClick, sidebarCollapsed }) {
   };
 
   return (
-    <div
-      className={`card-grid-wrapper${sidebarCollapsed ? ' collapsed' : ''}`}
-      style={{
-        flex: 1,
-        padding: '20px',
-        overflowY: 'auto',
-        height: '100vh',
-        boxSizing: 'border-box',
-      }}
-    >
-      <div className="card-grid">
+    <main>
+      <div className={`card-grid${sidebarCollapsed ? ' collapsed-sidebar' : ''}`}>
         {cards.length === 0 ? (
           <p>Nessuna carta trovata.</p>
         ) : (
@@ -35,6 +26,6 @@ export default function CardGrid({ cards, onCardClick, sidebarCollapsed }) {
           ))
         )}
       </div>
-    </div>
+    </main>
   );
 }
