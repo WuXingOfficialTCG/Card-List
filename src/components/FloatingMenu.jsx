@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './FloatingMenu.css';
-import PopupName from './Sidebar/PopupName'; // importa il popup
+import PopupName from './Sidebar/PopupName';
 
-export default function FloatingMenu({ onSaveDeck }) {
+export default function FloatingMenu({ onExportDeck }) {
   const [visible, setVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   let hideTimer;
 
-  // Gestione inattività
   useEffect(() => {
     const resetTimer = () => {
       setVisible(true);
@@ -25,31 +24,25 @@ export default function FloatingMenu({ onSaveDeck }) {
     };
   }, []);
 
-  const handleSaveClick = () => setShowPopup(true);
+  const handleExportClick = () => setShowPopup(true);
 
   const handleConfirm = (filename) => {
-    if (onSaveDeck) onSaveDeck(filename);
+    if (onExportDeck) onExportDeck(filename);
     setShowPopup(false);
   };
 
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-        <button title="Lista Mazzi">
-          📋
-        </button>
-        <button onClick={handleSaveClick} title="Salva Mazzo">
-          💾
-        </button>
-        <button title="Esporta Mazzo">
-          ⬇️
-        </button>
-        <button title="Importa Mazzo">
-          ⬆️
-        </button>
+        <button title="Lista Mazzi">📋</button>
+        <button title="Salva Mazzo">💾</button>
+        <button onClick={handleExportClick} title="Esporta Mazzo">⬇️</button>
+        <button title="Importa Mazzo">⬆️</button>
       </div>
 
-      {showPopup && <PopupName onConfirm={handleConfirm} onCancel={() => setShowPopup(false)} />}
+      {showPopup && (
+        <PopupName onConfirm={handleConfirm} onCancel={() => setShowPopup(false)} />
+      )}
     </>
   );
 }
