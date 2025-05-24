@@ -38,15 +38,7 @@
   }
 
   .popup-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.8);
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 0.3rem 0.7rem;
-    z-index: 2;
+    display: none; /* Nasconde entrambe le frecce su mobile */
   }
 
   .popup-prev {
