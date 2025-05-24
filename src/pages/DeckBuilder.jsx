@@ -17,13 +17,12 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   });
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
-
-  // Stato per sidebar collapsed
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
+
     if (!lastShown || now - +lastShown > 6 * 60 * 60 * 1000) {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
@@ -59,36 +58,46 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     return true;
   });
 
-  const updateFilter = (field, value) => setFilters(f => ({ ...f, [field]: value }));
+  const updateFilter = (field, value) => {
+    setFilters(prevFilters => ({ ...prevFilters, [field]: value }));
+  };
 
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  // Funzione toggle per la sidebar, passata a Sidebar
-  const toggleSidebarCollapsed = () => setSidebarCollapsed(prev => !prev);
+  const toggleSidebarCollapsed = () => {
+    setSidebarCollapsed(prev => !prev);
+  };
 
   return (
     <>
       <Header />
-      <Sidebar
-        filters={availableFilters}
-        onFilterChange={updateFilter}
-        deck={deck}
-        onAddCard={onAddCard}
-        onRemoveOne={onRemoveOne}
-        collapsed={sidebarCollapsed}
-        onToggleCollapse={toggleSidebarCollapsed}
-      />
-      <CardGrid
-        cards={filteredCards}
-        deck={deck}
-        onAddCard={onAddCard}
-        onRemoveOne={onRemoveOne}
-        onCardClick={openPopup}
-        sidebarCollapsed={sidebarCollapsed}
-      />
+
+      <div className="main-layout" style={{ display: 'flex', gap: '10px' }}>
+        <Sidebar
+          filters={availableFilters}
+          onFilterChange={updateFilter}
+          deck={deck}
+          onAddCard={onAddCard}
+          onRemoveOne={onRemoveOne}
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={toggleSidebarCollapsed}
+        />
+
+        <div style={{ flexGrow: 1 }}>
+          <CardGrid
+            cards={filteredCards}
+            deck={deck}
+            onAddCard={onAddCard}
+            onRemoveOne={onRemoveOne}
+            onCardClick={openPopup}
+            sidebarCollapsed={sidebarCollapsed}
+          />
+        </div>
+      </div>
+
       {popupIndex !== null && (
         <Popup
           card={filteredCards[popupIndex]}
@@ -97,6 +106,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
         />
       )}
+
       {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
     </>
   );
