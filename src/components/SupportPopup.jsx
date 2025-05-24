@@ -22,7 +22,7 @@ export default function SupportPopup({ onClose }) {
         <h2 id="support-popup-title">Support Us!</h2>
         <p>If you enjoy the project, consider supporting it 💖</p>
         <a
-          href="https//:paypal.me/WuXingOfficial"
+          href="https://paypal.me/WuXingOfficial"
           target="_blank"
           rel="noopener noreferrer"
           className="paypal-btn"
