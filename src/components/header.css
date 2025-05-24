@@ -8,7 +8,7 @@ header {
   color: white;
 }
 
-.left, .center-left, .center, .right {
+.left, .center, .right {
   display: flex;
   align-items: center;
 }
@@ -17,18 +17,22 @@ header {
   flex: 0 0 auto;
 }
 
-.center-left {
-  flex: 0 0 auto;
-  margin-left: 20px;
-}
-
 .center {
   flex: 1 1 auto;
   justify-content: center;
-  font: Oswald;
+  gap: 12px;
+  font-family: 'Oswald', sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
+}
+
+.center .logo {
+  height: 40px;
+}
+
+.center .title {
+  white-space: nowrap;
 }
 
 .right {
@@ -51,10 +55,6 @@ button.donate:hover {
   background: #e04444;
 }
 
-.logo img {
-  height: 40px;
-}
-
 .social-icon {
   width: 30px;
   height: 30px;
@@ -68,7 +68,11 @@ button.donate:hover {
   transition: background 0.3s ease;
 }
 
-.social-icon svg {
+.social-icon:hover {
+  background: #666;
+}
+
+.social-icon img {
   width: 24px;
   height: 24px;
 }
