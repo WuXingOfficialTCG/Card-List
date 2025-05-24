@@ -1,5 +1,3 @@
-// src/pages/DeckBuilder.jsx
-
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import CardGrid from '../components/CardGrid';
@@ -20,21 +18,18 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
-  const SUPPORT_INTERVAL_HOURS = 6;
-
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
-
-    if (!lastShown || now - parseInt(lastShown, 10) > SUPPORT_INTERVAL_HOURS * 60 * 60 * 1000) {
+    if (!lastShown || now - +lastShown > 6 * 60 * 60 * 1000) {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
     }
 
     fetch('/data/cards.json')
       .then(res => res.json())
-      .then(data => setCards(data))
-      .catch(err => console.error('Errore caricamento carte:', err));
+      .then(setCards)
+      .catch(console.error);
   }, []);
 
   const availableFilters = {
@@ -43,49 +38,57 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   };
 
   const filteredCards = cards.filter(card => {
-    if (filters.elemento.length > 0 && !filters.elemento.includes(card.elemento)) return false;
-    if (filters.tipo.length > 0 && !filters.tipo.includes(card.tipo)) return false;
+    if (filters.elemento.length && !filters.elemento.includes(card.elemento)) return false;
+    if (filters.tipo.length && !filters.tipo.includes(card.tipo)) return false;
     if (filters.nome && !card.nome?.toLowerCase().includes(filters.nome.toLowerCase())) return false;
     if (filters.effetti && !card.effetti?.toLowerCase().includes(filters.effetti.toLowerCase())) return false;
 
     if (filters.atk !== '') {
       const atkValue = Number(filters.atk);
-      const cardAtk = Number(card.atk);
-      if (isNaN(atkValue) || isNaN(cardAtk) || cardAtk !== atkValue) return false;
+      if (isNaN(atkValue) || Number(card.atk) !== atkValue) return false;
     }
 
     if (filters.res !== '') {
       const resValue = Number(filters.res);
-      const cardRes = Number(card.res);
-      if (isNaN(resValue) || isNaN(cardRes) || cardRes !== resValue) return false;
+      if (isNaN(resValue) || Number(card.res) !== resValue) return false;
     }
 
     return true;
   });
 
-  const handleFilterChange = (field, value) => {
-    setFilters(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleAddCardToDeck = (card) => {
-    onAddCard(card);
-  };
-
-  const handleRemoveOneFromDeck = (card) => {
-    onRemoveOne(card);
-  };
+  const updateFilter = (field, value) => setFilters(f => ({ ...f, [field]: value }));
 
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  const closePopup = () => setPopupIndex(null);
-  const goPrev = () => setPopupIndex(i => (i > 0 ? i - 1 : i));
-  const goNext = () => setPopupIndex(i => (i < filteredCards.length - 1 ? i + 1 : i));
-
   return (
     <>
       <Header />
       <Sidebar
         filters={availableFilters}
+        onFilterChange={updateFilter}
+        deck={deck}
+        onAddCard={onAddCard}
+        onRemoveOne={onRemoveOne}
+      />
+      <CardGrid
+        cards={filteredCards}
+        deck={deck}
+        onAddCard={onAddCard}
+        onRemoveOne={onRemoveOne}
+        onCardClick={openPopup}
+      />
+      {popupIndex !== null && (
+        <Popup
+          card={filteredCards[popupIndex]}
+          onClose={() => setPopupIndex(null)}
+          onPrev={() => setPopupIndex(i => Math.max(0, i - 1))}
+          onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
+        />
+      )}
+      {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
+    </>
+  );
+}
