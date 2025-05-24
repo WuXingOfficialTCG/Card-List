@@ -18,6 +18,32 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
+  // Funzione per aggiungere una carta al deck
+  const onAddCard = (card) => {
+    setDeck((prevDeck) => {
+      const found = prevDeck.find((c) => c.card.id === card.id);
+      if (found) {
+        if (found.count >= 3) return prevDeck; // max 3 copie
+        return prevDeck.map((c) =>
+          c.card.id === card.id ? { ...c, count: c.count + 1 } : c
+        );
+      }
+      // nuova carta
+      return [...prevDeck, { card, count: 1 }];
+    });
+  };
+
+  // Funzione per rimuovere una copia di una carta dal deck
+  const onRemoveOne = (card) => {
+    setDeck((prevDeck) =>
+      prevDeck
+        .map((c) =>
+          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
+        )
+        .filter((c) => c.count > 0)
+    );
+  };
+
   // Funzione per esportare il deck in JSON
   const exportDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
@@ -26,7 +52,9 @@ export default function App() {
       count,
     }));
 
-    const blob = new Blob([JSON.stringify(deckData, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(deckData, null, 2)], {
+      type: 'application/json',
+    });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `${filename || 'deck'}.json`;
@@ -36,11 +64,24 @@ export default function App() {
 
   return (
     <Router>
-      {/* Passa anche setDeck se serve modificare il deck da FloatingMenu */}
-      <FloatingMenu onExportDeck={exportDeckAsJSON} deck={deck} setDeck={setDeck} />
+      <FloatingMenu
+        onExportDeck={exportDeckAsJSON}
+        deck={deck}
+        onAddCard={onAddCard}
+        onRemoveOne={onRemoveOne}
+      />
       <Routes>
-        {/* Passa deck e setDeck a DeckBuilder così può modificarlo */}
-        <Route path="/" element={<DeckBuilder deck={deck} setDeck={setDeck} />} />
+        <Route
+          path="/"
+          element={
+            <DeckBuilder
+              deck={deck}
+              setDeck={setDeck}
+              onAddCard={onAddCard}
+              onRemoveOne={onRemoveOne}
+            />
+          }
+        />
       </Routes>
     </Router>
   );
