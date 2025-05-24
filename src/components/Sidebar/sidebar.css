@@ -1,4 +1,19 @@
-/* === Sidebar Container === */
+/* === Layout principale: sidebar + contenuto === */
+.main-layout {
+  display: flex;
+  gap: 10px; /* spazio ridotto tra sidebar e card grid */
+  margin-left: 220px; /* spazio per la sidebar */
+  transition: margin-left 0.3s ease;
+  height: 100vh;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.main-layout.sidebar-collapsed {
+  margin-left: 0;
+}
+
+/* === Sidebar fissa === */
 .sidebar {
   width: 220px;
   height: 100vh;
@@ -18,7 +33,6 @@
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
-/* === Collapsed Sidebar === */
 .sidebar.collapsed {
   width: 0;
   padding: 0;
@@ -26,35 +40,7 @@
   overflow: hidden;
 }
 
-/* === Sidebar Hover Trigger === */
-.sidebar-hover-trigger {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 100vh;
-  background: transparent;
-  cursor: pointer;
-  z-index: 20;
-}
-
-/* === Filters Header === */
-.filters-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  user-select: none;
-}
-
-.filters-header h3 {
-  margin: 0;
-  font-weight: bold;
-  font-size: 1.3rem;
-  color: #222;
-}
-
-/* === Collapse Buttons === */
+/* === Pulsante collapse === */
 .collapse-btn {
   background: transparent;
   border: none;
@@ -69,140 +55,31 @@
   color: #000;
 }
 
-/* === Filters Section === */
-.filters-section {
-  flex: none;
-}
-
-.filters-section.collapsed {
-  display: none;
-}
-
-/* === Filter Groups === */
-.filter-group {
-  margin-bottom: 20px;
-}
-
-.filter-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #222;
-}
-
-.filter-group input[type="text"],
-.filter-group input[type="number"],
-.filter-group select {
-  width: 100%;
-  padding: 6px 8px;
-  font-size: 1rem;
-  border: 1px solid #999;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #000;
-}
-
-/* === Checkbox Groups === */
-.checkbox-group label {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.95rem;
-  color: #111;
-}
-
-/* === Horizontal Rule === */
-hr {
-  margin: 20px 0;
-  border: none;
-  border-top: 1px solid #bbb;
-}
-
-/* === Deck Dropzone === */
-.deck-dropzone {
-  flex-grow: 1;
-  padding: 10px;
-  border: 2px dashed #888;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-  color: #222;
-  overflow-y: auto;
-}
-
-.deck-dropzone h3 {
-  margin-top: 0;
-  font-size: 1.1rem;
-  color: #111;
-}
-
-.deck-dropzone p {
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-/* === Deck Grid === */
-.deck-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px 12px;
-  margin-top: 10px;
-}
-
-/* === Deck Card === */
-.deck-card-wrapper {
-  position: relative;
-  aspect-ratio: 5 / 7;
-  width: 100%;
-}
-
-.deck-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border: 1px solid #999;
-  border-radius: 4px;
-  background-color: #eee;
-  display: block;
-}
-
-/* === Badge (Card Copies Count) === */
-.card-count-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background-color: #28a745; /* green */
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px #fff;
-}
-
-.card-count-badge.max-copies {
-  background-color: #cc0000; /* red */
-}
-
-/* === ATK & RES Fields === */
-.atk-res-inline {
-  display: flex;
-  gap: 12px;
-}
-
-.atk-res-field {
-  display: flex;
-  flex-direction: column;
+/* === Card Grid === */
+.card-grid {
   flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  background: #fff;
+  border-radius: 8px;
 }
 
-.atk-res-field input {
-  max-width: 65px;
+/* === Immagini carte === */
+.card-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-/* === Expanded Dropzone When Filters Collapsed === */
-.filters-collapsed .deck-dropzone {
-  flex-grow: 2;
+.card-image:hover {
+  transform: scale(1.05);
 }
