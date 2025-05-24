@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './FloatingMenu.css';
+import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 
 export default function FloatingMenu({ onExportDeck }) {
