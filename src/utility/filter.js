@@ -1,3 +1,19 @@
+// src/utility/filters.js
+
+export const initialFilters = {
+  elemento: [],
+  tipo: [],
+  nome: '',
+  effetti: '',
+  atk: '',
+  res: '',
+};
+
+export const availableFilters = {
+  elemento: ['Water', 'Wood', 'Metal', 'Fire', 'Earth'],
+  tipo: ['Entity', 'Chakra'],
+};
+
 export function filterCards(cards, filters) {
   return cards.filter(card => {
     if (filters.elemento.length && !filters.elemento.includes(card.elemento)) return false;
