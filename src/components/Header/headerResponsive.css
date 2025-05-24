@@ -1,0 +1,72 @@
+@media (max-width: 768px) {
+  header {
+    padding: 0 10px;
+    height: auto;
+    flex-wrap: wrap; /* per andare su più righe se serve */
+    gap: 8px;
+  }
+
+  .center {
+    font-size: 1.2rem;
+    justify-content: center;
+    flex-basis: 100%;
+    order: 2; /* metto il centro sotto a sinistra e destra */
+  }
+
+  .center .logo {
+    height: 35px;
+  }
+
+  .right {
+    gap: 8px;
+    order: 3;
+  }
+
+  .left {
+    order: 1;
+  }
+
+  button.donate {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .social-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .social-icon img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    gap: 6px;
+  }
+
+  .center {
+    font-size: 1rem;
+  }
+
+  button.donate {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+  }
+
+  .social-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .social-icon img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .center .title {
+    white-space: normal; /* lascia andare su più righe */
+  }
+}
