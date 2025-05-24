@@ -7,7 +7,7 @@ import Popup from '../components/Popup';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 
-export default function DeckBuilder() {
+export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState({
     elemento: [],
@@ -17,7 +17,6 @@ export default function DeckBuilder() {
     atk: '',
     res: '',
   });
-  const [deck, setDeck] = useState([]);
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
@@ -40,7 +39,7 @@ export default function DeckBuilder() {
 
   const availableFilters = {
     elemento: ['Water', 'Wood', 'Metal', 'Fire', 'Earth'],
-    tipo: ['Entity', 'Chakra']
+    tipo: ['Entity', 'Chakra'],
   };
 
   const filteredCards = cards.filter(card => {
@@ -69,28 +68,11 @@ export default function DeckBuilder() {
   };
 
   const handleAddCardToDeck = (card) => {
-    setDeck(prevDeck => {
-      const found = prevDeck.find(c => c.card.id === card.id);
-      if (found) {
-        if (found.count >= 3) return prevDeck;
-        return prevDeck.map(c =>
-          c.card.id === card.id ? { ...c, count: c.count + 1 } : c
-        );
-      }
-
-      const totalCards = prevDeck.reduce((acc, c) => acc + c.count, 0);
-      if (totalCards >= 40) return prevDeck;
-
-      return [...prevDeck, { card, count: 1 }];
-    });
+    onAddCard(card);
   };
 
   const handleRemoveOneFromDeck = (card) => {
-    setDeck(prevDeck =>
-      prevDeck
-        .map(c => (c.card.id === card.id ? { ...c, count: c.count - 1 } : c))
-        .filter(c => c.count > 0)
-    );
+    onRemoveOne(card);
   };
 
   const openPopup = (card) => {
@@ -107,26 +89,3 @@ export default function DeckBuilder() {
       <Header />
       <Sidebar
         filters={availableFilters}
-        onFilterChange={handleFilterChange}
-        deck={deck}
-        onAddCard={handleAddCardToDeck}
-        onCardClick={openPopup}
-        onRemoveOne={handleRemoveOneFromDeck}
-      />
-      <div style={{ marginLeft: 220 }}>
-        <CardGrid filters={filters} onCardClick={openPopup} cards={filteredCards} />
-        {popupIndex !== null && (
-          <Popup
-            card={filteredCards[popupIndex]}
-            onClose={closePopup}
-            onPrev={goPrev}
-            onNext={goNext}
-            isFirst={popupIndex === 0}
-            isLast={popupIndex === filteredCards.length - 1}
-          />
-        )}
-        {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
-      </div>
-    </>
-  );
-}
