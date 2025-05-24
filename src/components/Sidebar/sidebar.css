@@ -1,20 +1,22 @@
+/* === Google Fonts (puoi anche spostarlo in HTML) === */
+/* @import url('https://fonts.googleapis.com/css2?family=YourFontChoice'); */
 
 /* === Sidebar Container === */
 .sidebar {
-  width: 220px;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #ffffff;
+  width: 220px;
+  height: 100vh;
+  background-color: #fff;
   border-right: 1px solid #ccc;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   font-family: Arial, sans-serif;
+  color: #333;
   display: flex;
   flex-direction: column;
-  color: #333;
   z-index: 10;
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
@@ -50,12 +52,12 @@
 
 .filters-header h3 {
   margin: 0;
-  font-weight: bold;
   font-size: 1.3rem;
+  font-weight: bold;
   color: #222;
 }
 
-/* === Collapse Buttons === */
+/* === Collapse Button === */
 .collapse-btn {
   background: transparent;
   border: none;
@@ -103,7 +105,7 @@
   color: #000;
 }
 
-/* === Checkbox Groups === */
+/* === Checkbox Group === */
 .checkbox-group label {
   display: block;
   margin-bottom: 4px;
@@ -141,7 +143,7 @@ hr {
   color: #555;
 }
 
-/* === Deck Grid === */
+/* === Deck Cards Grid === */
 .deck-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -149,7 +151,7 @@ hr {
   margin-top: 10px;
 }
 
-/* === Deck Card === */
+/* === Single Deck Card === */
 .deck-card-wrapper {
   position: relative;
   aspect-ratio: 5 / 7;
@@ -166,28 +168,28 @@ hr {
   display: block;
 }
 
-/* === Badge (Card Copies Count) === */
+/* === Card Count Badge === */
 .card-count-badge {
   position: absolute;
   top: -6px;
   right: -6px;
-  background-color: #28a745; /* green */
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
   width: 20px;
   height: 20px;
   line-height: 20px;
   text-align: center;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
   border-radius: 50%;
   box-shadow: 0 0 0 2px #fff;
 }
 
 .card-count-badge.max-copies {
-  background-color: #cc0000; /* red */
+  background-color: #cc0000;
 }
 
-/* === ATK & RES Fields === */
+/* === ATK & RES Inline Fields === */
 .atk-res-inline {
   display: flex;
   gap: 12px;
@@ -203,7 +205,7 @@ hr {
   max-width: 65px;
 }
 
-/* === Expanded Dropzone When Filters Collapsed === */
+/* === Expanded Dropzone on Filter Collapse === */
 .filters-collapsed .deck-dropzone {
   flex-grow: 2;
 }
