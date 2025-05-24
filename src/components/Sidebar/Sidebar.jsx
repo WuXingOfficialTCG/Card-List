@@ -9,15 +9,19 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
+  // Toggle sidebar collapse
   const toggleCollapse = () => setCollapsed(prev => !prev);
+  // Toggle filters section collapse
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
+  // Save deck as JSON file
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
       nome: card.nome,
       count,
     }));
+
     const blob = new Blob([JSON.stringify(deckData, null, 2)], { type: 'application/json' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -27,12 +31,17 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
   };
 
   const handleSaveDeck = () => setShowPopup(true);
+
   const handlePopupConfirm = (filename) => {
-    saveDeckAsJSON(filename);
+    if (filename && filename.trim()) {
+      saveDeckAsJSON(filename.trim());
+    }
     setShowPopup(false);
   };
+
   const handlePopupCancel = () => setShowPopup(false);
 
+  // Handle drag & drop outside deck dropzone to remove card from deck
   useEffect(() => {
     const handleDropOutside = (e) => {
       const cardData = e.dataTransfer.getData('application/deck-card');
@@ -57,16 +66,29 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   return (
     <>
-      {collapsed && <div className="sidebar-hover-trigger" onMouseEnter={() => setCollapsed(false)} />}
+      {collapsed && (
+        <div
+          className="sidebar-hover-trigger"
+          onMouseEnter={() => setCollapsed(false)}
+          aria-label="Expand Sidebar"
+        />
+      )}
 
-      <aside className={`sidebar${collapsed ? ' collapsed' : ''}${filtersCollapsed ? ' filters-collapsed' : ''}`}>
+      <aside
+        className={`sidebar${collapsed ? ' collapsed' : ''}${filtersCollapsed ? ' filters-collapsed' : ''}`}
+      >
         <div className="filters-header">
           <h3>Filtri</h3>
-          <button className="collapse-btn" onClick={toggleCollapse}>
+          <button className="collapse-btn" onClick={toggleCollapse} aria-label="Toggle Sidebar Collapse">
             {collapsed ? '›' : '‹'}
           </button>
           {!collapsed && (
-            <button className="collapse-btn" onClick={toggleFiltersCollapse} style={{ marginLeft: 10 }}>
+            <button
+              className="collapse-btn"
+              onClick={toggleFiltersCollapse}
+              style={{ marginLeft: 10 }}
+              aria-label="Toggle Filters Collapse"
+            >
               {filtersCollapsed ? '▼' : '▲'}
             </button>
           )}
@@ -81,13 +103,23 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
             )}
 
             <div className="deckdropzone-container">
-              <DeckDropzone deck={deck} onAddCard={onAddCard} onRemoveOne={onRemoveOne} onSave={handleSaveDeck} />
+              <DeckDropzone
+                deck={deck}
+                onAddCard={onAddCard}
+                onRemoveOne={onRemoveOne}
+                onSave={handleSaveDeck}
+              />
             </div>
           </div>
         )}
       </aside>
 
-      {showPopup && <PopupName onConfirm={handlePopupConfirm} onCancel={handlePopupCancel} />}
+      {showPopup && (
+        <PopupName
+          onConfirm={handlePopupConfirm}
+          onCancel={handlePopupCancel}
+        />
+      )}
     </>
   );
 }
