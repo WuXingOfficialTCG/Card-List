@@ -1,14 +1,13 @@
-
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, 150px);
   gap: 16px;
-  padding: 20px;
+  justify-content: center;
 }
 
 .card-image {
-  width: 100%;
-  height: auto;
+  width: 150px;
+  height: 210px;
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
