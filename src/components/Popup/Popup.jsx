@@ -1,7 +1,5 @@
-import React, { useRef } from 'react';
-import TiltCard from './TiltCard'; // importa tilt senza + e -
+import React, { useRef, useState } from 'react';
 import './popup.css';
-import './PopupResponsive.css';
 
 export default function Popup({
   card,
@@ -14,33 +12,31 @@ export default function Popup({
   onRemoveOne,
   deckCount = 0,
 }) {
-  const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
+  const imgRef = useRef(null);
+  const [backgroundPos, setBackgroundPos] = useState('50% 50%');
+  const [isZoomed, setIsZoomed] = useState(false);
 
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.changedTouches[0].clientX;
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = imgRef.current.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setBackgroundPos(`${x}% ${y}%`);
   };
 
-  const handleTouchEnd = (e) => {
-    touchEndX.current = e.changedTouches[0].clientX;
-    const deltaX = touchEndX.current - touchStartX.current;
+  const handleMouseEnter = () => {
+    setIsZoomed(true);
+  };
 
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX > 0 && !isFirst) {
-        onPrev();
-      } else if (deltaX < 0 && !isLast) {
-        onNext();
-      }
-    }
+  const handleMouseLeave = () => {
+    setIsZoomed(false);
+    setBackgroundPos('50% 50%');
   };
 
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div
         className="popup-content"
-        onClick={e => e.stopPropagation()}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        onClick={(e) => e.stopPropagation()}
       >
         <button className="popup-close" onClick={onClose}>×</button>
 
@@ -57,7 +53,31 @@ export default function Popup({
           </button>
         )}
 
-        <TiltCard src={card.immagine} alt={card.nome} className="popup-image" />
+        <div
+          className="popup-image-zoom-container"
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          ref={imgRef}
+          style={{
+            backgroundImage: `url(${card.immagine})`,
+            backgroundPosition: backgroundPos,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: isZoomed ? '200%' : 'contain',
+            cursor: isZoomed ? 'zoom-out' : 'zoom-in',
+          }}
+          aria-label={card.nome}
+          role="img"
+          tabIndex={0}
+        >
+          <img
+            src={card.immagine}
+            alt={card.nome}
+            className="popup-image"
+            draggable={false}
+            style={{ opacity: isZoomed ? 0 : 1, transition: 'opacity 0.3s ease' }}
+          />
+        </div>
 
         <div
           className="popup-controls"
@@ -85,7 +105,7 @@ export default function Popup({
 
           <button
             onClick={() => onAddCard(card)}
-            disabled={deckCount >= 3}  // disabilita se 3 copie raggiunte
+            disabled={deckCount >= 3} // disabilita se 3 copie raggiunte
             style={{
               fontSize: '20px',
               padding: '6px 12px',
