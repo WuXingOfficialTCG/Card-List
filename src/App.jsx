@@ -5,7 +5,7 @@ import { auth } from './firebase';
 
 import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
-import SignupModal from './components/SignupModal';
+import SignupModal from './SignupModal';
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
