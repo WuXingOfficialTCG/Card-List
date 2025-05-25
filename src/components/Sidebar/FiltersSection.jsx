@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const imageMap = {
-  Water: 'P62gDkj',  // sostituisci con ID immagine reale Imgur
+  Water: 'P62gDkj',
   Wood: 'y4qbsOM',
   Metal: 'QNaDBt5',
   Fire: 'mMBZDY7',
@@ -69,19 +69,35 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
             display: 'flex',
             flexWrap: 'wrap',
             gap: '10px',
-            maxWidth: '220px', // fa andare a capo dopo circa 3 immagini
+            maxWidth: '220px',
           }}
         >
           {(filters.elemento || []).map(el => (
             <label
               key={el}
-              style={{ cursor: 'pointer', display: 'inline-block' }}
+              style={{
+                cursor: 'pointer',
+                display: 'inline-block',
+                position: 'relative',
+                width: '40px',
+                height: '40px',
+              }}
             >
               <input
                 type="checkbox"
                 checked={elementi.includes(el)}
                 onChange={() => toggle(el, elementi, setElementi, 'elemento')}
-                style={{ display: 'none' }}
+                style={{
+                  position: 'absolute',
+                  opacity: 0,
+                  width: '100%',
+                  height: '100%',
+                  top: 0,
+                  left: 0,
+                  margin: 0,
+                  cursor: 'pointer',
+                  zIndex: 2,
+                }}
               />
               <img
                 src={`https://i.imgur.com/${imageMap[el]}.png`}
@@ -89,11 +105,12 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
                 title={el}
                 style={{
                   border: elementi.includes(el) ? '2px solid blue' : '2px solid transparent',
-                  borderRadius: '8px',
-                  width: '60px',
-                  height: '60px',
-                  objectFit: 'contain',
+                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  objectFit: 'cover',
                   display: 'block',
+                  userSelect: 'none',
                 }}
               />
             </label>
@@ -105,7 +122,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
         <label>Tipo</label>
         <div className="checkbox-group">
           {(filters.tipo || []).map(t => (
-            <label key={t}>
+            <label key={t} style={{ display: 'block', cursor: 'pointer', userSelect: 'none' }}>
               <input
                 type="checkbox"
                 checked={tipi.includes(t)}
@@ -117,7 +134,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
         </div>
       </div>
 
-      <div className="filter-group atk-res-inline">
+      <div className="filter-group atk-res-inline" style={{ display: 'flex', gap: '20px' }}>
         <div className="atk-res-field">
           <label>Atk</label>
           <input
