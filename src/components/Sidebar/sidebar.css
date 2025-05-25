@@ -8,37 +8,17 @@
   left: 0;
   width: 220px;
   height: 100vh;
-  background-color: #fff;
-  border-right: 1px solid #ccc;
+  background-color: #121212; /* sfondo scuro */
+  border-right: 1px solid #333;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   font-family: Arial, sans-serif;
-  color: #333;
+  color: #eee;
   display: flex;
   flex-direction: column;
   z-index: 10;
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
-}
-
-/* === Collapsed Sidebar === */
-.sidebar.collapsed {
-  width: 0;
-  padding: 0;
-  border-right: none;
-  overflow: hidden;
-}
-
-/* === Sidebar Hover Trigger === */
-.sidebar-hover-trigger {
-  position: relative; /* o rimuovi del tutto 'position' */
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 100vh;
-  background: transparent;
-  cursor: pointer;
-  z-index: 20;
 }
 
 /* === Filters Header === */
@@ -54,22 +34,22 @@
   margin: 0;
   font-size: 1.3rem;
   font-weight: bold;
-  color: #222;
+  color: #ddd;
 }
 
-/* === Collapse Button === */
+/* === Collapse Button (solo toggle filtri) === */
 .collapse-btn {
   background: transparent;
   border: none;
   font-size: 1.6rem;
-  color: #666;
+  color: #999;
   padding: 2px 6px;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .collapse-btn:hover {
-  color: #000;
+  color: #fff;
 }
 
 /* === Filters Section === */
@@ -90,7 +70,7 @@
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
-  color: #222;
+  color: #ddd;
 }
 
 .filter-group input[type="text"],
@@ -99,10 +79,10 @@
   width: 100%;
   padding: 6px 8px;
   font-size: 1rem;
-  border: 1px solid #999;
+  border: 1px solid #555;
   border-radius: 4px;
-  background-color: #fff;
-  color: #000;
+  background-color: #222;
+  color: #eee;
 }
 
 /* === Checkbox Group === */
@@ -110,37 +90,37 @@
   display: block;
   margin-bottom: 4px;
   font-size: 0.95rem;
-  color: #111;
+  color: #ccc;
 }
 
 /* === Horizontal Rule === */
 hr {
   margin: 20px 0;
   border: none;
-  border-top: 1px solid #bbb;
+  border-top: 1px solid #444;
 }
 
 /* === Deck Dropzone === */
 .deck-dropzone {
   flex-grow: 1;
   padding: 10px;
-  border: 2px dashed #888;
+  border: 2px dashed #666;
   border-radius: 6px;
-  background-color: #f9f9f9;
-  color: #222;
+  background-color: #1e1e1e;
+  color: #eee;
   overflow-y: auto;
 }
 
 .deck-dropzone h3 {
   margin-top: 0;
   font-size: 1.1rem;
-  color: #111;
+  color: #ccc;
 }
 
 .deck-dropzone p {
   font-style: italic;
   font-size: 0.9rem;
-  color: #555;
+  color: #999;
 }
 
 /* === Deck Cards Grid === */
@@ -162,9 +142,9 @@ hr {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 1px solid #999;
+  border: 1px solid #555;
   border-radius: 4px;
-  background-color: #eee;
+  background-color: #333;
   display: block;
 }
 
@@ -182,7 +162,7 @@ hr {
   font-size: 12px;
   font-weight: bold;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px #fff;
+  box-shadow: 0 0 0 2px #121212;
 }
 
 .card-count-badge.max-copies {
@@ -203,6 +183,10 @@ hr {
 
 .atk-res-field input {
   max-width: 65px;
+  background-color: #222;
+  color: #eee;
+  border: 1px solid #555;
+  border-radius: 4px;
 }
 
 /* === Expanded Dropzone on Filter Collapse === */
