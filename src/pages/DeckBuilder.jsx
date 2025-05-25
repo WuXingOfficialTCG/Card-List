@@ -63,6 +63,10 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onClose={() => setPopupIndex(null)}
           onPrev={() => setPopupIndex(i => Math.max(0, i - 1))}
           onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
+          isFirst={popupIndex === 0}
+          isLast={popupIndex === filteredCards.length - 1}
+          onAddCard={onAddCard}
+          onRemoveOne={onRemoveOne}
         />
       )}
 
