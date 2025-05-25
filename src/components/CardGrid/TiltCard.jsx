@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-
-export default function TiltCard({ src, alt, className, onClick, draggable, onDragStart }) {
+export default function TiltCard({ src, alt, className, onClick, draggable, onDragStart, style }) {
   const [tiltStyle, setTiltStyle] = useState({
     transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)',
   });
@@ -30,7 +28,7 @@ export default function TiltCard({ src, alt, className, onClick, draggable, onDr
       src={src}
       alt={alt}
       className={className}
-      style={tiltStyle}
+      style={{ ...style, ...tiltStyle }} // 🔥 FONDAMENTALE!
       onMouseMove={handleMouseMove}
       onMouseLeave={resetTilt}
       draggable={draggable}
