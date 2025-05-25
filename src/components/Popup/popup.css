@@ -133,3 +133,22 @@
   user-select: none;
 }
 
+.popup-image-zoom-container {
+  width: 80vw;
+  max-width: 400px;
+  max-height: 80vh;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.popup-image-zoom-container img.popup-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
