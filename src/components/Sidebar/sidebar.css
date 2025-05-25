@@ -84,19 +84,22 @@
   color: #ccc;
 }
 
-/* Nuova disposizione cerchi elemento: 4 sopra, 1 centrato sotto */
+/* Disposizione cerchi elemento: 4 sopra, 1 centrato sotto */
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
   grid-template-columns: repeat(4, 50px);
   grid-template-rows: 50px 50px;
-  gap: 10px;
+  gap: 6px;
   max-width: max-content;
   justify-content: center;
 }
 
+/* Cerchi elementi */
 .filters-section .filter-group:nth-child(3) label {
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -104,44 +107,30 @@
   border: 2px solid transparent;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Nascondi checkbox reale */
 .filters-section .filter-group:nth-child(3) input[type="checkbox"] {
   display: none;
 }
 
-/* Evidenziazione cerchio selezionato e hover */
+/* Evidenzia selezione e hover */
 .filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img,
 .filters-section .filter-group:nth-child(3) label:hover {
   border-color: #4caf50;
   box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.7);
 }
 
-.filters-section .filter-group:nth-child(3) label {
-  cursor: pointer;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid transparent;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  padding: 2px 0; /* diminuisce il padding verticale */
-  box-sizing: border-box;
-  display: flex;            /* aggiunto */
-  align-items: center;      /* aggiunto: centra verticalmente */
-  justify-content: center;  /* aggiunto: centra orizzontalmente */
-}
-
+/* Immagini nei cerchi */
 .filters-section .filter-group:nth-child(3) img {
-  width: auto;              /* cambiamo da 100% per evitare distorsioni */
-  height: 90%;              /* riduciamo un po’ per avere margine */
-  object-fit: contain;      /* mantiene proporzioni senza tagliare */
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
   pointer-events: none;
   border-radius: 50%;
 }
-
 
 hr {
   margin: 20px 0;
