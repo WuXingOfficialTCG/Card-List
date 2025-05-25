@@ -85,7 +85,12 @@ export default function Popup({
 
           <button
             onClick={() => onAddCard(card)}
-            style={{ fontSize: '20px', padding: '6px 12px', cursor: 'pointer' }}
+            disabled={deckCount >= 3}  // disabilita se 3 copie raggiunte
+            style={{
+              fontSize: '20px',
+              padding: '6px 12px',
+              cursor: deckCount >= 3 ? 'not-allowed' : 'pointer',
+            }}
             aria-label="Aggiungi una copia"
           >
             +
