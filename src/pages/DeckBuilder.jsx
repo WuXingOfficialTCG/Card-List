@@ -37,6 +37,12 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
     if (index !== -1) setPopupIndex(index);
   };
 
+  // Trova quante copie della carta selezionata sono nel mazzo
+  const deckCountForCard = (cardId) => {
+    const found = deck.find(c => c.card.id === cardId);
+    return found ? found.count : 0;
+  };
+
   return (
     <>
       <Header />
@@ -67,6 +73,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           isLast={popupIndex === filteredCards.length - 1}
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOne}
+          deckCount={deckCountForCard(filteredCards[popupIndex].id)}
         />
       )}
 
