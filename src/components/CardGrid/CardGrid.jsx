@@ -1,5 +1,5 @@
 import React from 'react';
-import TiltCard from './TiltCard';  // importa il TiltCard
+import TiltCard from './TiltCard';
 
 export default function CardGrid({ cards, onCardClick }) {
   const handleDragStart = (e, card) => {
@@ -18,9 +18,16 @@ export default function CardGrid({ cards, onCardClick }) {
               src={card.immagine}
               alt={card.nome}
               className="card-image"
-              onClick={() => onCardClick(card)}  // passa onClick
+              onClick={() => onCardClick(card)}
               draggable
-              onDragStart={(e) => handleDragStart(e, card)}  // passa onDragStart
+              onDragStart={(e) => handleDragStart(e, card)}
+              style={{
+                width: '140px',
+                height: '200px',
+                objectFit: 'cover',
+                borderRadius: '8px',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
+              }}
             />
           ))}
         </div>
