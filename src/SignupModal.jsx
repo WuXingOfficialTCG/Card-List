@@ -1,7 +1,7 @@
 // src/components/SignupModal.jsx
 import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "./firebase";
 
 export default function SignupModal({ onClose }) {
   const [email, setEmail] = useState("");
