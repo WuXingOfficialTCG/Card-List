@@ -1,20 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import DeckDropzone from './DeckDropzone';
 import PopupName from './PopupName';
 
-export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onToggleCollapse, collapsed }) {
-  // `collapsed` e `onToggleCollapse` possono essere gestiti dal genitore per sincronizzare con CardGrid
-
+export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onSaveDeck }) {
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Toggle filters section collapse
   const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
-  // Save deck as JSON file
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
       id: card.id,
@@ -41,7 +36,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   const handlePopupCancel = () => setShowPopup(false);
 
-  // Handle drag & drop outside deck dropzone to remove card from deck
   useEffect(() => {
     const handleDropOutside = (e) => {
       const cardData = e.dataTransfer.getData('application/deck-card');
@@ -66,56 +60,34 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   return (
     <>
-      {collapsed && (
-        <div
-          className="sidebar-hover-trigger"
-          onMouseEnter={() => onToggleCollapse(false)}
-          aria-label="Expand Sidebar"
-        />
-      )}
-
-      <aside
-        className={`sidebar${collapsed ? ' collapsed' : ''}${filtersCollapsed ? ' filters-collapsed' : ''}`}
-      >
+      <aside className={`sidebar${filtersCollapsed ? ' filters-collapsed' : ''}`}>
         <div className="filters-header">
           <h3>Filtri</h3>
           <button
             className="collapse-btn"
-            onClick={() => onToggleCollapse(!collapsed)}
-            aria-label={collapsed ? "Espandi Sidebar" : "Riduci Sidebar"}
+            onClick={toggleFiltersCollapse}
+            aria-label={filtersCollapsed ? "Espandi filtri" : "Riduci filtri"}
           >
-            {collapsed ? '›' : '‹'}
+            {filtersCollapsed ? '▼' : '▲'}
           </button>
-          {!collapsed && (
-            <button
-              className="collapse-btn"
-              onClick={toggleFiltersCollapse}
-              style={{ marginLeft: 10 }}
-              aria-label={filtersCollapsed ? "Espandi filtri" : "Riduci filtri"}
-            >
-              {filtersCollapsed ? '▼' : '▲'}
-            </button>
-          )}
         </div>
 
-        {!collapsed && (
-          <div className="sidebar-main-grid">
-            {!filtersCollapsed && (
-              <div className="filters-container">
-                <FiltersSection filters={filters} onFilterChange={onFilterChange} />
-              </div>
-            )}
-
-            <div className="deckdropzone-container">
-              <DeckDropzone
-                deck={deck}
-                onAddCard={onAddCard}
-                onRemoveOne={onRemoveOne}
-                onSave={handleSaveDeck}
-              />
+        <div className="sidebar-main-grid">
+          {!filtersCollapsed && (
+            <div className="filters-container">
+              <FiltersSection filters={filters} onFilterChange={onFilterChange} />
             </div>
+          )}
+
+          <div className="deckdropzone-container">
+            <DeckDropzone
+              deck={deck}
+              onAddCard={onAddCard}
+              onRemoveOne={onRemoveOne}
+              onSave={handleSaveDeck}
+            />
           </div>
-        )}
+        </div>
       </aside>
 
       {showPopup && (
