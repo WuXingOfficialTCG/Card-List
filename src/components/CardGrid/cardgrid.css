@@ -6,7 +6,7 @@
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
   box-sizing: border-box;
-  background-color: #f9f9f9;
+  background-color: transparent;
 }
 
 .card-image {
