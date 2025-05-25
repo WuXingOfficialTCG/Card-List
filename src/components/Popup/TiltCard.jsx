@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
 export default function TiltCard({ src, alt, className }) {
-  const [tiltStyle, setTiltStyle] = useState({
+  const [style, setStyle] = useState({
     transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)',
+    transition: 'transform 0.3s ease',
+    outline: 'none',
+    border: 'none',
+    boxShadow: 'none',
+    userSelect: 'none',
   });
 
   const handleMouseMove = (e) => {
@@ -12,17 +17,19 @@ export default function TiltCard({ src, alt, className }) {
     const rotateX = (-y / rect.height) * 15;
     const rotateY = (x / rect.width) * 15;
 
-    setTiltStyle({
+    setStyle(prev => ({
+      ...prev,
       transform: `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`,
       transition: 'transform 0.1s ease',
-    });
+    }));
   };
 
   const resetTilt = () => {
-    setTiltStyle({
+    setStyle(prev => ({
+      ...prev,
       transform: 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)',
       transition: 'transform 0.3s ease',
-    });
+    }));
   };
 
   return (
@@ -30,7 +37,7 @@ export default function TiltCard({ src, alt, className }) {
       src={src}
       alt={alt}
       className={className}
-      style={tiltStyle}
+      style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={resetTilt}
       draggable={false}
