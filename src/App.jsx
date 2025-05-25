@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase'; // Assicurati che esista
+import { auth } from './firebase';
 
 import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
-import SignupModal from './SignupModal';
+import SignupModal from './components/SignupModal';
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -18,15 +18,19 @@ export default function App() {
 
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
+  // Controllo autenticazione
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setShowModal(!currentUser); // Mostra il modal se non loggato
       setCheckingAuth(false);
     });
-    return () => unsub();
+    return () => unsubscribe();
   }, []);
 
+  // Salvataggio del mazzo nel localStorage
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
@@ -76,7 +80,13 @@ export default function App() {
 
   return (
     <Router>
-      {!user && <SignupModal onClose={() => {}} />}
+      {showModal && (
+        <SignupModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onSuccess={() => setShowModal(false)}
+        />
+      )}
       {user && <FloatingMenu onExport={handleExport} />}
       <Routes>
         <Route
