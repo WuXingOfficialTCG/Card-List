@@ -21,7 +21,7 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Monitor authentication state
+  // Monitoraggio autenticazione
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -31,7 +31,7 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // Persist deck changes to localStorage
+  // Salvataggio automatico deck
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
@@ -85,27 +85,32 @@ export default function App() {
 
   return (
     <Router>
-      {showModal && (
-        <SignupModal
-          show={showModal}
-          onClose={() => setShowModal(false)}
-          onSuccess={() => setShowModal(false)}
-        />
-      )}
-      {user && <FloatingMenu onExport={handleExport} />}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <DeckBuilder
-              deck={deck}
-              onAddCard={onAddCard}
-              onRemoveOne={onRemoveOne}
-              setDeck={setDeck}
-            />
-          }
-        />
-      </Routes>
+      <div className="app-container">
+        {showModal && (
+          <SignupModal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            onSuccess={() => setShowModal(false)}
+          />
+        )}
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <DeckBuilder
+                deck={deck}
+                onAddCard={onAddCard}
+                onRemoveOne={onRemoveOne}
+                setDeck={setDeck}
+              />
+            }
+          />
+        </Routes>
+
+        {/* Floating menu visibile solo se l'utente è autenticato */}
+        {user && <FloatingMenu onExport={handleExport} />}
+      </div>
     </Router>
   );
 }
