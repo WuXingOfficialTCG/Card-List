@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 
