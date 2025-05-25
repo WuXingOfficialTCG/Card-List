@@ -1,14 +1,10 @@
-/* === Google Fonts (puoi anche spostarlo in HTML) === */
-/* @import url('https://fonts.googleapis.com/css2?family=YourFontChoice'); */
-
-/* === Sidebar Container === */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: 220px;
   height: 100vh;
-  background-color: #121212; /* sfondo scuro */
+  background-color: #121212;
   border-right: 1px solid #333;
   padding: 20px;
   box-sizing: border-box;
@@ -21,7 +17,6 @@
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
-/* === Filters Header === */
 .filters-header {
   display: flex;
   justify-content: space-between;
@@ -37,7 +32,6 @@
   color: #ddd;
 }
 
-/* === Collapse Button (solo toggle filtri) === */
 .collapse-btn {
   background: transparent;
   border: none;
@@ -52,7 +46,6 @@
   color: #fff;
 }
 
-/* === Filters Section === */
 .filters-section {
   flex: none;
 }
@@ -61,7 +54,6 @@
   display: none;
 }
 
-/* === Filter Groups === */
 .filter-group {
   margin-bottom: 20px;
 }
@@ -85,7 +77,6 @@
   color: #eee;
 }
 
-/* === Checkbox Group === */
 .checkbox-group label {
   display: block;
   margin-bottom: 4px;
@@ -93,12 +84,11 @@
   color: #ccc;
 }
 
-/* === Elementi immagini filtro === */
 .filters-section .filter-group:nth-child(3) > div {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  max-width: 200px; /* più stretto per andare a capo dopo circa 3 */
+  max-width: 200px;
 }
 
 .filters-section .filter-group:nth-child(3) label {
@@ -106,10 +96,11 @@
   display: inline-block;
   width: 60px;
   height: 60px;
-  border-radius: 8px;
+  border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .filters-section .filter-group:nth-child(3) input[type="checkbox"] {
@@ -118,25 +109,25 @@
 
 .filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img,
 .filters-section .filter-group:nth-child(3) label:hover {
-  border-color: #2980ff; /* bordo blu per selezionati o hover */
+  border-color: #4caf50;
+  box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.7);
 }
 
 .filters-section .filter-group:nth-child(3) img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
-  pointer-events: none; /* evita che l’immagine blocchi il clic sul label */
+  pointer-events: none;
+  border-radius: 50%;
 }
 
-/* === Horizontal Rule === */
 hr {
   margin: 20px 0;
   border: none;
   border-top: 1px solid #444;
 }
 
-/* === Deck Dropzone === */
 .deck-dropzone {
   flex-grow: 1;
   padding: 10px;
@@ -159,7 +150,6 @@ hr {
   color: #999;
 }
 
-/* === Deck Cards Grid === */
 .deck-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -167,7 +157,6 @@ hr {
   margin-top: 10px;
 }
 
-/* === Single Deck Card === */
 .deck-card-wrapper {
   position: relative;
   aspect-ratio: 5 / 7;
@@ -184,7 +173,6 @@ hr {
   display: block;
 }
 
-/* === Card Count Badge === */
 .card-count-badge {
   position: absolute;
   top: -6px;
@@ -205,7 +193,6 @@ hr {
   background-color: #cc0000;
 }
 
-/* === ATK & RES Inline Fields === */
 .atk-res-inline {
   display: flex;
   gap: 12px;
@@ -225,7 +212,6 @@ hr {
   border-radius: 4px;
 }
 
-/* === Expanded Dropzone on Filter Collapse === */
 .filters-collapsed .deck-dropzone {
   flex-grow: 2;
 }
