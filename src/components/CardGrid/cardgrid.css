@@ -1,29 +1,37 @@
+/* CardGrid.css */
+
 .card-grid {
-  position: fixed;   /* fissala rispetto alla finestra */
-  top: 0;            /* in alto */
-  left: 220px;       /* 220px da sinistra */
-  width: 220px;      /* larghezza fissa */
-  height: 100vh;     /* altezza piena della finestra */
-  overflow-y: auto;  /* scroll verticale se serve */
+  flex: 1; /* Occupa tutto lo spazio disponibile accanto alla sidebar */
+  height: 100vh; /* Altezza piena della finestra */
+  overflow-y: auto; /* Scroll verticale se serve */
   display: grid;
-  grid-template-columns: 1fr; /* una colonna sola, che riempie tutta la larghezza */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive */
   gap: 16px;
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
-  background-color: white; /* opzionale, per visibilità */
-  border-right: 1px solid #ccc; /* opzionale, separazione visiva */
+  background-color: #f9f9f9; /* Sfondo chiaro */
 }
 
-.card-image {
-  width: 100%;  /* l'immagine prende tutta la larghezza della card-grid */
-  height: auto; /* mantiene proporzioni */
+/* Card contenitore */
+.card {
+  background: #fff;
   border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-  transition: transform 0.2s ease;
 }
 
-.card-image:hover {
-  transform: scale(1.05);
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Immagine della card */
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px 8px 0 0;
 }
