@@ -17,19 +17,18 @@ export default function Popup({
   const [isZoomed, setIsZoomed] = useState(false);
 
   const handleMouseMove = (e) => {
+    if (!isZoomed) return;
     const { left, top, width, height } = imgRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
     setBackgroundPos(`${x}% ${y}%`);
   };
 
-  const handleMouseEnter = () => {
-    setIsZoomed(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsZoomed(false);
-    setBackgroundPos('50% 50%');
+  const toggleZoom = () => {
+    setIsZoomed(z => {
+      if (z) setBackgroundPos('50% 50%'); // reset posizione zoom quando chiudo
+      return !z;
+    });
   };
 
   return (
@@ -55,9 +54,8 @@ export default function Popup({
 
         <div
           className="popup-image-zoom-container"
+          onClick={toggleZoom}
           onMouseMove={handleMouseMove}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
           ref={imgRef}
           style={{
             backgroundImage: `url(${card.immagine})`,
