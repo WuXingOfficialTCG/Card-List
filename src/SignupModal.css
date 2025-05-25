@@ -82,3 +82,22 @@
   text-align: center;
   margin-top: -8px;
 }
+
+@media (max-width: 600px) {
+  .signup-modal {
+    padding: 20px 15px;
+    border-radius: 8px;
+  }
+
+  .signup-title {
+    font-size: 1.5rem;
+  }
+
+  .signup-buttons {
+    flex-direction: column;
+  }
+
+  .signup-button {
+    width: 100%;
+  }
+}
