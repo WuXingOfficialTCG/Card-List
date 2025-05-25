@@ -117,21 +117,31 @@
   box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.7);
 }
 
-/* Immagini cerchio elemento */
+.filters-section .filter-group:nth-child(3) label {
+  cursor: pointer;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  padding: 2px 0; /* diminuisce il padding verticale */
+  box-sizing: border-box;
+  display: flex;            /* aggiunto */
+  align-items: center;      /* aggiunto: centra verticalmente */
+  justify-content: center;  /* aggiunto: centra orizzontalmente */
+}
+
 .filters-section .filter-group:nth-child(3) img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  width: auto;              /* cambiamo da 100% per evitare distorsioni */
+  height: 90%;              /* riduciamo un po’ per avere margine */
+  object-fit: contain;      /* mantiene proporzioni senza tagliare */
   pointer-events: none;
   border-radius: 50%;
 }
 
-/* Centrare il quinto cerchio sotto */
-.filters-section .filter-group:nth-child(3) > div label:nth-child(5) {
-  grid-column: 2 / span 2;
-  justify-self: center;
-}
 
 hr {
   margin: 20px 0;
