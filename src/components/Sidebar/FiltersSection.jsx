@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 const imageMap = {
-  Water: 'abc123',  // sostituisci con ID immagine reale Imgur
-  Wood: 'def456',
-  Metal: 'ghi789',
-  Fire: 'jkl012',
-  Earth: 'mno345',
+  Water: 'P62gDkj',  // sostituisci con ID immagine reale Imgur
+  Wood: 'y4qbsOM',
+  Metal: 'QNaDBt5',
+  Fire: 'mMBZDY7',
+  Earth: 'a0tn6o9',
 };
 
 export default function FiltersSection({ filters = { elemento: [], tipo: [] }, onFilterChange }) {
