@@ -53,7 +53,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
       </div>
 
       <div className="filter-group">
-        <label>Effetti (tipo o descrizione)</label>
+        <label>Effetti</label>
         <input
           type="text"
           value={effetti}
@@ -63,55 +63,23 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
       </div>
 
       <div className="filter-group">
-        <span style={{ fontWeight: 'bold', display: 'block', marginBottom: 6 }}>Elemento</span>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, maxWidth: 220 }}>
+        <span className="elemento-label">Elemento</span>
+        <div className="elementi-wrapper">
           {(filters.elemento || []).map(el => (
             <label
               key={el}
-              style={{
-                cursor: 'pointer',
-                position: 'relative',
-                width: 40,
-                height: 40,
-                borderRadius: '50%',
-                overflow: 'hidden',
-                display: 'inline-block',
-              }}
+              className={`elemento-label-circle ${elementi.includes(el) ? 'selected' : ''}`}
+              title={el}
             >
               <input
                 type="checkbox"
                 checked={elementi.includes(el)}
                 onChange={() => toggle(el, elementi, setElementi, 'elemento')}
-                style={{
-                  position: 'absolute',
-                  opacity: 0,
-                  width: '100%',
-                  height: '100%',
-                  top: 0,
-                  left: 0,
-                  margin: 0,
-                  cursor: 'pointer',
-                  zIndex: 2,
-                }}
               />
               <img
                 src={`https://i.imgur.com/${imageMap[el]}.png`}
                 alt={el}
-                title={el}
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  objectFit: 'cover',
-                  borderRadius: '50%',
-                  border: elementi.includes(el) ? '2px solid #4caf50' : '2px solid transparent',
-                  boxShadow: elementi.includes(el)
-                    ? '0 0 8px 2px rgba(76, 175, 80, 0.7)'
-                    : 'none',
-                  userSelect: 'none',
-                  display: 'block',
-                  transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
-                  pointerEvents: 'none', // evita problemi click sull'immagine
-                }}
+                draggable={false}
               />
             </label>
           ))}
@@ -122,7 +90,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
         <label>Tipo</label>
         <div className="checkbox-group" style={{ userSelect: 'none' }}>
           {(filters.tipo || []).map(t => (
-            <label key={t} style={{ display: 'block', cursor: 'pointer', marginBottom: 4 }}>
+            <label key={t} className="checkbox-label">
               <input
                 type="checkbox"
                 checked={tipi.includes(t)}
@@ -134,40 +102,26 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
         </div>
       </div>
 
-      <div className="filter-group atk-res-inline" style={{ display: 'flex', gap: 20 }}>
-        <div className="atk-res-field" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div className="filter-group atk-res-inline">
+        <div className="atk-res-field">
           <label>Atk</label>
           <input
             type="number"
             value={atk}
             onChange={e => setAtk(e.target.value)}
             min="0"
-            style={{
-              maxWidth: 65,
-              backgroundColor: '#222',
-              color: '#eee',
-              border: '1px solid #555',
-              borderRadius: 4,
-              padding: '6px 8px',
-            }}
+            className="number-input"
           />
         </div>
 
-        <div className="atk-res-field" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <div className="atk-res-field">
           <label>Res</label>
           <input
             type="number"
             value={res}
             onChange={e => setRes(e.target.value)}
             min="0"
-            style={{
-              maxWidth: 65,
-              backgroundColor: '#222',
-              color: '#eee',
-              border: '1px solid #555',
-              borderRadius: 4,
-              padding: '6px 8px',
-            }}
+            className="number-input"
           />
         </div>
       </div>
