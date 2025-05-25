@@ -7,12 +7,12 @@ export default function CardGrid({ cards, onCardClick }) {
   };
 
   return (
-    <main>
-      <div className="card-grid">
-        {cards.length === 0 ? (
-          <p>Nessuna carta trovata.</p>
-        ) : (
-          cards.map(card => (
+    <main className="card-grid-container">
+      {cards.length === 0 ? (
+        <p className="no-cards-message">Nessuna carta trovata.</p>
+      ) : (
+        <div className="card-grid">
+          {cards.map((card) => (
             <img
               key={card.id}
               src={card.immagine}
@@ -20,11 +20,11 @@ export default function CardGrid({ cards, onCardClick }) {
               className="card-image"
               onClick={() => onCardClick(card)}
               draggable
-              onDragStart={e => handleDragStart(e, card)}
+              onDragStart={(e) => handleDragStart(e, card)}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
