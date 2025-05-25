@@ -1,8 +1,19 @@
 import React, { useRef } from 'react';
+import TiltCard from './TiltCard'; // importa tilt senza + e -
 import './popup.css';
 import './PopupResponsive.css';
 
-export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }) {
+export default function Popup({
+  card,
+  onClose,
+  onPrev,
+  onNext,
+  isFirst,
+  isLast,
+  onAddCard,
+  onRemoveOne,
+  deckCount = 0,
+}) {
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
@@ -16,45 +27,28 @@ export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }
 
     if (Math.abs(deltaX) > 50) {
       if (deltaX > 0 && !isFirst) {
-        console.log('Swipe right: prev');
         onPrev();
       } else if (deltaX < 0 && !isLast) {
-        console.log('Swipe left: next');
         onNext();
       }
     }
   };
 
   return (
-    <div
-      className="popup-overlay"
-      onClick={() => {
-        console.log('Overlay clicked: close popup');
-        onClose();
-      }}
-    >
+    <div className="popup-overlay" onClick={onClose}>
       <div
         className="popup-content"
         onClick={e => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <button
-          className="popup-close"
-          onClick={() => {
-            console.log('Close button clicked');
-            onClose();
-          }}
-        >
-          ×
-        </button>
+        <button className="popup-close" onClick={onClose}>×</button>
 
         {!isFirst && (
           <button
             className="popup-nav popup-prev"
             onClick={e => {
               e.stopPropagation();
-              console.log('Prev clicked');
               onPrev();
             }}
             aria-label="Carta precedente"
@@ -63,14 +57,46 @@ export default function Popup({ card, onClose, onPrev, onNext, isFirst, isLast }
           </button>
         )}
 
-        <img src={card.immagine} alt={card.nome} className="popup-image" />
+        <TiltCard src={card.immagine} alt={card.nome} className="popup-image" />
+
+        <div
+          className="popup-controls"
+          style={{
+            marginTop: '10px',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '12px',
+          }}
+        >
+          <button
+            onClick={() => onRemoveOne(card)}
+            disabled={deckCount <= 0}
+            style={{
+              fontSize: '20px',
+              padding: '6px 12px',
+              cursor: deckCount <= 0 ? 'not-allowed' : 'pointer',
+            }}
+            aria-label="Rimuovi una copia"
+          >
+            −
+          </button>
+
+          <span style={{ fontSize: '18px', alignSelf: 'center' }}>{deckCount}</span>
+
+          <button
+            onClick={() => onAddCard(card)}
+            style={{ fontSize: '20px', padding: '6px 12px', cursor: 'pointer' }}
+            aria-label="Aggiungi una copia"
+          >
+            +
+          </button>
+        </div>
 
         {!isLast && (
           <button
             className="popup-nav popup-next"
             onClick={e => {
               e.stopPropagation();
-              console.log('Next clicked');
               onNext();
             }}
             aria-label="Carta successiva"
