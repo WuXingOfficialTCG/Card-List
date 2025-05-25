@@ -4,7 +4,6 @@ import CardGrid from '../components/CardGrid/CardGrid';
 import Popup from '../components/Popup/Popup';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
-
 import { initialFilters, availableFilters, filterCards } from '../utility/filters';
 
 export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
@@ -41,7 +40,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   return (
     <>
       <Header />
-      <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
+      <div style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
@@ -49,15 +48,13 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOne}
         />
-        <div style={{ flex: 1, overflowY: 'auto' }}>
-          <CardGrid
-            cards={filteredCards}
-            deck={deck}
-            onAddCard={onAddCard}
-            onRemoveOne={onRemoveOne}
-            onCardClick={openPopup}
-          />
-        </div>
+        <CardGrid
+          cards={filteredCards}
+          deck={deck}
+          onAddCard={onAddCard}
+          onRemoveOne={onRemoveOne}
+          onCardClick={openPopup}
+        />
       </div>
 
       {popupIndex !== null && (
