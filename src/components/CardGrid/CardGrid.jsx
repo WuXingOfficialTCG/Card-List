@@ -1,4 +1,5 @@
 import React from 'react';
+import TiltCard from '../path/to/TiltCard';  // aggiorna il percorso corretto
 import './cardgrid.css';
 
 export default function CardGrid({ cards, onCardClick }) {
@@ -13,7 +14,7 @@ export default function CardGrid({ cards, onCardClick }) {
       ) : (
         <div className="card-grid">
           {cards.map((card) => (
-            <img
+            <TiltCard
               key={card.id}
               src={card.immagine}
               alt={card.nome}
