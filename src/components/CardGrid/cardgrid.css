@@ -1,37 +1,35 @@
-/* CardGrid.css */
+.card-grid-container {
+  margin-left: 220px;              /* spazio per la sidebar */
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  min-height: 100vh;               /* fa sì che il background arrivi fino in fondo */
+}
 
 .card-grid {
-  flex: 1; /* Occupa tutto lo spazio disponibile accanto alla sidebar */
-  height: 100vh; /* Altezza piena della finestra */
-  overflow-y: auto; /* Scroll verticale se serve */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: #f9f9f9; /* Sfondo chiaro */
 }
 
-/* Card contenitore */
-.card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Immagine della card */
 .card-image {
   width: 100%;
   height: auto;
+  border-radius: 8px;
   object-fit: cover;
-  display: block;
-  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-image:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.no-cards-message {
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+  margin-top: 40px;
 }
