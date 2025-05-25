@@ -1,57 +1,77 @@
-// src/components/SignupModal.jsx
-import { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "./firebase";
+import { useState } from 'react';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './firebase';
 
-export default function SignupModal({ onClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function SignupModal({ show, onClose, onSuccess }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSignup = async () => {
+  if (!show) return null;
+
+  const handleRegister = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      onClose(); // chiudi il popup
+      onSuccess();
     } catch (err) {
-      alert("Errore registrazione: " + err.message);
+      setError(err.message);
     }
   };
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      onClose(); // chiudi il popup
+      onSuccess();
     } catch (err) {
-      alert("Errore login: " + err.message);
+      setError(err.message);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 className="text-xl mb-4">Registrati o Accedi</h2>
+    <div style={styles.overlay}>
+      <div style={styles.modal}>
+        <h2>Accedi o Registrati</h2>
         <input
           type="email"
           placeholder="Email"
-          className="w-full mb-2 p-2 border rounded"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
+          style={styles.input}
         />
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-4 p-2 border rounded"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
+          style={styles.input}
         />
-        <div className="flex gap-2">
-          <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded w-full">
-            Accedi
-          </button>
-          <button onClick={handleSignup} className="bg-green-500 text-white px-4 py-2 rounded w-full">
-            Registrati
-          </button>
+        {error && <p style={styles.error}>{error}</p>}
+        <div style={styles.buttons}>
+          <button onClick={handleLogin}>Accedi</button>
+          <button onClick={handleRegister}>Registrati</button>
         </div>
       </div>
     </div>
   );
 }
+
+const styles = {
+  overlay: {
+    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+    backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+    alignItems: 'center', justifyContent: 'center', zIndex: 1000
+  },
+  modal: {
+    background: 'white', padding: 20, borderRadius: 8, minWidth: 300,
+    display: 'flex', flexDirection: 'column', gap: 10
+  },
+  input: {
+    padding: 10, fontSize: 16
+  },
+  buttons: {
+    display: 'flex', justifyContent: 'space-between', gap: 10
+  },
+  error: {
+    color: 'red', fontSize: 14
+  }
+};
