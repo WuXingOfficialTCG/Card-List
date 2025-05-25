@@ -64,23 +64,18 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
 
       <div className="filter-group">
         <label>Elemento</label>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '10px',
-            maxWidth: '220px',
-          }}
-        >
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, maxWidth: 220 }}>
           {(filters.elemento || []).map(el => (
             <label
               key={el}
               style={{
                 cursor: 'pointer',
-                display: 'inline-block',
                 position: 'relative',
-                width: '40px',
-                height: '40px',
+                width: 40,
+                height: 40,
+                borderRadius: '50%',
+                overflow: 'hidden',
+                display: 'inline-block',
               }}
             >
               <input
@@ -104,13 +99,17 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
                 alt={el}
                 title={el}
                 style={{
-                  border: elementi.includes(el) ? '2px solid blue' : '2px solid transparent',
-                  borderRadius: '50%',
                   width: '40px',
                   height: '40px',
                   objectFit: 'cover',
-                  display: 'block',
+                  borderRadius: '50%',
+                  border: elementi.includes(el) ? '2px solid #4caf50' : '2px solid transparent',
+                  boxShadow: elementi.includes(el)
+                    ? '0 0 8px 2px rgba(76, 175, 80, 0.7)'
+                    : 'none',
                   userSelect: 'none',
+                  display: 'block',
+                  transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
                 }}
               />
             </label>
@@ -120,9 +119,9 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
 
       <div className="filter-group">
         <label>Tipo</label>
-        <div className="checkbox-group">
+        <div className="checkbox-group" style={{ userSelect: 'none' }}>
           {(filters.tipo || []).map(t => (
-            <label key={t} style={{ display: 'block', cursor: 'pointer', userSelect: 'none' }}>
+            <label key={t} style={{ display: 'block', cursor: 'pointer', marginBottom: 4 }}>
               <input
                 type="checkbox"
                 checked={tipi.includes(t)}
@@ -134,24 +133,40 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
         </div>
       </div>
 
-      <div className="filter-group atk-res-inline" style={{ display: 'flex', gap: '20px' }}>
-        <div className="atk-res-field">
+      <div className="filter-group atk-res-inline" style={{ display: 'flex', gap: 20 }}>
+        <div className="atk-res-field" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <label>Atk</label>
           <input
             type="number"
             value={atk}
             onChange={e => setAtk(e.target.value)}
             min="0"
+            style={{
+              maxWidth: 65,
+              backgroundColor: '#222',
+              color: '#eee',
+              border: '1px solid #555',
+              borderRadius: 4,
+              padding: '6px 8px',
+            }}
           />
         </div>
 
-        <div className="atk-res-field">
+        <div className="atk-res-field" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <label>Res</label>
           <input
             type="number"
             value={res}
             onChange={e => setRes(e.target.value)}
             min="0"
+            style={{
+              maxWidth: 65,
+              backgroundColor: '#222',
+              color: '#eee',
+              border: '1px solid #555',
+              borderRadius: 4,
+              padding: '6px 8px',
+            }}
           />
         </div>
       </div>
