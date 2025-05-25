@@ -12,9 +12,11 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
+  // Caricamento carte e popup supporto
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
+
     if (!lastShown || now - Number(lastShown) > 6 * 60 * 60 * 1000) {
       setShowSupport(true);
       localStorage.setItem('supportPopupLastShown', now.toString());
@@ -26,18 +28,21 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
       .catch(console.error);
   }, []);
 
+  // Filtra le carte in base ai filtri impostati
   const filteredCards = filterCards(cards, filters);
 
+  // Aggiorna un filtro specifico
   const updateFilter = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
 
+  // Apri popup carta selezionata
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  // Trova quante copie della carta selezionata sono nel mazzo
+  // Conta quante copie di una carta ci sono nel mazzo
   const deckCountForCard = (cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
