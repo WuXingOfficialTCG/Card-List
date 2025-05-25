@@ -22,7 +22,7 @@
   max-width: 90vw;
   max-height: 90vh;
   padding: 20px;
-  background: white;
+  /* background: white;  ← rimosso per togliere il box bianco */
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
