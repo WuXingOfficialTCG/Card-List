@@ -84,18 +84,21 @@
   color: #ccc;
 }
 
+/* Nuova disposizione cerchi elemento: 4 sopra, 1 centrato sotto */
 .filters-section .filter-group:nth-child(3) > div {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  grid-template-rows: 50px 50px;
   gap: 10px;
-  max-width: 200px;
+  max-width: max-content;
+  justify-content: center;
 }
 
 .filters-section .filter-group:nth-child(3) label {
   cursor: pointer;
   display: inline-block;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
@@ -107,12 +110,14 @@
   display: none;
 }
 
+/* Evidenziazione cerchio selezionato e hover */
 .filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img,
 .filters-section .filter-group:nth-child(3) label:hover {
   border-color: #4caf50;
   box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.7);
 }
 
+/* Immagini cerchio elemento */
 .filters-section .filter-group:nth-child(3) img {
   width: 100%;
   height: 100%;
@@ -120,6 +125,12 @@
   display: block;
   pointer-events: none;
   border-radius: 50%;
+}
+
+/* Centrare il quinto cerchio sotto */
+.filters-section .filter-group:nth-child(3) > div label:nth-child(5) {
+  grid-column: 2 / span 2;
+  justify-self: center;
 }
 
 hr {
