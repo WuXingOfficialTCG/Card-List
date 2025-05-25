@@ -1,26 +1,25 @@
 .card-grid {
-  margin-left: 220px; /* spazio per sidebar */
+  margin-left: 220px; /* spazio per la sidebar */
   width: calc(100% - 220px);
   padding: 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, 140px); /* dimensione fissa */
   gap: 16px;
   box-sizing: border-box;
   background-color: transparent;
+  justify-content: center; /* centra le colonne */
 }
 
 .card-image {
-  width: 100%;        /* riempie la cella della griglia */
-  max-width: 160px;   /* non più grande di una cella */
-  height: auto;
+  width: 140px;
+  height: 200px;
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transition: transform 0.2s ease;
-  user-select: none;   /* evita selezioni fastidiose */
-  display: block;      /* elimina spazi bianchi sotto immagine */
-  margin: 0 auto;      /* centra se più piccola */
+  display: block;
+  user-select: none;
 }
 
 .card-image:hover {
