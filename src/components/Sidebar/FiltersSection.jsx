@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export default function FiltersSection({ filters = { elemento: [], tipo: [] }, onFilterChange }) {
   const [name, setName] = useState('');
-  const [effetti, setEffetti] = useState('');
+  const [descrizione, setDescrizione] = useState('');
   const [atk, setAtk] = useState('');
   const [res, setRes] = useState('');
   const [elementi, setElementi] = useState([]);
@@ -13,8 +13,8 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
   }, [name, onFilterChange]);
 
   useEffect(() => {
-    onFilterChange('effetti', effetti);
-  }, [effetti, onFilterChange]);
+    onFilterChange('descrizione', descrizione);
+  }, [descrizione, onFilterChange]);
 
   useEffect(() => {
     onFilterChange('atk', atk);
@@ -45,12 +45,12 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
       </div>
 
       <div className="filter-group">
-        <label>Effetti</label>
+        <label>Descrizione</label>
         <input
           type="text"
-          value={effetti}
-          onChange={e => setEffetti(e.target.value)}
-          placeholder="Filtra per effetti"
+          value={descrizione}
+          onChange={e => setDescrizione(e.target.value)}
+          placeholder="Filtra per descrizione"
         />
       </div>
 
