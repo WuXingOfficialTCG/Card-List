@@ -63,7 +63,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
       </div>
 
       <div className="filter-group">
-        <label>Elemento</label>
+        <span style={{ fontWeight: 'bold', display: 'block', marginBottom: 6 }}>Elemento</span>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, maxWidth: 220 }}>
           {(filters.elemento || []).map(el => (
             <label
@@ -110,6 +110,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
                   userSelect: 'none',
                   display: 'block',
                   transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+                  pointerEvents: 'none', // evita problemi click sull'immagine
                 }}
               />
             </label>
