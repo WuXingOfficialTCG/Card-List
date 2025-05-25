@@ -10,7 +10,8 @@ import SignupModal from './SignupModal';
 export default function App() {
   const [deck, setDeck] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('deck')) || [];
+      const saved = localStorage.getItem('deck');
+      return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
     }
@@ -20,39 +21,41 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Controllo autenticazione
+  // Monitor authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setShowModal(!currentUser); // Mostra il modal se non loggato
+      setShowModal(!currentUser);
       setCheckingAuth(false);
     });
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
 
-  // Salvataggio del mazzo nel localStorage
+  // Persist deck changes to localStorage
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
   const onAddCard = (card) => {
-    setDeck((deck) => {
-      const found = deck.find((c) => c.card.id === card.id);
-      const total = deck.reduce((sum, c) => sum + c.count, 0);
-      if (found) {
-        if (found.count >= 3) return deck;
-        return deck.map((c) =>
+    setDeck((currentDeck) => {
+      const totalCards = currentDeck.reduce((sum, c) => sum + c.count, 0);
+      const existingCard = currentDeck.find((c) => c.card.id === card.id);
+
+      if (totalCards >= 40) return currentDeck;
+      if (existingCard && existingCard.count >= 3) return currentDeck;
+
+      if (existingCard) {
+        return currentDeck.map((c) =>
           c.card.id === card.id ? { ...c, count: c.count + 1 } : c
         );
       }
-      if (total >= 40) return deck;
-      return [...deck, { card, count: 1 }];
+      return [...currentDeck, { card, count: 1 }];
     });
   };
 
   const onRemoveOne = (card) => {
-    setDeck((deck) =>
-      deck
+    setDeck((currentDeck) =>
+      currentDeck
         .map((c) =>
           c.card.id === card.id ? { ...c, count: c.count - 1 } : c
         )
@@ -66,14 +69,16 @@ export default function App() {
       nome: card.nome,
       count,
     }));
+
     const blob = new Blob([JSON.stringify(data, null, 2)], {
       type: 'application/json',
     });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = 'deck.json';
     a.click();
-    URL.revokeObjectURL(a.href);
+    URL.revokeObjectURL(url);
   };
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
