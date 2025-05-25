@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
+const imageMap = {
+  Water: 'abc123',  // sostituisci con ID immagine reale Imgur
+  Wood: 'def456',
+  Metal: 'ghi789',
+  Fire: 'jkl012',
+  Earth: 'mno345',
+};
+
 export default function FiltersSection({ filters = { elemento: [], tipo: [] }, onFilterChange }) {
   const [name, setName] = useState('');
   const [effetti, setEffetti] = useState('');
@@ -12,7 +20,6 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
     onFilterChange('nome', name);
   }, [name, onFilterChange]);
 
-  // Qui usiamo 'effetti' come chiave per filtro
   useEffect(() => {
     onFilterChange('effetti', effetti);
   }, [effetti, onFilterChange]);
@@ -57,15 +64,38 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
 
       <div className="filter-group">
         <label>Elemento</label>
-        <div className="checkbox-group">
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+            maxWidth: '220px', // fa andare a capo dopo circa 3 immagini
+          }}
+        >
           {(filters.elemento || []).map(el => (
-            <label key={el}>
+            <label
+              key={el}
+              style={{ cursor: 'pointer', display: 'inline-block' }}
+            >
               <input
                 type="checkbox"
                 checked={elementi.includes(el)}
                 onChange={() => toggle(el, elementi, setElementi, 'elemento')}
+                style={{ display: 'none' }}
               />
-              {el}
+              <img
+                src={`https://i.imgur.com/${imageMap[el]}.png`}
+                alt={el}
+                title={el}
+                style={{
+                  border: elementi.includes(el) ? '2px solid blue' : '2px solid transparent',
+                  borderRadius: '8px',
+                  width: '60px',
+                  height: '60px',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+              />
             </label>
           ))}
         </div>
