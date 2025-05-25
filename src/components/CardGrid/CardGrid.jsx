@@ -1,6 +1,5 @@
 import React from 'react';
-import TiltCard from './TiltCard';  // aggiorna il percorso corretto
-import './cardgrid.css';
+import TiltCard from './TiltCard';  // importa il TiltCard
 
 export default function CardGrid({ cards, onCardClick }) {
   const handleDragStart = (e, card) => {
@@ -19,9 +18,9 @@ export default function CardGrid({ cards, onCardClick }) {
               src={card.immagine}
               alt={card.nome}
               className="card-image"
-              onClick={() => onCardClick(card)}
+              onClick={() => onCardClick(card)}  // passa onClick
               draggable
-              onDragStart={(e) => handleDragStart(e, card)}
+              onDragStart={(e) => handleDragStart(e, card)}  // passa onDragStart
             />
           ))}
         </div>
