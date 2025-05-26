@@ -22,7 +22,7 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Controllo autenticazione Firebase
+  // Monitoraggio stato autenticazione Firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -32,7 +32,7 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // Salva il mazzo su localStorage ogni volta che cambia
+  // Salva mazzo su localStorage ad ogni modifica
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
@@ -87,7 +87,7 @@ export default function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* Modal registrazione/login */}
+        {/* Modal per login/registrazione */}
         {showModal && (
           <SignupModal
             show={showModal}
@@ -111,7 +111,7 @@ export default function App() {
           <Route path="/privacy-policy" element={<Disclaimer />} />
         </Routes>
 
-        {/* Menu esportazione visibile solo se loggato */}
+        {/* FloatingMenu solo se utente loggato */}
         {user && <FloatingMenu onExport={handleExport} />}
       </div>
     </Router>
