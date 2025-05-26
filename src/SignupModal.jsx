@@ -79,6 +79,12 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
+        {/* Disclaimer sulla privacy */}
+        <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
+          Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
+          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+        </p>
+
         {error && <p className="signup-error">{error}</p>}
 
         <div className="signup-buttons">
