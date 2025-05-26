@@ -7,13 +7,14 @@ import {
 } from 'firebase/auth';
 import { auth } from './firebase';
 import './SignupModal.css';
+import { Link } from 'react-router-dom'; // <--- IMPORTANTE
 
 export default function SignupModal({ show, onClose, onSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
-  const [promosConsent, setPromosConsent] = useState(false); // <-- nuova state
+  const [promosConsent, setPromosConsent] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -27,7 +28,6 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   const handleRegister = async () => {
     setError('');
     try {
-      // Qui puoi salvare promosConsent nel tuo DB o Firestore se vuoi
       await createUserWithEmailAndPassword(auth, email, password);
       onSuccess();
     } catch (err) {
@@ -52,7 +52,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
       setEmail('');
       setPassword('');
       setError('');
-      setPromosConsent(false); // resetta la checkbox
+      setPromosConsent(false);
     } catch (err) {
       setError(err.message);
     }
@@ -82,10 +82,16 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
-        {/* Disclaimer sulla privacy */}
+        {/* Disclaimer con Link React Router */}
         <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
-          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+          <Link
+            to="/privacy-policy"
+            style={{ color: '#007bff', textDecoration: 'underline' }}
+            onClick={onClose}
+          >
+            Privacy Policy
+          </Link>.
         </p>
 
         {/* Checkbox per il consenso alle email promozionali */}
