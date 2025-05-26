@@ -6,13 +6,14 @@ import {
   onAuthStateChanged
 } from 'firebase/auth';
 import { auth } from './firebase';
-import './SignupModal.css'; // <-- Importa il file CSS
+import './SignupModal.css';
 
 export default function SignupModal({ show, onClose, onSuccess }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
+  const [promosConsent, setPromosConsent] = useState(false); // <-- nuova state
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -26,6 +27,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   const handleRegister = async () => {
     setError('');
     try {
+      // Qui puoi salvare promosConsent nel tuo DB o Firestore se vuoi
       await createUserWithEmailAndPassword(auth, email, password);
       onSuccess();
     } catch (err) {
@@ -50,6 +52,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
       setEmail('');
       setPassword('');
       setError('');
+      setPromosConsent(false); // resetta la checkbox
     } catch (err) {
       setError(err.message);
     }
@@ -84,6 +87,17 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
           <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
         </p>
+
+        {/* Checkbox per il consenso alle email promozionali */}
+        <label style={{ fontSize: '12px', color: '#555', display: 'block', marginBottom: '15px', cursor: 'pointer' }}>
+          <input
+            type="checkbox"
+            checked={promosConsent}
+            onChange={e => setPromosConsent(e.target.checked)}
+            style={{ marginRight: '8px' }}
+          />
+          Acconsento a ricevere email promozionali e offerte speciali.
+        </label>
 
         {error && <p className="signup-error">{error}</p>}
 
