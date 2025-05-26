@@ -17,51 +17,36 @@
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
-/* Padding a sinistra e destra per tutti i filter-group tranne Elemento */
+/* Nessun padding a sinistra, solo a destra per tutti i gruppi filtro */
 .filter-group {
   margin-bottom: 20px;
-  padding: 0 20px; /* padding a destra e sinistra */
+  padding-left: 0;
+  padding-right: 20px;
 }
 
-/* Rimuovi padding sinistra e destra solo per il gruppo Elemento (3° filter-group) */
-.filters-section .filter-group:nth-child(3) {
-  padding: 0;
-}
-
-/* Label generali (nome, effetti, tipo) */
-.filter-group label {
+/* Label e titoli allineati a sinistra senza padding interno */
+.filter-group label,
+.filter-group .elemento-label {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
   color: #ddd;
-  padding-left: 0; /* nessun padding extra sulle label */
+  padding-left: 0;
 }
 
-/* Input generali */
-.filter-group input[type="text"],
-.filter-group input[type="number"],
-.filter-group select {
-  width: 100%;
-  padding: 6px 8px;
-  font-size: 1rem;
-  border: 1px solid #555;
-  border-radius: 4px;
-  background-color: #222;
-  color: #eee;
-  margin-left: 0; /* nessun margine extra */
-}
-
-/* Griglia elementi: disposizione 4 sopra, 1 centrato sotto, senza margini */
+/* Griglia elementi - senza padding */
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 40px 40px;
   gap: 3px;
   width: 180px;
-  margin: 0; /* niente margin per non centrare la griglia */
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-/* Cerchi elemento */
+/* Cerchi elementi */
 .filters-section .filter-group:nth-child(3) label {
   cursor: pointer;
   display: flex;
@@ -83,14 +68,14 @@
   display: none;
 }
 
-/* Glow sopra le immagini quando selezionate */
+/* Glow quando selezionati */
 .filters-section .filter-group:nth-child(3) label.selected {
   border-color: #4caf50;
   box-shadow: 0 0 12px 4px rgba(76, 175, 80, 0.8);
   z-index: 2;
 }
 
-/* Hover glow per i cerchi */
+/* Glow on hover */
 .filters-section .filter-group:nth-child(3) label:hover {
   border-color: #4caf50;
   box-shadow: 0 0 10px 3px rgba(76, 175, 80, 0.6);
@@ -105,7 +90,7 @@
   pointer-events: none;
   border-radius: 50%;
   position: relative;
-  z-index: 0; /* immagini sotto il glow */
+  z-index: 0;
 }
 
 hr {
