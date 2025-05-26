@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import DeckDropzone from './DeckDropzone';
 import PopupName from './PopupName';
 
 export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onSaveDeck }) {
-  const [filtersCollapsed, setFiltersCollapsed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  const toggleFiltersCollapse = () => setFiltersCollapsed(prev => !prev);
 
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
@@ -60,24 +57,16 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   return (
     <>
-      <aside className={`sidebar${filtersCollapsed ? ' filters-collapsed' : ''}`}>
+      <aside className="sidebar">
         <div className="filters-header">
           <h3>Filtri</h3>
-          <button
-            className="collapse-btn"
-            onClick={toggleFiltersCollapse}
-            aria-label={filtersCollapsed ? "Espandi filtri" : "Riduci filtri"}
-          >
-            {filtersCollapsed ? '▼' : '▲'}
-          </button>
+          {/* Bottone collapse rimosso */}
         </div>
 
         <div className="sidebar-main-grid">
-          {!filtersCollapsed && (
-            <div className="filters-container">
-              <FiltersSection filters={filters} onFilterChange={onFilterChange} />
-            </div>
-          )}
+          <div className="filters-container">
+            <FiltersSection filters={filters} onFilterChange={onFilterChange} />
+          </div>
 
           <div className="deckdropzone-container">
             <DeckDropzone
