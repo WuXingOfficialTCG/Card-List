@@ -6,7 +6,7 @@
   height: 100vh;
   background-color: #121212;
   border-right: 1px solid #333;
-  padding: 20px;
+  padding: 20px 10px 20px 20px;
   box-sizing: border-box;
   overflow-y: auto;
   font-family: Arial, sans-serif;
@@ -19,9 +19,10 @@
 
 .filter-group {
   margin-bottom: 20px;
-  padding-left: 10px;
+  padding-left: 0;
   padding-right: 10px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .filter-group label,
@@ -41,7 +42,8 @@
   width: 100%;
   margin: 0;
   padding-left: 0;
-  padding-right: 0;
+  padding-right: 10px;
+  box-sizing: border-box;
 }
 
 .filters-section .filter-group:nth-child(3) label {
@@ -185,7 +187,7 @@ hr {
 .filter-group select {
   width: 100%;
   padding: 8px 8px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border: 1px solid #555;
   border-radius: 4px;
   background-color: #222;
@@ -194,8 +196,4 @@ hr {
   box-sizing: border-box;
   height: 36px;
   line-height: 1.2;
-}
-
-.filters-collapsed .deck-dropzone {
-  flex-grow: 2;
 }
