@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
 import DeckBuilder from '../pages/DeckBuilder';
-import SignupModal from './SignupModal';
+import SignupModal from '../SignupModal';
 import Disclaimer from '../pages/Disclaimer';
 import AccountPage from '../pages/AccountPage';
 
