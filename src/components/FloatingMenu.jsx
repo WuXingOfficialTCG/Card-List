@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
@@ -7,8 +7,8 @@ import {
   saveDeckWithName,
   importDeckFromFile
 } from '../utility/importExportUtils';
+import useAutoHideMenu from '../utility/useAutoHideMenu';
 
-// Componente per mostrare i mazzi salvati
 function DeckListPopup({ decks = [], onClose, onLoadDeck }) {
   return (
     <div className="popup-backdrop">
@@ -32,37 +32,11 @@ function DeckListPopup({ decks = [], onClose, onLoadDeck }) {
 }
 
 export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
-  const [visible, setVisible] = useState(true);
+  const visible = useAutoHideMenu(); // 👈 hook personalizzata
   const [showPopup, setShowPopup] = useState(false);
   const [showDeckList, setShowDeckList] = useState(false);
   const [decks, setDecks] = useState([]);
-  const hideTimer = useRef(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const EDGE_MARGIN = 30;
-
-    const resetTimer = () => {
-      setVisible(true);
-      if (hideTimer.current) clearTimeout(hideTimer.current);
-      hideTimer.current = setTimeout(() => setVisible(false), 5000);
-    };
-
-    const handleMouseMove = (e) => {
-      if (e.clientX >= window.innerWidth - EDGE_MARGIN) resetTimer();
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchstart', resetTimer);
-
-    resetTimer();
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchstart', resetTimer);
-      if (hideTimer.current) clearTimeout(hideTimer.current);
-    };
-  }, []);
 
   const handleListDecksClick = () => {
     const savedDecks = loadSavedDecksFromStorage();
@@ -148,7 +122,6 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
       </div>
 
       {showPopup && <PopupName onConfirm={handleConfirm} onCancel={() => setShowPopup(false)} />}
-
       {showDeckList && (
         <DeckListPopup decks={decks} onClose={() => setShowDeckList(false)} onLoadDeck={handleLoadDeck} />
       )}
