@@ -17,15 +17,15 @@
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
-/* Padding normale per tutti i filter-group */
+/* Padding a sinistra e destra per tutti i filter-group tranne Elemento */
 .filter-group {
   margin-bottom: 20px;
-  padding-left: 20px; /* padding standard per allineare label e input */
+  padding: 0 20px; /* padding a destra e sinistra */
 }
 
-/* Riduci padding solo per il gruppo Elemento (3° filter-group) */
+/* Rimuovi padding sinistra e destra solo per il gruppo Elemento (3° filter-group) */
 .filters-section .filter-group:nth-child(3) {
-  padding-left: 4px; /* meno padding a sinistra per allineare i cerchi agli input */
+  padding: 0;
 }
 
 /* Label generali (nome, effetti, tipo) */
