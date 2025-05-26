@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 const imageMap = {
   Water: 'P62gDkj',
@@ -16,29 +16,22 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
   const [elementi, setElementi] = useState([]);
   const [tipi, setTipi] = useState([]);
 
-  useEffect(() => {
-    onFilterChange('nome', name);
-  }, [name, onFilterChange]);
-
-  useEffect(() => {
-    onFilterChange('effetti', effetti);
-  }, [effetti, onFilterChange]);
-
-  useEffect(() => {
-    onFilterChange('atk', atk);
-  }, [atk, onFilterChange]);
-
-  useEffect(() => {
-    onFilterChange('res', res);
-  }, [res, onFilterChange]);
-
-  const toggle = (value, currentList, setList, type) => {
+  // Ottimizzato toggle con useCallback per evitare ricreazione
+  const toggle = useCallback((value, currentList, setList, type) => {
     const updated = currentList.includes(value)
       ? currentList.filter(v => v !== value)
       : [...currentList, value];
     setList(updated);
     onFilterChange(type, updated);
-  };
+  }, [onFilterChange]);
+
+  // Chiamata unica per aggiornare i filtri di input testuali e numerici
+  useEffect(() => {
+    onFilterChange('nome', name);
+    onFilterChange('effetti', effetti);
+    onFilterChange('atk', atk);
+    onFilterChange('res', res);
+  }, [name, effetti, atk, res, onFilterChange]);
 
   return (
     <div className="filters-section">
@@ -88,7 +81,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
 
       <div className="filter-group">
         <label>Tipo</label>
-        <div className="checkbox-group" style={{ userSelect: 'none' }}>
+        <div className="checkbox-group user-select-none">
           {(filters.tipo || []).map(t => (
             <label key={t} className="checkbox-label">
               <input
