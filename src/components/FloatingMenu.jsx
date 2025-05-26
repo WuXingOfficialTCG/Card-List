@@ -35,7 +35,7 @@ export default function FloatingMenu({ onExport, user, deck }) {
   const hideTimer = useRef(null);
   const navigate = useNavigate();
 
-  // Mostra/nasconde il menu se il mouse è vicino al bordo destro
+  // Gestione visibilità menu vicino bordo destro
   useEffect(() => {
     const EDGE_MARGIN = 30;
 
@@ -46,9 +46,7 @@ export default function FloatingMenu({ onExport, user, deck }) {
     };
 
     const handleMouseMove = (e) => {
-      if (e.clientX >= window.innerWidth - EDGE_MARGIN) {
-        resetTimer();
-      }
+      if (e.clientX >= window.innerWidth - EDGE_MARGIN) resetTimer();
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -63,7 +61,7 @@ export default function FloatingMenu({ onExport, user, deck }) {
     };
   }, []);
 
-  // Carica mazzi salvati da localStorage (in alternativa: Firestore)
+  // Carica mazzi salvati da localStorage (puoi sostituire con Firestore)
   const loadSavedDecks = () => {
     const saved = localStorage.getItem('savedDecks');
     if (saved) {
@@ -86,7 +84,7 @@ export default function FloatingMenu({ onExport, user, deck }) {
   const handleLoadDeck = (deck) => {
     console.log('Carica mazzo:', deck);
     setShowDeckList(false);
-    // TODO: callback o aggiornamento stato globale
+    // TODO: aggiungi callback o aggiorna stato globale se serve
   };
 
   const handleExportClick = () => {
@@ -108,6 +106,11 @@ export default function FloatingMenu({ onExport, user, deck }) {
 
     const name = prompt("Inserisci un nome per il mazzo:");
     if (!name) return;
+
+    if (!deck || deck.length === 0) {
+      alert("Il mazzo è vuoto, non puoi salvarlo.");
+      return;
+    }
 
     const formattedDeck = deck.map(({ card, count }) => ({
       id: card.id,
