@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
-import DeckBuilder from './pages/DeckBuilder';
+import DeckBuilder from '../pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
-import Disclaimer from './pages/Disclaimer';
-import AccountPage from './pages/AccountPage';
+import Disclaimer from '../pages/Disclaimer';
+import AccountPage from '../pages/AccountPage';
 
 export default function App() {
   // Carico deck da localStorage all'avvio
