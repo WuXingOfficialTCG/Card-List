@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';  // Importa ReactDOM per createPortal
 import Header from '../components/Header/Header';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Popup from '../components/Popup/Popup';
@@ -12,7 +13,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
-  // Caricamento carte e popup supporto
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -28,25 +28,42 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
       .catch(console.error);
   }, []);
 
-  // Filtra le carte in base ai filtri impostati
   const filteredCards = filterCards(cards, filters);
 
-  // Aggiorna un filtro specifico
   const updateFilter = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
 
-  // Apri popup carta selezionata
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  // Conta quante copie di una carta ci sono nel mazzo
   const deckCountForCard = (cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
   };
+
+  // Componente popup combinato per render in portal
+  const popupContent = (
+    <>
+      {popupIndex !== null && (
+        <Popup
+          card={filteredCards[popupIndex]}
+          onClose={() => setPopupIndex(null)}
+          onPrev={() => setPopupIndex(i => Math.max(0, i - 1))}
+          onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
+          isFirst={popupIndex === 0}
+          isLast={popupIndex === filteredCards.length - 1}
+          onAddCard={onAddCard}
+          onRemoveOne={onRemoveOne}
+          deckCount={deckCountForCard(filteredCards[popupIndex].id)}
+        />
+      )}
+
+      {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
+    </>
+  );
 
   return (
     <>
@@ -68,21 +85,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
         />
       </div>
 
-      {popupIndex !== null && (
-        <Popup
-          card={filteredCards[popupIndex]}
-          onClose={() => setPopupIndex(null)}
-          onPrev={() => setPopupIndex(i => Math.max(0, i - 1))}
-          onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
-          isFirst={popupIndex === 0}
-          isLast={popupIndex === filteredCards.length - 1}
-          onAddCard={onAddCard}
-          onRemoveOne={onRemoveOne}
-          deckCount={deckCountForCard(filteredCards[popupIndex].id)}
-        />
-      )}
-
-      {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
+      {ReactDOM.createPortal(popupContent, document.getElementById('portal-root'))}
     </>
   );
 }
