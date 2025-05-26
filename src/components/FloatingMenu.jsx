@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 
-// Componente popup che mostra la lista dei mazzi
+// Componente popup che mostra la lista dei mazzi salvati
 function DeckListPopup({ decks = [], onClose, onLoadDeck }) {
   return (
     <div className="popup-backdrop">
@@ -31,7 +32,9 @@ export default function FloatingMenu({ onExport }) {
   const [showDeckList, setShowDeckList] = useState(false);
   const [decks, setDecks] = useState([]);
   const hideTimer = useRef(null);
+  const navigate = useNavigate();
 
+  // Mostra/nasconde il menu se il mouse è vicino al bordo destro
   useEffect(() => {
     const EDGE_MARGIN = 30;
 
@@ -59,9 +62,8 @@ export default function FloatingMenu({ onExport }) {
     };
   }, []);
 
-  // Simulazione caricamento mazzi salvati, da backend o localStorage
+  // Carica mazzi salvati da localStorage
   const loadSavedDecks = () => {
-    // Esempio: carica da localStorage (puoi adattare per backend)
     const saved = localStorage.getItem('savedDecks');
     if (saved) {
       try {
@@ -81,10 +83,9 @@ export default function FloatingMenu({ onExport }) {
   };
 
   const handleLoadDeck = (deck) => {
-    // Passa il mazzo selezionato al parent o gestisci qui
     console.log('Carica mazzo:', deck);
-    // TODO: qui puoi chiamare una callback o aggiornare lo stato globale
     setShowDeckList(false);
+    // TODO: callback o aggiornamento stato globale
   };
 
   const handleExportClick = () => {
@@ -108,9 +109,32 @@ export default function FloatingMenu({ onExport }) {
         >
           📋
         </button>
-        <button title="Salva Mazzo" aria-label="Salva Mazzo">💾</button>
-        <button onClick={handleExportClick} title="Esporta Mazzo" aria-label="Esporta Mazzo">⬇️</button>
-        <button title="Importa Mazzo" aria-label="Importa Mazzo">⬆️</button>
+        <button 
+          title="Salva Mazzo" 
+          aria-label="Salva Mazzo"
+        >
+          💾
+        </button>
+        <button 
+          onClick={handleExportClick} 
+          title="Esporta Mazzo" 
+          aria-label="Esporta Mazzo"
+        >
+          ⬇️
+        </button>
+        <button 
+          title="Importa Mazzo" 
+          aria-label="Importa Mazzo"
+        >
+          ⬆️
+        </button>
+        <button 
+          onClick={() => navigate('/account')} 
+          title="Account Personale" 
+          aria-label="Account Personale"
+        >
+          👤
+        </button>
       </div>
 
       {showPopup && (
