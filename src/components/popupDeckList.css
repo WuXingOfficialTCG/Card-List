@@ -1,49 +1,47 @@
+/* popupDeckList.css */
+
 .popup-backdrop {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000; /* 👈 assicurati che sia alto */
+  background-color: rgba(0, 0, 0, 0.4); /* semi-trasparente */
+  backdrop-filter: blur(5px); /* 👈 sfocatura */
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  justify-content: center;
 }
 
-.popup-content {
+.popup-content.popup-decklist {
   background: white;
   padding: 20px;
-  max-width: 400px;
+  border-radius: 12px;
   max-height: 80vh;
   overflow-y: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
-
-.popup-decklist h2 {
-  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
 }
 
 .deck-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px 0;
-}
-
-.deck-list li + li {
-  margin-top: 8px;
+  margin: 20px 0;
 }
 
 .deck-list-button {
+  background: #f0f0f0;
+  border: none;
+  padding: 10px 14px;
+  margin-bottom: 10px;
   width: 100%;
-  padding: 10px;
-  background-color: #eee;
-  border: 1px solid #ccc;
   border-radius: 6px;
+  text-align: left;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s;
 }
 
 .deck-list-button:hover {
-  background-color: #ddd;
+  background: #ddd;
 }
