@@ -1,6 +1,6 @@
 // AccountPage.jsx
 import { useEffect, useState } from 'react';
-import { auth, db } from './firebase';
+import { auth, db } from '../firebase';
 import { onAuthStateChanged, deleteUser, signOut } from 'firebase/auth';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
