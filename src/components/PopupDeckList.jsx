@@ -10,12 +10,21 @@ export default function PopupDeckList({ decks = [], onClose }) {
 
   const popup = (
     <>
-      <div className="popup-backdrop" onClick={onClose}>
+      {/* Backdrop modale */}
+      <div
+        className="popup-backdrop"
+        onClick={onClose}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="popupdecklist-title"
+      >
+        {/* Contenuto popup, blocca il click sul backdrop */}
         <div
           className="popup-content popup-decklist"
           onClick={e => e.stopPropagation()}
+          tabIndex={-1}
         >
-          <h2>Lista Mazzi Salvati</h2>
+          <h2 id="popupdecklist-title">Lista Mazzi Salvati</h2>
 
           {decks.length === 0 ? (
             <p>Nessun mazzo salvato.</p>
@@ -35,12 +44,17 @@ export default function PopupDeckList({ decks = [], onClose }) {
             </ul>
           )}
 
-          <button onClick={onClose} className="popup-close-btn">
+          <button
+            onClick={onClose}
+            className="popup-close-btn"
+            aria-label="Chiudi lista mazzi"
+          >
             Chiudi
           </button>
         </div>
       </div>
 
+      {/* Popup dettaglio singolo mazzo */}
       {selectedDeck && (
         <PopupDeck
           deck={selectedDeck.cards || selectedDeck.deck || []}
@@ -50,5 +64,6 @@ export default function PopupDeckList({ decks = [], onClose }) {
     </>
   );
 
+  // Render in portal per sovrapposizione corretta
   return ReactDOM.createPortal(popup, document.getElementById('popup-root'));
 }
