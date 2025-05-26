@@ -6,7 +6,8 @@ import { auth } from './firebase';
 import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
-import Disclaimer from './pages/Disclaimer'; // Pagina disclaimer
+import Disclaimer from './pages/Disclaimer';
+import AccountPage from './pages/AccountPage'; // ✅ Import nuovo componente
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -22,7 +23,6 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Monitoraggio stato autenticazione Firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -32,7 +32,6 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // Salva mazzo su localStorage ad ogni modifica
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
@@ -87,7 +86,6 @@ export default function App() {
   return (
     <Router>
       <div className="app-container">
-        {/* Modal per login/registrazione */}
         {showModal && (
           <SignupModal
             show={showModal}
@@ -109,9 +107,9 @@ export default function App() {
             }
           />
           <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/account" element={<AccountPage />} /> {/* ✅ Nuova rotta */}
         </Routes>
 
-        {/* FloatingMenu solo se utente loggato */}
         {user && <FloatingMenu onExport={handleExport} />}
       </div>
     </Router>
