@@ -65,34 +65,16 @@
   color: #ddd;
 }
 
-.filter-group input[type="text"],
-.filter-group input[type="number"],
-.filter-group select {
-  width: 100%;
-  padding: 6px 8px;
-  font-size: 1rem;
-  border: 1px solid #555;
-  border-radius: 4px;
-  background-color: #222;
-  color: #eee;
-}
-
-.checkbox-group label {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.95rem;
-  color: #ccc;
-}
-
 /* Disposizione cerchi elemento: 4 sopra, 1 centrato sotto */
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 40px);
   grid-template-rows: 40px 40px;
   gap: 3px;
   width: 180px;
-  margin-left: 20px;
-  margin-right: 20px;
+  justify-content: center; /* centratura griglia */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Cerchi elementi */
@@ -110,13 +92,8 @@
   position: relative;
   padding: 0;
   box-sizing: border-box;
-}
-
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
-  transform: scale(1.25);
-  border-color: #4caf50;
-  box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.7);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #121212;
+  z-index: 0;
 }
 
 /* Nascondi checkbox reale */
@@ -124,11 +101,48 @@
   display: none;
 }
 
-/* Evidenzia selezione e hover */
+/* Glow / evidenziazione cerchio selezionato - sopra immagine */
+.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
+  /* niente trasformazioni sull'immagine */
+}
+
 .filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img,
 .filters-section .filter-group:nth-child(3) label:hover {
+  /* non mettiamo glow sull'immagine */
   border-color: #4caf50;
-  box-shadow: 0 0 8px 2px rgba(76, 175, 80, 0.7);
+}
+
+.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked {
+  /* glow sul label genitore */
+}
+
+/* Glow sul label (cerchio) quando checkbox è checked */
+.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
+  /* non serve più */
+}
+
+.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
+  /* niente */
+}
+
+.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
+  /* niente */
+}
+
+/* Il trucco: per glow sopra immagine dobbiamo applicarlo al label, ma il checkbox è sibling del img...*/
+/* Quindi mettiamo il glow al label se checkbox è checked usando CSS "input:checked + img" non funziona per label */
+/* Soluzione: sposta input prima dell'immagine e usa label.selected */
+
+.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
+  /* solo immagine normale */
+}
+
+/* Quindi invece gestiamo glow con la classe .selected sul label, come nel JSX */
+
+.filters-section .filter-group:nth-child(3) label.selected {
+  border-color: #4caf50;
+  box-shadow: 0 0 12px 6px rgba(76, 175, 80, 0.6);
+  z-index: 10; /* glow sopra immagine */
 }
 
 /* Immagini nei cerchi */
@@ -138,6 +152,8 @@
   object-fit: contain;
   pointer-events: none;
   border-radius: 50%;
+  position: relative;
+  z-index: 1;
 }
 
 hr {
