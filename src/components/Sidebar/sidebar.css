@@ -17,67 +17,51 @@
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
-.filters-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  user-select: none;
-}
-
-.filters-header h3 {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #ddd;
-}
-
-.collapse-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.6rem;
-  color: #999;
-  padding: 2px 6px;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.collapse-btn:hover {
-  color: #fff;
-}
-
-.filters-section {
-  flex: none;
-}
-
-.filters-section.collapsed {
-  display: none;
-}
-
+/* Padding normale per tutti i filter-group */
 .filter-group {
   margin-bottom: 20px;
+  padding-left: 20px; /* padding standard per allineare label e input */
 }
 
+/* Riduci padding solo per il gruppo Elemento (3° filter-group) */
+.filters-section .filter-group:nth-child(3) {
+  padding-left: 4px; /* meno padding a sinistra per allineare i cerchi agli input */
+}
+
+/* Label generali (nome, effetti, tipo) */
 .filter-group label {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
   color: #ddd;
+  padding-left: 0; /* nessun padding extra sulle label */
 }
 
-/* Disposizione cerchi elemento: 4 sopra, 1 centrato sotto */
+/* Input generali */
+.filter-group input[type="text"],
+.filter-group input[type="number"],
+.filter-group select {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 1rem;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #222;
+  color: #eee;
+  margin-left: 0; /* nessun margine extra */
+}
+
+/* Griglia elementi: disposizione 4 sopra, 1 centrato sotto, senza margini */
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
-  grid-template-columns: repeat(4, 40px);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 40px 40px;
   gap: 3px;
   width: 180px;
-  justify-content: center; /* centratura griglia */
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0; /* niente margin per non centrare la griglia */
 }
 
-/* Cerchi elementi */
+/* Cerchi elemento */
 .filters-section .filter-group:nth-child(3) label {
   cursor: pointer;
   display: flex;
@@ -88,12 +72,10 @@
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   padding: 0;
   box-sizing: border-box;
-  background-color: #121212;
-  z-index: 0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Nascondi checkbox reale */
@@ -101,48 +83,18 @@
   display: none;
 }
 
-/* Glow / evidenziazione cerchio selezionato - sopra immagine */
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
-  /* niente trasformazioni sull'immagine */
-}
-
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img,
-.filters-section .filter-group:nth-child(3) label:hover {
-  /* non mettiamo glow sull'immagine */
-  border-color: #4caf50;
-}
-
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked {
-  /* glow sul label genitore */
-}
-
-/* Glow sul label (cerchio) quando checkbox è checked */
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
-  /* non serve più */
-}
-
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
-  /* niente */
-}
-
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
-  /* niente */
-}
-
-/* Il trucco: per glow sopra immagine dobbiamo applicarlo al label, ma il checkbox è sibling del img...*/
-/* Quindi mettiamo il glow al label se checkbox è checked usando CSS "input:checked + img" non funziona per label */
-/* Soluzione: sposta input prima dell'immagine e usa label.selected */
-
-.filters-section .filter-group:nth-child(3) input[type="checkbox"]:checked + img {
-  /* solo immagine normale */
-}
-
-/* Quindi invece gestiamo glow con la classe .selected sul label, come nel JSX */
-
+/* Glow sopra le immagini quando selezionate */
 .filters-section .filter-group:nth-child(3) label.selected {
   border-color: #4caf50;
-  box-shadow: 0 0 12px 6px rgba(76, 175, 80, 0.6);
-  z-index: 10; /* glow sopra immagine */
+  box-shadow: 0 0 12px 4px rgba(76, 175, 80, 0.8);
+  z-index: 2;
+}
+
+/* Hover glow per i cerchi */
+.filters-section .filter-group:nth-child(3) label:hover {
+  border-color: #4caf50;
+  box-shadow: 0 0 10px 3px rgba(76, 175, 80, 0.6);
+  z-index: 2;
 }
 
 /* Immagini nei cerchi */
@@ -153,7 +105,7 @@
   pointer-events: none;
   border-radius: 50%;
   position: relative;
-  z-index: 1;
+  z-index: 0; /* immagini sotto il glow */
 }
 
 hr {
