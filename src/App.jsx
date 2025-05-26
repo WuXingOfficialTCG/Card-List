@@ -7,7 +7,7 @@ import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 import Disclaimer from './pages/Disclaimer';
-import AccountPage from './pages/AccountPage'; // ✅ Import nuovo componente
+import AccountPage from './pages/AccountPage';
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -107,10 +107,11 @@ export default function App() {
             }
           />
           <Route path="/disclaimer" element={<Disclaimer />} />
-          <Route path="/account" element={<AccountPage />} /> {/* ✅ Nuova rotta */}
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
 
-        {user && <FloatingMenu onExport={handleExport} />}
+        {/* Passo user a FloatingMenu */}
+        {user && <FloatingMenu user={user} deck={deck} onExport={handleExport} />}
       </div>
     </Router>
   );
