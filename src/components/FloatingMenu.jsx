@@ -3,8 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 import { saveDeckToFirestore } from '../utility/firestoreUtils';
+import {
+  loadSavedDecksFromStorage,
+  saveDeckWithName,
+  importDeckFromFile
+} from '../utility/importExportUtils';
 
-// Componente popup che mostra la lista dei mazzi salvati
+// Popup lista mazzi
 function DeckListPopup({ decks = [], onClose, onLoadDeck }) {
   return (
     <div className="popup-backdrop">
@@ -27,7 +32,7 @@ function DeckListPopup({ decks = [], onClose, onLoadDeck }) {
   );
 }
 
-export default function FloatingMenu({ onExport, user, deck }) {
+export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const [visible, setVisible] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
   const [showDeckList, setShowDeckList] = useState(false);
@@ -35,7 +40,6 @@ export default function FloatingMenu({ onExport, user, deck }) {
   const hideTimer = useRef(null);
   const navigate = useNavigate();
 
-  // Gestione visibilità menu vicino bordo destro
   useEffect(() => {
     const EDGE_MARGIN = 30;
 
@@ -61,124 +65,93 @@ export default function FloatingMenu({ onExport, user, deck }) {
     };
   }, []);
 
-  // Carica mazzi salvati da localStorage (puoi sostituire con Firestore)
-  const loadSavedDecks = () => {
-    const saved = localStorage.getItem('savedDecks');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setDecks(parsed);
-      } catch {
-        setDecks([]);
-      }
-    } else {
-      setDecks([]);
-    }
-  };
-
+  // Carica mazzi salvati da storage (modulata)
   const handleListDecksClick = () => {
-    loadSavedDecks();
+    const savedDecks = loadSavedDecksFromStorage();
+    setDecks(savedDecks);
     setShowDeckList(true);
   };
 
   const handleLoadDeck = (deck) => {
-    console.log('Carica mazzo:', deck);
     setShowDeckList(false);
-    // TODO: aggiungi callback o aggiorna stato globale se serve
+    if (typeof onImportDeck === 'function') {
+      onImportDeck(deck);
+    }
   };
 
-  const handleExportClick = () => {
-    setShowPopup(true);
-  };
+  const handleExportClick = () => setShowPopup(true);
 
   const handleConfirm = (filename) => {
-    if (typeof onExport === 'function') {
-      onExport(filename);
-    }
+    if (typeof onExport === 'function') onExport(filename);
     setShowPopup(false);
   };
 
+  // Salvataggio delegato a importExportUtils
   const handleSaveDeck = async () => {
     if (!user) {
-      alert("Devi essere loggato per salvare il mazzo.");
+      alert('Devi essere loggato per salvare il mazzo.');
       return;
     }
-
-    const name = prompt("Inserisci un nome per il mazzo:");
-    if (!name) return;
-
     if (!deck || deck.length === 0) {
-      alert("Il mazzo è vuoto, non puoi salvarlo.");
+      alert('Il mazzo è vuoto, non puoi salvarlo.');
       return;
     }
-
-    const formattedDeck = deck.map(({ card, count }) => ({
-      id: card.id,
-      nome: card.nome,
-      count,
-    }));
 
     try {
-      await saveDeckToFirestore(user.uid, name, formattedDeck);
-      alert("Mazzo salvato con successo!");
+      const result = await saveDeckWithName(user.uid, deck);
+      alert(result.message);
     } catch (err) {
-      console.error("Errore salvataggio mazzo:", err);
-      alert("Errore durante il salvataggio.");
+      alert(err.message || 'Errore durante il salvataggio.');
+    }
+  };
+
+  // Importa mazzo da file e passa a callback esterno
+  const handleImportDeck = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const deckImported = await importDeckFromFile(file);
+      if (deckImported && typeof onImportDeck === 'function') {
+        onImportDeck(deckImported);
+      }
+    } catch (err) {
+      alert(err.message || 'Errore durante l\'importazione.');
     }
   };
 
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-        <button
-          title="Lista Mazzi"
-          aria-label="Lista Mazzi"
-          onClick={handleListDecksClick}
-        >
+        <button title="Lista Mazzi" aria-label="Lista Mazzi" onClick={handleListDecksClick}>
           📋
         </button>
-        <button
-          title="Salva Mazzo"
-          aria-label="Salva Mazzo"
-          onClick={handleSaveDeck}
-        >
+        <button title="Salva Mazzo" aria-label="Salva Mazzo" onClick={handleSaveDeck}>
           💾
         </button>
-        <button
-          onClick={handleExportClick}
-          title="Esporta Mazzo"
-          aria-label="Esporta Mazzo"
-        >
+        <button onClick={handleExportClick} title="Esporta Mazzo" aria-label="Esporta Mazzo">
           ⬇️
         </button>
-        <button
-          title="Importa Mazzo"
-          aria-label="Importa Mazzo"
-        >
+        {/* Bottone file input nascosto per importazione */}
+        <label title="Importa Mazzo" aria-label="Importa Mazzo" htmlFor="file-input" style={{ cursor: 'pointer' }}>
           ⬆️
-        </button>
-        <button
-          onClick={() => navigate('/account')}
-          title="Account Personale"
-          aria-label="Account Personale"
-        >
+        </label>
+        <input
+          id="file-input"
+          type="file"
+          accept=".json,application/json"
+          style={{ display: 'none' }}
+          onChange={handleImportDeck}
+        />
+        <button onClick={() => navigate('/account')} title="Account Personale" aria-label="Account Personale">
           👤
         </button>
       </div>
 
-      {showPopup && (
-        <PopupName
-          onConfirm={handleConfirm}
-          onCancel={() => setShowPopup(false)}
-        />
-      )}
+      {showPopup && <PopupName onConfirm={handleConfirm} onCancel={() => setShowPopup(false)} />}
 
       {showDeckList && (
-        <DeckListPopup
-          decks={decks}
-          onClose={() => setShowDeckList(false)}
-          onLoadDeck={handleLoadDeck}
-        />
+        <DeckListPopup decks={decks} onClose={() => setShowDeckList(false)} onLoadDeck={handleLoadDeck} />
       )}
     </>
   );
