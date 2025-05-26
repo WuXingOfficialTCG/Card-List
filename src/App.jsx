@@ -7,6 +7,9 @@ import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 
+// Importa la pagina Disclaimer che hai creato
+import Disclaimer from './pages/Disclaimer';
+
 export default function App() {
   const [deck, setDeck] = useState(() => {
     try {
@@ -110,6 +113,8 @@ export default function App() {
               />
             }
           />
+          {/* Aggiunta la route per la pagina Disclaimer */}
+          <Route path="/privacy-policy" element={<Disclaimer />} />
         </Routes>
 
         {/* FloatingMenu visibile solo se utente autenticato */}
