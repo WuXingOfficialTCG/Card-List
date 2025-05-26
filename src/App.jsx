@@ -6,9 +6,7 @@ import { auth } from './firebase';
 import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
-
-// Importa la pagina Disclaimer che hai creato
-import Disclaimer from './pages/Disclaimer';
+import Disclaimer from './pages/Disclaimer'; // Pagina disclaimer
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -24,30 +22,28 @@ export default function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // Monitoraggio stato autenticazione
+  // Controllo autenticazione Firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setShowModal(!currentUser);
       setCheckingAuth(false);
     });
-
     return unsubscribe;
   }, []);
 
-  // Salvataggio automatico del deck su localStorage
+  // Salva il mazzo su localStorage ogni volta che cambia
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Aggiunge una carta al mazzo, limitando copie e dimensione totale
   const onAddCard = (card) => {
     setDeck((currentDeck) => {
       const totalCards = currentDeck.reduce((sum, c) => sum + c.count, 0);
       const existingCard = currentDeck.find((c) => c.card.id === card.id);
 
-      if (totalCards >= 40) return currentDeck;          // Max 40 carte
-      if (existingCard && existingCard.count >= 3) return currentDeck; // Max 3 copie per carta
+      if (totalCards >= 40) return currentDeck;
+      if (existingCard && existingCard.count >= 3) return currentDeck;
 
       if (existingCard) {
         return currentDeck.map((c) =>
@@ -58,7 +54,6 @@ export default function App() {
     });
   };
 
-  // Rimuove una copia di una carta dal mazzo
   const onRemoveOne = (card) => {
     setDeck((currentDeck) =>
       currentDeck
@@ -69,7 +64,6 @@ export default function App() {
     );
   };
 
-  // Esporta il mazzo come file JSON scaricabile
   const handleExport = () => {
     const data = deck.map(({ card, count }) => ({
       id: card.id,
@@ -93,6 +87,7 @@ export default function App() {
   return (
     <Router>
       <div className="app-container">
+        {/* Modal registrazione/login */}
         {showModal && (
           <SignupModal
             show={showModal}
@@ -113,11 +108,10 @@ export default function App() {
               />
             }
           />
-          {/* Aggiunta la route per la pagina Disclaimer */}
           <Route path="/privacy-policy" element={<Disclaimer />} />
         </Routes>
 
-        {/* FloatingMenu visibile solo se utente autenticato */}
+        {/* Menu esportazione visibile solo se loggato */}
         {user && <FloatingMenu onExport={handleExport} />}
       </div>
     </Router>
