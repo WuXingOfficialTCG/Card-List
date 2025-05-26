@@ -1,10 +1,8 @@
 import React from 'react';
 
 export default function DeckDropzone({ deck, onAddCard, onRemoveOne }) {
-  const maxDeckSize = 40;
-  const maxCopies = 3;
-
   const totalCards = deck.reduce((sum, c) => sum + c.count, 0);
+  const lastCardEntry = deck.length > 0 ? deck[deck.length - 1] : null;
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -12,10 +10,10 @@ export default function DeckDropzone({ deck, onAddCard, onRemoveOne }) {
     if (!cardData) return;
 
     const card = JSON.parse(cardData);
-    if (totalCards >= maxDeckSize) return alert('Mazzo pieno (max 40 carte)');
+    if (totalCards >= 40) return alert('Mazzo pieno (max 40 carte)');
 
     const found = deck.find(c => c.card.id === card.id);
-    if (found && found.count >= maxCopies) return alert('Max 3 copie per carta');
+    if (found && found.count >= 3) return alert('Max 3 copie per carta');
 
     onAddCard(card);
   };
@@ -30,51 +28,26 @@ export default function DeckDropzone({ deck, onAddCard, onRemoveOne }) {
       {deck.length === 0 && <p>Trascina le carte qui per aggiungerle</p>}
 
       <div className="deck-cards-grid">
-        {deck.map(({ card, count }) => {
-          const hideMinus = count === 0;
-          const hidePlus = totalCards >= maxDeckSize || count >= maxCopies;
-
-          return (
-            <div
-              key={card.id}
-              className="deck-card-wrapper"
-              draggable
-              onDragStart={(e) =>
-                e.dataTransfer.setData('application/deck-card', JSON.stringify(card))
-              }
-              title="Trascina fuori per rimuovere 1 copia"
+        {lastCardEntry && (
+          <div
+            className="deck-card-wrapper"
+            draggable={false}
+            title={`${lastCardEntry.card.nome} (Ultima carta aggiunta)`}
+          >
+            <img
+              src={lastCardEntry.card.immagine}
+              alt={lastCardEntry.card.nome}
+              className="deck-card-img"
+            />
+            <span
+              className={`card-count-badge ${
+                lastCardEntry.count === 3 ? 'max-copies' : ''
+              }`}
             >
-              <img src={card.immagine} alt={card.nome} className="deck-card-img" />
-              <div className="deck-card-controls">
-                <button
-                  onClick={e => {
-                    e.stopPropagation();
-                    if (!hideMinus) onRemoveOne(card);
-                  }}
-                  aria-label={`Rimuovi una copia di ${card.nome}`}
-                  style={{ visibility: hideMinus ? 'hidden' : 'visible' }}
-                >
-                  -
-                </button>
-                <span className={`card-count-badge ${count === maxCopies ? 'max-copies' : ''}`}>
-                  {count}
-                </span>
-                <button
-                  onClick={e => {
-                    e.stopPropagation();
-                    if (!hidePlus) onAddCard(card);
-                    else if (totalCards >= maxDeckSize) alert('Mazzo pieno (max 40 carte)');
-                    else if (count >= maxCopies) alert('Max 3 copie per carta');
-                  }}
-                  aria-label={`Aggiungi una copia di ${card.nome}`}
-                  style={{ visibility: hidePlus ? 'hidden' : 'visible' }}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          );
-        })}
+              {lastCardEntry.count}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );
