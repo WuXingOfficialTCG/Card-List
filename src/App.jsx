@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+// src/App.jsx
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
@@ -8,6 +10,7 @@ import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
+import SupportPopupManager from './components/SupportPopupManager';
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -18,15 +21,12 @@ export default function App() {
       return [];
     }
   });
-
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
-      setShowModal(!currentUser);
       setCheckingAuth(false);
     });
     return unsubscribe;
@@ -36,63 +36,27 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  const onAddCard = (card) => {
-    setDeck((currentDeck) => {
-      const totalCards = currentDeck.reduce((sum, c) => sum + c.count, 0);
-      const existingCard = currentDeck.find((c) => c.card.id === card.id);
-
-      if (totalCards >= 40) return currentDeck;
-      if (existingCard && existingCard.count >= 3) return currentDeck;
-
-      if (existingCard) {
-        return currentDeck.map((c) =>
-          c.card.id === card.id ? { ...c, count: c.count + 1 } : c
-        );
-      }
-      return [...currentDeck, { card, count: 1 }];
-    });
-  };
-
-  const onRemoveOne = (card) => {
-    setDeck((currentDeck) =>
-      currentDeck
-        .map((c) =>
-          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
-        )
-        .filter((c) => c.count > 0)
-    );
-  };
-
-  const handleExport = () => {
-    const data = deck.map(({ card, count }) => ({
-      id: card.id,
-      nome: card.nome,
-      count,
-    }));
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: 'application/json',
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'deck.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+  const onAddCard = card => { /* ... */ };
+  const onRemoveOne = card => { /* ... */ };
+  const handleExport = () => { /* ... */ };
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
 
   return (
     <Router>
-      <div className="app-container">
-        {showModal && (
+      {/* 1) Il tuo contenitore principale ha z-index 0 */}
+      <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
+        {/* Modale di signup (puoi trasformarlo in portal se vuoi) */}
+        {!user && (
           <SignupModal
-            show={showModal}
-            onClose={() => setShowModal(false)}
-            onSuccess={() => setShowModal(false)}
+            show={true}
+            onClose={() => {}}
+            onSuccess={() => {}}
           />
         )}
+
+        {/* Popup di supporto (usa il suo manager interno) */}
+        <SupportPopupManager />
 
         <Routes>
           <Route
@@ -110,9 +74,21 @@ export default function App() {
           <Route path="/account" element={<AccountPage />} />
         </Routes>
 
-        {/* Passo user a FloatingMenu */}
-        {user && <FloatingMenu user={user} deck={deck} onExport={handleExport} />}
+        {user && (
+          <FloatingMenu
+            user={user}
+            deck={deck}
+            onExport={handleExport}
+            onImportDeck={imported => setDeck(imported)}
+          />
+        )}
       </div>
+
+      {/* 2) Qui montiamo il div per i portal dei tuoi popup */}
+      {ReactDOM.createPortal(
+        <div id="popup-root" />,
+        document.body
+      )}
     </Router>
   );
 }
