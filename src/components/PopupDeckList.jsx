@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import PopupDeck from './PopupDeck';
 import './popupDeckList.css';
 
 export default function PopupDeckList({ decks = [], onClose }) {
   const [selectedDeck, setSelectedDeck] = useState(null);
 
-  // Funzione per chiudere il dettaglio mazzo e tornare alla lista
   const closeDeckDetail = () => setSelectedDeck(null);
 
-  return (
+  const popup = (
     <>
       <div className="popup-backdrop" onClick={onClose}>
         <div
           className="popup-content popup-decklist"
-          onClick={e => e.stopPropagation()} // previene chiusura cliccando dentro popup
+          onClick={e => e.stopPropagation()}
         >
           <h2>Lista Mazzi Salvati</h2>
 
@@ -41,7 +41,6 @@ export default function PopupDeckList({ decks = [], onClose }) {
         </div>
       </div>
 
-      {/* Popup dettaglio mazzo */}
       {selectedDeck && (
         <PopupDeck
           deck={selectedDeck.cards || selectedDeck.deck || []}
@@ -50,5 +49,6 @@ export default function PopupDeckList({ decks = [], onClose }) {
       )}
     </>
   );
-}
 
+  return ReactDOM.createPortal(popup, document.getElementById('popup-root'));
+}
