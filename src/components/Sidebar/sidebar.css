@@ -17,14 +17,14 @@
   transition: width 0.3s ease, padding 0.3s ease, border-right 0.3s ease;
 }
 
-/* Nessun padding a sinistra, solo a destra per tutti i gruppi filtro */
+/* Gruppi filtro: margine e padding solo a destra */
 .filter-group {
   margin-bottom: 20px;
   padding-left: 0;
   padding-right: 20px;
 }
 
-/* Label e titoli allineati a sinistra senza padding interno */
+/* Label e titoli allineati a sinistra senza padding */
 .filter-group label,
 .filter-group .elemento-label {
   display: block;
@@ -34,7 +34,7 @@
   padding-left: 0;
 }
 
-/* Griglia elementi - senza padding */
+/* Griglia elementi (3° gruppo filter-group): no padding a destra e sinistra */
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -63,26 +63,26 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Nascondi checkbox reale */
+/* Checkbox nascosti */
 .filters-section .filter-group:nth-child(3) input[type="checkbox"] {
   display: none;
 }
 
-/* Glow quando selezionati */
+/* Glow selezionato */
 .filters-section .filter-group:nth-child(3) label.selected {
   border-color: #4caf50;
   box-shadow: 0 0 12px 4px rgba(76, 175, 80, 0.8);
   z-index: 2;
 }
 
-/* Glow on hover */
+/* Glow hover */
 .filters-section .filter-group:nth-child(3) label:hover {
   border-color: #4caf50;
   box-shadow: 0 0 10px 3px rgba(76, 175, 80, 0.6);
   z-index: 2;
 }
 
-/* Immagini nei cerchi */
+/* Immagini cerchi */
 .filters-section .filter-group:nth-child(3) img {
   width: 40px;
   height: 40px;
@@ -99,6 +99,7 @@ hr {
   border-top: 1px solid #444;
 }
 
+/* Deck dropzone occupa tutto lo spazio residuo senza scrollbar */
 .deck-dropzone {
   flex-grow: 1;
   padding: 10px;
@@ -109,10 +110,11 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* niente scrollbar */
-  min-height: 0; /* per evitare overflow con flexbox */
+  overflow: hidden; /* niente scrollbar interna */
+  min-height: 0; /* cruciale per flexbox */
 }
 
+/* Titolo e testo dropzone */
 .deck-dropzone h3 {
   margin-top: 0;
   font-size: 1.1rem;
@@ -125,6 +127,7 @@ hr {
   color: #999;
 }
 
+/* Griglia carte (se mai servisse) */
 .deck-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -132,6 +135,7 @@ hr {
   margin-top: 10px;
 }
 
+/* Wrapper carta: centrata e con proporzioni */
 .deck-card-wrapper {
   position: relative;
   width: 100%;
@@ -141,19 +145,21 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  aspect-ratio: 5 / 7; /* mantiene proporzioni */
+  aspect-ratio: 5 / 7;
 }
 
+/* Immagine carta: riempie wrapper, contenuto proporzionato */
 .deck-card-img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* per riempire senza ritagliare */
+  object-fit: contain;
   border: 1px solid #555;
   border-radius: 4px;
   background-color: #333;
   display: block;
 }
 
+/* Badge conteggio carte */
 .card-count-badge {
   position: absolute;
   top: -6px;
@@ -174,25 +180,37 @@ hr {
   background-color: #cc0000;
 }
 
+/* Inline attack/defense fields */
 .atk-res-inline {
   display: flex;
   gap: 12px;
 }
 
+/* Attack/defense input wrapper */
 .atk-res-field {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.atk-res-field input {
-  max-width: 65px;
-  background-color: #222;
-  color: #eee;
+/* Input fields più alti e leggibili */
+.filter-group input[type="text"],
+.filter-group input[type="number"],
+.filter-group select {
+  width: 100%;
+  padding: 10px 8px;
+  font-size: 1.1rem;
   border: 1px solid #555;
   border-radius: 4px;
+  background-color: #222;
+  color: #eee;
+  margin-left: 0;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 1.2;
 }
 
+/* Quando sidebar è collapsata, dropzone cresce di più */
 .filters-collapsed .deck-dropzone {
   flex-grow: 2;
 }
