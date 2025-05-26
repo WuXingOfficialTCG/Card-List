@@ -1,69 +1,61 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import PopupDeck from './PopupDeck';
-import './popupDeckList.css';
+import React, { useEffect, useState } from 'react';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
+import './popup.css';
 
-export default function PopupDeckList({ decks = [], onClose }) {
-  const [selectedDeck, setSelectedDeck] = useState(null);
+export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
+  const [decks, setDecks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const closeDeckDetail = () => setSelectedDeck(null);
+  useEffect(() => {
+    async function fetchDecks() {
+      try {
+        // Supponendo che la collezione si chiami 'decks' e abbia un campo 'userId'
+        const q = query(collection(db, 'decks'), where('userId', '==', userId));
+        const querySnapshot = await getDocs(q);
+        const fetchedDecks = [];
+        querySnapshot.forEach(doc => {
+          fetchedDecks.push({ id: doc.id, ...doc.data() });
+        });
+        setDecks(fetchedDecks);
+      } catch (error) {
+        console.error('Errore nel caricamento dei deck:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchDecks();
+  }, [userId]);
 
-  const popup = (
-    <>
-      {/* Backdrop modale */}
-      <div
-        className="popup-backdrop"
-        onClick={onClose}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="popupdecklist-title"
-      >
-        {/* Contenuto popup, blocca il click sul backdrop */}
-        <div
-          className="popup-content popup-decklist"
-          onClick={e => e.stopPropagation()}
-          tabIndex={-1}
-        >
-          <h2 id="popupdecklist-title">Lista Mazzi Salvati</h2>
+  return (
+    <div className="popup-overlay" onClick={onClose}>
+      <div className="popup-content" onClick={e => e.stopPropagation()}>
+        <button className="popup-close" onClick={onClose}>×</button>
 
-          {decks.length === 0 ? (
-            <p>Nessun mazzo salvato.</p>
-          ) : (
-            <ul className="deck-list">
-              {decks.map((deck, i) => (
-                <li key={i}>
-                  <button
-                    className="deck-list-button"
-                    onClick={() => setSelectedDeck(deck)}
-                    aria-label={`Apri mazzo ${deck.name}`}
-                  >
-                    {deck.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+        <h2>Lista dei Deck Salvati</h2>
 
-          <button
-            onClick={onClose}
-            className="popup-close-btn"
-            aria-label="Chiudi lista mazzi"
-          >
-            Chiudi
-          </button>
-        </div>
+        {loading ? (
+          <p>Caricamento...</p>
+        ) : decks.length === 0 ? (
+          <p>Nessun deck trovato.</p>
+        ) : (
+          <ul className="decklist">
+            {decks.map(deck => (
+              <li
+                key={deck.id}
+                className="decklist-item"
+                onClick={() => {
+                  onSelectDeck(deck);
+                  onClose();
+                }}
+                style={{ cursor: 'pointer', padding: '8px', borderBottom: '1px solid #ccc' }}
+              >
+                {deck.name || 'Deck senza nome'}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-
-      {/* Popup dettaglio singolo mazzo */}
-      {selectedDeck && (
-        <PopupDeck
-          deck={selectedDeck.cards || selectedDeck.deck || []}
-          onClose={closeDeckDetail}
-        />
-      )}
-    </>
+    </div>
   );
-
-  // Render in portal per sovrapposizione corretta
-  return ReactDOM.createPortal(popup, document.getElementById('popup-root'));
 }
