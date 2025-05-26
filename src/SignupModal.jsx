@@ -7,7 +7,6 @@ import {
 } from 'firebase/auth';
 import { auth } from './firebase';
 import './SignupModal.css';
-import { Link } from 'react-router-dom'; // <--- IMPORTANTE
 
 export default function SignupModal({ show, onClose, onSuccess }) {
   const [email, setEmail] = useState('');
@@ -29,6 +28,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
     setError('');
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      // Puoi aggiungere qui la logica per salvare promosConsent su Firestore se vuoi
       onSuccess();
     } catch (err) {
       setError(err.message);
@@ -82,19 +82,13 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
-        {/* Disclaimer con Link React Router */}
+        {/* Disclaimer con link che si apre in una nuova scheda */}
         <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
-          <Link
-            to="/privacy-policy"
-            style={{ color: '#007bff', textDecoration: 'underline' }}
-            onClick={onClose}
-          >
-            Privacy Policy
-          </Link>.
+          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
         </p>
 
-        {/* Checkbox per il consenso alle email promozionali */}
+        {/* Checkbox per email promozionali */}
         <label style={{ fontSize: '12px', color: '#555', display: 'block', marginBottom: '15px', cursor: 'pointer' }}>
           <input
             type="checkbox"
