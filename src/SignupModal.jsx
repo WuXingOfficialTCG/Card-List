@@ -31,10 +31,10 @@ export default function SignupModal({ show, onClose, onSuccess }) {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const registeredUser = userCredential.user;
 
-      // Salvo il consenso promozionale su Firestore
-      await setDoc(doc(db, "users", registeredUser.uid), {
-        email: email,
-        promosConsent: promosConsent,
+      // Salva il consenso promozionale in Firestore
+      await setDoc(doc(db, 'users', registeredUser.uid), {
+        email,
+        promosConsent,
         createdAt: new Date()
       });
 
@@ -70,9 +70,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   return (
     <div className="signup-overlay">
       <div className="signup-modal">
-        <button onClick={onClose} aria-label="Chiudi" className="signup-closeBtn">
-          &times;
-        </button>
+        <button onClick={onClose} aria-label="Chiudi" className="signup-closeBtn">&times;</button>
 
         <h2 className="signup-title">Accedi o Registrati</h2>
 
@@ -91,14 +89,25 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
-        {/* Disclaimer con link alla Privacy Policy */}
-        <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
+        <p
+          className="signup-disclaimer"
+          style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}
+        >
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
-          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>.
         </p>
 
-        {/* Checkbox per email promozionali */}
-        <label style={{ fontSize: '12px', color: '#555', display: 'block', marginBottom: '15px', cursor: 'pointer' }}>
+        <label
+          style={{
+            fontSize: '12px',
+            color: '#555',
+            display: 'block',
+            marginBottom: '15px',
+            cursor: 'pointer'
+          }}
+        >
           <input
             type="checkbox"
             checked={promosConsent}
@@ -117,9 +126,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
               <button onClick={handleRegister} className="signup-button">Registrati</button>
             </>
           ) : (
-            <button onClick={handleLogout} className="signup-button logout">
-              Logout
-            </button>
+            <button onClick={handleLogout} className="signup-button logout">Logout</button>
           )}
         </div>
       </div>
