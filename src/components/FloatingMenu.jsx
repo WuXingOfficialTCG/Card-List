@@ -4,7 +4,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
 import DeckBuilder from '../pages/DeckBuilder';
-import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 import Disclaimer from '../pages/Disclaimer';
 import AccountPage from '../pages/AccountPage';
