@@ -108,7 +108,7 @@ export default function App() {
               />
             }
           />
-          <Route path="/privacy-policy" element={<Disclaimer />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
         </Routes>
 
         {/* FloatingMenu solo se utente loggato */}
