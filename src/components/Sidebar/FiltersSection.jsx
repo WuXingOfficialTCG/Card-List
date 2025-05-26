@@ -36,27 +36,27 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
   return (
     <div className="filters-section">
       <div className="filter-group">
-        <label>Nome</label>
+        <label>Name</label>
         <input
           type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Filtra per nome"
+          placeholder="Filter for name"
         />
       </div>
 
       <div className="filter-group">
-        <label>Effetti</label>
+        <label>Effects</label>
         <input
           type="text"
           value={effetti}
           onChange={e => setEffetti(e.target.value)}
-          placeholder="Filtra per effetti o descrizione"
+          placeholder="Filter for effects"
         />
       </div>
 
       <div className="filter-group">
-        <span className="elemento-label">Elemento</span>
+        <span className="elemento-label">Element</span>
         <div className="elementi-wrapper">
           {(filters.elemento || []).map(el => (
             <label
@@ -97,7 +97,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
 
       <div className="filter-group atk-res-inline">
         <div className="atk-res-field">
-          <label>Atk</label>
+          <label>ATK</label>
           <input
             type="number"
             value={atk}
@@ -108,7 +108,7 @@ export default function FiltersSection({ filters = { elemento: [], tipo: [] }, o
         </div>
 
         <div className="atk-res-field">
-          <label>Res</label>
+          <label>RES</label>
           <input
             type="number"
             value={res}
