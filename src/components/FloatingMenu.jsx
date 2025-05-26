@@ -2,14 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
-import { saveDeckToFirestore } from '../utility/firestoreUtils';
 import {
   loadSavedDecksFromStorage,
   saveDeckWithName,
   importDeckFromFile
 } from '../utility/importExportUtils';
 
-// Popup lista mazzi
+// Componente per mostrare i mazzi salvati
 function DeckListPopup({ decks = [], onClose, onLoadDeck }) {
   return (
     <div className="popup-backdrop">
@@ -65,7 +64,6 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     };
   }, []);
 
-  // Carica mazzi salvati da storage (modulata)
   const handleListDecksClick = () => {
     const savedDecks = loadSavedDecksFromStorage();
     setDecks(savedDecks);
@@ -86,9 +84,8 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     setShowPopup(false);
   };
 
-  // Salvataggio delegato a importExportUtils
   const handleSaveDeck = async () => {
-    if (!user) {
+    if (!user || !user.uid) {
       alert('Devi essere loggato per salvare il mazzo.');
       return;
     }
@@ -105,7 +102,6 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
-  // Importa mazzo da file e passa a callback esterno
   const handleImportDeck = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -132,10 +128,13 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
         <button onClick={handleExportClick} title="Esporta Mazzo" aria-label="Esporta Mazzo">
           ⬇️
         </button>
-        {/* Bottone file input nascosto per importazione */}
-        <label title="Importa Mazzo" aria-label="Importa Mazzo" htmlFor="file-input" style={{ cursor: 'pointer' }}>
+        <button
+          title="Importa Mazzo"
+          aria-label="Importa Mazzo"
+          onClick={() => document.getElementById('file-input').click()}
+        >
           ⬆️
-        </label>
+        </button>
         <input
           id="file-input"
           type="file"
