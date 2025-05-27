@@ -47,9 +47,14 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
           </div>
 
           <div className="deck-info">
-            <button onClick={handleSaveDeck}>Salva Deck</button>
-            <button onClick={() => setShowDeckPopup(true)}>Visualizza Deck</button>
+           <div className="deck-button-banner">
+             <button onClick={handleSaveDeck}>Salva Deck</button>
+            </div>
+            <div className="deck-button-banner">
+             <button onClick={() => setShowDeckPopup(true)}>Visualizza Deck</button>
+           </div>
           </div>
+
         </div>
       </aside>
 
