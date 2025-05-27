@@ -23,6 +23,16 @@ export default function SignupModal({ show, onClose, onSuccess }) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!show) return null;
 
   const handleRegister = async () => {
@@ -67,8 +77,8 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   };
 
   return (
-    <div className="signup-overlay">
-      <div className="signup-modal">
+    <div className="signup-overlay" onClick={onClose}>
+      <div className="signup-modal" onClick={e => e.stopPropagation()}>
         <button onClick={onClose} aria-label="Chiudi" className="signup-closeBtn">
           &times;
         </button>
@@ -90,20 +100,22 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
-        <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
+        <p className="signup-disclaimer">
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
           <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
         </p>
 
-        <label style={{ fontSize: '12px', color: '#555', display: 'block', marginBottom: '15px', cursor: 'pointer' }}>
+        <div className="signup-checkbox-wrapper">
           <input
             type="checkbox"
+            id="promosConsent"
             checked={promosConsent}
             onChange={e => setPromosConsent(e.target.checked)}
-            style={{ marginRight: '8px' }}
           />
-          Acconsento a ricevere email promozionali e offerte speciali.
-        </label>
+          <label htmlFor="promosConsent">
+            Acconsento a ricevere email promozionali e offerte speciali.
+          </label>
+        </div>
 
         {error && <p className="signup-error">{error}</p>}
 
