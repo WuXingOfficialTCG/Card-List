@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
-import PopupDecklist from './PopupDecklist'; // <-- Usiamo questo
+import PopupDecklist from './PopupDeckList'; // <-- Usiamo questo
 import {
   saveDeckWithName,
   importDeckFromFile,
