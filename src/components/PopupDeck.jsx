@@ -5,25 +5,25 @@ export default function PopupDeck({ deck = [], onClose }) {
   if (!deck || deck.length === 0) return null;
 
   return (
-    <div className="popup-backdrop">
-      <div className="popup-content popup-deck-view">
-        <h2>Mazzo</h2>
+    <div className="popup-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="popupdeck-title">
+      <div className="popup-content popup-deck-view" onClick={e => e.stopPropagation()} tabIndex={-1}>
+        <h2 id="popupdeck-title">Mazzo</h2>
         <div className="deck-image-grid">
           {deck.map(({ card, count }, index) => (
             <div key={index} className="deck-card-wrapper">
-              <img
-                src={card.immagine}
-                alt={card.nome}
-                className="deck-card-img"
-                title={card.nome}
-              />
-              <span className={`card-count-badge ${count === 3 ? 'max-copies' : ''}`}>
-                {count}
-              </span>
+              {[...Array(count)].map((_, i) => (
+                <img
+                  key={i}
+                  src={card.immagine}
+                  alt={card.nome}
+                  className="deck-card-img"
+                  title={card.nome}
+                />
+              ))}
             </div>
           ))}
         </div>
-        <button onClick={onClose}>Chiudi</button>
+        <button className="popup-close" onClick={onClose} aria-label="Chiudi popup">×</button>
       </div>
     </div>
   );
