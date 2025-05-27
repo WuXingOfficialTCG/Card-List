@@ -1,6 +1,7 @@
+import Header from '../components/Header/Header';
 import React, { useEffect, useState } from 'react';
 import { getDoc, doc, collection, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase'; // la tua config firebase
+import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default function AdminProducts() {
@@ -11,16 +12,15 @@ export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  // 1. Controlla utente e ruolo admin
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (u) {
         setUser(u);
-        // leggi il documento Firestore users/{uid}
         const userDoc = await getDoc(doc(db, 'users', u.uid));
         if (userDoc.exists()) {
-          const data = userDoc.data();
-          setIsAdmin(data.admin === true);
+          setIsAdmin(userDoc.data().admin === true);
+        } else {
+          setIsAdmin(false);
         }
       } else {
         setUser(null);
@@ -31,7 +31,6 @@ export default function AdminProducts() {
     return unsubscribe;
   }, []);
 
-  // 2. Carica prodotti solo se admin
   useEffect(() => {
     if (!isAdmin) return;
 
@@ -44,8 +43,6 @@ export default function AdminProducts() {
     fetchProducts();
   }, [isAdmin]);
 
-  // 3. Funzioni gestione prodotti
-
   const addProduct = async () => {
     const newProduct = {
       name: '',
@@ -53,16 +50,15 @@ export default function AdminProducts() {
       price: 0,
       image: '',
       preorder: false,
-      stock: 0
+      stock: 0,
     };
     const docRef = await addDoc(collection(db, 'products'), newProduct);
     setProducts([...products, { id: docRef.id, ...newProduct }]);
   };
 
   const updateProduct = async (id, field, value) => {
-    setProducts(products.map(p => p.id === id ? { ...p, [field]: value } : p));
-    const docRef = doc(db, 'products', id);
-    await updateDoc(docRef, { [field]: value });
+    setProducts(products.map(p => (p.id === id ? { ...p, [field]: value } : p)));
+    await updateDoc(doc(db, 'products', id), { [field]: value });
   };
 
   const deleteProduct = async (id) => {
@@ -70,24 +66,25 @@ export default function AdminProducts() {
     setProducts(products.filter(p => p.id !== id));
   };
 
-  // Loading o accesso negato
   if (loadingUser) return <div>Caricamento utente...</div>;
-
   if (!user) return <div>Devi essere loggato per accedere a questa pagina.</div>;
-
   if (!isAdmin) return <div>Accesso negato. Non sei un amministratore.</div>;
-
   if (loadingProducts) return <div>Caricamento prodotti...</div>;
 
-  // Render admin panel
   return (
-    <div>
+    <div style={{ padding: 20 }}>
       <h2>Gestione Prodotti (Admin)</h2>
       <button onClick={addProduct}>+ Aggiungi prodotto</button>
-      <table border={1} cellPadding={5} cellSpacing={0}>
+      <table border={1} cellPadding={5} cellSpacing={0} style={{ marginTop: 10, width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
-            <th>Nome</th><th>Descrizione</th><th>Prezzo</th><th>Immagine</th><th>Preordine</th><th>Stock</th><th>Azioni</th>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Immagine</th>
+            <th>Preordine</th>
+            <th>Stock</th>
+            <th>Azioni</th>
           </tr>
         </thead>
         <tbody>
@@ -97,13 +94,7 @@ export default function AdminProducts() {
               <td><input value={p.description} onChange={e => updateProduct(p.id, 'description', e.target.value)} /></td>
               <td><input type="number" value={p.price} onChange={e => updateProduct(p.id, 'price', parseFloat(e.target.value) || 0)} /></td>
               <td><input value={p.image} onChange={e => updateProduct(p.id, 'image', e.target.value)} /></td>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={p.preorder}
-                  onChange={e => updateProduct(p.id, 'preorder', e.target.checked)}
-                />
-              </td>
+              <td><input type="checkbox" checked={p.preorder} onChange={e => updateProduct(p.id, 'preorder', e.target.checked)} /></td>
               <td><input type="number" value={p.stock} onChange={e => updateProduct(p.id, 'stock', parseInt(e.target.value, 10) || 0)} /></td>
               <td><button onClick={() => deleteProduct(p.id)}>X</button></td>
             </tr>
