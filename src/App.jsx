@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -11,7 +16,7 @@ import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
 import SupportPopupManager from './components/SupportPopupManager';
 
-export default function App() {
+function AppContent() {
   const [deck, setDeck] = useState(() => {
     try {
       const saved = localStorage.getItem('deck');
@@ -23,18 +28,12 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
-  // Nuovo stato per visibilità modal signup
-  const [showSignupModal, setShowSignupModal] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
       setCheckingAuth(false);
-      if (!currentUser) {
-        setShowSignupModal(true);  // mostra modal se non loggato
-      } else {
-        setShowSignupModal(false);
-      }
     });
     return unsubscribe;
   }, []);
@@ -43,21 +42,35 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  const onAddCard = card => { /* ... */ };
-  const onRemoveOne = card => { /* ... */ };
-  const handleExport = () => { /* ... */ };
+  const onAddCard = card => {
+    // Implementa la logica per aggiungere una carta
+  };
+  const onRemoveOne = card => {
+    // Implementa la logica per rimuovere una carta
+  };
+  const handleExport = () => {
+    // Implementa la logica per esportare il mazzo
+  };
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
 
+  // Mostra il modal solo se non loggato e non su /disclaimer
+  const showSignupModal = !user && location.pathname !== '/disclaimer';
+
   return (
-    <Router>
+    <>
       <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {/* Modale di signup con stato per visibilità e funzione onClose che la nasconde */}
-        <SignupModal
-          show={showSignupModal}
-          onClose={() => setShowSignupModal(false)}
-          onSuccess={() => setShowSignupModal(false)}
-        />
+        {showSignupModal && (
+          <SignupModal
+            show={true}
+            onClose={() => {
+              // Opzionale: puoi aggiungere logica per chiudere modal
+            }}
+            onSuccess={() => {
+              // Opzionale: azione dopo login/registrazione
+            }}
+          />
+        )}
 
         <SupportPopupManager />
 
@@ -87,10 +100,15 @@ export default function App() {
         )}
       </div>
 
-      {ReactDOM.createPortal(
-        <div id="popup-root" />,
-        document.body
-      )}
+      {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
