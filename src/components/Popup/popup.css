@@ -4,9 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,8 +21,8 @@
   max-height: 90vh;
   padding: 20px;
   border-radius: 10px;
-  background: transparent !important;
-  box-shadow: none; /* ⬅ rimuove ombra */
+  background: transparent;
+  box-shadow: none;
 }
 
 .popup-image {
@@ -33,7 +31,7 @@
   border-radius: 8px;
   user-select: none;
   pointer-events: none;
-  box-shadow: none; /* ⬅ rimuove ombra */
+  box-shadow: none;
 }
 
 .popup-close {
@@ -52,7 +50,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: background-color 0.3s ease;
   z-index: 1002;
 }
@@ -75,7 +72,6 @@
   cursor: pointer;
   user-select: none;
   border-radius: 4px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
   transition: background-color 0.3s ease;
   z-index: 1001;
 }
@@ -136,7 +132,7 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  box-shadow: none; /* ⬅ rimuove ombra */
+  box-shadow: none;
 }
 
 .popup-image-zoom-container img.popup-image {
