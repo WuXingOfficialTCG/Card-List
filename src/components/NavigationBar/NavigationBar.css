@@ -1,47 +1,21 @@
 .navigation-bar {
-  position: relative;
   display: flex;
-  justify-content: center; /* centra i bottoni */
-  padding: 8px 0;
-  height: 48px;
-  max-width: 600px; /* larghezza max per i bottoni */
-  margin: 0 auto;
-  z-index: 1; /* sopra la barra */
-}
-
-.navigation-bar::before {
-  content: "";
-  position: fixed;  /* full-width e fisso in alto */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 24px; /* metà altezza navbar (48px / 2) */
+  gap: 16px; /* spazio tra i bottoni */
+  padding: 8px 16px;
   background-color: #f0f0f0;
   border-bottom: 1px solid #ddd;
-  z-index: 0; /* sotto i bottoni */
+  justify-content: center; /* centra i bottoni */
 }
 
 .nav-button {
-  flex: 1;
-  text-align: center;
   text-decoration: none;
   color: #333;
-  padding: 0;
-  line-height: 48px;
-  border-radius: 0;
+  padding: 8px 12px;
+  border-radius: 4px;
   font-weight: 600;
   background-color: transparent;
   border: 1px solid transparent;
-  border-right: 1px solid #ddd;
   transition: background-color 0.2s, border-color 0.2s;
-  box-sizing: border-box;
-  height: 100%;
-  position: relative; /* per sovrapporsi alla barra */
-  z-index: 1;
-}
-
-.nav-button:last-child {
-  border-right: none;
 }
 
 .nav-button:hover,
@@ -49,5 +23,4 @@
   background-color: #ddd;
   border-color: #aaa;
   outline: none;
-  height: 100%;
 }
