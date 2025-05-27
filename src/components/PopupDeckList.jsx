@@ -10,7 +10,6 @@ export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
   useEffect(() => {
     async function fetchDecks() {
       try {
-        // Supponendo che la collezione si chiami 'decks' e abbia un campo 'userId'
         const q = query(collection(db, 'decks'), where('userId', '==', userId));
         const querySnapshot = await getDocs(q);
         const fetchedDecks = [];
@@ -24,31 +23,64 @@ export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
         setLoading(false);
       }
     }
-    fetchDecks();
+    if (userId) {
+      fetchDecks();
+    }
   }, [userId]);
 
-  return (
-    <div className="popup-overlay" onClick={onClose}>
-      <div className="popup-content" onClick={e => e.stopPropagation()}>
-        <button className="popup-close" onClick={onClose}>×</button>
+  // Chiude il popup premendo ESC
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
-        <h2>Lista dei Deck Salvati</h2>
+  return (
+    <div className="popup-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="popupdecklist-title">
+      <div className="popup-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
+        <button
+          className="popup-close"
+          onClick={onClose}
+          aria-label="Chiudi popup"
+        >
+          ×
+        </button>
+
+        <h2 id="popupdecklist-title">Lista dei Deck Salvati</h2>
 
         {loading ? (
           <p>Caricamento...</p>
         ) : decks.length === 0 ? (
           <p>Nessun deck trovato.</p>
         ) : (
-          <ul className="decklist">
+          <ul className="decklist" role="list" style={{ paddingLeft: 0 }}>
             {decks.map(deck => (
               <li
                 key={deck.id}
                 className="decklist-item"
+                role="button"
+                tabIndex={0}
                 onClick={() => {
                   onSelectDeck(deck);
                   onClose();
                 }}
-                style={{ cursor: 'pointer', padding: '8px', borderBottom: '1px solid #ccc' }}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    onSelectDeck(deck);
+                    onClose();
+                  }
+                }}
+                style={{
+                  cursor: 'pointer',
+                  padding: '8px',
+                  borderBottom: '1px solid #ccc',
+                  userSelect: 'none',
+                }}
+                aria-label={`Seleziona il deck ${deck.name || 'senza nome'}`}
               >
                 {deck.name || 'Deck senza nome'}
               </li>
