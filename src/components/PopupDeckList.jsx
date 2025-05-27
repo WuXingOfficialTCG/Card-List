@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeck';
 import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
