@@ -10,9 +10,8 @@ export default function Home() {
       </p>
 
       <div className="home-button-container">
-        <a href="/cards" className="home-button">Card List</a>
-        <a href="/profile" className="home-button">Area Personale</a>
-        <a href="/shop" className="home-button">Negozio</a>
+        <a href="/deck-builder" className="home-button">Card List</a>
+        <a href="/account" className="home-button">Area Personale</a>
       </div>
     </main>
   );
