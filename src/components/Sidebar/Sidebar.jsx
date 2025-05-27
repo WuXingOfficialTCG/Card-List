@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import PopupName from './PopupName';
+import PopupDeckView from './PopupDeckView'; // importa il tuo popup deck
 
 export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showSavePopup, setShowSavePopup] = useState(false);
+  const [showDeckPopup, setShowDeckPopup] = useState(false);
 
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
@@ -21,16 +23,16 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
     URL.revokeObjectURL(link.href);
   };
 
-  const handleSaveDeck = () => setShowPopup(true);
+  const handleSaveDeck = () => setShowSavePopup(true);
 
   const handlePopupConfirm = (filename) => {
     if (filename && filename.trim()) {
       saveDeckAsJSON(filename.trim());
     }
-    setShowPopup(false);
+    setShowSavePopup(false);
   };
 
-  const handlePopupCancel = () => setShowPopup(false);
+  const handlePopupCancel = () => setShowSavePopup(false);
 
   return (
     <>
@@ -44,17 +46,24 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
             <FiltersSection filters={filters} onFilterChange={onFilterChange} />
           </div>
 
-          {/* Se vuoi mostrare informazioni sul deck, puoi farlo qui */}
           <div className="deck-info">
             <button onClick={handleSaveDeck}>Salva Deck</button>
+            <button onClick={() => setShowDeckPopup(true)}>Visualizza Deck</button>
           </div>
         </div>
       </aside>
 
-      {showPopup && (
+      {showSavePopup && (
         <PopupName
           onConfirm={handlePopupConfirm}
           onCancel={handlePopupCancel}
+        />
+      )}
+
+      {showDeckPopup && (
+        <PopupDeckView
+          deck={deck}
+          onClose={() => setShowDeckPopup(false)}
         />
       )}
     </>
