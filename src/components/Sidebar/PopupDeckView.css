@@ -19,8 +19,8 @@
 
 .card-image-wrapper {
   position: relative;
-  width: 100px;
-  height: 140px;
+  width: 150px;
+  height: 210px;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
