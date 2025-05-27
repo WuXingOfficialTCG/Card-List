@@ -1,25 +1,42 @@
 .navigation-bar {
   display: flex;
-  gap: 16px; /* spazio tra i bottoni */
-  padding: 8px 16px;
+  justify-content: center; /* centra la navbar orizzontalmente */
+  padding: 8px 0; 
   background-color: #f0f0f0;
   border-bottom: 1px solid #ddd;
+  /* Altezza fissa per la navbar */
+  height: 48px; 
+  max-width: 600px; /* oppure la larghezza che preferisci */
+  margin: 0 auto; /* centro la navbar orizzontalmente nel contenitore */
 }
 
 .nav-button {
+  flex: 1; /* tutti i bottoni hanno la stessa larghezza */
+  text-align: center;
   text-decoration: none;
   color: #333;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 0; /* togli padding verticale perché voglio altezza fissa */
+  line-height: 48px; /* allinea verticalmente il testo al centro */
+  border-radius: 0; /* nessun bordo arrotondato per fare “a contatto” */
   font-weight: 600;
   background-color: transparent;
   border: 1px solid transparent;
+  border-right: 1px solid #ddd; /* separatore tra bottoni */
   transition: background-color 0.2s, border-color 0.2s;
+  box-sizing: border-box;
+  height: 100%; /* occupa tutta l'altezza della nav */
 }
 
+/* Rimuovo il bordo destro all'ultimo bottone per non avere doppio bordo */
+.nav-button:last-child {
+  border-right: none;
+}
+
+/* Stile al passaggio del mouse o focus */
 .nav-button:hover,
 .nav-button:focus {
   background-color: #ddd;
   border-color: #aaa;
   outline: none;
+  height: 100%; /* garantisco che occupi tutta l’altezza */
 }
