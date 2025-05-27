@@ -8,7 +8,6 @@ export default function PopupDeckList({ userId, onClose }) {
   const [loading, setLoading] = useState(true);
   const [selectedDeck, setSelectedDeck] = useState(null);
 
-  // Carica i mazzi da Firestore
   useEffect(() => {
     async function fetchDecks() {
       try {
@@ -26,12 +25,9 @@ export default function PopupDeckList({ userId, onClose }) {
       }
     }
 
-    if (userId) {
-      fetchDecks();
-    }
+    if (userId) fetchDecks();
   }, [userId]);
 
-  // Chiudi popup con ESC
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === 'Escape') {
@@ -44,19 +40,19 @@ export default function PopupDeckList({ userId, onClose }) {
 
   return (
     <div
-      className="popup-overlay"
+      className="popup-backdrop"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="popupdecklist-title"
     >
       <div
-        className="popup-content"
+        className="popup-decklist"
         onClick={e => e.stopPropagation()}
         tabIndex={-1}
       >
         <button
-          className="popup-close"
+          className="close-button"
           onClick={() => selectedDeck ? setSelectedDeck(null) : onClose()}
           aria-label="Chiudi popup"
         >
@@ -72,22 +68,21 @@ export default function PopupDeckList({ userId, onClose }) {
             ) : decks.length === 0 ? (
               <p>Nessun mazzo trovato.</p>
             ) : (
-              <ul className="decklist" role="list">
+              <ul className="deck-list" role="list">
                 {decks.map(deck => (
-                  <li
-                    key={deck.id}
-                    className="decklist-item"
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setSelectedDeck(deck.cards)}
-                    onKeyDown={e => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        setSelectedDeck(deck.cards);
-                      }
-                    }}
-                    aria-label={`Apri il mazzo ${deck.name || 'senza nome'}`}
-                  >
-                    {deck.name || 'Deck senza nome'}
+                  <li key={deck.id}>
+                    <button
+                      className="deck-list-button"
+                      onClick={() => setSelectedDeck(deck.cards)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          setSelectedDeck(deck.cards);
+                        }
+                      }}
+                      aria-label={`Apri il mazzo ${deck.name || 'senza nome'}`}
+                    >
+                      {deck.name || 'Deck senza nome'}
+                    </button>
                   </li>
                 ))}
               </ul>
