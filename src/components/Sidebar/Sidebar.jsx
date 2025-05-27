@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
-import DeckDropzone from './DeckDropzone';
 import PopupName from './PopupName';
 
-export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRemoveOne, onSaveDeck }) {
+export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
   const [showPopup, setShowPopup] = useState(false);
 
   const saveDeckAsJSON = (filename) => {
@@ -33,34 +32,11 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
 
   const handlePopupCancel = () => setShowPopup(false);
 
-  useEffect(() => {
-    const handleDropOutside = (e) => {
-      const cardData = e.dataTransfer.getData('application/deck-card');
-      if (!cardData) return;
-
-      const card = JSON.parse(cardData);
-      if (!e.target.closest('.deck-dropzone')) {
-        onRemoveOne(card);
-      }
-    };
-
-    const handleDragOver = (e) => e.preventDefault();
-
-    window.addEventListener('drop', handleDropOutside);
-    window.addEventListener('dragover', handleDragOver);
-
-    return () => {
-      window.removeEventListener('drop', handleDropOutside);
-      window.removeEventListener('dragover', handleDragOver);
-    };
-  }, [onRemoveOne]);
-
   return (
     <>
       <aside className="sidebar">
         <div className="filters-header">
           <h3>Filtri</h3>
-          {/* Bottone collapse rimosso */}
         </div>
 
         <div className="sidebar-main-grid">
@@ -68,13 +44,9 @@ export default function Sidebar({ filters, onFilterChange, deck, onAddCard, onRe
             <FiltersSection filters={filters} onFilterChange={onFilterChange} />
           </div>
 
-          <div className="deckdropzone-container">
-            <DeckDropzone
-              deck={deck}
-              onAddCard={onAddCard}
-              onRemoveOne={onRemoveOne}
-              onSave={handleSaveDeck}
-            />
+          {/* Se vuoi mostrare informazioni sul deck, puoi farlo qui */}
+          <div className="deck-info">
+            <button onClick={handleSaveDeck}>Salva Deck</button>
           </div>
         </div>
       </aside>
