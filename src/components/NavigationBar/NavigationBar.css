@@ -1,42 +1,53 @@
 .navigation-bar {
+  position: relative;
   display: flex;
-  justify-content: center; /* centra la navbar orizzontalmente */
-  padding: 8px 0; 
+  justify-content: center; /* centra i bottoni */
+  padding: 8px 0;
+  height: 48px;
+  max-width: 600px; /* larghezza max per i bottoni */
+  margin: 0 auto;
+  z-index: 1; /* sopra la barra */
+}
+
+.navigation-bar::before {
+  content: "";
+  position: fixed;  /* full-width e fisso in alto */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 24px; /* metà altezza navbar (48px / 2) */
   background-color: #f0f0f0;
   border-bottom: 1px solid #ddd;
-  /* Altezza fissa per la navbar */
-  height: 48px; 
-  max-width: 600px; /* oppure la larghezza che preferisci */
-  margin: 0 auto; /* centro la navbar orizzontalmente nel contenitore */
+  z-index: 0; /* sotto i bottoni */
 }
 
 .nav-button {
-  flex: 1; /* tutti i bottoni hanno la stessa larghezza */
+  flex: 1;
   text-align: center;
   text-decoration: none;
   color: #333;
-  padding: 0; /* togli padding verticale perché voglio altezza fissa */
-  line-height: 48px; /* allinea verticalmente il testo al centro */
-  border-radius: 0; /* nessun bordo arrotondato per fare “a contatto” */
+  padding: 0;
+  line-height: 48px;
+  border-radius: 0;
   font-weight: 600;
   background-color: transparent;
   border: 1px solid transparent;
-  border-right: 1px solid #ddd; /* separatore tra bottoni */
+  border-right: 1px solid #ddd;
   transition: background-color 0.2s, border-color 0.2s;
   box-sizing: border-box;
-  height: 100%; /* occupa tutta l'altezza della nav */
+  height: 100%;
+  position: relative; /* per sovrapporsi alla barra */
+  z-index: 1;
 }
 
-/* Rimuovo il bordo destro all'ultimo bottone per non avere doppio bordo */
 .nav-button:last-child {
   border-right: none;
 }
 
-/* Stile al passaggio del mouse o focus */
 .nav-button:hover,
 .nav-button:focus {
   background-color: #ddd;
   border-color: #aaa;
   outline: none;
-  height: 100%; /* garantisco che occupi tutta l’altezza */
+  height: 100%;
 }
