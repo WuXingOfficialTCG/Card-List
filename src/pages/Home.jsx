@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import '../components/home/home.css';
+import '../components/home/Home.css';
 
 export default function Home() {
   return (
@@ -13,8 +14,8 @@ export default function Home() {
         </p>
 
         <div className="home-button-container">
-          <a href="/deck-builder" className="home-button">Card List</a>
-          <a href="/account" className="home-button">Area Personale</a>
+          <Link to="/deck-builder" className="home-button">Card List</Link>
+          <Link to="/account" className="home-button">Area Personale</Link>
         </div>
       </main>
     </>
