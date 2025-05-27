@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { auth, db } from './firebase';
 import { doc, setDoc } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 import './SignupModal.css';
 
 export default function SignupModal({ show, onClose, onSuccess }) {
@@ -41,7 +42,6 @@ export default function SignupModal({ show, onClose, onSuccess }) {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
-      // Salva il consenso nel Firestore sotto collection "users" documento con uid
       await setDoc(doc(db, 'users', uid), {
         email,
         promosConsent
@@ -100,17 +100,18 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
-        <p className="signup-disclaimer">
+        <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
-          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+          <Link to="/disclaimer" target="_blank" rel="noopener noreferrer">Privacy Policy</Link>.
         </p>
 
-        <div className="signup-checkbox-wrapper">
+        <div className="signup-checkbox-wrapper" style={{ fontSize: '12px', color: '#555', marginBottom: '15px', cursor: 'pointer' }}>
           <input
             type="checkbox"
             id="promosConsent"
             checked={promosConsent}
             onChange={e => setPromosConsent(e.target.checked)}
+            style={{ marginRight: '8px' }}
           />
           <label htmlFor="promosConsent">
             Acconsento a ricevere email promozionali e offerte speciali.
