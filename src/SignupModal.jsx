@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,7 +8,6 @@ import {
 } from 'firebase/auth';
 import { auth, db } from './firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
 import './SignupModal.css';
 
 export default function SignupModal({ show, onClose, onSuccess }) {
@@ -102,7 +102,7 @@ export default function SignupModal({ show, onClose, onSuccess }) {
 
         <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
-          <Link to="/disclaimer" target="_blank" rel="noopener noreferrer">Privacy Policy</Link>.
+          <Link to="/disclaimer">Privacy Policy</Link>.
         </p>
 
         <div className="signup-checkbox-wrapper" style={{ fontSize: '12px', color: '#555', marginBottom: '15px', cursor: 'pointer' }}>
