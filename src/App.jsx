@@ -1,10 +1,7 @@
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
@@ -15,7 +12,7 @@ import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
 import SupportPopupManager from './components/SupportPopupManager';
 
-function AppContent() {
+export default function App() {
   const [deck, setDeck] = useState(() => {
     try {
       const saved = localStorage.getItem('deck');
@@ -26,8 +23,6 @@ function AppContent() {
   });
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
-
-  const location = useLocation();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -41,35 +36,26 @@ function AppContent() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  const onAddCard = card => {
-    // Logica per aggiungere carta
-  };
-  const onRemoveOne = card => {
-    // Logica per rimuovere carta
-  };
-  const handleExport = () => {
-    // Logica per esportare il mazzo
-  };
+  const onAddCard = card => { /* ... */ };
+  const onRemoveOne = card => { /* ... */ };
+  const handleExport = () => { /* ... */ };
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
 
-  const showSignupModal = !user && location.pathname !== '/disclaimer';
-
   return (
-    <>
-      <div className="app-container">
-        {showSignupModal && (
+    <Router>
+      {/* 1) Il tuo contenitore principale ha z-index 0 */}
+      <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
+        {/* Modale di signup (puoi trasformarlo in portal se vuoi) */}
+        {!user && (
           <SignupModal
             show={true}
-            onClose={() => {
-              // Opzionale: logica per chiudere modal
-            }}
-            onSuccess={() => {
-              // Opzionale: azione dopo login/registrazione
-            }}
+            onClose={() => {}}
+            onSuccess={() => {}}
           />
         )}
 
+        {/* Popup di supporto (usa il suo manager interno) */}
         <SupportPopupManager />
 
         <Routes>
@@ -97,14 +83,12 @@ function AppContent() {
           />
         )}
       </div>
-    </>
-  );
-}
 
-export default function App() {
-  return (
-    <Router>
-      <AppContent />
+      {/* 2) Qui montiamo il div per i portal dei tuoi popup */}
+      {ReactDOM.createPortal(
+        <div id="popup-root" />,
+        document.body
+      )}
     </Router>
   );
 }
