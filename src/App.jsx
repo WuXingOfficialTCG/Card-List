@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Routes,
@@ -54,7 +53,6 @@ function AppContent() {
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
 
-  // Mostra il modal solo se non loggato e non su /disclaimer
   const showSignupModal = !user && location.pathname !== '/disclaimer';
 
   return (
@@ -99,8 +97,6 @@ function AppContent() {
           />
         )}
       </div>
-
-      {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
     </>
   );
 }
