@@ -4,26 +4,26 @@ import './popupDeck.css';
 export default function PopupDeck({ deck = [], onClose }) {
   if (!deck || deck.length === 0) return null;
 
+  const expandedCards = deck.flatMap(({ card, count }) =>
+    Array.from({ length: count }, () => card)
+  );
+
   return (
-    <div className="popup-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="popupdeck-title">
-      <div className="popup-content popup-deck-view" onClick={e => e.stopPropagation()} tabIndex={-1}>
-        <h2 id="popupdeck-title">Mazzo</h2>
+    <div className="popup-overlay" onClick={onClose}>
+      <div className="popup-content popup-deck-view" onClick={e => e.stopPropagation()}>
+        <button className="popup-close" onClick={onClose} aria-label="Chiudi popup">×</button>
+        <h2>Carte del Mazzo</h2>
         <div className="deck-image-grid">
-          {deck.map(({ card, count }, index) => (
-            <div key={index} className="deck-card-wrapper">
-              {[...Array(count)].map((_, i) => (
-                <img
-                  key={i}
-                  src={card.immagine}
-                  alt={card.nome}
-                  className="deck-card-img"
-                  title={card.nome}
-                />
-              ))}
-            </div>
+          {expandedCards.map((card, index) => (
+            <img
+              key={index}
+              src={card.immagine}
+              alt={card.nome}
+              title={card.nome}
+              className="deck-card-img"
+            />
           ))}
         </div>
-        <button className="popup-close" onClick={onClose} aria-label="Chiudi popup">×</button>
       </div>
     </div>
   );
