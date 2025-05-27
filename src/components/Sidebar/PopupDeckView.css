@@ -1,26 +1,49 @@
-/* Contenitore popup con sfondo bianco */
-.popup-container {
-  background-color: white;
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;  /* Sfondo bianco che contiene tutto */
   padding: 16px;
   border-radius: 10px;
   max-height: 80vh;
   overflow-y: auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  width: 90%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  position: relative;
 }
 
-/* Titolo popup */
-.popup-title {
+.popup-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-content h2 {
+  margin: 0 0 12px 0;
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 0;
-  padding-bottom: 8px;
   border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
 }
 
-/* Griglia immagini mazzo */
 .deck-image-grid {
   display: flex;
   flex-wrap: wrap;
@@ -28,7 +51,6 @@
   justify-content: center;
 }
 
-/* Wrapper immagine singola */
 .card-image-wrapper {
   position: relative;
   width: 100px;
@@ -40,7 +62,6 @@
   box-sizing: border-box;
 }
 
-/* Immagine carta */
 .deck-card-image {
   width: 100%;
   height: 100%;
@@ -53,7 +74,6 @@
   display: block;
 }
 
-/* Badge conteggio carte */
 .card-count-badge {
   position: absolute;
   bottom: 4px;
