@@ -23,8 +23,7 @@
   max-height: 90vh;
   padding: 20px;
   border-radius: 10px;
-  /* box-shadow rimosso per togliere contorno */
-  /* background rimosso per togliere il box bianco */
+  /* background rimosso */
 }
 
 .popup-image {
@@ -65,7 +64,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.8);
+  background: transparent; /* <-- rimosso il bianco */
   border: none;
   font-size: 36px;
   font-weight: bold;
@@ -81,7 +80,7 @@
 }
 
 .popup-nav:hover {
-  background-color: #ddd;
+  background-color: rgba(255, 255, 255, 0.2); /* solo al passaggio */
 }
 
 .popup-prev {
@@ -92,8 +91,7 @@
   right: -50px;
 }
 
-/* Nuovi stili per i pulsanti + e - */
-
+/* Pulsanti + e - */
 .popup-controls {
   margin-top: 15px;
   display: flex;
@@ -151,4 +149,3 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
-
