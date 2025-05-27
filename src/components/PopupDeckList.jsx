@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import './popupDeckList.css';
 
@@ -9,9 +9,14 @@ export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
 
   useEffect(() => {
     async function fetchDecks() {
+      if (!userId) {
+        setLoading(false);
+        return;
+      }
       try {
-        const q = query(collection(db, 'decks'), where('userId', '==', userId));
-        const querySnapshot = await getDocs(q);
+        // Prendo la subcollection 'decks' dentro il documento 'users/userId'
+        const decksCollectionRef = collection(db, 'users', userId, 'decks');
+        const querySnapshot = await getDocs(decksCollectionRef);
         const fetchedDecks = [];
         querySnapshot.forEach(doc => {
           fetchedDecks.push({ id: doc.id, ...doc.data() });
@@ -23,9 +28,7 @@ export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
         setLoading(false);
       }
     }
-    if (userId) {
-      fetchDecks();
-    }
+    fetchDecks();
   }, [userId]);
 
   // Chiude il popup premendo ESC
