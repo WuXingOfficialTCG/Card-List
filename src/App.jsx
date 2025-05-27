@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
+import Home from './pages/Home';
 import DeckBuilder from './pages/DeckBuilder';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
@@ -44,9 +45,7 @@ export default function App() {
 
   return (
     <Router>
-      {/* 1) Il tuo contenitore principale ha z-index 0 */}
       <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {/* Modale di signup (puoi trasformarlo in portal se vuoi) */}
         {!user && (
           <SignupModal
             show={true}
@@ -55,12 +54,15 @@ export default function App() {
           />
         )}
 
-        {/* Popup di supporto (usa il suo manager interno) */}
         <SupportPopupManager />
 
         <Routes>
           <Route
             path="/"
+            element={<Home />}
+          />
+          <Route
+            path="/deck-builder"
             element={
               <DeckBuilder
                 deck={deck}
@@ -83,8 +85,6 @@ export default function App() {
           />
         )}
       </div>
-
-      {/* 2) Qui montiamo il div per i portal dei tuoi popup */}
       {ReactDOM.createPortal(
         <div id="popup-root" />,
         document.body
