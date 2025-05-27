@@ -4,31 +4,35 @@
     "name": "Prodotto A",
     "description": "Ottimo prodotto A con caratteristiche speciali.",
     "price": 29.99,
-    "image": "/images/prodotto-a.jpg",
-    "preorder": false
+    "image": "https://i.imgur.com/abcd1234.jpg",
+    "preorder": false,
+    "stock": 12
   },
   {
     "id": 2,
     "name": "Prodotto B",
     "description": "Fantastico prodotto B, in preordine.",
     "price": 59.99,
-    "image": "/images/prodotto-b.jpg",
-    "preorder": true
+    "image": "https://i.imgur.com/efgh5678.jpg",
+    "preorder": true,
+    "stock": 0
   },
   {
     "id": 3,
     "name": "Prodotto C",
     "description": "Economico prodotto C, ottimo per tutti.",
     "price": 15.5,
-    "image": "/images/prodotto-c.jpg",
-    "preorder": false
+    "image": "https://i.imgur.com/ijkl9012.jpg",
+    "preorder": false,
+    "stock": 5
   },
   {
     "id": 4,
     "name": "Prodotto D",
     "description": "Top gamma prodotto D, qualità superiore.",
     "price": 99.0,
-    "image": "/images/prodotto-d.jpg",
-    "preorder": true
+    "image": "https://i.imgur.com/mnop3456.jpg",
+    "preorder": true,
+    "stock": 3
   }
 ]
