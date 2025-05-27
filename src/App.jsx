@@ -22,6 +22,7 @@ export default function App() {
       return [];
     }
   });
+
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
@@ -37,9 +38,42 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  const onAddCard = card => { /* ... */ };
-  const onRemoveOne = card => { /* ... */ };
-  const handleExport = () => { /* ... */ };
+  // Aggiunge una carta al mazzo, o incrementa count se già presente
+  const onAddCard = (card) => {
+    setDeck(prevDeck => {
+      const existing = prevDeck.find(c => c.card.id === card.id);
+      if (existing) {
+        return prevDeck.map(c =>
+          c.card.id === card.id ? { ...c, count: c.count + 1 } : c
+        );
+      } else {
+        return [...prevDeck, { card, count: 1 }];
+      }
+    });
+  };
+
+  // Rimuove una copia della carta dal mazzo, o la elimina se count arriva a zero
+  const onRemoveOne = (card) => {
+    setDeck(prevDeck => {
+      return prevDeck
+        .map(c =>
+          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
+        )
+        .filter(c => c.count > 0);
+    });
+  };
+
+  // Funzione di esportazione (esempio placeholder)
+  const handleExport = () => {
+    const dataStr = JSON.stringify(deck, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'deck-export.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
 
@@ -57,10 +91,7 @@ export default function App() {
         <SupportPopupManager />
 
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
           <Route
             path="/deck-builder"
             element={
@@ -68,7 +99,7 @@ export default function App() {
                 deck={deck}
                 onAddCard={onAddCard}
                 onRemoveOne={onRemoveOne}
-                setDeck={setDeck}
+                setDeck={setDeck} // se ti serve, altrimenti puoi rimuovere
               />
             }
           />
