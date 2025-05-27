@@ -1,0 +1,72 @@
+/* src/pages/Shop.css */
+
+.shop-title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.preorder-label {
+  color: orange;
+  font-weight: bold;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.close-button {
+  background-color: #6c757d;
+  margin-left: 10px;
+}
+
+.close-button:hover {
+  background-color: #565e64;
+}
