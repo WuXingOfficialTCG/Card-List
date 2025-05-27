@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -24,10 +23,18 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+  // Nuovo stato per visibilità modal signup
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
       setCheckingAuth(false);
+      if (!currentUser) {
+        setShowSignupModal(true);  // mostra modal se non loggato
+      } else {
+        setShowSignupModal(false);
+      }
     });
     return unsubscribe;
   }, []);
@@ -44,18 +51,14 @@ export default function App() {
 
   return (
     <Router>
-      {/* 1) Il tuo contenitore principale ha z-index 0 */}
       <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {/* Modale di signup (puoi trasformarlo in portal se vuoi) */}
-        {!user && (
-          <SignupModal
-            show={true}
-            onClose={() => {}}
-            onSuccess={() => {}}
-          />
-        )}
+        {/* Modale di signup con stato per visibilità e funzione onClose che la nasconde */}
+        <SignupModal
+          show={showSignupModal}
+          onClose={() => setShowSignupModal(false)}
+          onSuccess={() => setShowSignupModal(false)}
+        />
 
-        {/* Popup di supporto (usa il suo manager interno) */}
         <SupportPopupManager />
 
         <Routes>
@@ -84,7 +87,6 @@ export default function App() {
         )}
       </div>
 
-      {/* 2) Qui montiamo il div per i portal dei tuoi popup */}
       {ReactDOM.createPortal(
         <div id="popup-root" />,
         document.body
