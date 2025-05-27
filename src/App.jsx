@@ -42,13 +42,13 @@ function AppContent() {
   }, [deck]);
 
   const onAddCard = card => {
-    // Implementa la logica per aggiungere una carta
+    // Logica per aggiungere carta
   };
   const onRemoveOne = card => {
-    // Implementa la logica per rimuovere una carta
+    // Logica per rimuovere carta
   };
   const handleExport = () => {
-    // Implementa la logica per esportare il mazzo
+    // Logica per esportare il mazzo
   };
 
   if (checkingAuth) return <div>Caricamento autenticazione...</div>;
@@ -57,12 +57,12 @@ function AppContent() {
 
   return (
     <>
-      <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
+      <div className="app-container">
         {showSignupModal && (
           <SignupModal
             show={true}
             onClose={() => {
-              // Opzionale: puoi aggiungere logica per chiudere modal
+              // Opzionale: logica per chiudere modal
             }}
             onSuccess={() => {
               // Opzionale: azione dopo login/registrazione
