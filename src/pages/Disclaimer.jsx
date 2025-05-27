@@ -1,7 +1,7 @@
 // src/pages/Disclaimer.js
 export default function Disclaimer() {
   return (
-    <div style={{ padding: '20px', maxWidth: '700px', margin: 'auto', fontFamily: 'Arial, sans-serif', lineHeight: '1.6', color: '#333' }}>
+    <div style={{ padding: '20px', maxWidth: '700px', margin: 'auto', fontFamily: 'Arial, sans-serif', lineHeight: '1.6', color: 'white' }}>
       <h1>Disclaimer / Privacy Policy</h1>
 
       <p>
