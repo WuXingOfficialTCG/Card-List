@@ -1,16 +1,21 @@
+import React from 'react';
+import './PopupDeckView.css'; // creeremo uno stile base
+
 export default function PopupDeckView({ deck, onClose }) {
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div className="popup-content" onClick={e => e.stopPropagation()}>
+      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="popup-close" onClick={onClose}>×</button>
         <h2>Deck Attuale</h2>
-        <ul style={{ maxHeight: '60vh', overflowY: 'auto', textAlign: 'left' }}>
+
+        <div className="deck-image-grid">
           {deck.map(({ card, count }) => (
-            <li key={card.id}>
-              {count}x {card.nome}
-            </li>
+            <div key={card.id} className="card-image-wrapper">
+              <img src={card.imageUrl} alt={card.nome} className="deck-card-image" />
+              <span className="card-count-badge">{count}x</span>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
