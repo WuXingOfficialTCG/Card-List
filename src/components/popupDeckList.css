@@ -15,19 +15,20 @@
 
 .popup-decklist {
   position: relative;
-  background: transparent; /* niente sfondo pieno */
+  background: transparent; /* sfondo trasparente */
   padding: 20px;
   border-radius: 10px;
   max-width: 90vw;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: none; /* niente ombra se vuoi */
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #222; /* testo leggibile */
+  color: #000; /* testo nero */
 }
+
 
 /* Lista mazzi */
 .deck-list {
