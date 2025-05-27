@@ -12,6 +12,7 @@ import SignupModal from './SignupModal';
 import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
 import SupportPopupManager from './components/SupportPopupManager';
+import AdminProducts from './pages/AdminProducts';
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -99,12 +100,13 @@ export default function App() {
                 deck={deck}
                 onAddCard={onAddCard}
                 onRemoveOne={onRemoveOne}
-                setDeck={setDeck} // se ti serve, altrimenti puoi rimuovere
+                setDeck={setDeck}
               />
             }
           />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/admin" element={<AdminProducts />} />
         </Routes>
 
         {user && (
