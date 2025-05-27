@@ -24,6 +24,7 @@
   padding: 20px;
   border-radius: 10px;
   background: transparent !important;
+  box-shadow: none; /* ⬅ rimuove ombra */
 }
 
 .popup-image {
@@ -32,6 +33,7 @@
   border-radius: 8px;
   user-select: none;
   pointer-events: none;
+  box-shadow: none; /* ⬅ rimuove ombra */
 }
 
 .popup-close {
@@ -50,6 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: background-color 0.3s ease;
   z-index: 1002;
 }
@@ -72,6 +75,7 @@
   cursor: pointer;
   user-select: none;
   border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
   transition: background-color 0.3s ease;
   z-index: 1001;
 }
@@ -132,6 +136,7 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  box-shadow: none; /* ⬅ rimuove ombra */
 }
 
 .popup-image-zoom-container img.popup-image {
