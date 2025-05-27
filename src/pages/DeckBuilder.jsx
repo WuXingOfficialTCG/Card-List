@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Header from '../components/Header/Header';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Popup from '../components/Popup/Popup';
@@ -12,7 +12,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
-  // Caricamento carte e popup supporto
+  // Caricamento carte e controllo popup supporto ogni 6 ore
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -28,8 +28,15 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
       .catch(console.error);
   }, []);
 
-  // Filtra le carte in base ai filtri impostati
-  const filteredCards = filterCards(cards, filters);
+  // Memoizza lista filtrata per efficienza
+  const filteredCards = useMemo(() => filterCards(cards, filters), [cards, filters]);
+
+  // Se popup aperto ma indice non valido, chiudi popup
+  useEffect(() => {
+    if (popupIndex !== null && (popupIndex < 0 || popupIndex >= filteredCards.length)) {
+      setPopupIndex(null);
+    }
+  }, [filteredCards, popupIndex]);
 
   // Aggiorna un filtro specifico
   const updateFilter = (field, value) => {
@@ -43,6 +50,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
   };
 
   // Conta quante copie di una carta ci sono nel mazzo
+  // ATTENZIONE: qui deck deve essere array di oggetti { card, count }
   const deckCountForCard = (cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
