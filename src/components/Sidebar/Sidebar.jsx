@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import PopupName from './PopupName';
-import PopupDeck from '../PopupDeckView';  // Assicurati che il path sia corretto
 
-export default function Sidebar({ filters, onFilterChange, deck }) {
+export default function Sidebar({ filters, onFilterChange, onResetFilters, deck }) {
   const [showSavePopup, setShowSavePopup] = useState(false);
-  const [showViewDeck, setShowViewDeck] = useState(false);
 
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
@@ -24,16 +22,15 @@ export default function Sidebar({ filters, onFilterChange, deck }) {
   };
 
   const handleSaveDeck = () => setShowSavePopup(true);
+
   const handlePopupConfirm = (filename) => {
     if (filename && filename.trim()) {
       saveDeckAsJSON(filename.trim());
     }
     setShowSavePopup(false);
   };
-  const handlePopupCancel = () => setShowSavePopup(false);
 
-  const handleViewDeck = () => setShowViewDeck(true);
-  const handleCloseViewDeck = () => setShowViewDeck(false);
+  const handlePopupCancel = () => setShowSavePopup(false);
 
   return (
     <>
@@ -47,11 +44,9 @@ export default function Sidebar({ filters, onFilterChange, deck }) {
         </div>
 
         <div className="deck-buttons-container">
-          <button onClick={() => onFilterChange({})}>Reset Filtri</button>
+          <button onClick={onResetFilters}>Reset Filtri</button>
           <button onClick={handleSaveDeck}>Salva Deck</button>
-          <button onClick={handleViewDeck} disabled={deck.length === 0}>
-            Visualizza Deck
-          </button>
+          <button>Visualizza Deck</button>
         </div>
       </aside>
 
@@ -60,10 +55,6 @@ export default function Sidebar({ filters, onFilterChange, deck }) {
           onConfirm={handlePopupConfirm}
           onCancel={handlePopupCancel}
         />
-      )}
-
-      {showViewDeck && (
-        <PopupDeck deck={deck} onClose={handleCloseViewDeck} />
       )}
     </>
   );
