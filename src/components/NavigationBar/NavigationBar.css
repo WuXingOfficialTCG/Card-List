@@ -1,26 +1,25 @@
 .navigation-bar {
   display: flex;
-  align-items: center;         /* Centra verticalmente */
-  height: 48px;                /* Altezza fissa della barra */
+  align-items: stretch; /* Fa sì che i bottoni si allunghino su tutta l’altezza */
+  height: 48px;         /* Altezza fissa della barra */
   background-color: #f8f8f8;
-  padding: 0 10px;             /* Padding solo orizzontale */
   border-bottom: 1px solid #ddd;
 }
 
 .nav-button {
   display: flex;
-  align-items: center;         /* Centra verticalmente il testo */
-  justify-content: center;     /* Centra orizzontalmente */
-  height: 100%;                /* Occupa tutta l’altezza della barra */
-  padding: 0 16px;             /* Padding solo orizzontale */
+  align-items: center;    /* Centra verticalmente il testo */
+  justify-content: center;/* Centra orizzontalmente */
+  height: 100%;           /* Occupa tutta l’altezza della barra */
+  margin: 0;
   text-decoration: none;
   color: #333;
   background-color: #e0e0e0;
   border: none;
-  border-radius: 0;            /* Nessun angolo arrotondato */
+  border-radius: 0;       /* Angoli dritti */
   font-weight: 500;
   font-size: 14px;
-  line-height: 1;              /* Elimina problemi di allineamento */
+  line-height: 1;
   cursor: pointer;
   transition: background-color 0.2s;
 }
