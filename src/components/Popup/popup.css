@@ -76,6 +76,14 @@
   z-index: 1001;
 }
 
+.popup-prev {
+  left: 5%; /* distanza dal bordo sinistro */
+}
+
+.popup-next {
+  right: 5%; /* distanza dal bordo destro */
+}
+
 .popup-nav:hover {
   background-color: #ddd;
 }
