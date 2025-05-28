@@ -1,36 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
+import PopupDeck from './PopupDeck';  // Assicurati che questo componente esista
 import './popupDeckList.css';
-
-function PopupDeck({ deck, onClose }) {
-  return (
-    <div className="popup-deck-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="popupdeck-title">
-      <div className="popup-deck-content" onClick={e => e.stopPropagation()} tabIndex={-1}>
-        <button className="popup-deck-close" onClick={onClose} aria-label="Chiudi popup">×</button>
-        <h2 id="popupdeck-title">{deck.name || 'Deck senza nome'}</h2>
-
-        <div className="deck-grid">
-          {deck.cards && deck.cards.length > 0 ? (
-            deck.cards.map((card, index) => (
-              <div key={index} className="deck-card" title={card.nome || 'Carta senza nome'}>
-                <img
-                  src={card.image || card.img || ''}
-                  alt={card.nome || 'Carta'}
-                  className="deck-card-image"
-                  loading="lazy"
-                />
-                <div className="deck-card-count">{card.count || 1}</div>
-              </div>
-            ))
-          ) : (
-            <p>Questo mazzo non contiene carte.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function PopupDeckList({ userId, onClose }) {
   const [decks, setDecks] = useState([]);
@@ -77,12 +49,12 @@ export default function PopupDeckList({ userId, onClose }) {
     >
       <div
         className="popup-decklist"
-        onClick={e => e.stopPropagation()}
+        onClick={e => e.stopPropagation()} // qui blocchiamo la propagazione
         tabIndex={-1}
       >
         <button
           className="close-button"
-          onClick={() => (selectedDeck ? setSelectedDeck(null) : onClose())}
+          onClick={() => selectedDeck ? setSelectedDeck(null) : onClose()}
           aria-label="Chiudi popup"
         >
           ×
@@ -102,10 +74,10 @@ export default function PopupDeckList({ userId, onClose }) {
                   <li key={deck.id}>
                     <button
                       className="deck-list-button"
-                      onClick={() => setSelectedDeck(deck)}
+                      onClick={() => setSelectedDeck(deck.cards)}
                       onKeyDown={e => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          setSelectedDeck(deck);
+                          setSelectedDeck(deck.cards);
                         }
                       }}
                       aria-label={`Apri il mazzo ${deck.name || 'senza nome'}`}
@@ -118,7 +90,10 @@ export default function PopupDeckList({ userId, onClose }) {
             )}
           </>
         ) : (
-          <PopupDeck deck={selectedDeck} onClose={() => setSelectedDeck(null)} />
+          <PopupDeck
+            deck={selectedDeck}
+            onClose={() => setSelectedDeck(null)}
+          />
         )}
       </div>
     </div>
