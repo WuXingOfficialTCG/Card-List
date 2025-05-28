@@ -4,6 +4,9 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import './Shop.css';
 
+import Header from '../components/Header/Header';
+import NavigationBar from '../components/NavigationBar/NavigationBar';
+
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -37,6 +40,8 @@ export default function Shop() {
 
   return (
     <>
+      <Header />
+      <NavigationBar />
       <h1 className="shop-title">Shop</h1>
       <div className="product-grid">
         {products.map(product => (
