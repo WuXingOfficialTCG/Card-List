@@ -169,3 +169,19 @@ hr {
   background-color: #0056b3;
 }
 
+.deck-buttons-container button:first-child {
+  background-color: #e74c3c; /* rosso acceso */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.deck-buttons-container button:first-child:hover {
+  background-color: #c0392b; /* rosso più scuro al passaggio */
+}
+
