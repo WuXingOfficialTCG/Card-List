@@ -20,6 +20,11 @@
   max-width: 90vw;
   max-height: 90vh;
   overflow-y: auto;
+
+  /* Griglia per le carte */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 16px;
 }
 
 .popup-deck-close {
@@ -37,13 +42,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.deck-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
 }
 
 .deck-card {
