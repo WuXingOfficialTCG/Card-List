@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeck';  // Assicurati che questo componente esista
+import PopupDeck from './PopupDeckList';  // Assicurati che questo componente esista
 import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
