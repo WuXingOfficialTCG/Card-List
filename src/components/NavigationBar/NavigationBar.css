@@ -1,22 +1,22 @@
 .navigation-bar {
   display: flex;
-  gap: 10px;
+  align-items: center; /* centra verticalmente */
+  height: 48px; /* altezza fissa della barra */
   background-color: #f8f8f8;
   padding: 0 10px;
   border-bottom: 1px solid #ddd;
-  height: 48px; /* Altezza fissa per la barra */
-  align-items: center; /* Centra verticalmente i bottoni */
 }
 
 .nav-button {
   display: flex;
   align-items: center;
-  height: 100%;
+  justify-content: center;
+  height: 100%; /* occupa tutta l’altezza della barra */
   padding: 0 16px;
   text-decoration: none;
   color: #333;
   background-color: #e0e0e0;
-  border-radius: 0; /* Niente angoli arrotondati */
+  border-radius: 0; /* niente angoli arrotondati */
   font-weight: 500;
   transition: background-color 0.2s;
 }
