@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getDoc, doc, collection, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import './AdminProducts.css'; // Assicurati che il path sia corretto
+import './AdminProducts.css';
 
 export default function AdminProducts() {
   const [user, setUser] = useState(null);
@@ -33,7 +33,14 @@ export default function AdminProducts() {
     if (!isAdmin) return;
     const fetchProducts = async () => {
       const snapshot = await getDocs(collection(db, 'products'));
-      const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const list = snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          threshold: data.threshold ?? 0,
+        };
+      });
       setProducts(list);
       setLoadingProducts(false);
     };
@@ -48,6 +55,7 @@ export default function AdminProducts() {
       image: '',
       preorder: false,
       stock: 0,
+      threshold: 0,
     };
     const docRef = await addDoc(collection(db, 'products'), newProduct);
     setProducts([...products, { id: docRef.id, ...newProduct }]);
@@ -94,6 +102,7 @@ export default function AdminProducts() {
             <th>Immagine</th>
             <th>Preordine</th>
             <th>Stock</th>
+            <th>Soglia</th>
             <th>Azioni</th>
           </tr>
         </thead>
@@ -141,6 +150,13 @@ export default function AdminProducts() {
                   type="number"
                   value={p.stock}
                   onChange={e => updateProductLocally(p.id, 'stock', parseInt(e.target.value, 10) || 0)}
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  value={p.threshold}
+                  onChange={e => updateProductLocally(p.id, 'threshold', parseInt(e.target.value, 10) || 0)}
                 />
               </td>
               <td>
