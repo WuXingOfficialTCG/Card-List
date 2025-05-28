@@ -2,16 +2,21 @@
   display: flex;
   gap: 10px;
   background-color: #f8f8f8;
-  padding: 10px;
+  padding: 0 10px;
   border-bottom: 1px solid #ddd;
+  height: 48px; /* Altezza fissa per la barra */
+  align-items: center; /* Centra verticalmente i bottoni */
 }
 
 .nav-button {
-  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
   text-decoration: none;
   color: #333;
   background-color: #e0e0e0;
-  border-radius: 4px;
+  border-radius: 0; /* Niente angoli arrotondati */
   font-weight: 500;
   transition: background-color 0.2s;
 }
