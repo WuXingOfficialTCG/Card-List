@@ -21,18 +21,17 @@
   border-radius: 10px;
 }
 
-.popup-image-zoom-container {
-  width: 400px;
-  height: 580px;
+.popup-image-zoom-container img.popup-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* 👈 evita che venga tagliata */
   border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  cursor: zoom-in;
-  transition: background-size 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+  display: block;
+  transition: opacity 0.3s ease;
 }
+
 
 .popup-image-zoom-container.zoomed {
   background-size: 200%;
