@@ -5,7 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 import Header from '../components/Header/Header';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
-import ProductPopup from '../components/ProductPopup';
+import ProductPopup from '../components/Shop/ProductPopup';
 import './Shop.css';
 
 export default function Shop() {
