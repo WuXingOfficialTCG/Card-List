@@ -3,7 +3,7 @@ import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import PopupName from './PopupName';
 
-export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
+export default function Sidebar({ filters, onFilterChange, deck }) {
   const [showSavePopup, setShowSavePopup] = useState(false);
 
   const saveDeckAsJSON = (filename) => {
@@ -39,19 +39,13 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
           <h3>Filtri</h3>
         </div>
 
-        <div className="sidebar-main-grid">
-          <div className="filters-container">
-            <FiltersSection filters={filters} onFilterChange={onFilterChange} />
-          </div>
+        <div className="filters-container">
+          <FiltersSection filters={filters} onFilterChange={onFilterChange} />
+        </div>
 
-          <div className="deck-info">
-            <div className="deck-button-banner">
-              <button onClick={handleSaveDeck}>Salva Deck</button>
-            </div>
-            <div className="deck-button-banner">
-              <button /* Nessuna funzione */>Visualizza Deck</button>
-            </div>
-          </div>
+        <div className="deck-buttons-container">
+          <button onClick={handleSaveDeck}>Salva Deck</button>
+          <button /* nessuna funzione */>Visualizza Deck</button>
         </div>
       </aside>
 
