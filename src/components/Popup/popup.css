@@ -77,11 +77,11 @@
 }
 
 .popup-prev {
-  left: 5%; /* distanza dal bordo sinistro */
+  left: 10px; /* distanza dal bordo sinistro */
 }
 
 .popup-next {
-  right: 5%; /* distanza dal bordo destro */
+  right: 10px; /* distanza dal bordo destro */
 }
 
 .popup-nav:hover {
