@@ -1,4 +1,4 @@
-import './styles/AdminProducts.css';
+import './AdminProducts.css';
 import Header from '../components/Header/Header';
 import React, { useEffect, useState } from 'react';
 import {
