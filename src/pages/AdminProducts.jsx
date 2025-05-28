@@ -124,9 +124,10 @@ export default function AdminProducts() {
           {products.map((p) => (
             <tr key={p.id}>
               <td>
-                <input
+                <textarea
                   value={p.name}
                   onChange={(e) => updateProductLocally(p.id, 'name', e.target.value)}
+                  rows={2}
                 />
               </td>
               <td>
