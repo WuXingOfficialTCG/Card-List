@@ -43,30 +43,40 @@ export default function Popup({
         )}
 
         <div
-          ref={imgRef}
           className={`popup-image-zoom-container ${isZoomed ? 'zoomed' : ''}`}
           onClick={toggleZoom}
           onMouseMove={handleMouseMove}
+          ref={imgRef}
           style={{
-            backgroundImage: `url(${card.immagine})`,
-            backgroundPosition: backgroundPos
+            backgroundImage: isZoomed ? `url(${card.immagine})` : 'none',
+            backgroundPosition: backgroundPos,
+            backgroundSize: isZoomed ? '200%' : 'contain',
           }}
-          aria-label={card.nome}
-          role="img"
         >
           <img
             src={card.immagine}
             alt={card.nome}
             className="popup-image"
             draggable={false}
-            style={{ opacity: isZoomed ? 0 : 1 }}
           />
         </div>
 
         <div className="popup-controls">
-          <button onClick={() => onRemoveOne(card)} disabled={deckCount <= 0}>−</button>
+          <button
+            onClick={() => onRemoveOne(card)}
+            disabled={deckCount <= 0}
+            aria-label="Rimuovi una copia"
+          >
+            −
+          </button>
           <span>{deckCount}</span>
-          <button onClick={() => onAddCard(card)} disabled={deckCount >= 3}>+</button>
+          <button
+            onClick={() => onAddCard(card)}
+            disabled={deckCount >= 3}
+            aria-label="Aggiungi una copia"
+          >
+            +
+          </button>
         </div>
 
         {!isLast && (
