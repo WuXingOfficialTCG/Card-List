@@ -44,6 +44,7 @@ export default function Sidebar({ filters, onFilterChange, deck }) {
         </div>
 
         <div className="deck-buttons-container">
+          <button onClick={() => onFilterChange({})}>Reset Filtri</button>
           <button onClick={handleSaveDeck}>Salva Deck</button>
           <button /* nessuna funzione */>Visualizza Deck</button>
         </div>
