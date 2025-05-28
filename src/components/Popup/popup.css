@@ -133,6 +133,8 @@
   overflow: hidden;
   position: relative;
   box-shadow: none;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .popup-image-zoom-container img.popup-image {
