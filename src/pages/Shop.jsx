@@ -1,5 +1,7 @@
 // src/pages/Shop.jsx
 import React, { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 import './Shop.css';
 
 export default function Shop() {
@@ -7,13 +9,21 @@ export default function Shop() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    fetch('/data/products.json')
-      .then(res => res.json())
-      .then(setProducts)
-      .catch(err => {
-        console.error('Errore caricando prodotti:', err);
+    async function fetchProducts() {
+      try {
+        const snapshot = await getDocs(collection(db, 'products'));
+        const list = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setProducts(list);
+      } catch (err) {
+        console.error('Errore caricando prodotti da Firestore:', err);
         setProducts([]);
-      });
+      }
+    }
+
+    fetchProducts();
   }, []);
 
   const handleBuy = (product) => {
@@ -39,9 +49,10 @@ export default function Shop() {
               src={product.image}
               alt={product.name}
               className="product-image"
+              style={{ width: '100%', borderRadius: 4 }}
             />
             <h3>{product.name}</h3>
-            <p>€{product.price.toFixed(2)}</p>
+            <p>€{Number(product.price).toFixed(2)}</p>
             <p>
               {product.stock > 0
                 ? `Disponibilità: ${product.stock}`
@@ -61,9 +72,10 @@ export default function Shop() {
               src={selected.image}
               alt={selected.name}
               className="popup-image"
+              style={{ width: '100%', borderRadius: 6 }}
             />
             <p>{selected.description}</p>
-            <p><strong>Prezzo:</strong> €{selected.price.toFixed(2)}</p>
+            <p><strong>Prezzo:</strong> €{Number(selected.price).toFixed(2)}</p>
             <p>
               {selected.stock > 0
                 ? `Disponibilità: ${selected.stock}`
