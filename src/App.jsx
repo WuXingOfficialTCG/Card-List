@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -40,7 +39,6 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Aggiunge una carta al mazzo, o incrementa count se già presente
   const onAddCard = (card) => {
     setDeck(prevDeck => {
       const existing = prevDeck.find(c => c.card.id === card.id);
@@ -54,7 +52,6 @@ export default function App() {
     });
   };
 
-  // Rimuove una copia della carta dal mazzo, o la elimina se count arriva a zero
   const onRemoveOne = (card) => {
     setDeck(prevDeck => {
       return prevDeck
@@ -65,7 +62,6 @@ export default function App() {
     });
   };
 
-  // Funzione di esportazione (esempio placeholder)
   const handleExport = () => {
     const dataStr = JSON.stringify(deck, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
@@ -105,6 +101,7 @@ export default function App() {
               />
             }
           />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/admin" element={<AdminProducts />} />
@@ -119,6 +116,7 @@ export default function App() {
           />
         )}
       </div>
+
       {ReactDOM.createPortal(
         <div id="popup-root" />,
         document.body
