@@ -19,10 +19,10 @@
   justify-content: center;
   max-width: 90vw;
   max-height: 90vh;
-  padding: 20px;
+  padding: 0 !important;
   border-radius: 10px;
-  background: transparent;
-  box-shadow: none;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .popup-image {
