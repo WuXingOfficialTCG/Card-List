@@ -1,5 +1,4 @@
-import React from 'react';
-import './PopupDeckView.css'; // creeremo uno stile base
+import React from 'react'; // creeremo uno stile base
 
 export default function PopupDeckView({ deck, onClose }) {
   return (
