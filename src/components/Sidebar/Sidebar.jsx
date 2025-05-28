@@ -48,7 +48,9 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
             <div className="deck-button-banner">
               <button onClick={handleSaveDeck}>Salva Deck</button>
             </div>
-            {/* Bottone Visualizza Deck rimosso */}
+            <div className="deck-button-banner">
+              <button /* Nessuna funzione */>Visualizza Deck</button>
+            </div>
           </div>
         </div>
       </aside>
