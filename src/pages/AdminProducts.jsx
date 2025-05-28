@@ -1,7 +1,14 @@
-// src/pages/AdminProducts.jsx
 import Header from '../components/Header/Header';
 import React, { useEffect, useState } from 'react';
-import { getDoc, doc, collection, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import {
+  getDoc,
+  doc,
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc
+} from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 
@@ -10,6 +17,7 @@ export default function AdminProducts() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loadingUser, setLoadingUser] = useState(true);
   const [products, setProducts] = useState([]);
+  const [editableProducts, setEditableProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   useEffect(() => {
@@ -33,6 +41,7 @@ export default function AdminProducts() {
       const snapshot = await getDocs(collection(db, 'products'));
       const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setProducts(list);
+      setEditableProducts(list);
       setLoadingProducts(false);
     };
     fetchProducts();
@@ -48,17 +57,40 @@ export default function AdminProducts() {
       stock: 0,
     };
     const docRef = await addDoc(collection(db, 'products'), newProduct);
-    setProducts([...products, { id: docRef.id, ...newProduct }]);
+    const fullProduct = { id: docRef.id, ...newProduct };
+    setProducts([...products, fullProduct]);
+    setEditableProducts([...editableProducts, fullProduct]);
   };
 
-  const updateProduct = async (id, field, value) => {
-    setProducts(products.map(p => (p.id === id ? { ...p, [field]: value } : p)));
-    await updateDoc(doc(db, 'products', id), { [field]: value });
+  const handleChange = (id, field, value) => {
+    setEditableProducts(prev =>
+      prev.map(p => (p.id === id ? { ...p, [field]: value } : p))
+    );
+  };
+
+  const handleSaveChanges = async () => {
+    for (let i = 0; i < editableProducts.length; i++) {
+      const edited = editableProducts[i];
+      const original = products.find(p => p.id === edited.id);
+      if (JSON.stringify(edited) !== JSON.stringify(original)) {
+        await updateDoc(doc(db, 'products', edited.id), {
+          name: edited.name,
+          description: edited.description,
+          price: Number(edited.price),
+          image: edited.image,
+          preorder: edited.preorder,
+          stock: Number(edited.stock),
+        });
+      }
+    }
+    setProducts(editableProducts);
+    alert('Modifiche salvate.');
   };
 
   const deleteProduct = async (id) => {
     await deleteDoc(doc(db, 'products', id));
     setProducts(products.filter(p => p.id !== id));
+    setEditableProducts(editableProducts.filter(p => p.id !== id));
   };
 
   if (loadingUser) return <div>Caricamento utente...</div>;
@@ -70,8 +102,15 @@ export default function AdminProducts() {
     <div style={{ padding: 20 }}>
       <Header />
       <h2>Gestione Prodotti (Admin)</h2>
-      <button style={{ marginBottom: 10 }} onClick={addProduct}>➕ Aggiungi prodotto</button>
-      <table border={1} cellPadding={5} cellSpacing={0} style={{ width: '100%', borderCollapse: 'collapse' }}>
+
+      <button onClick={handleSaveChanges} style={{ marginBottom: 10, background: 'blue', color: 'white', padding: '6px 12px', borderRadius: 4 }}>
+        💾 Salva modifiche
+      </button>
+      <button onClick={addProduct} style={{ marginLeft: 10, padding: '6px 12px' }}>
+        ➕ Aggiungi prodotto
+      </button>
+
+      <table border={1} cellPadding={5} cellSpacing={0} style={{ width: '100%', borderCollapse: 'collapse', marginTop: 10 }}>
         <thead>
           <tr>
             <th>Nome</th>
@@ -84,30 +123,41 @@ export default function AdminProducts() {
           </tr>
         </thead>
         <tbody>
-          {products.map(p => (
+          {editableProducts.map(p => (
             <tr key={p.id}>
-              <td><input value={p.name} onChange={e => updateProduct(p.id, 'name', e.target.value)} /></td>
-              <td><input value={p.description} onChange={e => updateProduct(p.id, 'description', e.target.value)} /></td>
+              <td>
+                <input value={p.name} onChange={e => handleChange(p.id, 'name', e.target.value)} />
+              </td>
+              <td>
+                <textarea
+                  value={p.description}
+                  rows={3}
+                  style={{ width: '100%', resize: 'vertical' }}
+                  onChange={e => handleChange(p.id, 'description', e.target.value)}
+                />
+              </td>
               <td>
                 <input
                   type="number"
                   value={p.price}
-                  onChange={e => updateProduct(p.id, 'price', parseFloat(e.target.value) || 0)}
+                  onChange={e => handleChange(p.id, 'price', parseFloat(e.target.value) || 0)}
                 /> €
               </td>
-              <td><input value={p.image} onChange={e => updateProduct(p.id, 'image', e.target.value)} /></td>
+              <td>
+                <input value={p.image} onChange={e => handleChange(p.id, 'image', e.target.value)} />
+              </td>
               <td>
                 <input
                   type="checkbox"
                   checked={p.preorder}
-                  onChange={e => updateProduct(p.id, 'preorder', e.target.checked)}
+                  onChange={e => handleChange(p.id, 'preorder', e.target.checked)}
                 />
               </td>
               <td>
                 <input
                   type="number"
                   value={p.stock}
-                  onChange={e => updateProduct(p.id, 'stock', parseInt(e.target.value, 10) || 0)}
+                  onChange={e => handleChange(p.id, 'stock', parseInt(e.target.value, 10) || 0)}
                 />
               </td>
               <td>
