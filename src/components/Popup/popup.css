@@ -13,21 +13,21 @@
 
 .popup-content {
   position: relative;
-  display: flex;
+  display: inline-flex; /* si adatta alle dimensioni del contenuto */
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 90vw;
-  max-height: 90vh;
   padding: 0 !important;
   border-radius: 10px;
   background: transparent !important;
   box-shadow: none !important;
+  max-width: none;
+  max-height: none;
 }
 
 .popup-image {
-  max-width: 80vw;
-  max-height: 80vh;
+  width: 300px; /* o la dimensione che preferisci */
+  height: auto;
   border-radius: 8px;
   user-select: none;
   pointer-events: none;
@@ -77,23 +77,15 @@
 }
 
 .popup-prev {
-  left: 10px; /* distanza dal bordo sinistro */
-}
-
-.popup-next {
-  right: 10px; /* distanza dal bordo destro */
-}
-
-.popup-nav:hover {
-  background-color: #ddd;
-}
-
-.popup-prev {
   left: -50px;
 }
 
 .popup-next {
   right: -50px;
+}
+
+.popup-nav:hover {
+  background-color: #ddd;
 }
 
 .popup-controls {
@@ -134,15 +126,13 @@
 }
 
 .popup-image-zoom-container {
-  width: 80vw;
-  max-width: 400px;
+  width: 300px;
   max-height: 80vh;
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  box-shadow: none;
-  background: transparent !important;
   box-shadow: none !important;
+  background: transparent !important;
 }
 
 .popup-image-zoom-container img.popup-image {
