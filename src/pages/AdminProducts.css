@@ -2,26 +2,53 @@
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  font-family: system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: #222;
+  background-color: #fff;
 }
 
 .admin-table th,
 .admin-table td {
-  padding: 4px;
-  border: 1px solid #ccc;
+  padding: 8px;
+  border: 1px solid #ddd;
   vertical-align: top;
+}
+
+.admin-table th {
+  background-color: #f0f4f8;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
+
+.admin-table tr:nth-child(even) {
+  background-color: #f9fbfc;
+}
+
+.admin-table tr:hover {
+  background-color: #eef6fb;
 }
 
 .admin-table input,
 .admin-table textarea {
   width: 100%;
-  padding: 6px;
+  padding: 8px;
   box-sizing: border-box;
-  border: none;
-  background: transparent;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  border-radius: 4px;
   font-family: inherit;
   font-size: 0.95rem;
   resize: vertical;
   outline: none;
+  color: #222;
+}
+
+.admin-table input:focus,
+.admin-table textarea:focus {
+  background-color: #fff;
+  border-color: #007bff;
 }
 
 .admin-table input[type="number"]::-webkit-inner-spin-button,
@@ -30,25 +57,26 @@
   margin: 0;
 }
 
-.admin-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.admin-table th {
-  background-color: #f0f0f0;
-  font-weight: bold;
-}
-
 .save-button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .save-button:hover {
   background-color: #0056b3;
+}
+
+button {
+  font-family: inherit;
+}
+
+button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
 }
