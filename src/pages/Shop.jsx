@@ -1,15 +1,21 @@
-// src/pages/Shop.jsx
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
-import './Shop.css';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { db, auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import Header from '../components/Header/Header';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
+import ProductPopup from '../components/ProductPopup';
+import './Shop.css';
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, setUser);
+  }, []);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -29,13 +35,32 @@ export default function Shop() {
     fetchProducts();
   }, []);
 
-  const handleBuy = (product) => {
-    if (product.stock === 0 && !product.preorder) {
-      alert('Prodotto esaurito!');
+  const handleBuy = (product, quantity) => {
+    alert(`Hai scelto di comprare ${quantity}x ${product.name}`);
+    setSelected(null);
+  };
+
+  const handlePreorder = async (product, quantity) => {
+    if (!user) {
+      alert('Devi essere loggato per preordinare');
       return;
     }
-    alert(`Hai scelto di ${product.preorder ? 'preordinare' : 'comprare'}: ${product.name}`);
-    setSelected(null);
+
+    try {
+      const ref = collection(db, `users/${user.uid}/preordini`);
+      await addDoc(ref, {
+        productId: product.id,
+        productName: product.name,
+        quantity,
+        timestamp: new Date()
+      });
+
+      alert(`Hai preordinato ${quantity}x ${product.name}`);
+      setSelected(null);
+    } catch (err) {
+      console.error('Errore durante il preordine:', err);
+      alert('Errore nel preordine. Riprova più tardi.');
+    }
   };
 
   return (
@@ -69,38 +94,12 @@ export default function Shop() {
         ))}
       </div>
 
-      {selected && (
-        <div className="popup-overlay" onClick={() => setSelected(null)}>
-          <div className="popup-content" onClick={e => e.stopPropagation()}>
-            <h2>{selected.name}</h2>
-            <img
-              src={selected.image}
-              alt={selected.name}
-              className="popup-image"
-              style={{ width: '100%', borderRadius: 6 }}
-            />
-            <p>{selected.description}</p>
-            <p><strong>Prezzo:</strong> €{Number(selected.price).toFixed(2)}</p>
-            <p>
-              {selected.stock > 0
-                ? `Disponibilità: ${selected.stock}`
-                : selected.preorder
-                ? 'Disponibile in pre-ordine'
-                : 'Esaurito'}
-            </p>
-            {selected.preorder && <p className="preorder-label">Pre-ordine disponibile</p>}
-            <button
-              onClick={() => handleBuy(selected)}
-              disabled={selected.stock === 0 && !selected.preorder}
-            >
-              {selected.preorder ? 'Preordina' : 'Compra'}
-            </button>
-            <button className="close-button" onClick={() => setSelected(null)}>
-              Chiudi
-            </button>
-          </div>
-        </div>
-      )}
+      <ProductPopup
+        product={selected}
+        onClose={() => setSelected(null)}
+        onBuy={handleBuy}
+        onPreorder={handlePreorder}
+      />
     </>
   );
 }
