@@ -1,26 +1,26 @@
 .navigation-bar {
   display: flex;
-  gap: 16px; /* spazio tra i bottoni */
-  padding: 8px 16px;
-  background-color: #f0f0f0;
+  gap: 10px;
+  background-color: #f8f8f8;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
-  justify-content: center; /* centra i bottoni */
 }
 
 .nav-button {
+  padding: 8px 12px;
   text-decoration: none;
   color: #333;
-  padding: 8px 12px;
+  background-color: #e0e0e0;
   border-radius: 4px;
-  font-weight: 600;
-  background-color: transparent;
-  border: 1px solid transparent;
-  transition: background-color 0.2s, border-color 0.2s;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
 
-.nav-button:hover,
-.nav-button:focus {
-  background-color: #ddd;
-  border-color: #aaa;
-  outline: none;
+.nav-button:hover {
+  background-color: #ccc;
+}
+
+.nav-button.active {
+  background-color: #007bff;
+  color: white;
 }
