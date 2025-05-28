@@ -12,47 +12,48 @@ export default function ProductPopup({ product, onClose, onBuy, onPreorder }) {
     setQuantity(value);
   };
 
-  const handleAction = () => {
+  const handleActionClick = () => {
     setShowConfirm(true);
   };
 
-  const confirmAction = () => {
+  const handleConfirm = () => {
+    setShowConfirm(false);
     if (product.preorder && product.stock === 0) {
       onPreorder(product, quantity);
     } else {
       onBuy(product, quantity);
     }
-    setShowConfirm(false);
     onClose();
   };
 
-  const isPreorder = product.preorder && product.stock === 0;
+  const handleCancelConfirm = () => {
+    setShowConfirm(false);
+  };
 
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+      <div className="popup-content" onClick={e => e.stopPropagation()}>
         <h2>{product.name}</h2>
         <img
           src={product.image}
           alt={product.name}
           className="popup-image"
-          style={{ width: '100%', borderRadius: 6 }}
         />
         <p>{product.description}</p>
         <p><strong>Prezzo:</strong> €{Number(product.price).toFixed(2)}</p>
         <p>
           {product.stock > 0
             ? `Disponibilità: ${product.stock}`
-            : isPreorder
-            ? 'Disponibile in pre-ordine'
-            : 'Esaurito'}
+            : product.preorder
+              ? 'Disponibile in pre-ordine'
+              : 'Esaurito'}
         </p>
 
-        {isPreorder && (
+        {product.preorder && product.stock === 0 && (
           <p className="preorder-label">Pre-ordine disponibile</p>
         )}
 
-        <div style={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
+        <div className="popup-controls">
           <label>
             Quantità:
             <input
@@ -60,40 +61,29 @@ export default function ProductPopup({ product, onClose, onBuy, onPreorder }) {
               value={quantity}
               min={1}
               onChange={handleQuantityChange}
-              style={{ marginLeft: '10px', width: '60px' }}
             />
           </label>
+
           <button
-            onClick={handleAction}
+            className="primary-button"
+            onClick={handleActionClick}
             disabled={product.stock === 0 && !product.preorder}
-            style={{ marginLeft: 'auto' }}
           >
-            {isPreorder ? 'Preordina' : 'Ordina'}
+            {product.preorder && product.stock === 0 ? 'Preordina' : 'Ordina'}
           </button>
         </div>
 
-        <button className="close-button" onClick={onClose}>
-          Chiudi
-        </button>
-
         {showConfirm && (
-          <div className="popup-overlay" style={{ background: 'rgba(0,0,0,0.6)' }}>
-            <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-              <h3>Conferma {isPreorder ? 'preordine' : 'ordine'}</h3>
-              <p>
-                Vuoi {isPreorder ? 'preordinare' : 'ordinare'} <strong>{quantity}</strong> unità di <strong>{product.name}</strong>?
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
-                <button onClick={confirmAction}>
-                  Conferma
-                </button>
-                <button className="close-button" onClick={() => setShowConfirm(false)} style={{ marginLeft: '10px' }}>
-                  Annulla
-                </button>
-              </div>
+          <div className="confirmation-box">
+            <p>Confermi di {product.preorder && product.stock === 0 ? 'preordinare' : 'acquistare'} <strong>{quantity}</strong> unità di <strong>{product.name}</strong>?</p>
+            <div className="confirmation-actions">
+              <button className="primary-button" onClick={handleConfirm}>Conferma</button>
+              <button className="cancel-button" onClick={handleCancelConfirm}>Annulla</button>
             </div>
           </div>
         )}
+
+        <button className="close-button" onClick={onClose}>Chiudi</button>
       </div>
     </div>
   );
