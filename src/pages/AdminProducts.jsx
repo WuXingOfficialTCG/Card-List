@@ -1,3 +1,4 @@
+// src/pages/AdminProducts.jsx
 import Header from '../components/Header/Header';
 import React, { useEffect, useState } from 'react';
 import { getDoc, doc, collection, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
@@ -8,7 +9,6 @@ export default function AdminProducts() {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loadingUser, setLoadingUser] = useState(true);
-
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
@@ -17,11 +17,7 @@ export default function AdminProducts() {
       if (u) {
         setUser(u);
         const userDoc = await getDoc(doc(db, 'users', u.uid));
-        if (userDoc.exists()) {
-          setIsAdmin(userDoc.data().admin === true);
-        } else {
-          setIsAdmin(false);
-        }
+        setIsAdmin(userDoc.exists() && userDoc.data().admin === true);
       } else {
         setUser(null);
         setIsAdmin(false);
@@ -33,13 +29,12 @@ export default function AdminProducts() {
 
   useEffect(() => {
     if (!isAdmin) return;
-
-    async function fetchProducts() {
+    const fetchProducts = async () => {
       const snapshot = await getDocs(collection(db, 'products'));
       const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setProducts(list);
       setLoadingProducts(false);
-    }
+    };
     fetchProducts();
   }, [isAdmin]);
 
@@ -73,14 +68,15 @@ export default function AdminProducts() {
 
   return (
     <div style={{ padding: 20 }}>
+      <Header />
       <h2>Gestione Prodotti (Admin)</h2>
-      <button onClick={addProduct}>+ Aggiungi prodotto</button>
-      <table border={1} cellPadding={5} cellSpacing={0} style={{ marginTop: 10, width: '100%', borderCollapse: 'collapse' }}>
+      <button style={{ marginBottom: 10 }} onClick={addProduct}>➕ Aggiungi prodotto</button>
+      <table border={1} cellPadding={5} cellSpacing={0} style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
             <th>Nome</th>
             <th>Descrizione</th>
-            <th>Prezzo</th>
+            <th>Prezzo (€)</th>
             <th>Immagine</th>
             <th>Preordine</th>
             <th>Stock</th>
@@ -92,11 +88,31 @@ export default function AdminProducts() {
             <tr key={p.id}>
               <td><input value={p.name} onChange={e => updateProduct(p.id, 'name', e.target.value)} /></td>
               <td><input value={p.description} onChange={e => updateProduct(p.id, 'description', e.target.value)} /></td>
-              <td><input type="number" value={p.price} onChange={e => updateProduct(p.id, 'price', parseFloat(e.target.value) || 0)} /></td>
+              <td>
+                <input
+                  type="number"
+                  value={p.price}
+                  onChange={e => updateProduct(p.id, 'price', parseFloat(e.target.value) || 0)}
+                /> €
+              </td>
               <td><input value={p.image} onChange={e => updateProduct(p.id, 'image', e.target.value)} /></td>
-              <td><input type="checkbox" checked={p.preorder} onChange={e => updateProduct(p.id, 'preorder', e.target.checked)} /></td>
-              <td><input type="number" value={p.stock} onChange={e => updateProduct(p.id, 'stock', parseInt(e.target.value, 10) || 0)} /></td>
-              <td><button onClick={() => deleteProduct(p.id)}>X</button></td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={p.preorder}
+                  onChange={e => updateProduct(p.id, 'preorder', e.target.checked)}
+                />
+              </td>
+              <td>
+                <input
+                  type="number"
+                  value={p.stock}
+                  onChange={e => updateProduct(p.id, 'stock', parseInt(e.target.value, 10) || 0)}
+                />
+              </td>
+              <td>
+                <button onClick={() => deleteProduct(p.id)}>🗑</button>
+              </td>
             </tr>
           ))}
         </tbody>
