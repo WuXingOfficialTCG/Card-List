@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ProductPopup.css';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../firebase'; // 🔄 percorso corretto
 
 export default function ProductPopup({ product, onClose, onBuy }) {
   const [quantity, setQuantity] = useState(1);
@@ -16,6 +16,10 @@ export default function ProductPopup({ product, onClose, onBuy }) {
 
   const handleActionClick = () => {
     setShowConfirm(true);
+  };
+
+  const handleCancelConfirm = () => {
+    setShowConfirm(false);
   };
 
   const handleConfirm = async () => {
@@ -41,25 +45,19 @@ export default function ProductPopup({ product, onClose, onBuy }) {
     const threshold = data.threshold || 0;
     const newCount = currentCount + quantity;
 
-    // Aggiorna il conteggio su Firestore
     await updateDoc(productRef, {
       preorderCount: newCount
     });
 
-    // Controlla se ha raggiunto la soglia (per future azioni, tipo invio mail)
     if (currentCount < threshold && newCount >= threshold) {
-      console.log(`Il prodotto "${data.name}" ha raggiunto la soglia di produzione.`);
-      // Azione futura: invio email
+      console.log(`✅ Il prodotto "${data.name}" ha raggiunto la soglia di produzione.`);
+      // 🔔 TODO: Trigger invio email (da gestire lato backend o funzione cloud)
     }
-  };
-
-  const handleCancelConfirm = () => {
-    setShowConfirm(false);
   };
 
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div className="popup-content" onClick={e => e.stopPropagation()}>
+      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <h2>{product.name}</h2>
         <img
           src={product.image}
@@ -77,7 +75,7 @@ export default function ProductPopup({ product, onClose, onBuy }) {
         </p>
 
         {product.preorder && product.stock === 0 && (
-          <p className="preorder-label">Pre-ordine disponibile</p>
+          <p className="preorder-label">🕐 Pre-ordine disponibile</p>
         )}
 
         <div className="popup-controls">
@@ -102,7 +100,10 @@ export default function ProductPopup({ product, onClose, onBuy }) {
 
         {showConfirm && (
           <div className="confirmation-box">
-            <p>Confermi di {product.preorder && product.stock === 0 ? 'preordinare' : 'acquistare'} <strong>{quantity}</strong> unità di <strong>{product.name}</strong>?</p>
+            <p>
+              Confermi di {product.preorder && product.stock === 0 ? 'preordinare' : 'acquistare'}{' '}
+              <strong>{quantity}</strong> unità di <strong>{product.name}</strong>?
+            </p>
             <div className="confirmation-actions">
               <button className="primary-button" onClick={handleConfirm}>Conferma</button>
               <button className="cancel-button" onClick={handleCancelConfirm}>Annulla</button>
