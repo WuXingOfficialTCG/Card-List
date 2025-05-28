@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import './popup.css';
 
 export default function Popup({
   card,
