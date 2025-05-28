@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import PopupName from './PopupName';
-import PopupDeckView from './PopupDeckView'; // importa il tuo popup deck
 
 export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
   const [showSavePopup, setShowSavePopup] = useState(false);
-  const [showDeckPopup, setShowDeckPopup] = useState(false);
 
   const saveDeckAsJSON = (filename) => {
     const deckData = deck.map(({ card, count }) => ({
@@ -47,14 +45,11 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
           </div>
 
           <div className="deck-info">
-           <div className="deck-button-banner">
-             <button onClick={handleSaveDeck}>Salva Deck</button>
-            </div>
             <div className="deck-button-banner">
-             <button onClick={() => setShowDeckPopup(true)}>Visualizza Deck</button>
-           </div>
+              <button onClick={handleSaveDeck}>Salva Deck</button>
+            </div>
+            {/* Bottone Visualizza Deck rimosso */}
           </div>
-
         </div>
       </aside>
 
@@ -62,13 +57,6 @@ export default function Sidebar({ filters, onFilterChange, deck, onSaveDeck }) {
         <PopupName
           onConfirm={handlePopupConfirm}
           onCancel={handlePopupCancel}
-        />
-      )}
-
-      {showDeckPopup && (
-        <PopupDeckView
-          deck={deck}
-          onClose={() => setShowDeckPopup(false)}
         />
       )}
     </>
