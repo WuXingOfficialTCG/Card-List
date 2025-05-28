@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './ProductPopup.css';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-export default function ProductPopup({ product, onClose, onBuy, onPreorder }) {
+export default function ProductPopup({ product, onClose, onBuy }) {
   const [quantity, setQuantity] = useState(1);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -16,14 +18,39 @@ export default function ProductPopup({ product, onClose, onBuy, onPreorder }) {
     setShowConfirm(true);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setShowConfirm(false);
+
     if (product.preorder && product.stock === 0) {
-      onPreorder(product, quantity);
+      await handlePreorder(product, quantity);
     } else {
       onBuy(product, quantity);
     }
+
     onClose();
+  };
+
+  const handlePreorder = async (product, quantity) => {
+    const productRef = doc(db, 'products', product.id);
+    const productSnap = await getDoc(productRef);
+
+    if (!productSnap.exists()) return;
+
+    const data = productSnap.data();
+    const currentCount = data.preorderCount || 0;
+    const threshold = data.threshold || 0;
+    const newCount = currentCount + quantity;
+
+    // Aggiorna il conteggio su Firestore
+    await updateDoc(productRef, {
+      preorderCount: newCount
+    });
+
+    // Controlla se ha raggiunto la soglia (per future azioni, tipo invio mail)
+    if (currentCount < threshold && newCount >= threshold) {
+      console.log(`Il prodotto "${data.name}" ha raggiunto la soglia di produzione.`);
+      // Azione futura: invio email
+    }
   };
 
   const handleCancelConfirm = () => {
