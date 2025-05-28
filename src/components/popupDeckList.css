@@ -4,81 +4,141 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1050;
 }
 
 .popup-decklist {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90vw;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
   position: relative;
-  background: white; /* Sfondo bianco per testo ben visibile */
+  color: white;
+}
+
+.close-button {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: red;
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deck-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.deck-list li + li {
+  margin-top: 8px;
+}
+
+.deck-list-button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #333;
+  color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.deck-list-button:hover,
+.deck-list-button:focus {
+  background: #555;
+  outline: none;
+}
+
+/* Stile PopupDeck */
+
+.popup-deck-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.popup-deck-content {
+  position: relative;
+  background: #1e1e1e;
+  color: white;
   padding: 20px;
   border-radius: 10px;
   max-width: 90vw;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #000; /* testo nero */
 }
 
-/* Lista mazzi */
-.deck-list {
-  list-style: none;
-  padding: 0;
-  margin: 16px 0;
-  max-height: 300px;
-  overflow-y: auto;
-  width: 100%;
-}
-
-/* Bottone mazzo */
-.deck-list-button {
-  display: block;
-  width: 100%;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-  font-size: 16px;
-  border: none;
-  background: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: background 0.3s ease;
-  border-radius: 8px;
-  color: #222;
-  text-align: left;
-}
-
-.deck-list-button:hover,
-.deck-list-button:focus {
-  background: rgba(0, 0, 0, 0.15);
-  outline: none;
-}
-
-/* Bottone chiudi */
-.close-button {
+.popup-deck-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #ff4444;
-  color: white;
+  top: -15px;
+  right: -15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: red;
+  color: #fff;
   border: none;
-  border-radius: 8px;
+  font-size: 22px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 20px;
-  line-height: 1;
-  padding: 4px 12px;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.close-button:hover,
-.close-button:focus {
-  background-color: #cc0000;
-  outline: none;
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(100px,1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.deck-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.deck-card-image {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+.deck-card-count {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  background: rgba(0,0,0,0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
 }
