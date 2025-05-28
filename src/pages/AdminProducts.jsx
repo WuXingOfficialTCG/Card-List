@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getDoc, doc, collection, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import './styles/AdminProducts.css'; // Assicurati che il path sia corretto
+import './AdminProducts.css'; // Assicurati che il path sia corretto
 
 export default function AdminProducts() {
   const [user, setUser] = useState(null);
