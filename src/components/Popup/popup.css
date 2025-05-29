@@ -24,14 +24,13 @@
 .popup-image-zoom-container img.popup-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;  /* 👈 evita che venga tagliata */
+  object-fit: contain;
   border-radius: 12px;
   pointer-events: none;
   user-select: none;
   display: block;
   transition: opacity 0.3s ease;
 }
-
 
 .popup-image-zoom-container.zoomed {
   background-size: 200%;
@@ -117,15 +116,17 @@
   cursor: not-allowed;
 }
 
-.popup-controls span {
+.popup-deck-counter {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 20px;
   font-weight: 600;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 42px;
-  border-radius: 6px;
-  line-height: 1;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 10px;
+  border-radius: 8px;
+  z-index: 1002;
+  pointer-events: none;
 }
