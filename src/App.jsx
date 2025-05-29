@@ -7,6 +7,7 @@ import { auth } from './firebase';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import DeckBuilder from './pages/DeckBuilder';
+import DeckManagerPage from './pages/DeckManagerPage';  // <-- importa la pagina deck manager
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 import Disclaimer from './pages/Disclaimer';
@@ -98,6 +99,15 @@ export default function App() {
                 onAddCard={onAddCard}
                 onRemoveOne={onRemoveOne}
                 setDeck={setDeck}
+              />
+            }
+          />
+          <Route
+            path="/deck-manager"
+            element={
+              <DeckManagerPage
+                user={user}
+                onSelectDeck={(selectedDeck) => setDeck(selectedDeck)}
               />
             }
           />
