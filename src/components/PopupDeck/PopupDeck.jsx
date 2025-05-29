@@ -8,9 +8,13 @@ export default function PopupDeck({ deck, onClose }) {
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label="Visualizzazione del mazzo"
+      aria-label={`Visualizzazione del mazzo ${deck.name || ''}`}
     >
-      <div className={styles.popupWrapper} onClick={(e) => e.stopPropagation()}>
+      <section
+        className={styles.content}
+        onClick={(e) => e.stopPropagation()}
+        tabIndex={-1}
+      >
         <button
           className={styles.close}
           onClick={onClose}
@@ -19,26 +23,23 @@ export default function PopupDeck({ deck, onClose }) {
           ×
         </button>
 
-        <section className={styles.content} tabIndex={-1}>
-          <div className={styles.grid}>
-            {deck.flatMap(({ card, count }) =>
-              Array.from({ length: count }, (_, i) => (
-                <div
-                  key={`${card.id || card.nome}-${i}`}
-                  className={styles.card}
-                >
-                  <img
-                    src={card.immagine}
-                    alt={card.nome}
-                    className={styles.cardImage}
-                    draggable={false}
-                  />
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-      </div>
+        <h2 className={styles.deckName}>{deck.name || 'Mazzo senza nome'}</h2>
+
+        <div className={styles.grid}>
+          {deck.cards?.flatMap(({ card, count }) =>
+            Array.from({ length: count }, (_, i) => (
+              <div key={`${card.id || card.nome}-${i}`} className={styles.card}>
+                <img
+                  src={card.immagine}
+                  alt={card.nome}
+                  className={styles.cardImage}
+                  draggable={false}
+                />
+              </div>
+            ))
+          )}
+        </div>
+      </section>
     </div>
   );
 }
