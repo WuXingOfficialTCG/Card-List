@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import PopupDeck from './PopupDeckList';
-import styles from './PopupDeckList.module.css';
+import styles from './popupDeckList.module.css';
 
 export default function PopupDeckList({ userId, onClose }) {
   const [decks, setDecks] = useState([]);
