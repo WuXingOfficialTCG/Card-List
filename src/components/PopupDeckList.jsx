@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { deleteDeck } from '../utility/deleteDeck';
 import { db } from '../firebase';
+import PopupDeck from './PopupDeck'; // ✅ importa componente visivo
 import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
@@ -9,7 +10,6 @@ export default function PopupDeckList({ userId, onClose }) {
   const [loading, setLoading] = useState(true);
   const [selectedDeck, setSelectedDeck] = useState(null);
 
-  // Carica i mazzi
   useEffect(() => {
     async function fetchDecks() {
       try {
@@ -30,20 +30,17 @@ export default function PopupDeckList({ userId, onClose }) {
     if (userId) fetchDecks();
   }, [userId]);
 
-  // Funzione per eliminare un mazzo con conferma
   const handleDeleteDeck = async (deckId) => {
-    const conferma = window.confirm('Sei sicuro di voler eliminare questo mazzo? Questa operazione non può essere annullata.');
+    const conferma = window.confirm('Sei sicuro di voler eliminare questo mazzo?');
     if (!conferma) return;
 
     try {
       await deleteDeck(userId, deckId);
-      // Aggiorna la lista mazzi eliminando quello cancellato
       setDecks(prev => prev.filter(deck => deck.id !== deckId));
-      // Se il mazzo selezionato è stato cancellato, chiudi la selezione
       if (selectedDeck && selectedDeck.id === deckId) setSelectedDeck(null);
     } catch (error) {
       console.error('Errore durante la cancellazione del mazzo:', error);
-      alert('Errore durante la cancellazione del mazzo. Riprova.');
+      alert('Errore durante la cancellazione del mazzo.');
     }
   };
 
@@ -58,28 +55,33 @@ export default function PopupDeckList({ userId, onClose }) {
   }, [onClose, selectedDeck]);
 
   return (
-    <div
-      className="popup-backdrop"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="popupdecklist-title"
-    >
-      <button
-        className="close-button"
-        onClick={() => (selectedDeck ? setSelectedDeck(null) : onClose())}
-        aria-label="Chiudi popup"
-      >
-        ×
-      </button>
+    <>
+      {selectedDeck ? (
+        <PopupDeck
+          deck={selectedDeck.cards}
+          onClose={() => setSelectedDeck(null)}
+        />
+      ) : (
+        <div
+          className="popup-backdrop"
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="popupdecklist-title"
+        >
+          <button
+            className="close-button"
+            onClick={() => onClose()}
+            aria-label="Chiudi popup"
+          >
+            ×
+          </button>
 
-      <div
-        className="popup-decklist"
-        onClick={e => e.stopPropagation()}
-        tabIndex={-1}
-      >
-        {!selectedDeck ? (
-          <>
+          <div
+            className="popup-decklist"
+            onClick={e => e.stopPropagation()}
+            tabIndex={-1}
+          >
             <h2 id="popupdecklist-title">I tuoi Mazzi</h2>
 
             {loading ? (
@@ -92,10 +94,10 @@ export default function PopupDeckList({ userId, onClose }) {
                   <li key={deck.id} className="deck-list-item">
                     <button
                       className="deck-list-button"
-                      onClick={() => setSelectedDeck(deck.cards)}
+                      onClick={() => setSelectedDeck(deck)}
                       onKeyDown={e => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          setSelectedDeck(deck.cards);
+                          setSelectedDeck(deck);
                         }
                       }}
                       aria-label={`Apri il mazzo ${deck.name || 'senza nome'}`}
@@ -114,20 +116,9 @@ export default function PopupDeckList({ userId, onClose }) {
                 ))}
               </ul>
             )}
-          </>
-        ) : (
-          <div>
-            <h3>Mazzo selezionato</h3>
-            <button
-              onClick={() => setSelectedDeck(null)}
-              aria-label="Chiudi mazzo selezionato"
-            >
-              Chiudi mazzo
-            </button>
-            {/* Qui puoi inserire visualizzazione mazzo */}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
