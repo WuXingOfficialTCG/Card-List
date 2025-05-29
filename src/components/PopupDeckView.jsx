@@ -1,12 +1,18 @@
 import React from 'react';
-import './popupDeckView.css';  // Assicurati che contenga il CSS che hai scritto
+import './popupDeckView.css';
 
 export default function PopupDeck({ deck, onClose }) {
   return (
-    <div className="popup-deck-overlay" onClick={onClose} role="dialog" aria-modal="true">
-      <div
+    <div
+      className="popup-deck-overlay"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Visualizzazione del mazzo"
+    >
+      <section
         className="popup-deck-content"
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         tabIndex={-1}
       >
         <button
@@ -17,11 +23,13 @@ export default function PopupDeck({ deck, onClose }) {
           ×
         </button>
 
-        <h2>Deck ({deck.length} carte)</h2>
+        <header className="popup-deck-header">
+          <h2 className="popup-deck-title">Mazzo ({deck.length} carte)</h2>
+        </header>
 
         <div className="deck-grid">
-          {deck.map(({ card, count }, index) => (
-            <div key={index} className="deck-card">
+          {deck.map(({ card, count }) => (
+            <div key={card.id || card.nome} className="deck-card">
               <img
                 src={card.immagine}
                 alt={card.nome}
@@ -32,7 +40,7 @@ export default function PopupDeck({ deck, onClose }) {
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
