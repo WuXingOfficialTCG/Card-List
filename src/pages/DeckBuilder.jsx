@@ -12,7 +12,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
-  // Caricamento carte e controllo popup supporto ogni 6 ore
+  // Controllo popup supporto ogni 6 ore e caricamento carte
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -28,39 +28,33 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
       .catch(console.error);
   }, []);
 
-  // Memoizza lista filtrata per efficienza
   const filteredCards = useMemo(() => filterCards(cards, filters), [cards, filters]);
 
-  // Se popup aperto ma indice non valido, chiudi popup
   useEffect(() => {
     if (popupIndex !== null && (popupIndex < 0 || popupIndex >= filteredCards.length)) {
       setPopupIndex(null);
     }
   }, [filteredCards, popupIndex]);
 
-  // Aggiorna un filtro specifico
   const updateFilter = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
   };
 
-  // Apri popup carta selezionata
   const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
   };
 
-  // Conta quante copie di una carta ci sono nel mazzo
-  // ATTENZIONE: deck deve essere array di oggetti { card, count }
   const deckCountForCard = (cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
   };
 
+  // Passo la funzione onResetDeck al Sidebar senza commenti dentro JSX
   return (
     <>
       <Header />
       <div style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
-        {/* Passo la funzione di reset */}
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
