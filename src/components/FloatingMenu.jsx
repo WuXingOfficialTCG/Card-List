@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PopupName from './Sidebar/PopupName';
-import PopupDecklist from './PopupDeck/PopupDeckList';
 import PopupDeck from './PopupDeck/PopupDeck';
-import DeckManager from './DeckManager';  // <-- Il componente che hai creato/importato
 import './floatingMenu.css';
 import {
   saveDeckWithName,
@@ -14,14 +12,13 @@ import useAutoHideMenu from '../utility/useAutoHideMenu';
 export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const visible = useAutoHideMenu();
   const [showPopupName, setShowPopupName] = useState(false);
-  const [showDecklist, setShowDecklist] = useState(false);
   const [showPopupDeck, setShowPopupDeck] = useState(false);
-  const [showDeckManager, setShowDeckManager] = useState(false);
   const [selectedDeck, setSelectedDeck] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (location.pathname !== '/deck-builder') {
+  // Mostra il menu solo in /deck-builder o /deck-manager
+  if (location.pathname !== '/deck-builder' && location.pathname !== '/deck-manager') {
     return null;
   }
 
@@ -57,9 +54,12 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
-  const handleSelectDeckFromDecklist = (deckCards) => {
+  const handleOpenDeckManager = () => {
+    navigate('/deck-manager');
+  };
+
+  const handleOpenPopupDeck = (deckCards) => {
     setSelectedDeck(deckCards);
-    setShowDecklist(false);
     setShowPopupDeck(true);
   };
 
@@ -68,17 +68,10 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     setShowPopupDeck(false);
   };
 
-  const handleSelectDeckFromManager = (deckCards) => {
-    setSelectedDeck(deckCards);
-    setShowDeckManager(false);
-    setShowPopupDeck(true);
-  };
-
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-        <button title="Lista Mazzi" onClick={() => setShowDecklist(true)}>📋</button>
-        <button title="Deck Manager" onClick={() => setShowDeckManager(true)}>🗂️</button>
+        <button title="Deck Manager" onClick={handleOpenDeckManager}>🗂️</button>
         <button title="Salva Mazzo" onClick={handleSaveDeck}>💾</button>
         <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>⬇️</button>
         <button
@@ -104,22 +97,6 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
             setShowPopupName(false);
           }}
           onCancel={() => setShowPopupName(false)}
-        />
-      )}
-
-      {showDecklist && user?.uid && (
-        <PopupDecklist
-          userId={user.uid}
-          onClose={() => setShowDecklist(false)}
-          onSelectDeck={handleSelectDeckFromDecklist}
-        />
-      )}
-
-      {showDeckManager && user?.uid && (
-        <DeckManager
-          userId={user.uid}
-          onClose={() => setShowDeckManager(false)}
-          onSelectDeck={handleSelectDeckFromManager}
         />
       )}
 
