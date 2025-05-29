@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import { deleteDeck } from '../utility/deleteDeck';
-import PopupDeck from './PopupDeck/PopupDeck';
 import './popupDeckList.css';
 
-export default function PopupDeckList({ userId, onClose }) {
+export default function PopupDeckList({ userId, onClose, onSelectDeck }) {
   const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedDeck, setSelectedDeck] = useState(null);
 
   useEffect(() => {
     async function fetchDecks() {
@@ -21,7 +18,7 @@ export default function PopupDeckList({ userId, onClose }) {
         }));
         setDecks(loadedDecks);
       } catch (error) {
-        console.error('Errore nel caricamento dei mazzi:', error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -30,52 +27,25 @@ export default function PopupDeckList({ userId, onClose }) {
     if (userId) fetchDecks();
   }, [userId]);
 
+  // Al click apro il mazzo, carico i dettagli e chiamo onSelectDeck
   async function handleOpenDeck(deckId) {
     try {
       const docRef = doc(db, 'users', userId, 'decks', deckId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const deckData = docSnap.data();
-        setSelectedDeck({ id: deckId, ...deckData });
+        // Passo l’array di carte a onSelectDeck
+        if (typeof onSelectDeck === 'function') {
+          onSelectDeck(deckData.cards || []);
+        }
+        onClose();
       } else {
         alert('Mazzo non trovato.');
       }
     } catch (error) {
-      console.error('Errore durante l\'apertura del mazzo:', error);
+      console.error(error);
+      alert('Errore durante il caricamento del mazzo.');
     }
-  }
-
-  async function handleDeleteDeck(deckId) {
-    const conferma = window.confirm('Sei sicuro di voler eliminare questo mazzo?');
-    if (!conferma) return;
-
-    try {
-      await deleteDeck(userId, deckId);
-      setDecks(prev => prev.filter(deck => deck.id !== deckId));
-      if (selectedDeck?.id === deckId) setSelectedDeck(null);
-    } catch (error) {
-      console.error('Errore durante la cancellazione:', error);
-      alert('Errore durante la cancellazione del mazzo.');
-    }
-  }
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        selectedDeck ? setSelectedDeck(null) : onClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedDeck, onClose]);
-
-  if (selectedDeck) {
-    return (
-      <PopupDeck
-        deck={selectedDeck}
-        onClose={() => setSelectedDeck(null)}
-      />
-    );
   }
 
   return (
@@ -84,43 +54,37 @@ export default function PopupDeckList({ userId, onClose }) {
       onClick={onClose}
       role="dialog"
       aria-modal="true"
+      aria-labelledby="popupdecklist-title"
     >
-      <button
-        className="close-button"
-        onClick={onClose}
-        aria-label="Chiudi popup"
-      >
-        ×
-      </button>
-
       <div
         className="popup-decklist"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
         tabIndex={-1}
       >
-        <h2>I tuoi Mazzi</h2>
+        <button
+          className="close-button"
+          onClick={onClose}
+          aria-label="Chiudi popup"
+        >
+          ×
+        </button>
+
+        <h2 id="popupdecklist-title">I tuoi Mazzi</h2>
 
         {loading ? (
           <p>Caricamento...</p>
         ) : decks.length === 0 ? (
           <p>Nessun mazzo trovato.</p>
         ) : (
-          <ul className="deck-list" role="list">
-            {decks.map((deck) => (
+          <ul className="deck-list">
+            {decks.map(deck => (
               <li key={deck.id} className="deck-list-item">
                 <button
                   className="deck-list-button"
                   onClick={() => handleOpenDeck(deck.id)}
-                  aria-label={`Apri il mazzo ${deck.name || 'senza nome'}`}
+                  aria-label={`Apri mazzo ${deck.name || 'Senza nome'}`}
                 >
-                  {deck.name || 'Deck senza nome'}
-                </button>
-                <button
-                  className="delete-deck-button"
-                  onClick={() => handleDeleteDeck(deck.id)}
-                  aria-label={`Elimina il mazzo ${deck.name || 'senza nome'}`}
-                >
-                  🗑️
+                  {deck.name || 'Senza nome'}
                 </button>
               </li>
             ))}
