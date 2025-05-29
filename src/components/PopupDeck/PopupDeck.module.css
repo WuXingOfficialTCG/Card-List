@@ -11,20 +11,27 @@
   z-index: 1100;
 }
 
+.popupWrapper {
+  position: relative;
+}
+
 .content {
   position: relative;
   background: #1e1e1e;
   padding: 20px;
   border-radius: 10px;
+  width: 800px;
+  height: 600px;
   max-width: 90vw;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .close {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: -16px;
+  right: -16px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -36,6 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .grid {
