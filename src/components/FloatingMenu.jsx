@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 import PopupDecklist from './PopupDeckList';
-import PopupDeck from './PopupDeck/PopupDeck';  // importa anche PopupDeck
+import PopupDeck from './PopupDeck/PopupDeck';
+import './floatingMenu.css';
 import {
   saveDeckWithName,
   importDeckFromFile,
@@ -15,7 +15,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const [showPopupName, setShowPopupName] = useState(false);
   const [showDecklist, setShowDecklist] = useState(false);
   const [showPopupDeck, setShowPopupDeck] = useState(false);
-  const [selectedDeck, setSelectedDeck] = useState(null); // qui salvo il mazzo selezionato
+  const [selectedDeck, setSelectedDeck] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -55,14 +55,12 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
-  // Quando seleziono un deck nella lista, salvo e apro popup mazzo
   const handleSelectDeck = (deckCards) => {
     setSelectedDeck(deckCards);
     setShowDecklist(false);
     setShowPopupDeck(true);
   };
 
-  // Quando chiudo il popup mazzo
   const handleClosePopupDeck = () => {
     setSelectedDeck(null);
     setShowPopupDeck(false);
@@ -109,10 +107,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
       )}
 
       {showPopupDeck && selectedDeck && (
-        <PopupDeck
-          deck={selectedDeck}
-          onClose={handleClosePopupDeck}
-        />
+        <PopupDeck deck={selectedDeck} onClose={handleClosePopupDeck} />
       )}
     </>
   );
