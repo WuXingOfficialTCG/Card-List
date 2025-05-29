@@ -9,22 +9,23 @@
   justify-content: center;
   align-items: center;
   z-index: 1100;
+  overflow: hidden; /* 🔒 blocca doppia scrollbar */
 }
 
 .popup-deck-content {
   position: relative;
   background: #1e1e1e;
   color: white;
-  padding: 20px;
+  padding: 24px;
   border-radius: 10px;
   max-width: 90vw;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: auto; /* ✅ una sola scrollbar gestita qui */
 
-  /* Griglia per le carte */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* 💡 dimensioni più consistenti */
   gap: 16px;
+  box-sizing: border-box;
 }
 
 .popup-deck-close {
@@ -42,25 +43,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .deck-card {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
+  background: #2c2c2c;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.deck-card:hover {
+  transform: scale(1.04);
 }
 
 .deck-card-image {
   width: 100%;
-  border-radius: 8px;
+  height: auto;
   display: block;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .deck-card-count {
   position: absolute;
-  bottom: 4px;
+  bottom: 6px;
   right: 6px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 14px;
