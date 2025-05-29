@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
+import { deleteDeck } from '../utility/deleteDeck';
 import { db } from '../firebase';
 import './popupDeckList.css';
 
@@ -8,6 +9,7 @@ export default function PopupDeckList({ userId, onClose }) {
   const [loading, setLoading] = useState(true);
   const [selectedDeck, setSelectedDeck] = useState(null);
 
+  // Carica i mazzi
   useEffect(() => {
     async function fetchDecks() {
       try {
@@ -28,6 +30,23 @@ export default function PopupDeckList({ userId, onClose }) {
     if (userId) fetchDecks();
   }, [userId]);
 
+  // Funzione per eliminare un mazzo con conferma
+  const handleDeleteDeck = async (deckId) => {
+    const conferma = window.confirm('Sei sicuro di voler eliminare questo mazzo? Questa operazione non può essere annullata.');
+    if (!conferma) return;
+
+    try {
+      await deleteDeck(userId, deckId);
+      // Aggiorna la lista mazzi eliminando quello cancellato
+      setDecks(prev => prev.filter(deck => deck.id !== deckId));
+      // Se il mazzo selezionato è stato cancellato, chiudi la selezione
+      if (selectedDeck && selectedDeck.id === deckId) setSelectedDeck(null);
+    } catch (error) {
+      console.error('Errore durante la cancellazione del mazzo:', error);
+      alert('Errore durante la cancellazione del mazzo. Riprova.');
+    }
+  };
+
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === 'Escape') {
@@ -46,7 +65,6 @@ export default function PopupDeckList({ userId, onClose }) {
       aria-modal="true"
       aria-labelledby="popupdecklist-title"
     >
-      {/* Bottone chiudi fuori dal contenuto popup */}
       <button
         className="close-button"
         onClick={() => (selectedDeck ? setSelectedDeck(null) : onClose())}
@@ -57,7 +75,7 @@ export default function PopupDeckList({ userId, onClose }) {
 
       <div
         className="popup-decklist"
-        onClick={e => e.stopPropagation()} // blocca la propagazione del click
+        onClick={e => e.stopPropagation()}
         tabIndex={-1}
       >
         {!selectedDeck ? (
@@ -71,7 +89,7 @@ export default function PopupDeckList({ userId, onClose }) {
             ) : (
               <ul className="deck-list" role="list">
                 {decks.map(deck => (
-                  <li key={deck.id}>
+                  <li key={deck.id} className="deck-list-item">
                     <button
                       className="deck-list-button"
                       onClick={() => setSelectedDeck(deck.cards)}
@@ -84,13 +102,20 @@ export default function PopupDeckList({ userId, onClose }) {
                     >
                       {deck.name || 'Deck senza nome'}
                     </button>
+                    <button
+                      className="delete-deck-button"
+                      onClick={() => handleDeleteDeck(deck.id)}
+                      aria-label={`Elimina il mazzo ${deck.name || 'senza nome'}`}
+                      title="Elimina mazzo"
+                    >
+                      🗑️
+                    </button>
                   </li>
                 ))}
               </ul>
             )}
           </>
         ) : (
-          // Se vuoi che ti scriva il PopupDeck fammi sapere, qui metto solo la lista
           <div>
             <h3>Mazzo selezionato</h3>
             <button
@@ -99,7 +124,7 @@ export default function PopupDeckList({ userId, onClose }) {
             >
               Chiudi mazzo
             </button>
-            {/* Puoi aggiungere qui la visualizzazione delle carte */}
+            {/* Qui puoi inserire visualizzazione mazzo */}
           </div>
         )}
       </div>
