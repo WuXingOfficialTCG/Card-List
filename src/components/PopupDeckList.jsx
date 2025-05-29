@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import styles from './popupDeckList.module.css';
+import PopupDeck from './PopupDeckList';  // Assicurati che questo componente esista
+import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
   const [decks, setDecks] = useState([]);
@@ -40,20 +41,20 @@ export default function PopupDeckList({ userId, onClose }) {
 
   return (
     <div
-      className={styles.popupBackdrop}
+      className="popup-backdrop"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="popupdecklist-title"
     >
       <div
-        className={styles.popupDecklist}
-        onClick={(e) => e.stopPropagation()}
+        className="popup-decklist"
+        onClick={e => e.stopPropagation()} // qui blocchiamo la propagazione
         tabIndex={-1}
       >
         <button
-          className={styles.closeButton}
-          onClick={() => (selectedDeck ? setSelectedDeck(null) : onClose())}
+          className="close-button"
+          onClick={() => selectedDeck ? setSelectedDeck(null) : onClose()}
           aria-label="Chiudi popup"
         >
           ×
@@ -68,13 +69,13 @@ export default function PopupDeckList({ userId, onClose }) {
             ) : decks.length === 0 ? (
               <p>Nessun mazzo trovato.</p>
             ) : (
-              <ul className={styles.deckList} role="list">
-                {decks.map((deck) => (
+              <ul className="deck-list" role="list">
+                {decks.map(deck => (
                   <li key={deck.id}>
                     <button
-                      className={styles.deckListButton}
+                      className="deck-list-button"
                       onClick={() => setSelectedDeck(deck.cards)}
-                      onKeyDown={(e) => {
+                      onKeyDown={e => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           setSelectedDeck(deck.cards);
                         }
@@ -89,22 +90,10 @@ export default function PopupDeckList({ userId, onClose }) {
             )}
           </>
         ) : (
-          <>
-            <h2>Dettaglio Mazzo ({selectedDeck.length} carte)</h2>
-            <div className={styles.deckGrid}>
-              {selectedDeck.map(({ card, count }, index) => (
-                <div key={index} className={styles.deckCard}>
-                  <img
-                    src={card.immagine}
-                    alt={card.nome}
-                    className={styles.deckCardImage}
-                    draggable={false}
-                  />
-                  <div className={styles.deckCardCount}>{count}</div>
-                </div>
-              ))}
-            </div>
-          </>
+          <PopupDeck
+            deck={selectedDeck}
+            onClose={() => setSelectedDeck(null)}
+          />
         )}
       </div>
     </div>
