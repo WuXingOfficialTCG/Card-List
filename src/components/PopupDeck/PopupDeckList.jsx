@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { deleteDeck } from '../utility/deleteDeck';
 import { db } from '../firebase';
-import './popupDeckList.css';
 
-export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
+export default function PopupDeckList({ userId, onClose, onSelectDeck }) {
   const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,55 +17,41 @@ export default function PopupDecklist({ userId, onClose, onSelectDeck }) {
         }));
         setDecks(loadedDecks);
       } catch (error) {
-        console.error('Errore nel caricamento dei mazzi:', error);
+        console.error('Errore caricamento mazzi:', error);
       } finally {
         setLoading(false);
       }
     }
-
     if (userId) fetchDecks();
   }, [userId]);
 
-  const handleDeleteDeck = async (deckId) => {
-    const conferma = window.confirm('Sei sicuro di voler eliminare questo mazzo?');
-    if (!conferma) return;
-    try {
-      await deleteDeck(userId, deckId);
-      setDecks(prev => prev.filter(deck => deck.id !== deckId));
-    } catch (error) {
-      console.error(error);
-      alert('Errore durante la cancellazione.');
-    }
-  };
-
   return (
     <div className="popup-backdrop" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="popup-decklist" onClick={e => e.stopPropagation()} tabIndex={-1}>
-        <button onClick={onClose} className="close-button" aria-label="Chiudi popup">×</button>
+      <div className="popup-content" onClick={e => e.stopPropagation()}>
+        <button
+          className="close-button"
+          onClick={onClose}
+          aria-label="Chiudi popup"
+          style={{ position: 'absolute', top: 10, right: 10 }}
+        >
+          ×
+        </button>
 
-        <h2>I tuoi Mazzi</h2>
+        <h2>I tuoi mazzi</h2>
+
         {loading ? (
           <p>Caricamento...</p>
         ) : decks.length === 0 ? (
           <p>Nessun mazzo trovato.</p>
         ) : (
-          <ul className="deck-list" role="list">
+          <ul>
             {decks.map(deck => (
-              <li key={deck.id} className="deck-list-item">
+              <li key={deck.id}>
                 <button
                   onClick={() => onSelectDeck(deck.cards)}
-                  className="deck-list-button"
                   aria-label={`Apri mazzo ${deck.name || 'senza nome'}`}
                 >
                   {deck.name || 'Deck senza nome'}
-                </button>
-                <button
-                  onClick={() => handleDeleteDeck(deck.id)}
-                  className="delete-deck-button"
-                  aria-label={`Elimina mazzo ${deck.name || 'senza nome'}`}
-                  title="Elimina mazzo"
-                >
-                  🗑️
                 </button>
               </li>
             ))}
