@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PopupName from './Sidebar/PopupName';
-import PopupDecklist from './PopupDeckList';
+import PopupDecklist from './PopupDeck/PopupDeckList';
 import PopupDeck from './PopupDeck/PopupDeck';
+import DeckManager from './DeckManager';  // <-- Il componente che hai creato/importato
 import './floatingMenu.css';
 import {
   saveDeckWithName,
@@ -15,6 +16,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const [showPopupName, setShowPopupName] = useState(false);
   const [showDecklist, setShowDecklist] = useState(false);
   const [showPopupDeck, setShowPopupDeck] = useState(false);
+  const [showDeckManager, setShowDeckManager] = useState(false);
   const [selectedDeck, setSelectedDeck] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,7 +57,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
-  const handleSelectDeck = (deckCards) => {
+  const handleSelectDeckFromDecklist = (deckCards) => {
     setSelectedDeck(deckCards);
     setShowDecklist(false);
     setShowPopupDeck(true);
@@ -66,10 +68,17 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     setShowPopupDeck(false);
   };
 
+  const handleSelectDeckFromManager = (deckCards) => {
+    setSelectedDeck(deckCards);
+    setShowDeckManager(false);
+    setShowPopupDeck(true);
+  };
+
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
         <button title="Lista Mazzi" onClick={() => setShowDecklist(true)}>📋</button>
+        <button title="Deck Manager" onClick={() => setShowDeckManager(true)}>🗂️</button>
         <button title="Salva Mazzo" onClick={handleSaveDeck}>💾</button>
         <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>⬇️</button>
         <button
@@ -102,7 +111,15 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
         <PopupDecklist
           userId={user.uid}
           onClose={() => setShowDecklist(false)}
-          onSelectDeck={handleSelectDeck}
+          onSelectDeck={handleSelectDeckFromDecklist}
+        />
+      )}
+
+      {showDeckManager && user?.uid && (
+        <DeckManager
+          userId={user.uid}
+          onClose={() => setShowDeckManager(false)}
+          onSelectDeck={handleSelectDeckFromManager}
         />
       )}
 
