@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './floatingMenu.css';
-import PopupName from './Sidebar/PopupName';       // Assicurati che PopupName non usi portal
-import PopupDecklist from './PopupDeckList';      // Assicurati che PopupDecklist non usi portal
+import PopupName from './Sidebar/PopupName';
+import PopupDecklist from './PopupDeckList';
 import {
   saveDeckWithName,
   importDeckFromFile,
@@ -14,6 +14,12 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const [showPopupName, setShowPopupName] = useState(false);
   const [showDecklist, setShowDecklist] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Mostra il menu solo se siamo su /deck-builder
+  if (location.pathname !== '/deck-builder') {
+    return null;
+  }
 
   const handleSaveDeck = async () => {
     if (!user?.uid) {
@@ -66,10 +72,9 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
           style={{ display: 'none' }}
           onChange={handleImportDeck}
         />
-        <button title="Account" onClick={() => navigate('/account')}>👤</button>
+        <button title="Home" onClick={() => navigate('/')}>🏠</button>
       </div>
 
-      {/* Renderizza i popup normalmente senza portal */}
       {showPopupName && (
         <PopupName
           onConfirm={(filename) => {
