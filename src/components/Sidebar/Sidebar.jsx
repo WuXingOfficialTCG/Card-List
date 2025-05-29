@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
 import PopupName from './PopupName';
-import PopupDeck from '../PopupDeckView';  // Assicurati che il path sia corretto
+import PopupDeck from '../PopupDeck/PopupDeck';  // Assicurati che il path sia corretto
 
 export default function Sidebar({ filters, onFilterChange, deck }) {
   const [showSavePopup, setShowSavePopup] = useState(false);
