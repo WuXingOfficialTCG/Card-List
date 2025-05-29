@@ -90,19 +90,19 @@
 }
 
 .popup-prev {
-  left: -50px;
+  left: -70px;
 }
 
 .popup-next {
-  right: -50px;
+  right: -70px;
 }
 
 .popup-controls {
-  margin-top: 12px;
+  margin-top: 6px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .popup-controls button {
@@ -125,7 +125,7 @@
 }
 
 .popup-count {
-  margin-top: 10px;
+  margin-top: 6px;
   font-size: 20px;
   font-weight: 600;
   color: white;
