@@ -46,6 +46,32 @@
   z-index: 9999;
 }
 
+.close-button:hover,
+.close-button:focus {
+  background: darkred;
+  outline: none;
+  box-shadow: 0 0 4px 2px rgba(255,0,0,0.7);
+}
+
+.deck-list-button {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #333;
+  color: white;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.deck-list-button:hover,
+.deck-list-button:focus {
+  background: #555;
+  outline: none;
+}
+
 .deck-card {
   position: relative;
   border-radius: 8px;
