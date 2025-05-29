@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeckList';
 import styles from './popupDeckList.module.css';
 
 export default function PopupDeckList({ userId, onClose }) {
@@ -90,10 +89,22 @@ export default function PopupDeckList({ userId, onClose }) {
             )}
           </>
         ) : (
-          <PopupDeck
-            deck={selectedDeck}
-            onClose={() => setSelectedDeck(null)}
-          />
+          <>
+            <h2>Dettaglio Mazzo ({selectedDeck.length} carte)</h2>
+            <div className={styles.deckGrid}>
+              {selectedDeck.map(({ card, count }, index) => (
+                <div key={index} className={styles.deckCard}>
+                  <img
+                    src={card.immagine}
+                    alt={card.nome}
+                    className={styles.deckCardImage}
+                    draggable={false}
+                  />
+                  <div className={styles.deckCardCount}>{count}</div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
