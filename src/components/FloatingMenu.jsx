@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './floatingMenu.css';
 import PopupName from './Sidebar/PopupName';
 import PopupDecklist from './PopupDeckList';
+import PopupDeck from './PopupDeck/PopupDeck';  // importa anche PopupDeck
 import {
   saveDeckWithName,
   importDeckFromFile,
@@ -13,10 +14,11 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const visible = useAutoHideMenu();
   const [showPopupName, setShowPopupName] = useState(false);
   const [showDecklist, setShowDecklist] = useState(false);
+  const [showPopupDeck, setShowPopupDeck] = useState(false);
+  const [selectedDeck, setSelectedDeck] = useState(null); // qui salvo il mazzo selezionato
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Mostra il menu solo se siamo su /deck-builder
   if (location.pathname !== '/deck-builder') {
     return null;
   }
@@ -53,26 +55,25 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
-  // Funzione chiamata da PopupDeckList al click su un mazzo: aggiorna il mazzo visualizzato
-  const handleSelectDeck = (selectedDeckCards) => {
-    if (typeof onImportDeck === 'function') {
-      onImportDeck(selectedDeckCards);
-    }
+  // Quando seleziono un deck nella lista, salvo e apro popup mazzo
+  const handleSelectDeck = (deckCards) => {
+    setSelectedDeck(deckCards);
     setShowDecklist(false);
+    setShowPopupDeck(true);
+  };
+
+  // Quando chiudo il popup mazzo
+  const handleClosePopupDeck = () => {
+    setSelectedDeck(null);
+    setShowPopupDeck(false);
   };
 
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-        <button title="Lista Mazzi" onClick={() => setShowDecklist(true)}>
-          📋
-        </button>
-        <button title="Salva Mazzo" onClick={handleSaveDeck}>
-          💾
-        </button>
-        <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>
-          ⬇️
-        </button>
+        <button title="Lista Mazzi" onClick={() => setShowDecklist(true)}>📋</button>
+        <button title="Salva Mazzo" onClick={handleSaveDeck}>💾</button>
+        <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>⬇️</button>
         <button
           title="Importa Mazzo"
           onClick={() => document.getElementById('file-input').click()}
@@ -86,9 +87,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
           style={{ display: 'none' }}
           onChange={handleImportDeck}
         />
-        <button title="Home" onClick={() => navigate('/')}>
-          🏠
-        </button>
+        <button title="Home" onClick={() => navigate('/')}>🏠</button>
       </div>
 
       {showPopupName && (
@@ -105,7 +104,14 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
         <PopupDecklist
           userId={user.uid}
           onClose={() => setShowDecklist(false)}
-          onSelectDeck={handleSelectDeck} // <-- PASSO la funzione corretta qui
+          onSelectDeck={handleSelectDeck}
+        />
+      )}
+
+      {showPopupDeck && selectedDeck && (
+        <PopupDeck
+          deck={selectedDeck}
+          onClose={handleClosePopupDeck}
         />
       )}
     </>
