@@ -2,17 +2,19 @@ import React from 'react';
 import styles from './PopupDeck.module.css';
 
 export default function PopupDeck({ deck, onClose }) {
+  if (!deck || deck.length === 0) return null;
+
   return (
     <div
       className={styles.overlay}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label={`Visualizzazione del mazzo ${deck.name || ''}`}
+      aria-label="Visualizzazione del mazzo"
     >
       <section
         className={styles.content}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
         tabIndex={-1}
       >
         <button
@@ -23,10 +25,9 @@ export default function PopupDeck({ deck, onClose }) {
           ×
         </button>
 
-        <h2 className={styles.deckName}>{deck.name || 'Mazzo senza nome'}</h2>
-
         <div className={styles.grid}>
-          {deck.cards?.flatMap(({ card, count }) =>
+          {deck.flatMap(({ card, count }) =>
+            // Per ogni carta ripeto il rendering count volte
             Array.from({ length: count }, (_, i) => (
               <div key={`${card.id || card.nome}-${i}`} className={styles.card}>
                 <img
