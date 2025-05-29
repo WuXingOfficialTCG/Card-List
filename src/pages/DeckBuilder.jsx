@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 import { initialFilters, availableFilters, filterCards } from '../utility/filters';
 
-export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
+export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck }) {
   const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
@@ -66,6 +66,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne }) {
           deck={deck}
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOne}
+          onResetDeck={onResetDeck}   {/* Passo la funzione di reset */}
         />
         <CardGrid
           cards={filteredCards}
