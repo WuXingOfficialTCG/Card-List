@@ -4,7 +4,7 @@ import FiltersSection from './FiltersSection';
 import PopupName from './PopupName';
 import PopupDeck from '../PopupDeck/PopupDeck';  // Assicurati che il path sia corretto
 
-export default function Sidebar({ filters, onFilterChange, deck }) {
+export default function Sidebar({ filters, onFilterChange, deck, onResetDeck }) {
   const [showSavePopup, setShowSavePopup] = useState(false);
   const [showViewDeck, setShowViewDeck] = useState(false);
 
@@ -47,7 +47,13 @@ export default function Sidebar({ filters, onFilterChange, deck }) {
         </div>
 
         <div className="deck-buttons-container">
-          <button onClick={() => onFilterChange({})}>Reset Filtri</button>
+          <button onClick={() => {
+            if (typeof onResetDeck === 'function') {
+              onResetDeck();
+            }
+          }}>
+            Reset Mazzo
+          </button>
           <button onClick={handleSaveDeck}>Salva Deck</button>
           <button onClick={handleViewDeck} disabled={deck.length === 0}>
             Visualizza Deck
