@@ -37,13 +37,7 @@ export default function Popup({
         <button className="popup-close" onClick={onClose}>×</button>
 
         {!isFirst && (
-          <button
-            className="popup-nav popup-prev"
-            onClick={(e) => {
-              e.stopPropagation();
-              onPrev();
-            }}
-          >
+          <button className="popup-nav popup-prev" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
             ‹
           </button>
         )}
@@ -67,9 +61,6 @@ export default function Popup({
           />
         </div>
 
-        {/* Contatore visibile in alto al centro */}
-        <span className="popup-deck-counter">{deckCount}</span>
-
         <div className="popup-controls">
           <button
             onClick={() => onRemoveOne(card)}
@@ -78,6 +69,7 @@ export default function Popup({
           >
             −
           </button>
+          <span className="popup-count">{deckCount}</span>
           <button
             onClick={() => onAddCard(card)}
             disabled={deckCount >= 3}
@@ -88,13 +80,7 @@ export default function Popup({
         </div>
 
         {!isLast && (
-          <button
-            className="popup-nav popup-next"
-            onClick={(e) => {
-              e.stopPropagation();
-              onNext();
-            }}
-          >
+          <button className="popup-nav popup-next" onClick={(e) => { e.stopPropagation(); onNext(); }}>
             ›
           </button>
         )}
