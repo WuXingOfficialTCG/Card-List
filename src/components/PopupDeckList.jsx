@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeckList';  // Assicurati che questo componente esista
-import './popupDeckList.css';
+import PopupDeck from './PopupDeckList';
+import styles from './PopupDeckList.module.css';
 
 export default function PopupDeckList({ userId, onClose }) {
   const [decks, setDecks] = useState([]);
@@ -41,20 +41,20 @@ export default function PopupDeckList({ userId, onClose }) {
 
   return (
     <div
-      className="popup-backdrop"
+      className={styles.popupBackdrop}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="popupdecklist-title"
     >
       <div
-        className="popup-decklist"
-        onClick={e => e.stopPropagation()} // qui blocchiamo la propagazione
+        className={styles.popupDecklist}
+        onClick={(e) => e.stopPropagation()}
         tabIndex={-1}
       >
         <button
-          className="close-button"
-          onClick={() => selectedDeck ? setSelectedDeck(null) : onClose()}
+          className={styles.closeButton}
+          onClick={() => (selectedDeck ? setSelectedDeck(null) : onClose())}
           aria-label="Chiudi popup"
         >
           ×
@@ -69,13 +69,13 @@ export default function PopupDeckList({ userId, onClose }) {
             ) : decks.length === 0 ? (
               <p>Nessun mazzo trovato.</p>
             ) : (
-              <ul className="deck-list" role="list">
-                {decks.map(deck => (
+              <ul className={styles.deckList} role="list">
+                {decks.map((deck) => (
                   <li key={deck.id}>
                     <button
-                      className="deck-list-button"
+                      className={styles.deckListButton}
                       onClick={() => setSelectedDeck(deck.cards)}
-                      onKeyDown={e => {
+                      onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           setSelectedDeck(deck.cards);
                         }
