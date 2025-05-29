@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeckList';  // Assicurati che questo componente esista
 import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
@@ -47,19 +46,20 @@ export default function PopupDeckList({ userId, onClose }) {
       aria-modal="true"
       aria-labelledby="popupdecklist-title"
     >
+      {/* Bottone chiudi fuori dal contenuto popup */}
+      <button
+        className="close-button"
+        onClick={() => (selectedDeck ? setSelectedDeck(null) : onClose())}
+        aria-label="Chiudi popup"
+      >
+        ×
+      </button>
+
       <div
         className="popup-decklist"
-        onClick={e => e.stopPropagation()} // qui blocchiamo la propagazione
+        onClick={e => e.stopPropagation()} // blocca la propagazione del click
         tabIndex={-1}
       >
-        <button
-          className="close-button"
-          onClick={() => selectedDeck ? setSelectedDeck(null) : onClose()}
-          aria-label="Chiudi popup"
-        >
-          ×
-        </button>
-
         {!selectedDeck ? (
           <>
             <h2 id="popupdecklist-title">I tuoi Mazzi</h2>
@@ -90,10 +90,17 @@ export default function PopupDeckList({ userId, onClose }) {
             )}
           </>
         ) : (
-          <PopupDeck
-            deck={selectedDeck}
-            onClose={() => setSelectedDeck(null)}
-          />
+          // Se vuoi che ti scriva il PopupDeck fammi sapere, qui metto solo la lista
+          <div>
+            <h3>Mazzo selezionato</h3>
+            <button
+              onClick={() => setSelectedDeck(null)}
+              aria-label="Chiudi mazzo selezionato"
+            >
+              Chiudi mazzo
+            </button>
+            {/* Puoi aggiungere qui la visualizzazione delle carte */}
+          </div>
         )}
       </div>
     </div>
