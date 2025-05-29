@@ -7,13 +7,15 @@ import { auth } from './firebase';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import DeckBuilder from './pages/DeckBuilder';
-import DeckManager from './pages/DeckManager'; // <-- import DeckManager
-import FloatingMenu from './components/FloatingMenu';
-import SignupModal from './SignupModal';
+import DeckManager from './pages/DeckManager';
+import Events from './pages/Events';
 import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
-import SupportPopupManager from './components/SupportPopupManager';
 import AdminProducts from './pages/AdminProducts';
+
+import FloatingMenu from './components/FloatingMenu';
+import SignupModal from './SignupModal';
+import SupportPopupManager from './components/SupportPopupManager';
 
 export default function App() {
   const [deck, setDeck] = useState(() => {
@@ -112,6 +114,7 @@ export default function App() {
             }
           />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/events" element={<Events />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/admin" element={<AdminProducts />} />
