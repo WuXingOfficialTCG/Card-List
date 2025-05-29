@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PopupDeckList from './PopupDeckList';  // path giusto per te
+import PopupDeckList from './PopupDeck/PopupDeckList';  // path giusto per te
 import PopupDeck from './PopupDeck/PopupDeck';          // path giusto per te
 
 export default function DeckManager({ userId }) {
