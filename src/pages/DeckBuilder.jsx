@@ -50,7 +50,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
   };
 
   // Conta quante copie di una carta ci sono nel mazzo
-  // ATTENZIONE: qui deck deve essere array di oggetti { card, count }
+  // ATTENZIONE: deck deve essere array di oggetti { card, count }
   const deckCountForCard = (cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
@@ -60,13 +60,14 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
     <>
       <Header />
       <div style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
+        {/* Passo la funzione di reset */}
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
           deck={deck}
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOne}
-          onResetDeck={onResetDeck}   {/* Passo la funzione di reset */}
+          onResetDeck={onResetDeck}
         />
         <CardGrid
           cards={filteredCards}
