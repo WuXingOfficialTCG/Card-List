@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './PopupDeck.module.css';
 
 export default function PopupDeck({ deck, onClose }) {
-  if (!deck || deck.length === 0) return null;
-
   return (
     <div
       className={styles.overlay}
@@ -14,9 +12,10 @@ export default function PopupDeck({ deck, onClose }) {
     >
       <section
         className={styles.content}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         tabIndex={-1}
       >
+        {/* Pulsante chiudi fuori dalla griglia, ma dentro content */}
         <button
           className={styles.close}
           onClick={onClose}
@@ -25,9 +24,9 @@ export default function PopupDeck({ deck, onClose }) {
           ×
         </button>
 
+        {/* Griglia separata, con padding o margine per non sovrapporsi */}
         <div className={styles.grid}>
           {deck.flatMap(({ card, count }) =>
-            // Per ogni carta ripeto il rendering count volte
             Array.from({ length: count }, (_, i) => (
               <div key={`${card.id || card.nome}-${i}`} className={styles.card}>
                 <img
