@@ -1,5 +1,5 @@
 import React from 'react';
-import './popupDeckView.css';
+import './popupDeckView.module.css';
 
 export default function PopupDeck({ deck, onClose }) {
   return (
