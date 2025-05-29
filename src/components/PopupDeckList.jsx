@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { deleteDeck } from '../utility/deleteDeck';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeck/PopupDeck'; // ✅ importa componente visivo
+import PopupDeck from './PopupDeck';
 import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
   const [decks, setDecks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedDeck, setSelectedDeck] = useState(null);
+  const [selectedDeckCards, setSelectedDeckCards] = useState(null);
 
+  // Carica tutti i mazzi disponibili (solo id e nome)
   useEffect(() => {
     async function fetchDecks() {
       try {
@@ -30,6 +31,26 @@ export default function PopupDeckList({ userId, onClose }) {
     if (userId) fetchDecks();
   }, [userId]);
 
+  // Carica il mazzo specifico da Firestore al click
+  const handleOpenDeck = async (deckId) => {
+    try {
+      const deckDoc = await getDoc(doc(db, 'users', userId, 'decks', deckId));
+      if (deckDoc.exists()) {
+        const deckData = deckDoc.data();
+        if (deckData.cards) {
+          setSelectedDeckCards(deckData.cards);
+        } else {
+          alert('Questo mazzo non ha carte.');
+        }
+      } else {
+        alert('Mazzo non trovato.');
+      }
+    } catch (error) {
+      console.error('Errore durante l\'apertura del mazzo:', error);
+      alert('Errore durante il caricamento del mazzo.');
+    }
+  };
+
   const handleDeleteDeck = async (deckId) => {
     const conferma = window.confirm('Sei sicuro di voler eliminare questo mazzo?');
     if (!conferma) return;
@@ -37,7 +58,7 @@ export default function PopupDeckList({ userId, onClose }) {
     try {
       await deleteDeck(userId, deckId);
       setDecks(prev => prev.filter(deck => deck.id !== deckId));
-      if (selectedDeck && selectedDeck.id === deckId) setSelectedDeck(null);
+      setSelectedDeckCards(null);
     } catch (error) {
       console.error('Errore durante la cancellazione del mazzo:', error);
       alert('Errore durante la cancellazione del mazzo.');
@@ -47,19 +68,20 @@ export default function PopupDeckList({ userId, onClose }) {
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.key === 'Escape') {
-        selectedDeck ? setSelectedDeck(null) : onClose();
+        selectedDeckCards ? setSelectedDeckCards(null) : onClose();
       }
     }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose, selectedDeck]);
+  }, [onClose, selectedDeckCards]);
 
+  // 🔁 Render
   return (
     <>
-      {selectedDeck ? (
+      {selectedDeckCards ? (
         <PopupDeck
-          deck={selectedDeck.cards}
-          onClose={() => setSelectedDeck(null)}
+          deck={selectedDeckCards}
+          onClose={() => setSelectedDeckCards(null)}
         />
       ) : (
         <div
@@ -71,7 +93,7 @@ export default function PopupDeckList({ userId, onClose }) {
         >
           <button
             className="close-button"
-            onClick={() => onClose()}
+            onClick={onClose}
             aria-label="Chiudi popup"
           >
             ×
@@ -79,7 +101,7 @@ export default function PopupDeckList({ userId, onClose }) {
 
           <div
             className="popup-decklist"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             tabIndex={-1}
           >
             <h2 id="popupdecklist-title">I tuoi Mazzi</h2>
@@ -94,12 +116,7 @@ export default function PopupDeckList({ userId, onClose }) {
                   <li key={deck.id} className="deck-list-item">
                     <button
                       className="deck-list-button"
-                      onClick={() => setSelectedDeck(deck)}
-                      onKeyDown={e => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          setSelectedDeck(deck);
-                        }
-                      }}
+                      onClick={() => handleOpenDeck(deck.id)}
                       aria-label={`Apri il mazzo ${deck.name || 'senza nome'}`}
                     >
                       {deck.name || 'Deck senza nome'}
