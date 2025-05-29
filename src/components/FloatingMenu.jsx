@@ -53,12 +53,26 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
+  // Funzione chiamata da PopupDeckList al click su un mazzo: aggiorna il mazzo visualizzato
+  const handleSelectDeck = (selectedDeckCards) => {
+    if (typeof onImportDeck === 'function') {
+      onImportDeck(selectedDeckCards);
+    }
+    setShowDecklist(false);
+  };
+
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-        <button title="Lista Mazzi" onClick={() => setShowDecklist(true)}>📋</button>
-        <button title="Salva Mazzo" onClick={handleSaveDeck}>💾</button>
-        <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>⬇️</button>
+        <button title="Lista Mazzi" onClick={() => setShowDecklist(true)}>
+          📋
+        </button>
+        <button title="Salva Mazzo" onClick={handleSaveDeck}>
+          💾
+        </button>
+        <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>
+          ⬇️
+        </button>
         <button
           title="Importa Mazzo"
           onClick={() => document.getElementById('file-input').click()}
@@ -72,7 +86,9 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
           style={{ display: 'none' }}
           onChange={handleImportDeck}
         />
-        <button title="Home" onClick={() => navigate('/')}>🏠</button>
+        <button title="Home" onClick={() => navigate('/')}>
+          🏠
+        </button>
       </div>
 
       {showPopupName && (
@@ -89,12 +105,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
         <PopupDecklist
           userId={user.uid}
           onClose={() => setShowDecklist(false)}
-          onSelectDeck={(deck) => {
-            if (typeof onImportDeck === 'function') {
-              onImportDeck(deck);
-            }
-            setShowDecklist(false);
-          }}
+          onSelectDeck={handleSelectDeck} // <-- PASSO la funzione corretta qui
         />
       )}
     </>
