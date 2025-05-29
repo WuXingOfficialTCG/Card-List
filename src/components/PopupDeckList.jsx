@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { deleteDeck } from '../utility/deleteDeck';
 import { db } from '../firebase';
-import PopupDeck from './PopupDeck'; // ✅ importa componente visivo
+import PopupDeck from './PopupDeck/PopupDeck'; // ✅ importa componente visivo
 import './popupDeckList.css';
 
 export default function PopupDeckList({ userId, onClose }) {
