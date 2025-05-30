@@ -64,8 +64,8 @@
 
 .popup-close {
   position: absolute;
-  top: 20px;
-  right: 65px;
+  top: 30px;
+  right: 60px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -83,7 +83,7 @@
 
 .popup-nav {
   position: absolute;
-  top: 40%;
+  top: 45%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.8);
   border: none;
