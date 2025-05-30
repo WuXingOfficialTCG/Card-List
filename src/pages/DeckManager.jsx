@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import FloatingMenu from '../components/FloatingMenu';
 
-export default function DeckManager({ user }) {
+export default function DeckManager({ user, decks = [], onSelectDeck }) {
   const [expandedDeckId, setExpandedDeckId] = useState(null);
-
-  // Se user o user.decks non esistono, fallback a []
-  const decks = user?.decks || [];
 
   const toggleDeck = (deckId) => {
     setExpandedDeckId(prev => (prev === deckId ? null : deckId));
@@ -32,23 +29,40 @@ export default function DeckManager({ user }) {
         ) : (
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {decks.map((deck) => (
-              <li key={deck.id} style={{ marginBottom: '1rem', border: '1px solid #ccc', borderRadius: 6, padding: '0.5rem' }}>
+              <li
+                key={deck.id}
+                style={{
+                  marginBottom: '1rem',
+                  border: '1px solid #ccc',
+                  borderRadius: 6,
+                  padding: '0.5rem',
+                }}
+              >
                 <div
                   onClick={() => toggleDeck(deck.id)}
-                  style={{ cursor: 'pointer', fontWeight: 'bold', fontSize: '1.2rem', userSelect: 'none' }}
+                  style={{
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: '1.2rem',
+                    userSelect: 'none',
+                  }}
                 >
                   {deck.name} {expandedDeckId === deck.id ? '▲' : '▼'}
                 </div>
 
                 {expandedDeckId === deck.id && (
                   <div style={{ marginTop: '0.5rem' }}>
-                    <ul>
-                      {deck.cards.map(({ id, nome, count }) => (
-                        <li key={id}>
-                          {nome} x{count}
-                        </li>
-                      ))}
-                    </ul>
+                    {deck.cards && deck.cards.length > 0 ? (
+                      <ul>
+                        {deck.cards.map(({ id, nome, count }) => (
+                          <li key={id}>
+                            {nome} x{count}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>Questo mazzo è vuoto.</p>
+                    )}
 
                     <button
                       onClick={() => deleteDeck(deck.id)}
