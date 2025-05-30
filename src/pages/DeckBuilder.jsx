@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Header from '../components/Header/Header';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Popup from '../components/Popup/Popup';
@@ -6,13 +6,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 import { initialFilters, availableFilters, filterCards } from '../utility/filters';
 
-const containerStyle = {
-  display: 'flex',
-  width: '100%',
-  minHeight: '100vh',
-};
-
-export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck }) {
+export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onResetDeck }) {
   const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
@@ -41,37 +35,37 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
     }
   }, [filteredCards, popupIndex]);
 
-  const updateFilter = useCallback((field, value) => {
+  const updateFilter = (field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
-  }, []);
+  };
 
-  const openPopup = useCallback((card) => {
+  const openPopup = (card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
-  }, [filteredCards]);
+  };
 
-  const deckCountForCard = useCallback((cardId) => {
+  const deckCountForCard = (cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
-  }, [deck]);
+  };
 
   return (
     <>
       <Header />
-      <div style={containerStyle}>
+      <div style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
           deck={deck}
           onAddCard={onAddCard}
-          onRemoveOne={onRemoveOne}
+          onRemoveOneFromDeck={onRemoveOneFromDeck}  // Passo la nuova prop
           onResetDeck={onResetDeck}
         />
         <CardGrid
           cards={filteredCards}
           deck={deck}
           onAddCard={onAddCard}
-          onRemoveOne={onRemoveOne}
+          onRemoveOne={onRemoveOneFromDeck}  // attenzione: qui può restare così o cambiare in base all'uso nel CardGrid
           onCardClick={openPopup}
         />
       </div>
@@ -85,7 +79,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
           isFirst={popupIndex === 0}
           isLast={popupIndex === filteredCards.length - 1}
           onAddCard={onAddCard}
-          onRemoveOne={onRemoveOne}
+          onRemoveOne={onRemoveOneFromDeck}
           deckCount={deckCountForCard(filteredCards[popupIndex].id)}
         />
       )}
