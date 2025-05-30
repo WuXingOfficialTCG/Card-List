@@ -42,7 +42,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onResetDeck, on
         <PopupDeck
           deck={deck}
           onClose={handleCloseViewDeck}
-          onRemoveCard={onRemoveOneFromDeck}
+          onRemoveCard={onRemoveOneFromDeck} // passiamo la funzione aggiornata
         />
       )}
     </>
