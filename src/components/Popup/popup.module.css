@@ -26,6 +26,8 @@
   overflow-y: auto;       /* scroll verticale se necessario */
   overflow-x: hidden;     /* blocca scroll orizzontale */
   box-sizing: border-box;
+  min-width: 440px;   /* 🔽 Aggiungi questo */
+  max-width: 90vw;    /* 🔽 Limita a schermi piccoli */
 }
 
 
