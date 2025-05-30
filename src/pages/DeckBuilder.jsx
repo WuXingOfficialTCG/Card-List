@@ -51,12 +51,14 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        {/* Header occupa 10% altezza */}
-        <Header style={{ flex: '0 0 10%' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
+        {/* Header fisso */}
+        <div style={{ flex: '0 0 10%' }}>
+          <Header />
+        </div>
 
-        {/* Sidebar + CardGrid occupano 90% altezza */}
-        <div style={{ display: 'flex', flex: '1 1 90%', minHeight: 0 }}>
+        {/* Corpo principale: Sidebar + CardGrid */}
+        <div style={{ display: 'flex', flex: '1', minHeight: 0 }}>
           <Sidebar
             filters={availableFilters}
             onFilterChange={updateFilter}
@@ -65,13 +67,15 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
             onRemoveOneFromDeck={onRemoveOneFromDeck}
             onResetDeck={onResetDeck}
           />
-          <CardGrid
-            cards={filteredCards}
-            deck={deck}
-            onAddCard={onAddCard}
-            onRemoveOne={onRemoveOneFromDeck}
-            onCardClick={openPopup}
-          />
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <CardGrid
+              cards={filteredCards}
+              deck={deck}
+              onAddCard={onAddCard}
+              onRemoveOne={onRemoveOneFromDeck}
+              onCardClick={openPopup}
+            />
+          </div>
         </div>
       </div>
 
