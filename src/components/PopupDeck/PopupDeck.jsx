@@ -10,12 +10,10 @@ export default function PopupDeck({ deck, onClose }) {
       aria-modal="true"
       aria-label="Visualizzazione mazzo"
     >
-      <section
-        className={styles.content}
+      <div
+        className={styles['popup-wrapper']}
         onClick={e => e.stopPropagation()}
-        tabIndex={-1}
       >
-        {/* Bottone chiudi posizionato fuori dal contenitore content */}
         <button
           className={styles.close}
           onClick={onClose}
@@ -25,26 +23,28 @@ export default function PopupDeck({ deck, onClose }) {
           ×
         </button>
 
-        <div className={styles.grid}>
-          {deck.flatMap(({ card, count }) =>
-            Array.from({ length: count }, (_, i) => (
-              <div
-                key={`${card.id || card.nome}-${i}`}
-                className={styles.card}
-                tabIndex={0}
-                aria-label={`${card.nome}, carta ${i + 1} di ${count}`}
-              >
-                <img
-                  src={card.immagine}
-                  alt={card.nome}
-                  className={styles.cardImage}
-                  draggable={false}
-                />
-              </div>
-            ))
-          )}
-        </div>
-      </section>
+        <section className={styles.content} tabIndex={-1}>
+          <div className={styles.grid}>
+            {deck.flatMap(({ card, count }) =>
+              Array.from({ length: count }, (_, i) => (
+                <div
+                  key={`${card.id || card.nome}-${i}`}
+                  className={styles.card}
+                  tabIndex={0}
+                  aria-label={`${card.nome}, carta ${i + 1} di ${count}`}
+                >
+                  <img
+                    src={card.immagine}
+                    alt={card.nome}
+                    className={styles.cardImage}
+                    draggable={false}
+                  />
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
