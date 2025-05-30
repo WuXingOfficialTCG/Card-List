@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header/Header';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
-import Slider from 'react-slick';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import './Events.css';
 
 export default function Events() {
   const [events, setEvents] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -25,17 +25,15 @@ export default function Events() {
 
   const featured = events.filter(e => e.featured);
 
-  const sliderSettings = {
-    autoplay: true,
-    autoplaySpeed: 4000,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true,
-    pauseOnHover: false
-  };
+  // Cambia slide ogni 4 secondi
+  useEffect(() => {
+    if (featured.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % featured.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [featured]);
 
   return (
     <>
@@ -43,21 +41,31 @@ export default function Events() {
       <NavigationBar />
 
       <div className="events-container">
-        {/* SLIDER */}
+        {/* SLIDER FATTO A MANO */}
         {featured.length > 0 && (
-          <Slider {...sliderSettings} className="event-slider">
-            {featured.map(event => (
+          <div className="custom-slider">
+            {featured.map((event, index) => (
               <div
                 key={event.id}
+                className={`custom-slide ${index === currentSlide ? 'active' : ''}`}
                 style={{ backgroundImage: `url(${event.image})` }}
               >
                 <h2>{event.title}</h2>
               </div>
             ))}
-          </Slider>
+            <div className="custom-dots">
+              {featured.map((_, index) => (
+                <button
+                  key={index}
+                  className={index === currentSlide ? 'active' : ''}
+                  onClick={() => setCurrentSlide(index)}
+                />
+              ))}
+            </div>
+          </div>
         )}
 
-        {/* GRIGLIA */}
+        {/* GRIGLIA EVENTI */}
         <h2 className="events-grid-title">Tutti gli eventi</h2>
         <div className="events-grid">
           {events.map(event => (
