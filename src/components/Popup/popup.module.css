@@ -65,7 +65,7 @@
 .popup-close {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 10px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -98,11 +98,11 @@
 }
 
 .popup-prev {
-    left: 0px;
+    left: 10px;
 }
 
 .popup-next {
-  right: 0px;
+  right: 10px;
 }
 
 .popup-controls {
@@ -122,7 +122,7 @@
   background-color: #007bff;
   color: white;
   cursor: pointer;
-  height: 42px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
