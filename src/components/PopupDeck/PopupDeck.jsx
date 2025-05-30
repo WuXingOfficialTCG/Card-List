@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './PopupDeck.module.css';
 
-export default function PopupDeck({ deck, onClose }) {
+export default function PopupDeck({ deck, onClose, onRemoveCard }) {
   return (
     <div
       className={styles.overlay}
@@ -39,6 +39,14 @@ export default function PopupDeck({ deck, onClose }) {
                     className={styles.cardImage}
                     draggable={false}
                   />
+                  <button
+                    type="button"
+                    className={styles.removeBtn}
+                    aria-label={`Rimuovi una copia di ${card.nome}`}
+                    onClick={() => onRemoveCard(card.id)}
+                  >
+                    −
+                  </button>
                 </div>
               ))
             )}
