@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { isUserAdmin } from '../utility/firebaseHelpers';
-import ProductsManager from '../components/ProductsManager';
-import EventsManager from '../components/EventsManager';
+import ProductsManager from '../utility/ProductsManager';
+import EventsManager from '../utility/EventsManager';
 import './AdminProducts.css';
 
 export default function AdminProducts() {
