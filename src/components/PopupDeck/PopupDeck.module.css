@@ -82,3 +82,56 @@
   user-select: none;
   display: block;
 }
+
+.card {
+  position: relative;
+  width: 140px;
+  height: 196px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+
+.card:hover,
+.card:focus {
+  outline: none;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* overlay grigio e pulsante - */
+.card:hover::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(128,128,128,0.6);
+  border-radius: 8px;
+  pointer-events: none; /* lascia passare eventi al bottone */
+  z-index: 5;
+}
+
+.removeBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 10;
+  background: #b22222;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 22px;
+  line-height: 22px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .removeBtn,
+.card:focus .removeBtn {
+  opacity: 1;
+}
+
