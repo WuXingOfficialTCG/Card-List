@@ -30,7 +30,8 @@ export default function Sidebar({ filters, onFilterChange, deck, onResetDeck }) 
           className="deck-buttons-container"
           style={{
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
             gap: '1rem',
             marginTop: '1rem',
           }}
