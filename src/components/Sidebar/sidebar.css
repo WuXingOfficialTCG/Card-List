@@ -1,3 +1,4 @@
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -56,9 +57,9 @@
 
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 40px);
   grid-template-rows: 40px 40px;
-  gap: 10px;
+  gap: 6.67px; /* (180 - 40*4)/3 */
   padding: 0;
   width: 100%;
 }
@@ -154,4 +155,36 @@ hr.divider-above-buttons {
 
 .deck-buttons-container button:last-child:hover {
   background-color: #0056b3;
+}
+
+/* Card grid */
+.card-grid-container {
+  margin-left: 220px;           /* spazio per sidebar */
+  width: calc(100% - 220px);
+  height: 100vh;                /* altezza viewport */
+  overflow-y: auto;             /* scrollbar solo qui */
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 6.67px; /* distanza calcolata */
+  box-sizing: border-box;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card-image:hover {
+  transform: scale(1.05);
 }
