@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
-import PopupDeck from '../PopupDeck/PopupDeck';  // Assicurati che il path sia corretto
+import PopupDeck from '../PopupDeck/PopupDeck'; // Controlla che il path sia corretto
 
-export default function Sidebar({ filters, onFilterChange, deck, onResetDeck }) {
+export default function Sidebar({ filters, onFilterChange, deck, onResetDeck, onRemoveCard }) {
   const [showViewDeck, setShowViewDeck] = useState(false);
 
   const handleResetDeck = () => {
@@ -45,7 +45,9 @@ export default function Sidebar({ filters, onFilterChange, deck, onResetDeck }) 
         </div>
       </aside>
 
-      {showViewDeck && <PopupDeck deck={deck} onClose={handleCloseViewDeck} />}
+      {showViewDeck && (
+        <PopupDeck deck={deck} onClose={handleCloseViewDeck} onRemoveCard={onRemoveCard} />
+      )}
     </>
   );
 }
