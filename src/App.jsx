@@ -1,139 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
-
-import Home from './pages/Home';
-import Shop from './pages/Shop';
-import DeckBuilder from './pages/DeckBuilder';
-import DeckManager from './pages/DeckManager';
-import Events from './pages/Events';
-import Disclaimer from './pages/Disclaimer';
-import AccountPage from './pages/AccountPage';
-import AdminProducts from './pages/AdminProducts';
-
-import FloatingMenu from './components/FloatingMenu';
-import SignupModal from './SignupModal';
-import SupportPopupManager from './components/SupportPopupManager';
+import React, { useState, useEffect, useMemo } from 'react';
+import Header from '../components/Header/Header';
+import CardGrid from '../components/CardGrid/CardGrid';
+import Popup from '../components/Popup/Popup';
+import Sidebar from '../components/Sidebar/Sidebar';
+import SupportPopup from '../components/SupportPopup';
+import { initialFilters, availableFilters, filterCards } from '../utility/filters';
 
 export default function App() {
-  const [deck, setDeck] = useState(() => {
-    try {
-      const saved = localStorage.getItem('deck');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
-
-  const [user, setUser] = useState(null);
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [deck, setDeck] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [filters, setFilters] = useState(initialFilters);
+  const [showSupport, setShowSupport] = useState(false);
+  const [popupIndex, setPopupIndex] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser);
-      setCheckingAuth(false);
-    });
-    return unsubscribe;
+    const lastShown = localStorage.getItem('supportPopupLastShown');
+    const now = Date.now();
+
+    if (!lastShown || now - Number(lastShown) > 6 * 60 * 60 * 1000) {
+      setShowSupport(true);
+      localStorage.setItem('supportPopupLastShown', now.toString());
+    }
+
+    fetch('/data/cards.json')
+      .then(res => res.json())
+      .then(setCards)
+      .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('deck', JSON.stringify(deck));
-  }, [deck]);
+  const filteredCards = useMemo(() => filterCards(cards, filters), [cards, filters]);
 
-  const onAddCard = (card) => {
-    setDeck(prevDeck => {
-      const existing = prevDeck.find(c => c.card.id === card.id);
+  useEffect(() => {
+    if (popupIndex !== null && (popupIndex < 0 || popupIndex >= filteredCards.length)) {
+      setPopupIndex(null);
+    }
+  }, [filteredCards, popupIndex]);
+
+  const updateFilter = (field, value) => {
+    setFilters(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleAddCard = (card) => {
+    setDeck(prev => {
+      const existing = prev.find(c => c.card.id === card.id);
       if (existing) {
-        return prevDeck.map(c =>
+        return prev.map(c =>
           c.card.id === card.id ? { ...c, count: c.count + 1 } : c
         );
-      } else {
-        return [...prevDeck, { card, count: 1 }];
       }
+      return [...prev, { card, count: 1 }];
     });
   };
 
-  const onRemoveOne = (card) => {
-    setDeck(prevDeck => {
-      return prevDeck
-        .map(c =>
-          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
-        )
-        .filter(c => c.count > 0);
+  const handleRemoveOne = (card) => {
+    setDeck(prev => {
+      const existing = prev.find(c => c.card.id === card.id);
+      if (!existing) return prev;
+      if (existing.count === 1) {
+        return prev.filter(c => c.card.id !== card.id);
+      }
+      return prev.map(c =>
+        c.card.id === card.id ? { ...c, count: c.count - 1 } : c
+      );
     });
   };
 
-  const handleExport = () => {
-    const dataStr = JSON.stringify(deck, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'deck-export.json';
-    a.click();
-    URL.revokeObjectURL(url);
+  const handleResetDeck = () => {
+    setDeck([]); // ✅ qui resetta il mazzo
   };
 
-  if (checkingAuth) return <div>Caricamento autenticazione...</div>;
+  const openPopup = (card) => {
+    const index = filteredCards.findIndex(c => c.id === card.id);
+    if (index !== -1) setPopupIndex(index);
+  };
+
+  const deckCountForCard = (cardId) => {
+    const found = deck.find(c => c.card.id === cardId);
+    return found ? found.count : 0;
+  };
 
   return (
-    <Router>
-      <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {!user && (
-          <SignupModal
-            show={true}
-            onClose={() => {}}
-            onSuccess={() => {}}
-          />
-        )}
-
-        <SupportPopupManager />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/deck-builder"
-            element={
-              <DeckBuilder
-                deck={deck}
-                onAddCard={onAddCard}
-                onRemoveOne={onRemoveOne}
-                setDeck={setDeck}
-              />
-            }
-          />
-          <Route
-            path="/deck-manager"
-            element={
-              <DeckManager
-                user={user}
-                onSelectDeck={(selectedDeck) => setDeck(selectedDeck)}
-              />
-            }
-          />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/disclaimer" element={<Disclaimer />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/admin" element={<AdminProducts />} />
-        </Routes>
-
-        {user && (
-          <FloatingMenu
-            user={user}
-            deck={deck}
-            onExport={handleExport}
-            onImportDeck={imported => setDeck(imported)}
-          />
-        )}
+    <>
+      <Header />
+      <div style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
+        <Sidebar
+          filters={availableFilters}
+          onFilterChange={updateFilter}
+          deck={deck}
+          onAddCard={handleAddCard}
+          onRemoveOne={handleRemoveOne}
+          onResetDeck={handleResetDeck}
+        />
+        <CardGrid
+          cards={filteredCards}
+          deck={deck}
+          onAddCard={handleAddCard}
+          onRemoveOne={handleRemoveOne}
+          onCardClick={openPopup}
+        />
       </div>
 
-      {ReactDOM.createPortal(
-        <div id="popup-root" />,
-        document.body
+      {popupIndex !== null && (
+        <Popup
+          card={filteredCards[popupIndex]}
+          onClose={() => setPopupIndex(null)}
+          onPrev={() => setPopupIndex(i => Math.max(0, i - 1))}
+          onNext={() => setPopupIndex(i => Math.min(filteredCards.length - 1, i + 1))}
+          isFirst={popupIndex === 0}
+          isLast={popupIndex === filteredCards.length - 1}
+          onAddCard={handleAddCard}
+          onRemoveOne={handleRemoveOne}
+          deckCount={deckCountForCard(filteredCards[popupIndex].id)}
+        />
       )}
-    </Router>
+
+      {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
+    </>
   );
 }
