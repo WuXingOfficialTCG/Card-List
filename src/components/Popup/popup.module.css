@@ -1,16 +1,18 @@
 .popup-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 50%;
+  left: 50%;
+  width: 600px;          /* dimensione fissa o max-width */
+  height: 80vh;          /* altezza fissa o max-height */
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  border-radius: 12px;
 }
 
 .popup-content {
