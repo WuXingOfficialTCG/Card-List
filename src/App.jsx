@@ -56,13 +56,11 @@ export default function App() {
   };
 
   const onRemoveOne = (card) => {
-    setDeck(prevDeck => {
-      return prevDeck
-        .map(c =>
-          c.card.id === card.id ? { ...c, count: c.count - 1 } : c
-        )
-        .filter(c => c.count > 0);
-    });
+    setDeck(prevDeck =>
+      prevDeck
+        .map(c => (c.card.id === card.id ? { ...c, count: c.count - 1 } : c))
+        .filter(c => c.count > 0)
+    );
   };
 
   const handleExport = () => {
@@ -100,8 +98,7 @@ export default function App() {
                 deck={deck}
                 onAddCard={onAddCard}
                 onRemoveOne={onRemoveOne}
-                setDeck={setDeck}
-                onResetDeck={() => setDeck([])} // ✅ Aggiunto reset
+                onResetDeck={() => setDeck([])}
               />
             }
           />
@@ -110,7 +107,7 @@ export default function App() {
             element={
               <DeckManager
                 user={user}
-                onSelectDeck={(selectedDeck) => setDeck(selectedDeck)}
+                onSelectDeck={selectedDeck => setDeck(selectedDeck)}
               />
             }
           />
@@ -131,10 +128,7 @@ export default function App() {
         )}
       </div>
 
-      {ReactDOM.createPortal(
-        <div id="popup-root" />,
-        document.body
-      )}
+      {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
     </Router>
   );
 }
