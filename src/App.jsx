@@ -42,6 +42,26 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
+  // Rimuove una copia del card, passando anche opzionalmente l'indice copia cliccata
+  const onRemoveOneFromDeck = (card, copyIndex = 0) => {
+    setDeck(prevDeck => {
+      const foundIndex = prevDeck.findIndex(c => c.card.id === card.id);
+      if (foundIndex === -1) return prevDeck;
+
+      const item = prevDeck[foundIndex];
+
+      if (item.count === 1) {
+        // Rimuovi completamente l'elemento se è l'ultima copia
+        return prevDeck.filter((_, i) => i !== foundIndex);
+      }
+
+      // Altrimenti decrementa solo il count
+      return prevDeck.map((c, i) =>
+        i === foundIndex ? { ...c, count: c.count - 1 } : c
+      );
+    });
+  };
+
   const onAddCard = (card) => {
     setDeck(prevDeck => {
       const existing = prevDeck.find(c => c.card.id === card.id);
@@ -53,14 +73,6 @@ export default function App() {
         return [...prevDeck, { card, count: 1 }];
       }
     });
-  };
-
-  const onRemoveOneFromDeck = (card) => {
-    setDeck(prevDeck =>
-      prevDeck
-        .map(c => (c.card.id === card.id ? { ...c, count: c.count - 1 } : c))
-        .filter(c => c.count > 0)
-    );
   };
 
   const handleExport = () => {
@@ -97,7 +109,7 @@ export default function App() {
               <DeckBuilder
                 deck={deck}
                 onAddCard={onAddCard}
-                onRemoveOneFromDeck={onRemoveOneFromDeck}  // Passo la nuova funzione
+                onRemoveOneFromDeck={onRemoveOneFromDeck}
                 onResetDeck={() => setDeck([])}
               />
             }
