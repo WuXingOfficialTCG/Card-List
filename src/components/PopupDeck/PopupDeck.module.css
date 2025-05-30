@@ -1,4 +1,3 @@
-/* Popup.module.css */
 .overlay {
   position: fixed;
   top: 0;
@@ -10,23 +9,21 @@
   justify-content: center;
   align-items: center;
   z-index: 1100;
-  position: relative; /* per riferimento .close */
+  /* non sposta nulla, sovrappone tutto */
 }
 
-.content {
+.popup-wrapper {
   position: relative;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* questo è il contenitore padre per X + contenuto */
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: calc(50% - 45vw);
+  top: -16px;
+  right: -16px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -39,6 +36,18 @@
   align-items: center;
   justify-content: center;
   z-index: 1110;
+  box-shadow: 0 0 8px rgba(0,0,0,0.7);
+}
+
+.content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  width: 600px; /* puoi modificare o usare max-width */
 }
 
 .grid {
@@ -56,8 +65,11 @@
   transition: transform 0.2s ease;
 }
 
-.card:hover {
+.card:hover,
+.card:focus {
+  outline: none;
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .cardImage {
@@ -66,4 +78,5 @@
   display: block;
   height: 180px;
   object-fit: cover;
+  user-select: none;
 }
