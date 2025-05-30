@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Header from '../components/Header/Header';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Popup from '../components/Popup/Popup';
@@ -6,13 +6,18 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 import { initialFilters, availableFilters, filterCards } from '../utility/filters';
 
+const containerStyle = {
+  display: 'flex',
+  width: '100%',
+  minHeight: '100vh',
+};
+
 export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck }) {
   const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
-  // Controllo popup supporto ogni 6 ore e caricamento carte
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -36,25 +41,24 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOne, onResetDeck 
     }
   }, [filteredCards, popupIndex]);
 
-  const updateFilter = (field, value) => {
+  const updateFilter = useCallback((field, value) => {
     setFilters(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
-  const openPopup = (card) => {
+  const openPopup = useCallback((card) => {
     const index = filteredCards.findIndex(c => c.id === card.id);
     if (index !== -1) setPopupIndex(index);
-  };
+  }, [filteredCards]);
 
-  const deckCountForCard = (cardId) => {
+  const deckCountForCard = useCallback((cardId) => {
     const found = deck.find(c => c.card.id === cardId);
     return found ? found.count : 0;
-  };
+  }, [deck]);
 
-  // Passo la funzione onResetDeck al Sidebar senza commenti dentro JSX
   return (
     <>
       <Header />
-      <div style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
+      <div style={containerStyle}>
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
