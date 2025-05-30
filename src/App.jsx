@@ -55,7 +55,7 @@ export default function App() {
     });
   };
 
-  const onRemoveOne = (card) => {
+  const onRemoveOneFromDeck = (card) => {
     setDeck(prevDeck =>
       prevDeck
         .map(c => (c.card.id === card.id ? { ...c, count: c.count - 1 } : c))
@@ -97,7 +97,7 @@ export default function App() {
               <DeckBuilder
                 deck={deck}
                 onAddCard={onAddCard}
-                onRemoveOne={onRemoveOne}
+                onRemoveOneFromDeck={onRemoveOneFromDeck}  // Passo la nuova funzione
                 onResetDeck={() => setDeck([])}
               />
             }
