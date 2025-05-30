@@ -58,14 +58,14 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           onFilterChange={updateFilter}
           deck={deck}
           onAddCard={onAddCard}
-          onRemoveOneFromDeck={onRemoveOneFromDeck}  // Passo la nuova prop
+          onRemoveOneFromDeck={onRemoveOneFromDeck}
           onResetDeck={onResetDeck}
         />
         <CardGrid
           cards={filteredCards}
           deck={deck}
           onAddCard={onAddCard}
-          onRemoveOne={onRemoveOneFromDeck}  // attenzione: qui può restare così o cambiare in base all'uso nel CardGrid
+          onRemoveOne={onRemoveOneFromDeck}
           onCardClick={openPopup}
         />
       </div>
