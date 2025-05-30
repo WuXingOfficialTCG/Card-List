@@ -1,8 +1,8 @@
 .card-grid-container {
-  margin-left: 220px;          /* spazio per la sidebar */
-  width: calc(100% - 220px);  /* larghezza restante */
-  height: 90vh;               /* altezza: 90% viewport per la griglia */
-  overflow-y: auto;           /* scrollbar verticale solo qui */
+  margin-left: 220px;                      /* spazio per la sidebar */
+  width: calc(100% - 220px);              /* larghezza restante */
+  height: calc(100vh - 10vh);             /* 90% viewport height */
+  overflow-y: auto;                       /* scroll solo qui */
   padding: 16px;
   box-sizing: border-box;
   background-color: transparent;
@@ -10,14 +10,14 @@
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));  /* carte larghe almeno 150px */
   gap: 16px;
   box-sizing: border-box;
 }
 
 .card-image {
   width: 100%;
-  height: auto;
+  aspect-ratio: 150 / 210;                /* rapporto fisso */
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
