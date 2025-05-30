@@ -1,10 +1,7 @@
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.7);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,18 +31,17 @@
   align-items: center;
   justify-content: center;
   z-index: 1110;
-  box-shadow: 0 0 8px rgba(0,0,0,0.7);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
 }
 
 .content {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  /* Calcolo larghezza: (cardWidth * 4) + (gap * 3) + padding*2 */
-  width: calc((140px * 4) + (20px * 3) + 40px);
+  width: calc((140px * 4) + (20px * 3) + 40px); /* carte + gap + padding */
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .grid {
@@ -53,25 +49,37 @@
   display: grid;
   grid-template-columns: repeat(4, 140px);
   gap: 20px;
-  justify-content: center; /* centra griglia orizzontalmente */
+  justify-content: center;
 }
 
 .card {
+  position: relative;
   width: 140px;
-  /* altezza per proporzione 5:7 = 140 * (7/5) = 196 */
-  height: 196px;
+  height: 196px; /* 5:7 ratio */
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover,
 .card:focus {
   outline: none;
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay grigio semitrasparente sopra la carta in hover */
+.card:hover::after,
+.card:focus::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(128, 128, 128, 0.6);
+  border-radius: 8px;
+  pointer-events: none; /* lascia passare eventi al pulsante */
+  z-index: 5;
 }
 
 .cardImage {
@@ -81,37 +89,10 @@
   border-radius: 8px;
   user-select: none;
   display: block;
+  pointer-events: none;
 }
 
-.card {
-  position: relative;
-  width: 140px;
-  height: 196px;
-  border-radius: 8px;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
-}
-
-.card:hover,
-.card:focus {
-  outline: none;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-/* overlay grigio e pulsante - */
-.card:hover::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(128,128,128,0.6);
-  border-radius: 8px;
-  pointer-events: none; /* lascia passare eventi al bottone */
-  z-index: 5;
-}
-
+/* Pulsante remove centrato in alto a destra */
 .removeBtn {
   position: absolute;
   top: 6px;
@@ -134,4 +115,3 @@
 .card:focus .removeBtn {
   opacity: 1;
 }
-
