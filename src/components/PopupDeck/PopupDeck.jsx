@@ -43,7 +43,7 @@ export default function PopupDeck({ deck, onClose, onRemoveCard }) {
                     type="button"
                     className={styles.removeBtn}
                     aria-label={`Rimuovi una copia di ${card.nome}`}
-                    onClick={() => onRemoveCard(card)}
+                    onClick={() => onRemoveCard(card, i)}
                   >
                     −
                   </button>
