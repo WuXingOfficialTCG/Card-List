@@ -1,4 +1,4 @@
-/* overlay già full screen */
+/* Popup.module.css */
 .overlay {
   position: fixed;
   top: 0;
@@ -10,12 +10,12 @@
   justify-content: center;
   align-items: center;
   z-index: 1100;
+  position: relative; /* per riferimento .close */
 }
 
-/* content con position relative per posizionare la close */
 .content {
   position: relative;
-  background: #1e1e1e;
+  background: #fff;
   padding: 20px;
   border-radius: 10px;
   max-width: 90vw;
@@ -23,11 +23,10 @@
   overflow-y: auto;
 }
 
-/* bottone chiudi posizionato assoluto fuori dalla griglia */
 .close {
   position: absolute;
-  top: 10px;      /* distanza dal bordo superiore */
-  right: 10px;    /* distanza dal bordo destro */
+  top: 10px;
+  right: calc(50% - 45vw);
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -39,24 +38,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;   /* sempre sopra */
+  z-index: 1110;
 }
 
-/* griglia con margine per non finire sotto la X */
 .grid {
-  margin-top: 50px;  /* spaziatura sotto la X */
+  margin-top: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
 }
 
 .card {
   border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .cardImage {
   width: 100%;
   border-radius: 8px;
   display: block;
+  height: 180px;
+  object-fit: cover;
 }
