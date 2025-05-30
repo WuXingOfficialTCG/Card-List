@@ -164,7 +164,7 @@ hr {
 }
 
 .deck-buttons-container button {
-  width: 180px;
+  width: 170px;
   padding: 8px 26px 8px 16px; /* padding top, right (+10px), bottom, left */
   font-size: 16px;
   border: none;
