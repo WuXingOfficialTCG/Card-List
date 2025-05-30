@@ -6,7 +6,7 @@
   height: 100vh;
   background-color: #121212;
   border-right: 1px solid #333;
-  padding: 20px 10px 20px 20px;
+  padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
   font-family: Arial, sans-serif;
@@ -19,8 +19,6 @@
 
 .filter-group {
   margin-bottom: 20px;
-  padding-left: 0;
-  padding-right: 10px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -31,18 +29,13 @@
   margin-bottom: 6px;
   font-weight: bold;
   color: #ddd;
-  padding-left: 0;
 }
 
 .filters-section .filter-group:nth-child(3) > div {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 40px 40px;
-  gap: 3px;
+  gap: 10px;
   width: 100%;
-  margin: 0;
-  padding-left: 0;
-  padding-right: 10px;
   box-sizing: border-box;
 }
 
@@ -51,8 +44,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid transparent;
@@ -79,8 +72,8 @@
 }
 
 .filters-section .filter-group:nth-child(3) img {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   pointer-events: none;
   border-radius: 50%;
@@ -96,7 +89,9 @@ hr {
 
 .atk-res-inline {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .atk-res-field {
@@ -109,13 +104,12 @@ hr {
 .filter-group input[type="number"],
 .filter-group select {
   width: 100%;
-  padding: 8px 8px;
+  padding: 8px;
   font-size: 1.1rem;
   border: 1px solid #555;
   border-radius: 4px;
   background-color: #222;
   color: #eee;
-  margin-left: 0;
   box-sizing: border-box;
   height: 36px;
   line-height: 1.2;
@@ -126,14 +120,17 @@ hr {
   flex-direction: column;
   gap: 16px;
   margin-top: 24px;
+  width: 100%;
 }
 
 .deck-button-banner {
   background-color: #1e1e1e;
   border-radius: 12px;
-  padding: 20px 20px; /* padding a destra e sinistra */
+  padding: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .deck-button-banner button {
@@ -153,27 +150,26 @@ hr {
   background-color: #357abd;
 }
 
-/* Aggiornamenti richiesti per i bottoni del deck */
 .deck-buttons-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;          /* distanza verticale fra i bottoni */
-  margin-top: 20px;   /* distanza sopra il container */
-  margin-bottom: 20px; /* distanza sotto il container */
+  gap: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .deck-buttons-container button {
-  width: 175px;
-  padding: 8px 26px 8px 11px; /* padding top, right (+10px), bottom, left */
-  font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
   border: none;
   background-color: #007bff;
   color: white;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0;
 }
 
 .deck-buttons-container button:hover {
@@ -182,14 +178,8 @@ hr {
 
 .deck-buttons-container button:first-child {
   background-color: #e74c3c;
-  color: white;
-  padding: 10px 25px 10px 10px; /* padding top, right (+10px), bottom, left */
-  font-size: 1rem;
-  border-radius: 4px;
-  margin: 0;
-  transition: background-color 0.3s ease;
 }
 
 .deck-buttons-container button:first-child:hover {
-  background-color: #c0392b; /* rosso più scuro al passaggio */
+  background-color: #c0392b;
 }
