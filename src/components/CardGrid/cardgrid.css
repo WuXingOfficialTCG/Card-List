@@ -1,8 +1,8 @@
 .card-grid-container {
-  margin-left: 220px;          /* spazio per la sidebar */
-  width: calc(100% - 220px);  /* larghezza restante */
-  height: 90vh;               /* altezza: 90% viewport per la griglia */
-  overflow-y: auto;           /* scrollbar verticale solo qui */
+  margin-left: 220px;          /* spazio sidebar */
+  width: calc(100% - 220px);
+  height: 100%;               /* riempie altezza del contenitore flex */
+  overflow-y: auto;           /* scrollbar solo qui */
   padding: 16px;
   box-sizing: border-box;
   background-color: transparent;
