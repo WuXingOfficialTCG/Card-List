@@ -7,8 +7,10 @@ export default function Sidebar({ filters, onFilterChange, deck, onResetDeck }) 
   const [showViewDeck, setShowViewDeck] = useState(false);
 
   const handleResetDeck = () => {
-    if (typeof onResetDeck === 'function') {
-      onResetDeck();
+    if (window.confirm('Sei sicuro di voler resettare il mazzo?')) {
+      if (typeof onResetDeck === 'function') {
+        onResetDeck();
+      }
     }
   };
 
