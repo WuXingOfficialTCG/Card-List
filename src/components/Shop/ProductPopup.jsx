@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProductPopup.css';
+import './ProductPopup.module.css';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase'; // 🔄 percorso corretto
 
