@@ -21,8 +21,8 @@
   align-items: center;
   padding: 16px;
   border-radius: 10px;
-  max-width: 130vw;        /* larghezza max in % viewport */
-  max-height: 110vh;
+  max-width: 160vw;        /* larghezza max in % viewport */
+  max-height: 120vh;
   overflow-y: auto;       /* scroll verticale se necessario */
   overflow-x: hidden;     /* blocca scroll orizzontale */
   box-sizing: border-box;
