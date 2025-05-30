@@ -164,8 +164,8 @@ hr {
 }
 
 .deck-buttons-container button {
-  width: 180px;       /* larghezza fissa */
-  padding: 8px 16px;
+  width: 180px;
+  padding: 8px 26px 8px 16px; /* padding top, right (+10px), bottom, left */
   font-size: 16px;
   border: none;
   background-color: #007bff;
@@ -173,7 +173,7 @@ hr {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0;          /* rimuovo margin-right */
+  margin: 0;
 }
 
 .deck-buttons-container button:hover {
@@ -181,12 +181,12 @@ hr {
 }
 
 .deck-buttons-container button:first-child {
-  background-color: #e74c3c; /* rosso acceso */
+  background-color: #e74c3c;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 25px 10px 15px; /* padding top, right (+10px), bottom, left */
   font-size: 1rem;
   border-radius: 4px;
-  margin: 0;           /* tolgo margin-bottom */
+  margin: 0;
   transition: background-color 0.3s ease;
 }
 
