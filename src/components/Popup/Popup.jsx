@@ -1,5 +1,5 @@
 import React from 'react';
-import './popup.css';
+import './popup.module.css';
 
 export default function Popup({
   card,
