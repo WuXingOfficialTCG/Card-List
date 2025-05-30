@@ -15,7 +15,7 @@
 
 .popup-content {
   position: relative;
-  background: white;    /* metti un background bianco o altro */
+  background: transparent;    /* metti un background bianco o altro */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,8 +62,8 @@
 
 .popup-close {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: -10px;
+  right: -10px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
