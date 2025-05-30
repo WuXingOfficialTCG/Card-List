@@ -14,11 +14,15 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   const [showPopupName, setShowPopupName] = useState(false);
   const [showPopupDeck, setShowPopupDeck] = useState(false);
   const [selectedDeck, setSelectedDeck] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   // Mostra il menu solo in /deck-builder o /deck-manager
-  if (location.pathname !== '/deck-builder' && location.pathname !== '/deck-manager') {
+  const isDeckBuilder = location.pathname === '/deck-builder';
+  const isDeckManager = location.pathname === '/deck-manager';
+
+  if (!isDeckBuilder && !isDeckManager) {
     return null;
   }
 
@@ -41,7 +45,7 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   };
 
   const handleImportDeck = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
 
     try {
@@ -54,8 +58,12 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
     }
   };
 
-  const handleOpenDeckManager = () => {
-    navigate('/deck-manager');
+  const handleToggleDeckPage = () => {
+    if (isDeckManager) {
+      navigate('/deck-builder');
+    } else {
+      navigate('/deck-manager');
+    }
   };
 
   const handleOpenPopupDeck = (deckCards) => {
@@ -71,7 +79,12 @@ export default function FloatingMenu({ onExport, user, deck, onImportDeck }) {
   return (
     <>
       <div className={`floating-menu ${visible ? 'visible' : 'hidden'}`}>
-        <button title="Deck Manager" onClick={handleOpenDeckManager}>🗂️</button>
+        <button
+          title={isDeckManager ? 'Deck Builder' : 'Deck Manager'}
+          onClick={handleToggleDeckPage}
+        >
+          🗂️
+        </button>
         <button title="Salva Mazzo" onClick={handleSaveDeck}>💾</button>
         <button title="Esporta Mazzo" onClick={() => setShowPopupName(true)}>⬇️</button>
         <button
