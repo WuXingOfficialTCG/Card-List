@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth, db } from './firebase'; // supponendo che db sia Firestore importato
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -30,10 +31,24 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
+  const [decks, setDecks] = useState([]);  // <-- nuovo stato per i mazzi
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
       setUser(currentUser);
       setCheckingAuth(false);
+
+      if (currentUser) {
+        // Carica mazzi da Firestore (esempio)
+        const decksRef = collection(db, 'decks');
+        const q = query(decksRef, where('ownerId', '==', currentUser.uid));
+
+        const querySnapshot = await getDocs(q);
+        const userDecks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setDecks(userDecks);
+      } else {
+        setDecks([]); // logout -> nessun mazzo
+      }
     });
     return unsubscribe;
   }, []);
@@ -42,7 +57,6 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Rimuove una copia del card, passando anche opzionalmente l'indice copia cliccata
   const onRemoveOneFromDeck = (card, copyIndex = 0) => {
     setDeck(prevDeck => {
       const foundIndex = prevDeck.findIndex(c => c.card.id === card.id);
@@ -51,11 +65,9 @@ export default function App() {
       const item = prevDeck[foundIndex];
 
       if (item.count === 1) {
-        // Rimuovi completamente l'elemento se è l'ultima copia
         return prevDeck.filter((_, i) => i !== foundIndex);
       }
 
-      // Altrimenti decrementa solo il count
       return prevDeck.map((c, i) =>
         i === foundIndex ? { ...c, count: c.count - 1 } : c
       );
@@ -119,6 +131,7 @@ export default function App() {
             element={
               <DeckManager
                 user={user}
+                decks={decks}  // <-- passo i mazzi caricati
                 onSelectDeck={selectedDeck => setDeck(selectedDeck)}
               />
             }
