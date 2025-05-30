@@ -90,11 +90,11 @@
 }
 
 .popup-prev {
-  left: -70px;
+  left: -30px;
 }
 
 .popup-next {
-  right: -70px;
+  right: -30px;
 }
 
 .popup-controls {
@@ -103,6 +103,7 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+  height: 42px;
 }
 
 .popup-controls button {
