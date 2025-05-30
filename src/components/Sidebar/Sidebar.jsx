@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './sidebar.css';
 import FiltersSection from './FiltersSection';
-import PopupDeck from '../PopupDeck/PopupDeck'; // Controlla che il path sia corretto
+import PopupDeck from '../PopupDeck/PopupDeck';
 
 export default function Sidebar({ filters, onFilterChange, deck, onResetDeck, onRemoveOneFromDeck }) {
   const [showViewDeck, setShowViewDeck] = useState(false);
@@ -28,16 +28,9 @@ export default function Sidebar({ filters, onFilterChange, deck, onResetDeck, on
           <FiltersSection filters={filters} onFilterChange={onFilterChange} />
         </div>
 
-        <div
-          className="deck-buttons-container"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '1rem',
-            marginTop: '1rem',
-          }}
-        >
+        <hr className="divider" />
+
+        <div className="deck-buttons-container">
           <button onClick={handleResetDeck}>Reset Mazzo</button>
           <button onClick={handleViewDeck} disabled={deck.length === 0}>
             Visualizza Deck
@@ -49,7 +42,7 @@ export default function Sidebar({ filters, onFilterChange, deck, onResetDeck, on
         <PopupDeck
           deck={deck}
           onClose={handleCloseViewDeck}
-          onRemoveCard={onRemoveOneFromDeck}  // passo la funzione rinominata
+          onRemoveCard={onRemoveOneFromDeck}
         />
       )}
     </>
