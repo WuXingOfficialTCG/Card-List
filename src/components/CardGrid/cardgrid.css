@@ -1,13 +1,18 @@
+.card-grid-container {
+  margin-left: 220px;          /* spazio per la sidebar */
+  width: calc(100% - 220px);  /* larghezza restante */
+  height: 90vh;               /* altezza: 90% viewport per la griglia */
+  overflow-y: auto;           /* scrollbar verticale solo qui */
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
 
 .card-grid {
-  margin-left: 220px; /* lascia spazio per la sidebar */
-  width: calc(100% - 220px);
-  padding: 16px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
   box-sizing: border-box;
-  background-color: transparent;
 }
 
 .card-image {
