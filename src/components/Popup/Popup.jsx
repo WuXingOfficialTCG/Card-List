@@ -1,5 +1,5 @@
 import React from 'react';
-import './popup.module.css';
+import styles from './popup.module.css'; // ✔️ Importazione corretta per CSS Modules
 
 export default function Popup({
   card,
@@ -13,13 +13,13 @@ export default function Popup({
   deckCount = 0,
 }) {
   return (
-    <div className="popup-overlay" onClick={onClose}>
-      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-        <button className="popup-close" onClick={onClose}>×</button>
+    <div className={styles['popup-overlay']} onClick={onClose}>
+      <div className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
+        <button className={styles['popup-close']} onClick={onClose}>×</button>
 
         {!isFirst && (
           <button
-            className="popup-nav popup-prev"
+            className={`${styles['popup-nav']} ${styles['popup-prev']}`}
             onClick={(e) => {
               e.stopPropagation();
               onPrev();
@@ -29,16 +29,16 @@ export default function Popup({
           </button>
         )}
 
-        <div className="popup-image-zoom-container">
+        <div className={styles['popup-image-zoom-container']}>
           <img
             src={card.immagine}
             alt={card.nome}
-            className="popup-image"
+            className={styles['popup-image']}
             draggable={false}
           />
         </div>
 
-        <div className="popup-controls">
+        <div className={styles['popup-controls']}>
           <button
             onClick={() => onRemoveOne(card)}
             disabled={deckCount <= 0}
@@ -46,7 +46,7 @@ export default function Popup({
           >
             −
           </button>
-          <span className="popup-count">{deckCount}</span>
+          <span className={styles['popup-count']}>{deckCount}</span>
           <button
             onClick={() => onAddCard(card)}
             disabled={deckCount >= 3}
@@ -58,7 +58,7 @@ export default function Popup({
 
         {!isLast && (
           <button
-            className="popup-nav popup-next"
+            className={`${styles['popup-nav']} ${styles['popup-next']}`}
             onClick={(e) => {
               e.stopPropagation();
               onNext();
