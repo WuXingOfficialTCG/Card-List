@@ -91,9 +91,7 @@ export default function AccountPage() {
         </button>
 
         <hr className="divider" />
-
-        <h3>Vuoi supportare il progetto?</h3>
-        {/* Pulsante donazione rimosso */}
+        {/* Rimosso box e testo supporto */}
       </div>
     </>
   );
