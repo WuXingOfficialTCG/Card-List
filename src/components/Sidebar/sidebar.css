@@ -188,3 +188,83 @@ hr.divider-above-buttons {
 .card-image:hover {
   transform: scale(1.05);
 }
+
+/* Mobile (max-width 768px) */
+@media (max-width: 768px) {
+  /* Sidebar nascosta e a larghezza 100% quando visibile */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;        /* nascosta fuori schermo a sinistra */
+    width: 80vw;        /* occupa gran parte dello schermo */
+    height: 100vh;
+    background-color: #121212;
+    border-right: none; /* togli bordo a destra */
+    padding: 15px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;       /* più in alto rispetto a tutto */
+    transition: left 0.3s ease;
+  }
+
+  /* Classe da aggiungere dinamicamente per mostrare la sidebar */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Header e gruppi filtri ridotti */
+  .filters-header h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .filter-group {
+    margin-bottom: 15px;
+  }
+
+  /* Campi input e select più alti e più grandi */
+  .filter-group input[type="text"],
+  .filter-group input[type="number"],
+  .filter-group select {
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  /* Griglia filtri per checkbox più compatta */
+  .filters-section .filter-group:nth-child(3) > div {
+    grid-template-columns: repeat(3, 40px);
+    grid-template-rows: auto auto;
+    gap: 5px;
+  }
+
+  /* Card grid container prende tutta la larghezza e altezza */
+  .card-grid-container {
+    margin-left: 0;
+    width: 100vw;
+    height: calc(100vh - 50px); /* se hai un header fisso alto 50px, altrimenti 100vh */
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  /* Card grid con meno colonne */
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+
+  /* Immagini carte leggermente più piccole */
+  .card-image {
+    border-radius: 6px;
+  }
+
+  /* Pulsanti deck (eventuale ridimensionamento) */
+  .deck-buttons-container button {
+    max-width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
