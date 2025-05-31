@@ -2,15 +2,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-neutral);
+  background-color: var(--color-neutral);  /* Cambiato da --color-bg-main a --color-neutral */
   padding: 0;
-  height: 36px; /* Altezza ridotta */
+  height: 48px;
   border-bottom: 1px solid var(--color-neutral);
   box-sizing: border-box;
 }
 
 .nav-button {
-  padding: 0 20px;
+  padding: 0 24px;
   text-decoration: none;
   color: var(--color-text);
   background-color: var(--color-neutral);
@@ -18,11 +18,11 @@
   border-right: 1px solid var(--color-neutral);
   font-weight: 500;
   transition: background-color 0.2s;
-  height: 36px; /* Altezza ridotta */
-  font-size: 0.95rem; /* leggermente più piccolo per armonia */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 48px;
+  line-height: 48px;
+  font-size: 1.1rem;
+  display: inline-block;
+  text-align: center;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -31,49 +31,59 @@
   border-right: none;
 }
 
-/* Hover */
+/* Hover colore scuro per tutti i bottoni (attivi e non) */
 .nav-button.home:hover {
   background-color: var(--color-theme-a-dark);
 }
+
 .nav-button.deck-builder:hover {
   background-color: var(--color-theme-b-dark);
 }
+
 .nav-button.shop:hover {
   background-color: var(--color-theme-c-dark);
 }
+
 .nav-button.events:hover {
   background-color: var(--color-theme-d-dark);
 }
+
 .nav-button.account:hover {
   background-color: var(--color-theme-e-dark);
 }
 
-/* Attivi */
+/* Colore base bottoni attivi */
 .nav-button.home.active {
   background-color: var(--color-theme-a);
 }
+
 .nav-button.deck-builder.active {
   background-color: var(--color-theme-b);
 }
+
 .nav-button.shop.active {
   background-color: var(--color-theme-c);
 }
+
 .nav-button.events.active {
   background-color: var(--color-theme-d);
 }
+
 .nav-button.account.active {
   background-color: var(--color-theme-e);
 }
 
-/* Admin */
+/* Admin (diverso, non pubblico) */
 .nav-button.admin {
   background-color: var(--color-admin-bg);
   color: var(--color-admin-text);
 }
+
 .nav-button.admin.active {
   background-color: var(--color-admin-text);
   color: var(--color-admin-bg);
 }
+
 .nav-button.admin:hover {
   background-color: var(--color-admin-bg-dark);
 }
