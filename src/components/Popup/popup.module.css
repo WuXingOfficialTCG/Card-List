@@ -159,4 +159,10 @@
     max-width: 300px;
     height: auto;
   }
+
+    .popup-close {
+    top: 10px;
+    right: 10px;
+    font-size: 1.8rem; /* opzionale: leggermente più piccolo su mobile */
+  }
 }
