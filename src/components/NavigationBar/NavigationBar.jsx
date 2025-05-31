@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './NavigationBar.css';
+import './NavigationBarResponsive.css';
 
 export default function NavigationBar() {
   const location = useLocation();
