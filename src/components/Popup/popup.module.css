@@ -153,4 +153,10 @@
   .mobileHidden {
     display: none !important;
   }
+
+  .popup-image {
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+  }
 }
