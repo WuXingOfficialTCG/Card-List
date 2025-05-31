@@ -1,18 +1,54 @@
 
-.card-grid {
-  margin-left: 220px; /* lascia spazio per la sidebar */
-  width: calc(100% - 220px);
-  padding: 16px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 16px;
+/* Disabilita scroll interni */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* scroll solo globale */
+  height: auto;
   box-sizing: border-box;
-  background-color: transparent;
 }
 
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background-color: #121212;
+  border-right: 1px solid #333;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+/* Contenuto principale */
+.card-grid-container {
+  margin-left: 220px;                      /* spazio per la sidebar */
+  width: calc(100% - 220px);              /* larghezza restante */
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: transparent;
+  overflow: visible;                      /* assicura niente scroll interno */
+}
+
+/* Griglia carte */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+/* Singola carta */
 .card-image {
   width: 100%;
-  height: auto;
+  aspect-ratio: 150 / 210;
   border-radius: 8px;
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
