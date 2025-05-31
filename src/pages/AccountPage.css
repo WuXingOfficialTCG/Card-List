@@ -3,70 +3,90 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: transparent;
-  color: #000;
+  background-color: #121212; /* Sfondo scuro */
+  color: #fff;
   font-family: Arial, sans-serif;
+  height: 100%;
+  overflow: hidden; /* Togli scrollbar globale */
+}
+
+.loading-text {
+  color: #fff;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .account-page-container {
   max-width: 600px;
   margin: 2rem auto;
-  padding: 0;
+  padding: 1rem 2rem;
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
-  color: #000;
+  color: #fff;
+  overflow: hidden; /* No scrollbar */
 }
 
 h2, h3 {
   margin-top: 0;
-  color: #000;
+  color: #fff;
 }
 
 p {
-  color: #000;
+  color: #fff;
   margin: 0.5rem 0;
 }
 
 .promos-consent-label {
   display: block;
   margin-top: 20px;
-  color: #000;
+  color: #fff;
   font-weight: 500;
+  user-select: none;
 }
 
 button {
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   margin-top: 10px;
-  border: 1px solid #000;
+  margin-right: 10px;
+  border: 2px solid #fff;
   background: transparent;
-  color: #000;
+  color: #fff;
   font-size: 1rem;
+  border-radius: 5px;
   transition: background-color 0.2s ease, color 0.2s ease;
+  user-select: none;
 }
 
 button:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
+  color: #121212;
 }
 
 button:active {
-  background-color: #444;
+  background-color: #ccc;
+  color: #121212;
+}
+
+button.red-button {
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+button.red-button:hover {
+  background-color: #ff4d4d;
   color: #fff;
 }
 
-button[style*="background-color: red"] {
-  border-color: red;
-}
-
-button[style*="background-color: red"]:hover {
-  background-color: darkred !important;
+button.red-button:active {
+  background-color: #cc0000;
+  color: #fff;
 }
 
 hr {
   margin: 30px 0;
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #444;
   background: none;
 }
