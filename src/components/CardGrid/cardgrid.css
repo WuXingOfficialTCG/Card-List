@@ -2,6 +2,7 @@
   padding: 1rem;
   box-sizing: border-box;
   height: 100%;
+  overflow: hidden; /* <-- rimuove scrollbar */
 }
 
 .card-grid {
@@ -9,6 +10,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  overflow: hidden; /* <-- rimuove scrollbar */
 }
 
 .card-image {
