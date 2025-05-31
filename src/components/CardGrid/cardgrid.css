@@ -1,9 +1,19 @@
+/* Disabilita scroll interni */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* scroll solo globale */
+  height: auto;   /* lascia crescere in verticale */
+  box-sizing: border-box;
+}
+
 .card-grid-container {
   margin-left: 220px;                      /* spazio per la sidebar */
   width: calc(100% - 220px);              /* larghezza restante */
   padding: 16px;
   box-sizing: border-box;
   background-color: transparent;
+  overflow: visible;                      /* assicura niente scroll interno */
 }
 
 .card-grid {
