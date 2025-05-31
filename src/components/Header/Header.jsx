@@ -11,15 +11,26 @@ export default function Header() {
 
   return (
     <>
-      <header>
+      <header className="app-header">
         <div className="left">
-          <button className="donate" onClick={openSupportPopup}>
+          <button
+            className="donate"
+            onClick={openSupportPopup}
+            aria-haspopup="dialog"
+            aria-expanded={showSupport}
+          >
             Dona
           </button>
         </div>
 
         <div className="center">
-          <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" className="logo" />
+          <img
+            src="https://i.imgur.com/slIDTEM.png"
+            alt="Wu Xing TCG Logo"
+            className="logo"
+            width={48}
+            height={48}
+          />
           <span className="title">Wu Xing TCG</span>
         </div>
 
@@ -31,7 +42,7 @@ export default function Header() {
             className="social-icon"
             aria-label="Discord"
           >
-            <img src="https://i.imgur.com/iXb26SA.png" alt="Discord" width="24" height="24" />
+            <img src="https://i.imgur.com/iXb26SA.png" alt="" width={24} height={24} />
           </a>
 
           <a
@@ -41,7 +52,7 @@ export default function Header() {
             className="social-icon"
             aria-label="Instagram"
           >
-            <img src="https://i.imgur.com/ISEyV5G.png" alt="Instagram" width="24" height="24" />
+            <img src="https://i.imgur.com/ISEyV5G.png" alt="" width={24} height={24} />
           </a>
 
           <a
@@ -51,7 +62,7 @@ export default function Header() {
             className="social-icon"
             aria-label="YouTube"
           >
-            <img src="https://i.imgur.com/YHoAhki.png" alt="YouTube" width="24" height="24" />
+            <img src="https://i.imgur.com/YHoAhki.png" alt="" width={24} height={24} />
           </a>
         </nav>
       </header>
