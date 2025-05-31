@@ -1,62 +1,72 @@
+/* AccountPage.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: #000;
+  font-family: Arial, sans-serif;
+}
+
 .account-page-container {
   max-width: 600px;
   margin: 2rem auto;
-  /* tolto padding e background per togliere il box bianco */
-  box-sizing: border-box;
-  color: #000; /* testo nero */
+  padding: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: #000;
+}
+
+h2, h3 {
+  margin-top: 0;
+  color: #000;
+}
+
+p {
+  color: #000;
+  margin: 0.5rem 0;
 }
 
 .promos-consent-label {
   display: block;
   margin-top: 20px;
+  color: #000;
   font-weight: 500;
-  color: #000; /* testo nero */
 }
 
-.btn {
-  padding: 0.6rem 1.2rem;
-  margin-top: 10px;
-  border: none;
-  border-radius: 4px;
+button {
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-  color: #000; /* testo nero */
+  padding: 0.5rem 1rem;
+  margin-top: 10px;
+  border: 1px solid #000;
+  background: transparent;
+  color: #000;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.save-btn {
-  background-color: #4CAF50;
-  color: white;
+button:hover {
+  background-color: #000;
+  color: #fff;
 }
 
-.save-btn:hover {
-  background-color: #45a049;
-  color: white;
+button:active {
+  background-color: #444;
+  color: #fff;
 }
 
-.logout-btn {
-  background-color: #2196F3;
-  color: white;
-  margin-right: 10px;
+button[style*="background-color: red"] {
+  border-color: red;
 }
 
-.logout-btn:hover {
-  background-color: #1976d2;
-  color: white;
+button[style*="background-color: red"]:hover {
+  background-color: darkred !important;
 }
 
-.delete-btn {
-  background-color: #f44336;
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #d32f2f;
-  color: white;
-}
-
-.divider {
+hr {
   margin: 30px 0;
   border: none;
   border-top: 1px solid #ccc;
+  background: none;
 }
