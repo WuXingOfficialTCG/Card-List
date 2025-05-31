@@ -1,0 +1,30 @@
+.navigation-bar-responsive {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--color-neutral);
+  height: 48px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.navigation-bar-responsive::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari e Opera */
+}
+
+.navigation-bar-responsive .nav-button {
+  flex: 0 0 auto;  /* impedisce di ridursi troppo */
+  padding: 0 16px;
+  border-right: 1px solid var(--color-neutral);
+  height: 48px;
+  line-height: 48px;
+  font-size: 1rem;
+}
+
+/* Rimuove bordo destro dall’ultimo bottone */
+.navigation-bar-responsive .nav-button:last-child {
+  border-right: none;
+}
