@@ -12,6 +12,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
+  // Caricamento carte e popup supporto
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -29,6 +30,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
   const filteredCards = useMemo(() => filterCards(cards, filters), [cards, filters]);
 
+  // Chiudi popup se la carta è sparita dai filtri
   useEffect(() => {
     if (popupIndex !== null && (popupIndex < 0 || popupIndex >= filteredCards.length)) {
       setPopupIndex(null);
@@ -51,32 +53,25 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-        {/* Header fisso */}
-        <div style={{ flex: '0 0 10%' }}>
-          <Header />
-        </div>
+      <Header />
 
-        {/* Corpo principale: Sidebar + CardGrid */}
-        <div style={{ display: 'flex', flex: '1', minHeight: 0 }}>
-          <Sidebar
-            filters={availableFilters}
-            onFilterChange={updateFilter}
-            deck={deck}
-            onAddCard={onAddCard}
-            onRemoveOneFromDeck={onRemoveOneFromDeck}
-            onResetDeck={onResetDeck}
-          />
-          <div style={{ flex: 1, overflowY: 'auto' }}>
-            <CardGrid
-              cards={filteredCards}
-              deck={deck}
-              onAddCard={onAddCard}
-              onRemoveOne={onRemoveOneFromDeck}
-              onCardClick={openPopup}
-            />
-          </div>
-        </div>
+      <div style={{ display: 'flex', width: '100%' }}>
+        <Sidebar
+          filters={availableFilters}
+          onFilterChange={updateFilter}
+          deck={deck}
+          onAddCard={onAddCard}
+          onRemoveOneFromDeck={onRemoveOneFromDeck}
+          onResetDeck={onResetDeck}
+        />
+
+        <CardGrid
+          cards={filteredCards}
+          deck={deck}
+          onAddCard={onAddCard}
+          onRemoveOne={onRemoveOneFromDeck}
+          onCardClick={openPopup}
+        />
       </div>
 
       {popupIndex !== null && (
