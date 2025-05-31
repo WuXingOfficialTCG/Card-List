@@ -12,7 +12,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
 
-  // Caricamento carte e popup supporto
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
     const now = Date.now();
@@ -30,7 +29,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
   const filteredCards = useMemo(() => filterCards(cards, filters), [cards, filters]);
 
-  // Chiudi popup se la carta è sparita dai filtri
   useEffect(() => {
     if (popupIndex !== null && (popupIndex < 0 || popupIndex >= filteredCards.length)) {
       setPopupIndex(null);
@@ -53,9 +51,18 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
   return (
     <>
+      {/* Header fisso in alto */}
       <Header />
 
-      <div style={{ display: 'flex', width: '100%' }}>
+      {/* Container principale: Sidebar + CardGrid */}
+      <div
+        style={{
+          display: 'flex',
+          height: 'calc(100vh - 60px)',  // supponendo Header 60px di altezza
+          overflow: 'hidden',
+        }}
+      >
+        {/* Sidebar: larghezza fissa, altezza piena */}
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
@@ -63,17 +70,22 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           onAddCard={onAddCard}
           onRemoveOneFromDeck={onRemoveOneFromDeck}
           onResetDeck={onResetDeck}
+          style={{ flex: '0 0 300px', overflowY: 'auto' }} // sidebar scrollabile se serve
         />
 
-        <CardGrid
-          cards={filteredCards}
-          deck={deck}
-          onAddCard={onAddCard}
-          onRemoveOne={onRemoveOneFromDeck}
-          onCardClick={openPopup}
-        />
+        {/* CardGrid scrollabile */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          <CardGrid
+            cards={filteredCards}
+            deck={deck}
+            onAddCard={onAddCard}
+            onRemoveOne={onRemoveOneFromDeck}
+            onCardClick={openPopup}
+          />
+        </div>
       </div>
 
+      {/* Popup carte */}
       {popupIndex !== null && (
         <Popup
           card={filteredCards[popupIndex]}
@@ -88,6 +100,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
         />
       )}
 
+      {/* Popup supporto */}
       {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
     </>
   );
