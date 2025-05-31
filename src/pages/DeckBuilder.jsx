@@ -56,8 +56,8 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
       <div
         style={{
           display: 'flex',
-          height: 'calc(100vh - 60px)', // supponendo header alto 60px
-          overflow: 'hidden',
+          height: 'calc(100vh - 60px)', // header height assumed 60px
+          overflow: 'hidden',  // no scrollbars anywhere here
           width: '100%',
         }}
       >
@@ -68,13 +68,17 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           onAddCard={onAddCard}
           onRemoveOneFromDeck={onRemoveOneFromDeck}
           onResetDeck={onResetDeck}
-          style={{ overflowY: 'auto', flexShrink: 0, width: '300px' }}
+          style={{
+            flexShrink: 0,
+            width: '300px',
+            overflow: 'hidden' // disable sidebar scrollbar
+          }}
         />
 
         <div
           style={{
             flex: 1,
-            overflowY: 'auto',
+            overflow: 'hidden', // disable card grid scrollbar
           }}
         >
           <CardGrid
