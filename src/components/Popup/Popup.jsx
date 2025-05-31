@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './popup.module.css'; // ✔️ Importazione corretta per CSS Modules
-import styles from './PopupResponsive.css';
+import './PopupResponsive.css';
 
 export default function Popup({
   card,
