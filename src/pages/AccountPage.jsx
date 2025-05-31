@@ -63,13 +63,12 @@ export default function AccountPage() {
     }
   };
 
-  if (loading) return <p>Caricamento...</p>;
+  if (loading) return <p className="loading-text">Caricamento...</p>;
 
   return (
     <>
       <Header />
       <NavigationBar />
-
       <div className="account-page-container">
         <h2>Il tuo account</h2>
         <p><strong>Email:</strong> {user?.email}</p>
@@ -81,17 +80,16 @@ export default function AccountPage() {
             onChange={e => setPromosConsent(e.target.checked)}
           /> Ricevi email promozionali
         </label>
-        <button className="btn save-btn" onClick={updateConsent}>Salva preferenza</button>
+        <button onClick={updateConsent}>Salva preferenza</button>
 
-        <hr className="divider" />
+        <hr />
 
-        <button className="btn logout-btn" onClick={handleLogout}>Logout</button>
-        <button className="btn delete-btn" onClick={handleDeleteAccount}>
+        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleDeleteAccount} className="red-button">
           Elimina account
         </button>
 
-        <hr className="divider" />
-        {/* Rimosso box e testo supporto */}
+        <hr />
       </div>
     </>
   );
