@@ -1,15 +1,14 @@
 @media (max-width: 768px) {
   header {
-    padding: 0 8px; /* leggermente meno padding */
+    padding: 0 10px;
     height: auto;
-    flex-wrap: nowrap; /* evita wrapping per tenere tutto in una riga */
-    gap: 6px; /* meno gap */
-    align-items: center; /* centra verticalmente */
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   /* Metti left e right sulla stessa riga */
   .left, .right {
-    flex: 0 1 auto; /* dimensione automatica per contenuto */
+    flex: 1 1 50%;
     display: flex;
     align-items: center;
   }
@@ -20,36 +19,34 @@
   }
 
   .right {
-    order: 3;
+    order: 2;
     justify-content: flex-end; /* social a destra */
-    gap: 6px;
+    gap: 8px;
   }
 
   .center {
-    order: 2;
-    font-size: 1rem; /* riduci la dimensione del testo */
+    font-size: 1.2rem;
     justify-content: center;
-    flex-basis: auto;
-    white-space: nowrap; /* impedisce il wrap del testo */
+    flex-basis: 100%;
+    order: 3; /* centro sotto a sinistra e destra */
   }
 
   .center .logo {
-    height: 28px; /* logo più piccolo */
-    margin-right: 6px; /* spazio tra logo e testo */
+    height: 35px;
   }
 
   button.donate {
-    padding: 4px 10px;
-    font-size: 0.85rem;
+    padding: 6px 12px;
+    font-size: 0.9rem;
   }
 
   .social-icon {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
   }
 
   .social-icon img {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 }
