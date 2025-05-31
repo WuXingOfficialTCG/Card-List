@@ -5,7 +5,7 @@
     flex-wrap: nowrap; /* evita wrapping per tenere tutto in una riga */
     gap: 6px; /* meno gap */
     align-items: center; /* centra verticalmente */
-    height: 5%;
+    height: 10vh;
   }
 
   /* Metti left e right sulla stessa riga */
