@@ -1,52 +1,58 @@
 @media (max-width: 768px) {
   header {
-    padding: 0 8px; /* leggermente meno padding */
+    padding: 0 8px;
     height: auto;
-    flex-wrap: nowrap; /* evita wrapping per tenere tutto in una riga */
-    gap: 6px; /* meno gap */
-    align-items: center; /* centra verticalmente */
+    flex-wrap: nowrap;
+    gap: 6px;
+    align-items: center;
     height: 10vh;
+    display: flex; /* assicurati che il contenitore sia flex */
   }
 
-  /* Metti left e right sulla stessa riga */
   .left, .right {
-    flex: 0 1 auto; /* dimensione automatica per contenuto */
+    flex: 0 1 auto;
     display: flex;
     align-items: center;
   }
 
   .left {
     order: 1;
-    justify-content: flex-start; /* dona a sinistra */
+    justify-content: flex-start;
   }
 
   .right {
     order: 3;
-    justify-content: flex-end; /* social a destra */
+    justify-content: flex-end;
     gap: 6px;
   }
 
   .center {
     order: 2;
-    font-size: 1rem; /* riduci la dimensione del testo */
+    font-size: 1rem;
     justify-content: center;
     flex-basis: auto;
-    white-space: nowrap; /* impedisce il wrap del testo */
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
   }
 
   .center .logo {
-    height: 24px; /* logo più piccolo */
-    margin-right: 6px; /* spazio tra logo e testo */
+    height: 24px;
+    margin-right: 6px;
   }
 
   button.donate {
     padding: 4px 10px;
     font-size: 0.85rem;
+    align-self: center; /* questo garantisce l'allineamento verticale */
   }
 
   .social-icon {
     width: 22px;
     height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .social-icon img {
