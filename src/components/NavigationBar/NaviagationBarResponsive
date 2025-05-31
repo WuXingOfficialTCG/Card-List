@@ -1,0 +1,47 @@
+/* navigationbar-responsive.css */
+
+/* Forza la navbar a mantenere tutto su una linea e scrollare orizzontalmente */
+.navigation-bar {
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  -webkit-overflow-scrolling: touch !important; /* scroll fluido su iOS */
+}
+
+/* Nasconde scrollbar sui browser Webkit mantenendo scroll */
+.navigation-bar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.navigation-bar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navigation-bar::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+/* Evita che i bottoni si stringano troppo */
+.nav-button {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Adattamenti per schermi piccoli */
+@media (max-width: 768px) {
+  .navigation-bar {
+    justify-content: flex-start !important;
+  }
+
+  .nav-button {
+    padding: 0 16px !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-button {
+    padding: 0 12px !important;
+    font-size: 0.85rem !important;
+  }
+}
