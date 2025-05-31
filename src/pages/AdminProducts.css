@@ -118,3 +118,98 @@ button:focus {
 .admin-table thead tr {
   line-height: 1.2;
 }
+
+/* Wrapper per abilitare scroll orizzontale su schermi stretti */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* scroll fluido iOS */
+  box-sizing: border-box;
+
+  /* Nasconde scrollbar */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE 10+ */
+}
+
+.table-responsive::-webkit-scrollbar {
+  display: none;              /* Chrome, Safari, Opera */
+}
+
+/* Riduce padding e font su schermi piccoli */
+@media (max-width: 768px) {
+  .table-responsive .admin-table {
+    font-size: 0.85rem;
+  }
+
+  .table-responsive .admin-table th,
+  .table-responsive .admin-table td {
+    padding: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Layout a blocchi impilati su mobile stretto */
+@media (max-width: 480px) {
+  .table-responsive .admin-table {
+    display: block;
+  }
+
+  .table-responsive .admin-table thead,
+  .table-responsive .admin-table tbody,
+  .table-responsive .admin-table th,
+  .table-responsive .admin-table td,
+  .table-responsive .admin-table tr {
+    display: block;
+  }
+
+  .table-responsive .admin-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .table-responsive .admin-table tr {
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 8px;
+  }
+
+  .table-responsive .admin-table td {
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #eee;
+    white-space: normal;
+  }
+
+  /* Sostituisci "Col1", "Col2", ecc. con i tuoi nomi colonna */
+  .table-responsive .admin-table td:nth-of-type(1)::before { content: "Col1: "; }
+  .table-responsive .admin-table td:nth-of-type(2)::before { content: "Col2: "; }
+  .table-responsive .admin-table td:nth-of-type(3)::before { content: "Col3: "; }
+  .table-responsive .admin-table td:nth-of-type(4)::before { content: "Col4: "; }
+  .table-responsive .admin-table td:nth-of-type(5)::before { content: "Col5: "; }
+  .table-responsive .admin-table td:nth-of-type(6)::before { content: "Col6: "; }
+  .table-responsive .admin-table td:nth-of-type(7)::before { content: "Col7: "; }
+  .table-responsive .admin-table td:nth-of-type(8)::before { content: "Col8: "; }
+  .table-responsive .admin-table td:nth-of-type(9)::before { content: "Col9: "; }
+
+  .table-responsive .admin-table td::before {
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 45%;
+    padding-right: 8px;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .table-responsive .admin-table td:last-child {
+    border-bottom: none;
+  }
+}
