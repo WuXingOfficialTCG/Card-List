@@ -4,10 +4,7 @@ import { onAuthStateChanged, deleteUser, signOut } from 'firebase/auth';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-import Header from '../components/Header/Header';
-import NavigationBar from '../components/NavigationBar/NavigationBar';
-
-import './AccountPage.css';
+import styles from './AccountPage.module.css'; // importa module CSS
 
 export default function AccountPage() {
   const [user, setUser] = useState(null);
@@ -28,7 +25,7 @@ export default function AccountPage() {
         }
         setLoading(false);
       } else {
-        navigate('/');
+        navigate('/'); // O login page
       }
     });
 
@@ -63,34 +60,28 @@ export default function AccountPage() {
     }
   };
 
-  if (loading) return <p className="loading-text">Caricamento...</p>;
+  if (loading) return <p className={styles.loadingText}>Caricamento...</p>;
 
   return (
-    <>
-      <Header />
-      <NavigationBar />
-      <div className="account-page-container">
-        <h2>Il tuo account</h2>
-        <p><strong>Email:</strong> {user?.email}</p>
+    <div className={styles.accountPageContainer}>
+      <h2>Il tuo account</h2>
+      <p><strong>Email:</strong> {user?.email}</p>
 
-        <label className="promos-consent-label">
-          <input
-            type="checkbox"
-            checked={promosConsent}
-            onChange={e => setPromosConsent(e.target.checked)}
-          /> Ricevi email promozionali
-        </label>
-        <button onClick={updateConsent}>Salva preferenza</button>
+      <label className={styles.promosConsentLabel}>
+        <input
+          type="checkbox"
+          checked={promosConsent}
+          onChange={e => setPromosConsent(e.target.checked)}
+        /> Ricevi email promozionali
+      </label>
+      <button onClick={updateConsent}>Salva preferenza</button>
 
-        <hr />
+      <hr />
 
-        <button onClick={handleLogout}>Logout</button>
-        <button onClick={handleDeleteAccount} className="red-button">
-          Elimina account
-        </button>
-
-        <hr />
-      </div>
-    </>
+      <button onClick={handleLogout}>Logout</button>
+      <button className={styles.redButton} onClick={handleDeleteAccount}>
+        Elimina account
+      </button>
+    </div>
   );
 }
