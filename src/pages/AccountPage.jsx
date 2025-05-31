@@ -28,7 +28,7 @@ export default function AccountPage() {
         }
         setLoading(false);
       } else {
-        navigate('/'); // O login page
+        navigate('/');
       }
     });
 
@@ -93,10 +93,7 @@ export default function AccountPage() {
         <hr className="divider" />
 
         <h3>Vuoi supportare il progetto?</h3>
-        <form action="https://www.paypal.com/donate" method="post" target="_blank">
-          <input type="hidden" name="hosted_button_id" value="IL_TUO_ID_PAYPAL" />
-          <button className="btn donate-btn" type="submit">Fai una donazione</button>
-        </form>
+        {/* Pulsante donazione rimosso */}
       </div>
     </>
   );
