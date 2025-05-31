@@ -1,61 +1,28 @@
-
-/* Disabilita scroll interni */
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: auto; /* scroll solo globale */
-  height: auto;
-  box-sizing: border-box;
-}
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 220px;
-  height: 100vh;
-  background-color: #121212;
-  border-right: 1px solid #333;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  font-family: Arial, sans-serif;
-  color: #eee;
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-}
-
-/* Contenuto principale */
 .card-grid-container {
-  margin-left: 220px;                      /* spazio per la sidebar */
-  width: calc(100% - 220px);              /* larghezza restante */
-  padding: 16px;
+  padding: 1rem;
   box-sizing: border-box;
-  background-color: transparent;
-  overflow: visible;                      /* assicura niente scroll interno */
+  height: 100%;
 }
 
-/* Griglia carte */
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
-  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
 
-/* Singola carta */
 .card-image {
-  width: 100%;
-  aspect-ratio: 150 / 210;
-  border-radius: 8px;
-  object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  width: 150px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
 }
 
 .card-image:hover {
   transform: scale(1.05);
+}
+
+.no-cards-message {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
 }
