@@ -55,7 +55,7 @@ export default function Popup({
 
         {!isFirst && (
           <button
-            className={`${styles['popup-nav']} ${styles['popup-prev']}`}
+            className={`${styles['popup-nav']} ${styles['popup-prev']} ${styles['mobileHidden']}`}
             onClick={(e) => {
               e.stopPropagation();
               onPrev();
@@ -94,7 +94,7 @@ export default function Popup({
 
         {!isLast && (
           <button
-            className={`${styles['popup-nav']} ${styles['popup-next']}`}
+            className={`${styles['popup-nav']} ${styles['popup-next']} ${styles['mobileHidden']}`}
             onClick={(e) => {
               e.stopPropagation();
               onNext();
