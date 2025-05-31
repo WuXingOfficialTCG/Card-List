@@ -1,5 +1,6 @@
 import React from 'react';
 import './cardgrid.css';
+import './cardgridResponsive.css';
 
 export default function CardGrid({ cards, onCardClick }) {
   const handleDragStart = (e, card) => {
