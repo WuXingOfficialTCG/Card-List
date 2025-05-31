@@ -1,8 +1,6 @@
 .card-grid-container {
   margin-left: 220px;                      /* spazio per la sidebar */
   width: calc(100% - 220px);              /* larghezza restante */
-  height: calc(100vh - 10vh);             /* 90% viewport height */
-  overflow-y: auto;                       /* scroll solo qui */
   padding: 16px;
   box-sizing: border-box;
   background-color: transparent;
