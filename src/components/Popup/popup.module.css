@@ -64,8 +64,8 @@
 
 .popup-close {
   position: absolute;
-  top: -4px;
-  right: 30px;
+  top: -2px;
+  right: 25px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -98,11 +98,11 @@
 }
 
 .popup-prev {
-    left: 3px;
+    left: 2px;
 }
 
 .popup-next {
-  right: 3px;
+  right: 2px;
 }
 
 .popup-controls {
