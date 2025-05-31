@@ -148,3 +148,9 @@
   min-width: 36px;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .mobileHidden {
+    display: none !important;
+  }
+}
