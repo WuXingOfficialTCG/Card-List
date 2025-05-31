@@ -6,12 +6,14 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  color: #000; /* testo nero */
 }
 
 .promos-consent-label {
   display: block;
   margin-top: 20px;
   font-weight: 500;
+  color: #000; /* testo nero */
 }
 
 .btn {
@@ -22,6 +24,7 @@
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s ease;
+  color: #000; /* testo nero per i pulsanti */
 }
 
 .save-btn {
@@ -31,6 +34,7 @@
 
 .save-btn:hover {
   background-color: #45a049;
+  color: white;
 }
 
 .logout-btn {
@@ -41,6 +45,7 @@
 
 .logout-btn:hover {
   background-color: #1976d2;
+  color: white;
 }
 
 .delete-btn {
@@ -50,20 +55,15 @@
 
 .delete-btn:hover {
   background-color: #d32f2f;
-}
-
-.donate-btn {
-  background-color: #ffc439;
-  color: #111;
-  font-weight: 700;
-}
-
-.donate-btn:hover {
-  background-color: #e6b230;
+  color: white;
 }
 
 .divider {
   margin: 30px 0;
   border: none;
   border-top: 1px solid #ccc;
+}
+
+h3 {
+  color: #000; /* testo nero */
 }
