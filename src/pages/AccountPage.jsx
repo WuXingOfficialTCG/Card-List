@@ -4,6 +4,9 @@ import { onAuthStateChanged, deleteUser, signOut } from 'firebase/auth';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
+import Header from '../components/Header/Header';
+import NavigationBar from '../components/NavigationBar/NavigationBar';
+
 const styles = {
   container: {
     maxWidth: 600,
@@ -129,29 +132,33 @@ export default function AccountPage() {
   if (loading) return <p style={styles.loadingText}>Caricamento...</p>;
 
   return (
-    <div style={styles.container}>
-      <h2 style={{ color: '#fff', marginTop: 0 }}>Il tuo account</h2>
-      <p style={{ color: '#fff', margin: '0.5rem 0' }}>
-        <strong>Email:</strong> {user?.email}
-      </p>
+    <>
+      <Header />
+      <NavigationBar />
+      <div style={styles.container}>
+        <h2 style={{ color: '#fff', marginTop: 0 }}>Il tuo account</h2>
+        <p style={{ color: '#fff', margin: '0.5rem 0' }}>
+          <strong>Email:</strong> {user?.email}
+        </p>
 
-      <label style={styles.label}>
-        <input
-          type="checkbox"
-          checked={promosConsent}
-          onChange={e => setPromosConsent(e.target.checked)}
-        />{' '}
-        Ricevi email promozionali
-      </label>
+        <label style={styles.label}>
+          <input
+            type="checkbox"
+            checked={promosConsent}
+            onChange={e => setPromosConsent(e.target.checked)}
+          />{' '}
+          Ricevi email promozionali
+        </label>
 
-      <HoverButton onClick={updateConsent}>Salva preferenza</HoverButton>
+        <HoverButton onClick={updateConsent}>Salva preferenza</HoverButton>
 
-      <hr style={styles.hr} />
+        <hr style={styles.hr} />
 
-      <HoverButton onClick={handleLogout}>Logout</HoverButton>
-      <HoverButton onClick={handleDeleteAccount} red>
-        Elimina account
-      </HoverButton>
-    </div>
+        <HoverButton onClick={handleLogout}>Logout</HoverButton>
+        <HoverButton onClick={handleDeleteAccount} red>
+          Elimina account
+        </HoverButton>
+      </div>
+    </>
   );
 }
