@@ -161,8 +161,8 @@
   }
 
     .popup-close {
-    top: 4px;
-    right: 37px;
+    top: 2px;
+    right: 40px;
     font-size: 1.8rem; /* opzionale: leggermente più piccolo su mobile */
   }
 }
