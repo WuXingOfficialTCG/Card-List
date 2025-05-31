@@ -1,51 +1,55 @@
-/* Regole generali per dispositivi mobili */
 @media (max-width: 768px) {
   .popup-content {
-    width: 90%;
-    max-width: none;
-    height: auto;
-    padding: 1rem;
-    box-sizing: border-box;
-    position: relative;
+    padding: 12px;
+    min-width: 90vw;
+    max-width: 95vw;
+    max-height: 90vh;
+    border-radius: 8px;
   }
 
-  .popup-image {
-    width: 100%;
-    height: auto;
-    max-height: 70vh;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
+  .popup-image-zoom-container {
+    max-width: 90vw;
+    max-height: 60vh;
+    padding: 8px 0;
   }
 
   .popup-close {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.5rem;
-    background: red;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    top: 6px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
   }
 
   .popup-nav {
-    display: none; /* Nasconde entrambe le frecce su mobile */
+    font-size: 28px;
+    width: 32px;
+    height: 50px;
   }
 
   .popup-prev {
-    left: 0.5rem;
+    left: 4px;
   }
 
   .popup-next {
-    right: 0.5rem;
+    right: 4px;
+  }
+
+  .popup-controls {
+    gap: 8px;
+    height: auto;
+    flex-wrap: wrap;
+  }
+
+  .popup-controls button {
+    font-size: 16px;
+    padding: 4px 10px;
+    height: 28px;
+  }
+
+  .popup-count {
+    font-size: 16px;
+    height: 36px;
+    padding: 0 10px;
   }
 }
