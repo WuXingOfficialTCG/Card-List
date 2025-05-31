@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './popup.module.css'; // ✔️ Importazione corretta per CSS Modules
+import React, { useRef } from 'react';
+import styles from './popup.module.css';
 import './PopupResponsive.css';
 
 export default function Popup({
@@ -13,8 +13,43 @@ export default function Popup({
   onRemoveOne,
   deckCount = 0,
 }) {
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+  const threshold = 50;
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+
+    const deltaX = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(deltaX) > threshold) {
+      if (deltaX > 0 && !isLast) {
+        onNext();
+      } else if (deltaX < 0 && !isFirst) {
+        onPrev();
+      }
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   return (
-    <div className={styles['popup-overlay']} onClick={onClose}>
+    <div
+      className={styles['popup-overlay']}
+      onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
         <button className={styles['popup-close']} onClick={onClose}>×</button>
 
