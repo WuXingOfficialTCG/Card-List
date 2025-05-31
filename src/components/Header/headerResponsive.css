@@ -1,56 +1,94 @@
-@media (max-width: 768px) {
-  header {
-    padding: 0 8px; /* leggermente meno padding */
-    height: auto;
-    flex-wrap: nowrap; /* evita wrapping per tenere tutto in una riga */
-    gap: 6px; /* meno gap */
-    align-items: center; /* centra verticalmente */
-    height: 10vh;
-  }
+.navigation-bar-responsive {
+  display: flex;
+  background-color: var(--color-neutral);
+  height: 48px;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
 
-  /* Metti left e right sulla stessa riga */
-  .left, .right {
-    flex: 0 1 auto; /* dimensione automatica per contenuto */
-    display: flex;
-    align-items: center;
-  }
+/* 6 bottoni: 16.66% */
+.navigation-bar-responsive.six-buttons .nav-button {
+  flex: 1 1 16.66%;
+  margin: 0;
+  border-right: 1px solid var(--color-neutral);
+  height: 48px;
+  line-height: 48px;
+  font-size: 0.85rem;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
 
-  .left {
-    order: 1;
-    justify-content: flex-start; /* dona a sinistra */
-  }
+/* 5 bottoni (no admin): 20% */
+.navigation-bar-responsive.five-buttons .nav-button {
+  flex: 1 1 20%;
+  margin: 0;
+  border-right: 1px solid var(--color-neutral);
+  height: 48px;
+  line-height: 48px;
+  font-size: 0.85rem;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
 
-  .right {
-    order: 3;
-    justify-content: flex-end; /* social a destra */
-    gap: 6px;
-  }
+/* Rimuove bordo destro dall’ultimo bottone */
+.navigation-bar-responsive .nav-button:last-child {
+  border-right: none;
+}
 
-  .center {
-    order: 2;
-    font-size: 1rem; /* riduci la dimensione del testo */
-    justify-content: center;
-    flex-basis: auto;
-    white-space: nowrap; /* impedisce il wrap del testo */
-  }
+/* Hover colore scuro */
+.navigation-bar-responsive .nav-button.home:hover {
+  background-color: var(--color-theme-a-dark);
+}
+.navigation-bar-responsive .nav-button.deck-builder:hover {
+  background-color: var(--color-theme-b-dark);
+}
+.navigation-bar-responsive .nav-button.shop:hover {
+  background-color: var(--color-theme-c-dark);
+}
+.navigation-bar-responsive .nav-button.events:hover {
+  background-color: var(--color-theme-d-dark);
+}
+.navigation-bar-responsive .nav-button.account:hover {
+  background-color: var(--color-theme-e-dark);
+}
 
-  .center .logo {
-    height: 28px; /* logo più piccolo */
-    margin-right: 6px; /* spazio tra logo e testo */
-  }
+/* Colori attivi */
+.navigation-bar-responsive .nav-button.home.active {
+  background-color: var(--color-theme-a);
+}
+.navigation-bar-responsive .nav-button.deck-builder.active {
+  background-color: var(--color-theme-b);
+}
+.navigation-bar-responsive .nav-button.shop.active {
+  background-color: var(--color-theme-c);
+}
+.navigation-bar-responsive .nav-button.events.active {
+  background-color: var(--color-theme-d);
+}
+.navigation-bar-responsive .nav-button.account.active {
+  background-color: var(--color-theme-e);
+}
 
-  button.donate {
-    padding: 4px 10px;
-    font-size: 0.85rem;
-  }
-
-  .social-icon {
-    width: 22px;
-    height: 22px;
-  }
-
-  .social-icon img {
-    width: 18px;
-    height: 18px;
-  }
+/* Admin responsive */
+.navigation-bar-responsive .nav-button.admin {
+  background-color: var(--color-admin-bg);
+  color: var(--color-admin-text);
+}
+.navigation-bar-responsive .nav-button.admin.active {
+  background-color: var(--color-admin-text);
+  color: var(--color-admin-bg);
+}
+.navigation-bar-responsive .nav-button.admin:hover {
+  background-color: var(--color-admin-bg-dark);
 }
