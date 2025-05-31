@@ -1,3 +1,28 @@
+:root {
+  --color-bg-main: #222222;
+  --color-text: #ffffff;
+  --color-neutral: #9c9794;
+
+  --color-theme-a: #d6a550;
+  --color-theme-a-dark: #a87f38;
+
+  --color-theme-b: #b41222;
+  --color-theme-b-dark: #7f0d17;
+
+  --color-theme-c: #638a42;
+  --color-theme-c-dark: #44612c;
+
+  --color-theme-d: #0781bb;
+  --color-theme-d-dark: #055a7e;
+
+  --color-theme-e: #9c9794;
+  --color-theme-e-dark: #6c6a68;
+
+  --color-admin-bg: #222222;
+  --color-admin-text: #ffffff;
+  --color-admin-bg-dark: #444444;
+}
+
 .navigation-bar {
   display: flex;
   justify-content: center;
@@ -31,50 +56,49 @@
   border-right: none;
 }
 
-.nav-button:hover {
-  background-color: var(--color-neutral-dark);
+/* Hover colore scuro per tutti i bottoni (attivi e non) */
+.nav-button.home:hover {
+  background-color: var(--color-theme-a-dark);
 }
 
+.nav-button.deck-builder:hover {
+  background-color: var(--color-theme-b-dark);
+}
+
+.nav-button.shop:hover {
+  background-color: var(--color-theme-c-dark);
+}
+
+.nav-button.events:hover {
+  background-color: var(--color-theme-d-dark);
+}
+
+.nav-button.account:hover {
+  background-color: var(--color-theme-e-dark);
+}
+
+/* Colore base bottoni attivi */
 .nav-button.home.active {
   background-color: var(--color-theme-a);
-}
-
-.nav-button.home.active:hover {
-  background-color: var(--color-theme-a-dark);
 }
 
 .nav-button.deck-builder.active {
   background-color: var(--color-theme-b);
 }
 
-.nav-button.deck-builder.active:hover {
-  background-color: var(--color-theme-b-dark);
-}
-
 .nav-button.shop.active {
   background-color: var(--color-theme-c);
-}
-
-.nav-button.shop.active:hover {
-  background-color: var(--color-theme-c-dark);
 }
 
 .nav-button.events.active {
   background-color: var(--color-theme-d);
 }
 
-.nav-button.events.active:hover {
-  background-color: var(--color-theme-d-dark);
-}
-
 .nav-button.account.active {
   background-color: var(--color-theme-e);
 }
 
-.nav-button.account.active:hover {
-  background-color: var(--color-theme-e-dark);
-}
-
+/* Admin (diverso, non pubblico) */
 .nav-button.admin {
   background-color: var(--color-admin-bg);
   color: var(--color-admin-text);
