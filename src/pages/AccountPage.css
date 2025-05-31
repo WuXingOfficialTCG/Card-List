@@ -1,11 +1,8 @@
 .account-page-container {
   max-width: 600px;
   margin: 2rem auto;
-  padding: 2rem;
+  /* tolto padding e background per togliere il box bianco */
   box-sizing: border-box;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
   color: #000; /* testo nero */
 }
 
@@ -24,7 +21,7 @@
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s ease;
-  color: #000; /* testo nero per i pulsanti */
+  color: #000; /* testo nero */
 }
 
 .save-btn {
@@ -62,8 +59,4 @@
   margin: 30px 0;
   border: none;
   border-top: 1px solid #ccc;
-}
-
-h3 {
-  color: #000; /* testo nero */
 }
