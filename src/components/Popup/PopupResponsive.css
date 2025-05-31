@@ -27,12 +27,9 @@
     height: 50px;
   }
 
-  .popup-prev {
-    left: 4px;
-  }
-
+  .popup-prev,
   .popup-next {
-    right: 4px;
+    display: none;
   }
 
   .popup-controls {
