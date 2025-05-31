@@ -51,18 +51,16 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
   return (
     <>
-      {/* Header fisso in alto */}
       <Header />
 
-      {/* Container principale: Sidebar + CardGrid */}
       <div
         style={{
           display: 'flex',
-          height: 'calc(100vh - 60px)',  // supponendo Header 60px di altezza
+          height: 'calc(100vh - 60px)', // supponendo header alto 60px
           overflow: 'hidden',
+          width: '100%',
         }}
       >
-        {/* Sidebar: larghezza fissa, altezza piena */}
         <Sidebar
           filters={availableFilters}
           onFilterChange={updateFilter}
@@ -70,11 +68,15 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           onAddCard={onAddCard}
           onRemoveOneFromDeck={onRemoveOneFromDeck}
           onResetDeck={onResetDeck}
-          style={{ flex: '0 0 300px', overflowY: 'auto' }} // sidebar scrollabile se serve
+          style={{ overflowY: 'auto', flexShrink: 0, width: '300px' }}
         />
 
-        {/* CardGrid scrollabile */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+          }}
+        >
           <CardGrid
             cards={filteredCards}
             deck={deck}
@@ -85,7 +87,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
         </div>
       </div>
 
-      {/* Popup carte */}
       {popupIndex !== null && (
         <Popup
           card={filteredCards[popupIndex]}
@@ -100,7 +101,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
         />
       )}
 
-      {/* Popup supporto */}
       {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
     </>
   );
