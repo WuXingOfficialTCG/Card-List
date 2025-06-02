@@ -144,7 +144,7 @@
   }
 
   .grid {
-    grid-template-columns: 1fr; /* 1 colonna */
+    grid-template-columns: 3fr; /* 1 colonna */
     gap: 12px;
   }
 
