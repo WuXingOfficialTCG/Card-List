@@ -21,6 +21,8 @@ import SupportPopupManager from './components/SupportPopupManager';
 export default function App() {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Deck di lavoro (build current deck)
   const [deck, setDeck] = useState(() => {
     try {
       const saved = localStorage.getItem('deck');
@@ -29,16 +31,22 @@ export default function App() {
       return [];
     }
   });
+
+  // Mazzi dell'utente
   const [decks, setDecks] = useState([]);
+
+  // Pool carte completo (tutte le carte)
   const [allCards, setAllCards] = useState([]);
 
+  // Carica tutte le carte da file JSON
   useEffect(() => {
     fetch('/cards.json')
       .then(res => res.json())
-      .then(data => setAllCards(data))
+      .then(setAllCards)
       .catch(err => console.error("Errore caricamento cards.json:", err));
   }, []);
 
+  // Autenticazione e caricamento mazzi utente
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -48,13 +56,11 @@ export default function App() {
         try {
           const decksRef = collection(db, `users/${currentUser.uid}/decks`);
           const snapshot = await getDocs(decksRef);
-          const userDecks = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
+          const userDecks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           setDecks(userDecks);
         } catch (error) {
           console.error("Errore nel recupero dei mazzi:", error);
+          setDecks([]);
         }
       } else {
         setDecks([]);
@@ -64,56 +70,57 @@ export default function App() {
     return unsubscribe;
   }, []);
 
+  // Salva il deck di lavoro in localStorage
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Cerca le carte nel deck per ID
-  const handleSelectDeck = (cardsInDeck) => {
+  // Aggiunge carta al deck di lavoro (deckBuilder)
+  const addCardToDeck = (card) => {
+    setDeck(prev => {
+      const found = prev.find(c => c.card.id === card.id);
+      if (found) {
+        return prev.map(c => (c.card.id === card.id ? { ...c, count: c.count + 1 } : c));
+      } 
+      return [...prev, { card, count: 1 }];
+    });
+  };
+
+  // Rimuove una copia di carta dal deck di lavoro
+  const removeOneCardFromDeck = (card) => {
+    setDeck(prev => {
+      const idx = prev.findIndex(c => c.card.id === card.id);
+      if (idx === -1) return prev;
+      
+      const item = prev[idx];
+      if (item.count === 1) {
+        return prev.filter((_, i) => i !== idx);
+      }
+      
+      return prev.map((c, i) => (i === idx ? { ...c, count: c.count - 1 } : c));
+    });
+  };
+
+  // Reset deck di lavoro
+  const resetDeck = () => setDeck([]);
+
+  // Importa mazzo selezionato (deckManager)
+  const importDeck = (cardsInDeck) => {
     if (!allCards.length) {
-      console.warn("All cards non ancora caricate");
+      console.warn("Pool carte non ancora caricato");
       return;
     }
-
     const fullDeck = cardsInDeck.map(({ id, count }) => {
       const card = allCards.find(c => c.id === id);
-      if (!card) {
-        console.warn(`Carta con id "${id}" non trovata`);
-      }
+      if (!card) console.warn(`Carta con id ${id} non trovata nel pool`);
       return card ? { card, count } : null;
     }).filter(Boolean);
 
     setDeck(fullDeck);
   };
 
-  const onAddCard = (card) => {
-    setDeck(prevDeck => {
-      const existing = prevDeck.find(c => c.card.id === card.id);
-      return existing
-        ? prevDeck.map(c =>
-            c.card.id === card.id ? { ...c, count: c.count + 1 } : c
-          )
-        : [...prevDeck, { card, count: 1 }];
-    });
-  };
-
-  const onRemoveOneFromDeck = (card) => {
-    setDeck(prevDeck => {
-      const foundIndex = prevDeck.findIndex(c => c.card.id === card.id);
-      if (foundIndex === -1) return prevDeck;
-
-      const item = prevDeck[foundIndex];
-      if (item.count === 1) {
-        return prevDeck.filter((_, i) => i !== foundIndex);
-      }
-
-      return prevDeck.map((c, i) =>
-        i === foundIndex ? { ...c, count: c.count - 1 } : c
-      );
-    });
-  };
-
-  const handleExport = () => {
+  // Esporta deck di lavoro in file JSON
+  const exportDeck = () => {
     const dataStr = JSON.stringify(deck, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -141,9 +148,9 @@ export default function App() {
             element={
               <DeckBuilder
                 deck={deck}
-                onAddCard={onAddCard}
-                onRemoveOneFromDeck={onRemoveOneFromDeck}
-                onResetDeck={() => setDeck([])}
+                onAddCard={addCardToDeck}
+                onRemoveOneFromDeck={removeOneCardFromDeck}
+                onResetDeck={resetDeck}
               />
             }
           />
@@ -153,11 +160,7 @@ export default function App() {
               <DeckManager
                 user={user}
                 decks={decks}
-                onSelectDeck={handleSelectDeck}
-                onRemoveCardFromDeck={(deckId, cardId) => {
-                  // qui puoi implementare rimozione carta da mazzo
-                  // es. chiamare Firestore o aggiornare stato
-                }}
+                onSelectDeck={importDeck}
                 allCards={allCards}
               />
             }
@@ -173,7 +176,7 @@ export default function App() {
           <FloatingMenu
             user={user}
             deck={deck}
-            onExport={handleExport}
+            onExport={exportDeck}
             onImportDeck={setDeck}
           />
         )}
