@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from './firebase'; // supponendo che db sia Firestore importato
+import { auth, db } from './firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
 import Home from './pages/Home';
@@ -30,8 +30,7 @@ export default function App() {
 
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
-
-  const [decks, setDecks] = useState([]);  // <-- nuovo stato per i mazzi
+  const [decks, setDecks] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async currentUser => {
@@ -39,17 +38,25 @@ export default function App() {
       setCheckingAuth(false);
 
       if (currentUser) {
-        // Carica mazzi da Firestore (esempio)
-        const decksRef = collection(db, 'decks');
-        const q = query(decksRef, where('ownerId', '==', currentUser.uid));
+        try {
+          const decksRef = collection(db, 'decks');
+          const q = query(decksRef, where('user', '==', currentUser.uid)); // CAMPO CORRETTO
 
-        const querySnapshot = await getDocs(q);
-        const userDecks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setDecks(userDecks);
+          const querySnapshot = await getDocs(q);
+          const userDecks = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+
+          setDecks(userDecks);
+        } catch (error) {
+          console.error("Errore nel recupero dei mazzi:", error);
+        }
       } else {
-        setDecks([]); // logout -> nessun mazzo
+        setDecks([]);
       }
     });
+
     return unsubscribe;
   }, []);
 
@@ -131,7 +138,7 @@ export default function App() {
             element={
               <DeckManager
                 user={user}
-                decks={decks}  // <-- passo i mazzi caricati
+                decks={decks}
                 onSelectDeck={selectedDeck => setDeck(selectedDeck)}
               />
             }
