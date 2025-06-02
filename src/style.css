@@ -34,7 +34,9 @@ body {
   font-family: 'Lato', Arial, sans-serif;
   background-color: var(--color-bg-main); /* sfondo scuro */
   color: var(--color-text); /* testo chiaro */
-  height: 100vh;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
 }
 
 main {
