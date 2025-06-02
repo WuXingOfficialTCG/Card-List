@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './components/Header'; // Adatta il path se serve
+import Header from './components/Header/Header'; // Adatta il path se serve
 
 export default function DeckManager({ userData }) {
   const [openDeckId, setOpenDeckId] = useState(null);
