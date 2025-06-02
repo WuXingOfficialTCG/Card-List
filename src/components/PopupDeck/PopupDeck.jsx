@@ -1,15 +1,53 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import styles from './PopupDeck.module.css';
 
 export default function PopupDeck({ deck, onClose, onRemoveCard }) {
   const contentRef = useRef(null);
+  const firstFocusable = useRef(null);
+  const lastFocusable = useRef(null);
 
-  // Quando il popup apre, metti focus sul contenuto
+  // Focusa il contenuto all’apertura
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.focus();
     }
   }, []);
+
+  // Chiudi popup con ESC
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+      }
+      // Trap focus (Tab/Shift+Tab)
+      if (e.key === 'Tab') {
+        const focusableElements = contentRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    },
+    [onClose]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <div
@@ -17,11 +55,12 @@ export default function PopupDeck({ deck, onClose, onRemoveCard }) {
       onClick={onClose}
       role="dialog"
       aria-modal="true"
-      aria-label="Visualizzazione mazzo"
+      aria-labelledby="popupdeck-title"
+      aria-describedby="popupdeck-description"
     >
       <div
         className={styles['popup-wrapper']}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           className={styles.close}
@@ -35,8 +74,14 @@ export default function PopupDeck({ deck, onClose, onRemoveCard }) {
         <section
           className={styles.content}
           tabIndex={-1}
-          ref={contentRef}  // focus automatico
+          ref={contentRef} // focus automatico
         >
+          <h2 id="popupdeck-title" style={{ margin: '0 0 10px 0' }}>
+            Visualizzazione mazzo
+          </h2>
+          <p id="popupdeck-description" style={{ marginBottom: '15px' }}>
+            Seleziona le carte da rimuovere.
+          </p>
           <div className={styles.grid}>
             {deck.flatMap(({ card, count }) =>
               Array.from({ length: count }, (_, i) => (
