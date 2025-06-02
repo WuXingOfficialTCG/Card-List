@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import FloatingMenu from '../components/FloatingMenu';
 
-export default function DeckManager({
-  user,
-  decks = [],
-  allCards = [],
-  onSelectDeck,
-  onRemoveCardFromDeck,
-}) {
+export default function DeckManager({ user, decks = [], allCards = [], onSelectDeck, onRemoveCardFromDeck }) {
   const [expandedDeckId, setExpandedDeckId] = useState(null);
 
   const toggleDeck = (deckId) => {
@@ -22,16 +16,9 @@ export default function DeckManager({
   };
 
   const handleSelectDeck = (deck) => {
-    if (!deck.cards || !Array.isArray(deck.cards)) return;
-
-    const resolvedDeck = deck.cards
-      .map(({ nome, count }) => {
-        const found = allCards.find(c => c.nome?.toLowerCase().trim() === nome?.toLowerCase().trim());
-        return found ? { card: found, count } : null;
-      })
-      .filter(Boolean);
-
-    onSelectDeck(resolvedDeck);
+    if (onSelectDeck) {
+      onSelectDeck(deck.cards || []);
+    }
   };
 
   return (
@@ -55,7 +42,7 @@ export default function DeckManager({
                   borderRadius: 6,
                   padding: '0.75rem',
                   backgroundColor: '#f9f9f9',
-                  color: 'black',
+                  color: 'black'
                 }}
               >
                 <div
@@ -67,6 +54,7 @@ export default function DeckManager({
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    color: 'black'
                   }}
                 >
                   {deck.name}
@@ -74,7 +62,7 @@ export default function DeckManager({
                 </div>
 
                 {expandedDeckId === deck.id && (
-                  <div style={{ marginTop: '0.5rem' }}>
+                  <div style={{ marginTop: '0.5rem', color: 'black' }}>
                     {deck.cards?.length > 0 ? (
                       <div
                         style={{
@@ -83,75 +71,44 @@ export default function DeckManager({
                           gap: '0.5rem',
                         }}
                       >
-                        {deck.cards.flatMap(({ nome, count }) => {
-                          const found = allCards.find(
-                            c => c.nome?.toLowerCase().trim() === nome?.toLowerCase().trim()
-                          );
-                          if (!found) {
-                            return (
-                              <div
-                                key={`missing-${nome}`}
-                                style={{
-                                  border: '1px dashed gray',
-                                  padding: 4,
-                                  borderRadius: 4,
-                                  background: '#ffeaea',
-                                  fontSize: 12,
-                                  color: '#a00',
-                                }}
-                              >
-                                Carta non trovata: {nome}
-                              </div>
-                            );
-                          }
-
-                          return Array.from({ length: count }, (_, i) => (
-                            <div key={`${found.id}-${i}`} style={{ position: 'relative' }}>
-                              {found.immagine ? (
-                                <img
-                                  src={found.immagine}
-                                  alt={found.nome}
-                                  style={{
-                                    width: '100%',
-                                    borderRadius: 4,
-                                    display: 'block',
-                                  }}
-                                  draggable={false}
-                                />
-                              ) : (
-                                <div
-                                  style={{
-                                    width: '100%',
-                                    height: 100,
-                                    background: '#ccc',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    borderRadius: 4,
-                                  }}
-                                >
-                                  {found.nome}
-                                </div>
-                              )}
-
+                        {deck.cards.flatMap(({ id, count }) => {
+                          const card = allCards.find(c => c.id === id);
+                          if (!card) return [];
+                          return Array.from({ length: count }).map((_, i) => (
+                            <div
+                              key={`${id}-${i}`}
+                              style={{
+                                position: 'relative',
+                                borderRadius: 4,
+                                overflow: 'hidden',
+                              }}
+                            >
+                              <img
+                                src={card.immagine}
+                                alt={card.nome}
+                                style={{ width: '100%', height: 'auto', display: 'block' }}
+                                draggable={false}
+                              />
                               <button
-                                onClick={() =>
-                                  onRemoveCardFromDeck?.(deck.id, found.id)
-                                }
-                                type="button"
+                                onClick={() => onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id)}
+                                aria-label={`Rimuovi una copia di ${card.nome}`}
                                 style={{
                                   position: 'absolute',
                                   top: 2,
                                   right: 2,
-                                  background: 'rgba(255,255,255,0.8)',
+                                  backgroundColor: 'rgba(255,255,255,0.8)',
                                   border: 'none',
                                   borderRadius: '50%',
                                   width: 20,
                                   height: 20,
-                                  fontWeight: 'bold',
                                   cursor: 'pointer',
+                                  color: 'black',
+                                  fontWeight: 'bold',
+                                  lineHeight: '18px',
+                                  textAlign: 'center',
+                                  padding: 0,
                                 }}
-                                aria-label={`Rimuovi una copia di ${found.nome}`}
+                                type="button"
                               >
                                 −
                               </button>
@@ -160,31 +117,38 @@ export default function DeckManager({
                         })}
                       </div>
                     ) : (
-                      <p>Questo mazzo è vuoto.</p>
+                      <p style={{ color: 'black' }}>Mazzo vuoto</p>
                     )}
-
-                    <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
-                      <button
-                        onClick={() => handleSelectDeck(deck)}
-                        style={{ cursor: 'pointer', color: 'black' }}
-                      >
-                        Rinomina
-                      </button>
-
-                      <button
-                        onClick={() => handleDeleteDeck(deck.id)}
-                        style={{
-                          color: 'white',
-                          backgroundColor: 'red',
-                          border: 'none',
-                          padding: '0.25rem 0.75rem',
-                          borderRadius: 4,
-                          cursor: 'pointer',
-                        }}
-                      >
-                        Elimina Mazzo
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => handleDeleteDeck(deck.id)}
+                      style={{
+                        marginTop: '0.5rem',
+                        padding: '0.3rem 0.6rem',
+                        borderRadius: 4,
+                        border: '1px solid red',
+                        backgroundColor: 'white',
+                        color: 'red',
+                        cursor: 'pointer'
+                      }}
+                      type="button"
+                    >
+                      Elimina mazzo
+                    </button>
+                    <button
+                      onClick={() => handleSelectDeck(deck)}
+                      style={{
+                        marginLeft: '1rem',
+                        padding: '0.3rem 0.6rem',
+                        borderRadius: 4,
+                        border: '1px solid green',
+                        backgroundColor: 'white',
+                        color: 'green',
+                        cursor: 'pointer'
+                      }}
+                      type="button"
+                    >
+                      Usa questo mazzo
+                    </button>
                   </div>
                 )}
               </li>
