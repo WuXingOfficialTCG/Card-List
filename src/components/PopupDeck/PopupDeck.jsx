@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './PopupDeck.module.css';
 
 export default function PopupDeck({ deck, onClose, onRemoveCard }) {
+  const contentRef = useRef(null);
+
+  // Quando il popup apre, metti focus sul contenuto
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.focus();
+    }
+  }, []);
+
   return (
     <div
       className={styles.overlay}
@@ -23,7 +32,11 @@ export default function PopupDeck({ deck, onClose, onRemoveCard }) {
           ×
         </button>
 
-        <section className={styles.content} tabIndex={-1}>
+        <section
+          className={styles.content}
+          tabIndex={-1}
+          ref={contentRef}  // focus automatico
+        >
           <div className={styles.grid}>
             {deck.flatMap(({ card, count }) =>
               Array.from({ length: count }, (_, i) => (
@@ -43,7 +56,7 @@ export default function PopupDeck({ deck, onClose, onRemoveCard }) {
                     type="button"
                     className={styles.removeBtn}
                     aria-label={`Rimuovi una copia di ${card.nome}`}
-                    onClick={() => onRemoveCard(card, i)} // Passa anche l'indice
+                    onClick={() => onRemoveCard(card, i)}
                   >
                     −
                   </button>
