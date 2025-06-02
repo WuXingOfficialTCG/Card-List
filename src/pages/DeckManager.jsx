@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import FloatingMenu from '../components/FloatingMenu';
 
-export default function DeckManager({ user, decks = [], onSelectDeck }) {
+export default function DeckManager({ user, decks = [], cards = [], onSelectDeck }) {
   const [expandedDeckId, setExpandedDeckId] = useState(null);
 
   const toggleDeck = (deckId) => {
@@ -24,7 +24,7 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
       <Header />
       <FloatingMenu user={user} deck={[]} />
 
-      <main style={{ padding: '1rem', maxWidth: 800, margin: 'auto', color: 'black' }}>
+      <main style={{ padding: '1rem', maxWidth: 800, margin: 'auto' }}>
         <h1 style={{ color: 'white' }}>I tuoi Mazzi</h1>
 
         {decks.length === 0 ? (
@@ -62,22 +62,23 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                 {expandedDeckId === deck.id && (
                   <div style={{ marginTop: '0.5rem', color: 'black' }}>
                     {deck.cards?.length > 0 ? (
-                      <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
-                        {deck.cards.map(({ id, nome, count, immagine }) => (
-                          <li key={id} style={{ marginBottom: '0.5rem' }}>
-                            <div>{nome}</div>
-                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <ul style={{ paddingLeft: 0, listStyle: 'none', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        {deck.cards.map(({ id, count }) => {
+                          const card = cards.find(c => c.id === id);
+                          if (!card) return null;
+                          return (
+                            <li key={id} style={{ display: 'flex', gap: '0.25rem' }}>
                               {Array.from({ length: count }).map((_, i) => (
                                 <img
                                   key={i}
-                                  src={immagine}
-                                  alt={nome}
+                                  src={card.immagine}
+                                  alt={card.nome}
                                   style={{ width: 80, height: 'auto', borderRadius: 4 }}
                                 />
                               ))}
-                            </div>
-                          </li>
-                        ))}
+                            </li>
+                          );
+                        })}
                       </ul>
                     ) : (
                       <p>Questo mazzo è vuoto.</p>
