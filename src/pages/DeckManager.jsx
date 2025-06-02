@@ -11,7 +11,6 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
 
   const handleDeleteDeck = (deckId) => {
     if (window.confirm('Sei sicuro di voler eliminare questo mazzo?')) {
-      // TODO: Aggiungi qui la logica per rimuovere il mazzo da Firestore
       alert('Funzione elimina mazzo da implementare!');
     }
   };
@@ -26,10 +25,10 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
       <FloatingMenu user={user} deck={[]} />
 
       <main style={{ padding: '1rem', maxWidth: 800, margin: 'auto', color: 'black' }}>
-        <h1>I tuoi Mazzi</h1>
+        <h1 style={{ color: 'white' }}>I tuoi Mazzi</h1>
 
         {decks.length === 0 ? (
-          <p>Non hai ancora creato nessun mazzo.</p>
+          <p style={{ color: 'black' }}>Non hai ancora creato nessun mazzo.</p>
         ) : (
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {decks.map((deck) => (
@@ -63,10 +62,20 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                 {expandedDeckId === deck.id && (
                   <div style={{ marginTop: '0.5rem', color: 'black' }}>
                     {deck.cards?.length > 0 ? (
-                      <ul>
-                        {deck.cards.map(({ id, nome }) => (
-                          <li key={id}>
-                            {nome} {/* Solo una carta per tipo */}
+                      <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
+                        {deck.cards.map(({ id, nome, count, immagine }) => (
+                          <li key={id} style={{ marginBottom: '0.5rem' }}>
+                            <div>{nome}</div>
+                            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                              {Array.from({ length: count }).map((_, i) => (
+                                <img
+                                  key={i}
+                                  src={immagine}
+                                  alt={nome}
+                                  style={{ width: 80, height: 'auto', borderRadius: 4 }}
+                                />
+                              ))}
+                            </div>
                           </li>
                         ))}
                       </ul>
@@ -77,7 +86,7 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                     <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
                       <button
                         onClick={() => handleSelectDeck(deck)}
-                        style={{ cursor: 'pointer' }}
+                        style={{ cursor: 'pointer', color: 'black' }}
                       >
                         Rinomina
                       </button>
