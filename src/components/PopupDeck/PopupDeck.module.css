@@ -78,7 +78,7 @@
   inset: 0;
   background: rgba(128, 128, 128, 0.6);
   border-radius: 8px;
-  pointer-events: none; /* lascia passare eventi al pulsante */
+  pointer-events: none;
   z-index: 5;
 }
 
@@ -114,4 +114,49 @@
 .card:hover .removeBtn,
 .card:focus .removeBtn {
   opacity: 1;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .content {
+    width: 90vw; /* quasi tutta la larghezza */
+    max-height: 80vh;
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    aspect-ratio: 5 / 7;
+  }
+}
+
+@media (max-width: 500px) {
+  .content {
+    padding: 10px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .close {
+    top: -10px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+  }
 }
