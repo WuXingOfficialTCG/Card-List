@@ -15,7 +15,7 @@
   {
     "id": 2,
     "nome": "Solar Worshipper",
-    "immagine": "https://https://i.imgur.com/HIrpKlr.jpeg",
+    "immagine": "https://i.imgur.com/HIrpKlr.jpeg",
     "effetti": [
       { "tipo": "Ability", "descrizione": "Destroy 1 Earth entity." }
     ],
@@ -83,7 +83,7 @@
   {
     "id": 7,
     "nome": "Rising Solar Dragon",
-    "immagine": "https://imgur.com/3d7K3Os",
+    "immagine": "https://i.imgur.com/3d7K3Os.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "All of your Qi → Fire and inflict 1 damage to your opponent for each modified Qi." }
     ],
@@ -96,7 +96,7 @@
   {
     "id": 8,
     "nome": "Falling Lunar Dragon",
-    "immagine": "https://imgur.com/BWdCHB3",
+    "immagine": "https://i.imgur.com/BWdCHB3.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "All of your Qi → Water and destroy 1 opponent's card for each modified Qi." }
     ],
@@ -122,7 +122,7 @@
   {
     "id": 10,
     "nome": "Eternal Damned",
-    "immagine": "https://i.imgur.com/NI64W3Y.jpeg",
+    "immagine": "https://imgur.com/DdO1z0w",
     "effetti": [
       { "tipo": "Curse", "descrizione": "Choose an entity → For 5 turns it loses 1 ATK." }
     ],
@@ -135,7 +135,7 @@
   {
     "id": 11,
     "nome": "Guardian of Time",
-    "immagine": "https://i.imgur.com/oq3Njvu.jpeg",
+    "immagine": "https://imgur.com/qxiJftX",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Return 1 entity to the top of a stack in the deck." }
     ],
