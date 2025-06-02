@@ -15,12 +15,8 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
     }
   };
 
-  const handleRenameDeck = (deck) => {
-    alert('Funzione rinomina mazzo da implementare!');
-  };
-
   const handleSelectDeck = (deck) => {
-    onSelectDeck && onSelectDeck(deck);
+    onSelectDeck(deck.cards || []);
   };
 
   return (
@@ -56,8 +52,7 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    color: 'black',
-                    userSelect: 'none'
+                    color: 'black'
                   }}
                 >
                   {deck.name}
@@ -74,12 +69,12 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                           gap: '0.5rem',
                         }}
                       >
-                        {deck.cards.flatMap(({ id, count }) => {
-                          const card = cards.find(c => c.id === id);
+                        {deck.cards.flatMap(({ nome, count }) => {
+                          const card = cards.find(c => c.nome === nome);
                           if (!card) return [];
                           return Array.from({ length: count }).map((_, i) => (
                             <div
-                              key={`${id}-${i}`}
+                              key={`${nome}-${i}`}
                               style={{
                                 position: 'relative',
                                 borderRadius: 4,
@@ -93,10 +88,10 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                                 draggable={false}
                               />
                               <button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id);
-                                }}
+                                onClick={() =>
+                                  onRemoveCardFromDeck &&
+                                  onRemoveCardFromDeck(deck.id, card.nome)
+                                }
                                 aria-label={`Rimuovi una copia di ${card.nome}`}
                                 style={{
                                   position: 'absolute',
@@ -128,8 +123,8 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
 
                     <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
                       <button
-                        onClick={() => handleRenameDeck(deck)}
-                        style={{ cursor: 'pointer', color: 'black', background: 'none', border: '1px solid black', borderRadius: 4, padding: '0.25rem 0.75rem' }}
+                        onClick={() => handleSelectDeck(deck)}
+                        style={{ cursor: 'pointer', color: 'black' }}
                       >
                         Rinomina
                       </button>
