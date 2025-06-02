@@ -1,0 +1,90 @@
+/* Responsive per dispositivi con larghezza max 1024px (tablet) */
+@media (max-width: 1024px) {
+  .content {
+    width: calc((120px * 3) + (15px * 2) + 30px); /* 3 colonne, gap ridotto, padding ridotto */
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(3, 120px);
+    gap: 15px;
+  }
+
+  .card {
+    width: 120px;
+    height: 168px; /* mantiene il ratio 5:7 */
+  }
+
+  .removeBtn {
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+    line-height: 18px;
+    top: 4px;
+    right: 4px;
+  }
+}
+
+/* Responsive per dispositivi con larghezza max 768px (tablet portrait, large phones) */
+@media (max-width: 768px) {
+  .content {
+    width: calc((100px * 2) + (10px * 1) + 20px); /* 2 colonne */
+    padding: 10px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 100px);
+    gap: 10px;
+  }
+
+  .card {
+    width: 100px;
+    height: 140px; /* mantiene il ratio 5:7 */
+  }
+
+  .removeBtn {
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+    line-height: 16px;
+    top: 3px;
+    right: 3px;
+  }
+}
+
+/* Responsive per dispositivi con larghezza max 480px (smartphone) */
+@media (max-width: 480px) {
+  .content {
+    width: calc(80px + 20px); /* 1 colonna + padding */
+    padding: 10px 10px 20px 10px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    justify-content: stretch;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 80px;
+    height: calc(80px * 1.4); /* ratio 5:7 */
+  }
+
+  .removeBtn {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    line-height: 14px;
+    top: 2px;
+    right: 2px;
+  }
+
+  .close {
+    top: -12px;
+    right: -12px;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+}
