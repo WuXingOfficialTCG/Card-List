@@ -15,8 +15,12 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
     }
   };
 
+  const handleRenameDeck = (deck) => {
+    alert('Funzione rinomina mazzo da implementare!');
+  };
+
   const handleSelectDeck = (deck) => {
-    onSelectDeck(deck.cards || []);
+    onSelectDeck && onSelectDeck(deck);
   };
 
   return (
@@ -52,7 +56,8 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    color: 'black'
+                    color: 'black',
+                    userSelect: 'none'
                   }}
                 >
                   {deck.name}
@@ -88,7 +93,10 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                                 draggable={false}
                               />
                               <button
-                                onClick={() => onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id);
+                                }}
                                 aria-label={`Rimuovi una copia di ${card.nome}`}
                                 style={{
                                   position: 'absolute',
@@ -120,8 +128,8 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
 
                     <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
                       <button
-                        onClick={() => handleSelectDeck(deck)}
-                        style={{ cursor: 'pointer', color: 'black' }}
+                        onClick={() => handleRenameDeck(deck)}
+                        style={{ cursor: 'pointer', color: 'black', background: 'none', border: '1px solid black', borderRadius: 4, padding: '0.25rem 0.75rem' }}
                       >
                         Rinomina
                       </button>
