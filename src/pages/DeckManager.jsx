@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import FloatingMenu from '../components/FloatingMenu';
 
-export default function DeckManager({ user, decks = [], cards = [], onSelectDeck, onRemoveCardFromDeck }) {
+export default function DeckManager({
+  user,
+  decks = [],
+  allCards = [],
+  onSelectDeck,
+  onRemoveCardFromDeck,
+}) {
   const [expandedDeckId, setExpandedDeckId] = useState(null);
 
   const toggleDeck = (deckId) => {
@@ -16,7 +22,16 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
   };
 
   const handleSelectDeck = (deck) => {
-    onSelectDeck(deck.cards || []);
+    if (!deck.cards || !Array.isArray(deck.cards)) return;
+
+    const resolvedDeck = deck.cards
+      .map(({ nome, count }) => {
+        const found = allCards.find(c => c.nome?.toLowerCase().trim() === nome?.toLowerCase().trim());
+        return found ? { card: found, count } : null;
+      })
+      .filter(Boolean);
+
+    onSelectDeck(resolvedDeck);
   };
 
   return (
@@ -52,7 +67,6 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    color: 'black',
                   }}
                 >
                   {deck.name}
@@ -60,7 +74,7 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                 </div>
 
                 {expandedDeckId === deck.id && (
-                  <div style={{ marginTop: '0.5rem', color: 'black' }}>
+                  <div style={{ marginTop: '0.5rem' }}>
                     {deck.cards?.length > 0 ? (
                       <div
                         style={{
@@ -70,43 +84,74 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                         }}
                       >
                         {deck.cards.flatMap(({ nome, count }) => {
-                          const card = cards.find(c => c.nome === nome);
-                          if (!card) return [];
-                          return Array.from({ length: count }).map((_, i) => (
-                            <div
-                              key={`${nome}-${i}`}
-                              style={{
-                                position: 'relative',
-                                borderRadius: 4,
-                                overflow: 'hidden',
-                              }}
-                            >
-                              <img
-                                src={card.immagine}
-                                alt={card.nome}
-                                style={{ width: '100%', height: 'auto', display: 'block' }}
-                                draggable={false}
-                              />
+                          const found = allCards.find(
+                            c => c.nome?.toLowerCase().trim() === nome?.toLowerCase().trim()
+                          );
+                          if (!found) {
+                            return (
+                              <div
+                                key={`missing-${nome}`}
+                                style={{
+                                  border: '1px dashed gray',
+                                  padding: 4,
+                                  borderRadius: 4,
+                                  background: '#ffeaea',
+                                  fontSize: 12,
+                                  color: '#a00',
+                                }}
+                              >
+                                Carta non trovata: {nome}
+                              </div>
+                            );
+                          }
+
+                          return Array.from({ length: count }, (_, i) => (
+                            <div key={`${found.id}-${i}`} style={{ position: 'relative' }}>
+                              {found.immagine ? (
+                                <img
+                                  src={found.immagine}
+                                  alt={found.nome}
+                                  style={{
+                                    width: '100%',
+                                    borderRadius: 4,
+                                    display: 'block',
+                                  }}
+                                  draggable={false}
+                                />
+                              ) : (
+                                <div
+                                  style={{
+                                    width: '100%',
+                                    height: 100,
+                                    background: '#ccc',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderRadius: 4,
+                                  }}
+                                >
+                                  {found.nome}
+                                </div>
+                              )}
+
                               <button
-                                onClick={() => onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id)}
-                                aria-label={`Rimuovi una copia di ${card.nome}`}
+                                onClick={() =>
+                                  onRemoveCardFromDeck?.(deck.id, found.id)
+                                }
+                                type="button"
                                 style={{
                                   position: 'absolute',
                                   top: 2,
                                   right: 2,
-                                  backgroundColor: 'rgba(255,255,255,0.8)',
+                                  background: 'rgba(255,255,255,0.8)',
                                   border: 'none',
                                   borderRadius: '50%',
                                   width: 20,
                                   height: 20,
-                                  cursor: 'pointer',
-                                  color: 'black',
                                   fontWeight: 'bold',
-                                  lineHeight: '18px',
-                                  textAlign: 'center',
-                                  padding: 0,
+                                  cursor: 'pointer',
                                 }}
-                                type="button"
+                                aria-label={`Rimuovi una copia di ${found.nome}`}
                               >
                                 −
                               </button>
