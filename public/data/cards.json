@@ -148,7 +148,7 @@
   {
     "id": 13,
     "nome": "Yin Yang Baby Dragon",
-    "immagine": "https://i.imgur.com/TyoIo60.jpeg",
+    "immagine": "https://i.imgur.com/bYWarQ6.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "Metal → Water and add 1 Water card from the Diyu to your hand." },
       { "tipo": "Trasmute", "descrizione": "Wood → Fire and add 1 Fire card from the Diyu to your hand." }
@@ -162,7 +162,7 @@
   {
     "id": 12,
     "nome": "Armed Warrior",
-    "immagine": "https://i.imgur.com/dlr0sOl.jpeg",
+    "immagine": "https://i.imgur.com/6Xv3IUn.jpeg",
     "effetti": [
       { "tipo": "Haste" },
       { "tipo": "Skill", "descrizione": "Sacrifice 2 Metals → Add *Bone Breaker* from your deck to your hand." }
@@ -173,10 +173,23 @@
     "atk": 3,
     "res": 0
   },
+    {
+    "id": 14,
+    "nome": "Terraformer",
+    "immagine": "https://i.imgur.com/tIvCIhN.jpeg",
+    "effetti": [
+      { "tipo": "Skill", "descrizione": "Sacrifice 2 Metals → Add *Bone Breaker* from your deck to your hand." }
+    ],
+    "elemento": "Earth",
+    "tipo": "Entity",
+    "rango": "1",
+    "atk": 0,
+    "res": 2
+  },
   {
     "id": 15,
     "nome": "Swapping Sorcerer",
-    "immagine": "https://i.imgur.com/K25E6gn.jpeg",
+    "immagine": "https://i.imgur.com/ZNSgeW1.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "Shuffle 1 card into the deck → Draw 1 card." }
     ],
@@ -189,7 +202,7 @@
   {
     "id": 16,
     "nome": "Turtle of North",
-    "immagine": "https://i.imgur.com/9JZLzkG.jpeg",
+    "immagine": "https://i.imgur.com/exsawmj.jpeg",
     "effetti": [
       { "tipo": "Shell"}
     ],
@@ -202,7 +215,7 @@
   {
     "id": 17,
     "nome": "Sorcerer of North",
-    "immagine": "https://i.imgur.com/tu8qp9k.jpeg",
+    "immagine": "https://i.imgur.com/cWblu86.jpeg",
     "effetti": [
       { "tipo": "Lineage", "descrizione": "Sacrifice 1 Water → Draw 1 card from the deck but take 1 damage." }
     ],
@@ -212,10 +225,20 @@
     "atk": 1,
     "res": 2
   },
+    {
+    "id": 18,
+    "nome": "Bone Breaker",
+    "immagine": "https://i.imgur.com/0A6Ci0G.jpeg",
+    "effetti": [
+      { "tipo": "Disruption", "descrizione": "If an opponent's entity declares an attack → Put it in defense position." }
+    ],
+    "elemento": "Fire",
+    "tipo": "Chakra"
+  }
   {
     "id": 19,
     "nome": "Turn",
-    "immagine": "https://i.imgur.com/34FF7LL.png",
+    "immagine": "https://i.imgur.com/PctyGMV.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Withdraw a Solar entity → Invoke a Rank 1 Lunar one from your hand." },
       { "tipo": "Skill", "descrizione": "Withdraw a Lunar entity → Invoke a Rank 1 Solar one from your hand." }
@@ -226,7 +249,7 @@
   {
     "id": 20,
     "nome": "Solar Eclipse",
-    "immagine": "https://i.imgur.com/xCO6UER.jpeg",
+    "immagine": "https://i.imgur.com/7Z3pl43.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "If your opponent activates an effect against your Solar entity → Negate it." }
     ],
@@ -236,7 +259,7 @@
   {
     "id": 21,
     "nome": "Lunar Flare",
-    "immagine": "https://i.imgur.com/yR87hmk.png",
+    "immagine": "https://i.imgur.com/QpZwp94.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Sacrifice a Lunar entity in your Manifestations → Destroy all the cards on the field." }
     ],
@@ -246,7 +269,7 @@
   {
     "id": 22,
     "nome": "Renewal",
-    "immagine": "https://i.imgur.com/HXpFzzk.jpeg",
+    "immagine": "https://i.imgur.com/AvTEV1O.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Return the cards in your hand to your deck → Draw the same number." }
     ],
@@ -256,21 +279,21 @@
   {
     "id": 23,
     "nome": "River of Benevolence",
-    "immagine": "https://i.imgur.com/gv4fWiF.jpeg",
+    "immagine": "https://i.imgur.com/RYYZ8Ze.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Gain 1 PM for each entity in your Manifestations." }
     ],
     "elemento": "Water",
     "tipo": "Chakra"
   },
-  {
+    {
     "id": 24,
-    "nome": "Bone Breaker",
-    "immagine": "https://i.imgur.com/t63CG3M.jpeg",
+    "nome": "Ocean",
+    "immagine": "https://i.imgur.com/R6wAyUP.jpeg",
     "effetti": [
-      { "tipo": "Disruption", "descrizione": "If an opponent's entity declares an attack → Put it in defense position." }
+      { "tipo": "Skill", "descrizione": "Gain 1 PM for each entity in your Manifestations." }
     ],
-    "elemento": "Fire",
-    "tipo": "Chakra"
+    "elemento": "Water",
+    "tipo": "Domain"
   }
 ]
