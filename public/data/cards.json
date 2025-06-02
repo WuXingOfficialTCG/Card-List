@@ -122,7 +122,7 @@
   {
     "id": 10,
     "nome": "Eternal Damned",
-    "immagine": "https://imgur.com/DdO1z0w",
+    "immagine": "https://imgur.com/DdO1z0w.jpeg",
     "effetti": [
       { "tipo": "Curse", "descrizione": "Choose an entity → For 5 turns it loses 1 ATK." }
     ],
@@ -135,7 +135,7 @@
   {
     "id": 11,
     "nome": "Guardian of Time",
-    "immagine": "https://imgur.com/qxiJftX",
+    "immagine": "https://imgur.com/qxiJftX.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Return 1 entity to the top of a stack in the deck." }
     ],
