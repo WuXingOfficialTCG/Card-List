@@ -6,14 +6,18 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
   const [expandedDeckId, setExpandedDeckId] = useState(null);
 
   const toggleDeck = (deckId) => {
-    setExpandedDeckId(prev => (prev === deckId ? null : deckId));
+    setExpandedDeckId(prevId => (prevId === deckId ? null : deckId));
   };
 
-  const deleteDeck = (deckId) => {
+  const handleDeleteDeck = (deckId) => {
     if (window.confirm('Sei sicuro di voler eliminare questo mazzo?')) {
-      // Qui devi integrare la logica reale di rimozione dal database o stato globale
+      // TODO: Aggiungi qui la logica per rimuovere il mazzo da Firestore
       alert('Funzione elimina mazzo da implementare!');
     }
+  };
+
+  const handleSelectDeck = (deck) => {
+    onSelectDeck(deck.cards || []);
   };
 
   return (
@@ -35,7 +39,8 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                   marginBottom: '1rem',
                   border: '1px solid #ccc',
                   borderRadius: 6,
-                  padding: '0.5rem',
+                  padding: '0.75rem',
+                  backgroundColor: '#f9f9f9'
                 }}
               >
                 <div
@@ -43,20 +48,23 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                   style={{
                     cursor: 'pointer',
                     fontWeight: 'bold',
-                    fontSize: '1.2rem',
-                    userSelect: 'none',
+                    fontSize: '1.1rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                   }}
                 >
-                  {deck.name} {expandedDeckId === deck.id ? '▲' : '▼'}
+                  {deck.name}
+                  <span>{expandedDeckId === deck.id ? '▲' : '▼'}</span>
                 </div>
 
                 {expandedDeckId === deck.id && (
                   <div style={{ marginTop: '0.5rem' }}>
-                    {deck.cards && deck.cards.length > 0 ? (
+                    {deck.cards?.length > 0 ? (
                       <ul>
                         {deck.cards.map(({ id, nome, count }) => (
                           <li key={id}>
-                            {nome} x{count}
+                            {nome} × {count}
                           </li>
                         ))}
                       </ul>
@@ -64,12 +72,28 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                       <p>Questo mazzo è vuoto.</p>
                     )}
 
-                    <button
-                      onClick={() => deleteDeck(deck.id)}
-                      style={{ marginTop: 10, color: 'red', cursor: 'pointer' }}
-                    >
-                      Elimina Mazzo
-                    </button>
+                    <div style={{ marginTop: '0.5rem', display: 'flex', gap: '1rem' }}>
+                      <button
+                        onClick={() => handleSelectDeck(deck)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        Usa questo mazzo
+                      </button>
+
+                      <button
+                        onClick={() => handleDeleteDeck(deck.id)}
+                        style={{
+                          color: 'white',
+                          backgroundColor: 'red',
+                          border: 'none',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: 4,
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Elimina Mazzo
+                      </button>
+                    </div>
                   </div>
                 )}
               </li>
