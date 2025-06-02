@@ -21,8 +21,6 @@ import SupportPopupManager from './components/SupportPopupManager';
 export default function App() {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
-
-  // Mazzo corrente (singolo, in DeckBuilder)
   const [deck, setDeck] = useState(() => {
     try {
       const saved = localStorage.getItem('deck');
@@ -31,10 +29,18 @@ export default function App() {
       return [];
     }
   });
-
-  // Lista mazzi dell'utente
   const [decks, setDecks] = useState([]);
+  const [allCards, setAllCards] = useState([]);
 
+  // Carica tutte le carte dal JSON in public/cards.json
+  useEffect(() => {
+    fetch('/cards.json')
+      .then(res => res.json())
+      .then(data => setAllCards(data))
+      .catch(err => console.error("Errore caricamento cards.json:", err));
+  }, []);
+
+  // Gestione autenticazione e recupero mazzi utente
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -64,7 +70,21 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Funzioni per il mazzo singolo (DeckBuilder)
+  // Funzione per selezionare un mazzo e trasformare ID in dati completi carta
+  const handleSelectDeck = (cardsInDeck) => {
+    if (!allCards.length) {
+      console.warn("All cards non ancora caricate");
+      return;
+    }
+
+    const fullDeck = cardsInDeck.map(({ id, count }) => {
+      const card = allCards.find(c => c.id === id);
+      return card ? { card, count } : null;
+    }).filter(Boolean);
+
+    setDeck(fullDeck);
+  };
+
   const onAddCard = (card) => {
     setDeck(prevDeck => {
       const existing = prevDeck.find(c => c.card.id === card.id);
@@ -92,38 +112,6 @@ export default function App() {
     });
   };
 
-  // Funzione per rimuovere una carta da un mazzo salvato (DeckManager)
-  const handleRemoveCardFromDeck = (deckId, cardToRemove) => {
-    setDecks(prevDecks =>
-      prevDecks.map(deckItem => {
-        if (deckItem.id !== deckId) return deckItem;
-
-        const newCards = deckItem.cards
-          .map(({ id, count }) => {
-            if (id === cardToRemove.id) {
-              const newCount = count - 1;
-              return newCount > 0 ? { id, count: newCount } : null;
-            }
-            return { id, count };
-          })
-          .filter(Boolean);
-
-        return { ...deckItem, cards: newCards };
-      })
-    );
-  };
-
-  // Quando selezioni un mazzo dal DeckManager, lo imposti come mazzo corrente (deck)
-  // Convertiamo la lista {id, count} in {card, count} per DeckBuilder
-  const handleSelectDeck = (selectedCards) => {
-    // Per ogni carta (id + count), trova l'oggetto carta completo in tutti i mazzi
-    // Qui serve passare a DeckManager anche la lista completa delle carte per lookup,
-    // oppure salvi le carte in un contesto condiviso.
-    // Per ora supponiamo che DeckManager passi l'array {card, count} già completo,
-    // quindi settiamo direttamente:
-    setDeck(selectedCards);
-  };
-
   const handleExport = () => {
     const dataStr = JSON.stringify(deck, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
@@ -146,10 +134,7 @@ export default function App() {
         <SupportPopupManager />
 
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
           <Route
             path="/deck-builder"
             element={
@@ -168,7 +153,7 @@ export default function App() {
                 user={user}
                 decks={decks}
                 onSelectDeck={handleSelectDeck}
-                onRemoveCardFromDeck={handleRemoveCardFromDeck}
+                allCards={allCards}
               />
             }
           />
