@@ -66,19 +66,24 @@ export default function App() {
     return unsubscribe;
   }, []);
 
+  // Salva il deck nello storage locale
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Funzione per selezionare un mazzo e trasformare ID in dati completi carta
+  // Funzione per selezionare un mazzo e trasformare nome in dati completi carta
   const handleSelectDeck = (cardsInDeck) => {
     if (!allCards.length) {
       console.warn("All cards non ancora caricate");
       return;
     }
 
-    const fullDeck = cardsInDeck.map(({ id, count }) => {
-      const card = allCards.find(c => c.id === id);
+    // cardsInDeck è un array di { nome, count }
+    const fullDeck = cardsInDeck.map(({ nome, count }) => {
+      // trova la carta in allCards usando nome (case insensitive e trim per sicurezza)
+      const card = allCards.find(
+        c => c.nome?.toLowerCase().trim() === nome?.toLowerCase().trim()
+      );
       return card ? { card, count } : null;
     }).filter(Boolean);
 
