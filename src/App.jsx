@@ -32,7 +32,6 @@ export default function App() {
   const [decks, setDecks] = useState([]);
   const [allCards, setAllCards] = useState([]);
 
-  // Carica tutte le carte dal JSON in public/cards.json
   useEffect(() => {
     fetch('/cards.json')
       .then(res => res.json())
@@ -40,7 +39,6 @@ export default function App() {
       .catch(err => console.error("Errore caricamento cards.json:", err));
   }, []);
 
-  // Gestione autenticazione e recupero mazzi utente
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -66,24 +64,22 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // Salva il deck nello storage locale
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Funzione per selezionare un mazzo e trasformare nome in dati completi carta
+  // Cerca le carte nel deck per ID
   const handleSelectDeck = (cardsInDeck) => {
     if (!allCards.length) {
       console.warn("All cards non ancora caricate");
       return;
     }
 
-    // cardsInDeck è un array di { nome, count }
-    const fullDeck = cardsInDeck.map(({ nome, count }) => {
-      // trova la carta in allCards usando nome (case insensitive e trim per sicurezza)
-      const card = allCards.find(
-        c => c.nome?.toLowerCase().trim() === nome?.toLowerCase().trim()
-      );
+    const fullDeck = cardsInDeck.map(({ id, count }) => {
+      const card = allCards.find(c => c.id === id);
+      if (!card) {
+        console.warn(`Carta con id "${id}" non trovata`);
+      }
       return card ? { card, count } : null;
     }).filter(Boolean);
 
@@ -158,6 +154,10 @@ export default function App() {
                 user={user}
                 decks={decks}
                 onSelectDeck={handleSelectDeck}
+                onRemoveCardFromDeck={(deckId, cardId) => {
+                  // qui puoi implementare rimozione carta da mazzo
+                  // es. chiamare Firestore o aggiornare stato
+                }}
                 allCards={allCards}
               />
             }
