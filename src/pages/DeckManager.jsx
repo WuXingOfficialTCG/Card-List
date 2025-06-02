@@ -1,187 +1,93 @@
 import React, { useState } from 'react';
-import Header from '../components/Header/Header';
-import FloatingMenu from '../components/FloatingMenu';
+import Header from './components/Header'; // Adatta il path se serve
 
-export default function DeckManager({
-  user,
-  decks = [],
-  allCards = [],
-  onSelectDeck,
-  onRemoveCardFromDeck,
-}) {
-  const [expandedDeckId, setExpandedDeckId] = useState(null);
+export default function DeckManager({ userData }) {
+  const [openDeckId, setOpenDeckId] = useState(null);
 
-  const toggleDeck = (deckId) => {
-    setExpandedDeckId((prevId) => (prevId === deckId ? null : deckId));
-  };
+  if (!userData || !userData.decks) {
+    return (
+      <>
+        <Header />
+        <main style={{ padding: '1rem', maxWidth: 900, margin: '0 auto' }}>
+          <p>Nessun mazzo trovato.</p>
+        </main>
+      </>
+    );
+  }
 
-  const handleDeleteDeck = (deckId) => {
-    if (window.confirm('Sei sicuro di voler eliminare questo mazzo?')) {
-      alert('Funzione elimina mazzo da implementare!');
-    }
-  };
-
-  const handleSelectDeck = (deck) => {
-    if (onSelectDeck) {
-      onSelectDeck(deck.cards || []);
-    }
-  };
+  function toggleDeck(deckId) {
+    setOpenDeckId(openDeckId === deckId ? null : deckId);
+  }
 
   return (
     <>
       <Header />
-      <FloatingMenu user={user} deck={[]} />
-
-      <main style={{ padding: '1rem', maxWidth: 800, margin: 'auto' }}>
-        <h1 style={{ color: 'white' }}>I tuoi Mazzi</h1>
-
-        {decks.length === 0 ? (
-          <p style={{ color: 'black' }}>Non hai ancora creato nessun mazzo.</p>
-        ) : (
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {decks.map((deck) => (
-              <li
-                key={deck.id}
+      <main style={{ padding: '1rem', maxWidth: 900, margin: '0 auto' }}>
+        <h1>Gestione Mazzi</h1>
+        <div>
+          {userData.decks.map((deck) => (
+            <section key={deck.id} style={{ marginBottom: '1rem' }}>
+              <button
+                onClick={() => toggleDeck(deck.id)}
+                aria-expanded={openDeckId === deck.id}
+                aria-controls={`deck-cards-${deck.id}`}
                 style={{
-                  marginBottom: '1rem',
-                  border: '1px solid #ccc',
-                  borderRadius: 6,
-                  padding: '0.75rem',
-                  backgroundColor: '#f9f9f9',
-                  color: 'black',
+                  width: '100%',
+                  padding: '10px 15px',
+                  fontSize: '1.2rem',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: 4,
                 }}
               >
+                {deck.nome}
+              </button>
+
+              {openDeckId === deck.id && (
                 <div
-                  onClick={() => toggleDeck(deck.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      toggleDeck(deck.id);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
+                  id={`deck-cards-${deck.id}`}
                   style={{
-                    cursor: 'pointer',
-                    fontWeight: 'bold',
-                    fontSize: '1.1rem',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    color: 'black',
+                    marginTop: 10,
+                    padding: 10,
+                    backgroundColor: '#f9f9f9',
+                    borderRadius: 4,
+                    boxShadow: '0 0 8px rgba(0,0,0,0.1)',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                    gap: 15,
                   }}
-                  aria-expanded={expandedDeckId === deck.id}
-                  aria-controls={`deck-cards-${deck.id}`}
                 >
-                  {deck.name}
-                  <span>{expandedDeckId === deck.id ? '▲' : '▼'}</span>
-                </div>
-
-                {expandedDeckId === deck.id && (
-                  <div
-                    id={`deck-cards-${deck.id}`}
-                    style={{ marginTop: '0.5rem', color: 'black' }}
-                  >
-                    {deck.cards?.length > 0 ? (
+                  {deck.cards && deck.cards.length > 0 ? (
+                    deck.cards.map((card) => (
                       <div
+                        key={card.id}
                         style={{
-                          display: 'grid',
-                          gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-                          gap: '0.5rem',
+                          borderRadius: 6,
+                          overflow: 'hidden',
+                          backgroundColor: 'white',
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                          userSelect: 'none',
                         }}
                       >
-                        {deck.cards.flatMap(({ id, count }) => {
-                          // Cerca la carta in modo case-insensitive
-                          const card = allCards.find(
-                            (c) => c.id.toLowerCase() === id.toLowerCase()
-                          );
-                          if (!card) return [];
-                          return Array.from({ length: count }).map((_, i) => (
-                            <div
-                              key={`${id}-${i}`}
-                              style={{
-                                position: 'relative',
-                                borderRadius: 4,
-                                overflow: 'hidden',
-                              }}
-                            >
-                              <img
-                                src={card.immagine}
-                                alt={card.nome}
-                                style={{ width: '100%', height: 'auto', display: 'block' }}
-                                draggable={false}
-                              />
-                              <button
-                                onClick={() =>
-                                  onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id)
-                                }
-                                aria-label={`Rimuovi una copia di ${card.nome}`}
-                                style={{
-                                  position: 'absolute',
-                                  top: 2,
-                                  right: 2,
-                                  backgroundColor: 'rgba(255,255,255,0.8)',
-                                  border: 'none',
-                                  borderRadius: '50%',
-                                  width: 20,
-                                  height: 20,
-                                  cursor: 'pointer',
-                                  color: 'black',
-                                  fontWeight: 'bold',
-                                  lineHeight: '18px',
-                                  textAlign: 'center',
-                                  padding: 0,
-                                }}
-                                type="button"
-                              >
-                                −
-                              </button>
-                            </div>
-                          ));
-                        })}
+                        <img
+                          src={card.immagine}
+                          alt={card.nome}
+                          style={{ width: '100%', height: 'auto', display: 'block' }}
+                          draggable={false}
+                        />
                       </div>
-                    ) : (
-                      <p style={{ color: 'black' }}>Mazzo vuoto</p>
-                    )}
-
-                    <div style={{ marginTop: '0.5rem' }}>
-                      <button
-                        onClick={() => handleDeleteDeck(deck.id)}
-                        style={{
-                          padding: '0.3rem 0.6rem',
-                          borderRadius: 4,
-                          border: '1px solid red',
-                          backgroundColor: 'white',
-                          color: 'red',
-                          cursor: 'pointer',
-                          marginRight: 8,
-                        }}
-                        type="button"
-                      >
-                        Elimina mazzo
-                      </button>
-
-                      <button
-                        onClick={() => handleSelectDeck(deck)}
-                        style={{
-                          padding: '0.3rem 0.6rem',
-                          borderRadius: 4,
-                          border: '1px solid green',
-                          backgroundColor: 'white',
-                          color: 'green',
-                          cursor: 'pointer',
-                        }}
-                        type="button"
-                      >
-                        Usa questo mazzo
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
+                    ))
+                  ) : (
+                    <p style={{ gridColumn: '1/-1' }}>Nessuna carta in questo mazzo.</p>
+                  )}
+                </div>
+              )}
+            </section>
+          ))}
+        </div>
       </main>
     </>
   );
