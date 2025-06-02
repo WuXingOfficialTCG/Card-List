@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import FloatingMenu from '../components/FloatingMenu';
 
-export default function DeckManager({ user, decks = [], cards = [], onSelectDeck }) {
+export default function DeckManager({ user, decks = [], cards = [], onSelectDeck, onRemoveCardFromDeck }) {
   const [expandedDeckId, setExpandedDeckId] = useState(null);
 
   const toggleDeck = (deckId) => {
@@ -62,24 +62,58 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                 {expandedDeckId === deck.id && (
                   <div style={{ marginTop: '0.5rem', color: 'black' }}>
                     {deck.cards?.length > 0 ? (
-                      <ul style={{ paddingLeft: 0, listStyle: 'none', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        {deck.cards.map(({ id, count }) => {
+                      <div
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+                          gap: '0.5rem',
+                        }}
+                      >
+                        {deck.cards.flatMap(({ id, count }) => {
                           const card = cards.find(c => c.id === id);
-                          if (!card) return null;
-                          return (
-                            <li key={id} style={{ display: 'flex', gap: '0.25rem' }}>
-                              {Array.from({ length: count }).map((_, i) => (
-                                <img
-                                  key={i}
-                                  src={card.immagine}
-                                  alt={card.nome}
-                                  style={{ width: 80, height: 'auto', borderRadius: 4 }}
-                                />
-                              ))}
-                            </li>
-                          );
+                          if (!card) return [];
+                          return Array.from({ length: count }).map((_, i) => (
+                            <div
+                              key={`${id}-${i}`}
+                              style={{
+                                position: 'relative',
+                                borderRadius: 4,
+                                overflow: 'hidden',
+                              }}
+                            >
+                              <img
+                                src={card.immagine}
+                                alt={card.nome}
+                                style={{ width: '100%', height: 'auto', display: 'block' }}
+                                draggable={false}
+                              />
+                              <button
+                                onClick={() => onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id)}
+                                aria-label={`Rimuovi una copia di ${card.nome}`}
+                                style={{
+                                  position: 'absolute',
+                                  top: 2,
+                                  right: 2,
+                                  backgroundColor: 'rgba(255,255,255,0.8)',
+                                  border: 'none',
+                                  borderRadius: '50%',
+                                  width: 20,
+                                  height: 20,
+                                  cursor: 'pointer',
+                                  color: 'black',
+                                  fontWeight: 'bold',
+                                  lineHeight: '18px',
+                                  textAlign: 'center',
+                                  padding: 0,
+                                }}
+                                type="button"
+                              >
+                                −
+                              </button>
+                            </div>
+                          ));
                         })}
-                      </ul>
+                      </div>
                     ) : (
                       <p>Questo mazzo è vuoto.</p>
                     )}
