@@ -25,7 +25,7 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
       <Header />
       <FloatingMenu user={user} deck={[]} />
 
-      <main style={{ padding: '1rem', maxWidth: 800, margin: 'auto' }}>
+      <main style={{ padding: '1rem', maxWidth: 800, margin: 'auto', color: 'black' }}>
         <h1>I tuoi Mazzi</h1>
 
         {decks.length === 0 ? (
@@ -40,7 +40,8 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                   border: '1px solid #ccc',
                   borderRadius: 6,
                   padding: '0.75rem',
-                  backgroundColor: '#f9f9f9'
+                  backgroundColor: '#f9f9f9',
+                  color: 'black'
                 }}
               >
                 <div
@@ -51,7 +52,8 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                     fontSize: '1.1rem',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    color: 'black'
                   }}
                 >
                   {deck.name}
@@ -59,12 +61,12 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                 </div>
 
                 {expandedDeckId === deck.id && (
-                  <div style={{ marginTop: '0.5rem' }}>
+                  <div style={{ marginTop: '0.5rem', color: 'black' }}>
                     {deck.cards?.length > 0 ? (
                       <ul>
-                        {deck.cards.map(({ id, nome, count }) => (
+                        {deck.cards.map(({ id, nome }) => (
                           <li key={id}>
-                            {nome} × {count}
+                            {nome} {/* Solo una carta per tipo */}
                           </li>
                         ))}
                       </ul>
@@ -77,7 +79,7 @@ export default function DeckManager({ user, decks = [], onSelectDeck }) {
                         onClick={() => handleSelectDeck(deck)}
                         style={{ cursor: 'pointer' }}
                       >
-                        Usa questo mazzo
+                        Rinomina
                       </button>
 
                       <button
