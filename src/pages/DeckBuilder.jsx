@@ -77,8 +77,9 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
         <div
           style={{
-            flex: 1,
-            overflow: 'hidden', // disable card grid scrollbar
+            flex:1,
+            overflowY: 'auto', // consenti scroll verticale solo qui
+            overflowX: 'hidden',
           }}
         >
           <CardGrid
