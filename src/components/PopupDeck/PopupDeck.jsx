@@ -3,28 +3,26 @@ import styles from './PopupDeck.module.css';
 
 export default function PopupDeck({ deck, onClose, onRemoveCard }) {
   const contentRef = useRef(null);
-  const firstFocusable = useRef(null);
-  const lastFocusable = useRef(null);
 
-  // Focusa il contenuto all’apertura
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.focus();
     }
   }, []);
 
-  // Chiudi popup con ESC
+  // Gestione tasti per ESC e trap focus
   const handleKeyDown = useCallback(
     (e) => {
       if (e.key === 'Escape') {
         e.preventDefault();
         onClose();
       }
-      // Trap focus (Tab/Shift+Tab)
-      if (e.key === 'Tab') {
+      if (e.key === 'Tab' && contentRef.current) {
         const focusableElements = contentRef.current.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
+        if (focusableElements.length === 0) return;
+
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -74,7 +72,7 @@ export default function PopupDeck({ deck, onClose, onRemoveCard }) {
         <section
           className={styles.content}
           tabIndex={-1}
-          ref={contentRef} // focus automatico
+          ref={contentRef}
         >
           <h2 id="popupdeck-title" style={{ margin: '0 0 10px 0' }}>
             Visualizzazione mazzo
