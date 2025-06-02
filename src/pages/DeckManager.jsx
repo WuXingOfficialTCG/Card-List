@@ -40,7 +40,7 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                   borderRadius: 6,
                   padding: '0.75rem',
                   backgroundColor: '#f9f9f9',
-                  color: 'black'
+                  color: 'black',
                 }}
               >
                 <div
@@ -52,7 +52,7 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    color: 'black'
+                    color: 'black',
                   }}
                 >
                   {deck.name}
@@ -88,10 +88,7 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                                 draggable={false}
                               />
                               <button
-                                onClick={() =>
-                                  onRemoveCardFromDeck &&
-                                  onRemoveCardFromDeck(deck.id, card.nome)
-                                }
+                                onClick={() => onRemoveCardFromDeck && onRemoveCardFromDeck(deck.id, card.id)}
                                 aria-label={`Rimuovi una copia di ${card.nome}`}
                                 style={{
                                   position: 'absolute',
@@ -137,7 +134,7 @@ export default function DeckManager({ user, decks = [], cards = [], onSelectDeck
                           border: 'none',
                           padding: '0.25rem 0.75rem',
                           borderRadius: 4,
-                          cursor: 'pointer'
+                          cursor: 'pointer',
                         }}
                       >
                         Elimina Mazzo
