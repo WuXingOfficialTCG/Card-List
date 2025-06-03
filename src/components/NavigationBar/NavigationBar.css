@@ -1,7 +1,9 @@
-/* Contenitore barra di navigazione */
+/* ===========================
+   Stile base (desktop)
+=========================== */
 .navigation-bar {
   display: flex;
-  flex-wrap: wrap; /* Permette ai bottoni di andare a capo se necessario */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   background-color: var(--color-neutral);
@@ -10,10 +12,9 @@
   width: 100%;
   border-bottom: 1px solid var(--color-neutral);
   box-sizing: border-box;
-  overflow-x: auto; /* Previene scrollbar orizzontale indesiderata */
+  overflow-x: hidden;
 }
 
-/* Bottoni della navigazione */
 .nav-button {
   display: inline-block;
   text-align: center;
@@ -30,67 +31,139 @@
   box-sizing: border-box;
   cursor: pointer;
   transition: background-color 0.2s;
-  white-space: nowrap; /* Evita il wrapping del testo interno */
+  white-space: nowrap;
 }
 
-/* Rimuove il bordo destro all’ultimo bottone */
 .nav-button:last-child {
   border-right: none;
 }
 
-/* Hover - Colori personalizzati per sezione */
+/* Hover */
 .nav-button.home:hover {
   background-color: var(--color-theme-a-dark);
 }
-
 .nav-button.deck-builder:hover {
   background-color: var(--color-theme-b-dark);
 }
-
 .nav-button.shop:hover {
   background-color: var(--color-theme-c-dark);
 }
-
 .nav-button.events:hover {
   background-color: var(--color-theme-d-dark);
 }
-
 .nav-button.account:hover {
   background-color: var(--color-theme-e-dark);
 }
 
-/* Stato attivo - Colori base per sezione */
+/* Active */
 .nav-button.home.active {
   background-color: var(--color-theme-a);
 }
-
 .nav-button.deck-builder.active {
   background-color: var(--color-theme-b);
 }
-
 .nav-button.shop.active {
   background-color: var(--color-theme-c);
 }
-
 .nav-button.events.active {
   background-color: var(--color-theme-d);
 }
-
 .nav-button.account.active {
   background-color: var(--color-theme-e);
 }
 
-/* Stile speciale per l'area admin */
+/* Admin */
 .nav-button.admin {
   background-color: var(--color-admin-bg);
   color: var(--color-admin-text);
 }
-
 .nav-button.admin.active {
   background-color: var(--color-admin-text);
   color: var(--color-admin-bg);
 }
-
 .nav-button.admin:hover {
   background-color: var(--color-admin-bg-dark);
+}
+
+/* ===========================
+   Responsive (mobile)
+=========================== */
+@media (max-width: 768px) {
+  .navigation-bar {
+    height: 40px;
+    overflow-x: hidden;
+  }
+
+  .navigation-bar.five-buttons .nav-button,
+  .navigation-bar.six-buttons .nav-button {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    border-right: 1px solid var(--color-neutral);
+    height: 40px;
+    font-size: 0.75rem;
+    padding: 0 6px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+  }
+
+  .navigation-bar .nav-button:last-child {
+    border-right: none;
+  }
+
+  /* Hover */
+  .navigation-bar .nav-button.home:hover {
+    background-color: var(--color-theme-a-dark);
+  }
+  .navigation-bar .nav-button.deck-builder:hover {
+    background-color: var(--color-theme-b-dark);
+  }
+  .navigation-bar .nav-button.shop:hover {
+    background-color: var(--color-theme-c-dark);
+  }
+  .navigation-bar .nav-button.events:hover {
+    background-color: var(--color-theme-d-dark);
+  }
+  .navigation-bar .nav-button.account:hover {
+    background-color: var(--color-theme-e-dark);
+  }
+
+  /* Active */
+  .navigation-bar .nav-button.home.active {
+    background-color: var(--color-theme-a);
+  }
+  .navigation-bar .nav-button.deck-builder.active {
+    background-color: var(--color-theme-b);
+  }
+  .navigation-bar .nav-button.shop.active {
+    background-color: var(--color-theme-c);
+  }
+  .navigation-bar .nav-button.events.active {
+    background-color: var(--color-theme-d);
+  }
+  .navigation-bar .nav-button.account.active {
+    background-color: var(--color-theme-e);
+  }
+
+  /* Admin */
+  .navigation-bar .nav-button.admin {
+    background-color: var(--color-admin-bg);
+    color: var(--color-admin-text);
+  }
+  .navigation-bar .nav-button.admin.active {
+    background-color: var(--color-admin-text);
+    color: var(--color-admin-bg);
+  }
+  .navigation-bar .nav-button.admin:hover {
+    background-color: var(--color-admin-bg-dark);
+  }
 }
