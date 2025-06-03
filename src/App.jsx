@@ -20,6 +20,8 @@ import SupportPopupManager from './components/SupportPopupManager';
 export default function App() {
   const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
   const [deck, setDeck] = useState(() => {
     try {
       const saved = localStorage.getItem('deck');
@@ -28,6 +30,7 @@ export default function App() {
       return [];
     }
   });
+
   const [decks, setDecks] = useState([]);
   const [allCards, setAllCards] = useState([]);
 
@@ -42,6 +45,7 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       setCheckingAuth(false);
+      setShowModal(!currentUser);
 
       if (currentUser) {
         try {
@@ -112,7 +116,7 @@ export default function App() {
   return (
     <Router>
       <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {!user && <SignupModal show={true} onClose={() => {}} onSuccess={() => {}} />}
+        <SignupModal show={showModal} onClose={() => setShowModal(false)} onSuccess={() => setShowModal(false)} />
         <SupportPopupManager />
 
         <Routes>
