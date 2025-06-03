@@ -61,11 +61,10 @@ export default function NavigationBar() {
         {user ? (
           <Link to="/account" className={getClass('/account', 'account')}>ACCOUNT</Link>
         ) : (
-          // Qui il link "Signup" che apre il modal al click
           <button
             className="nav-button account"
             onClick={() => setShowSignup(true)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}
+            type="button"
           >
             SIGNUP
           </button>
