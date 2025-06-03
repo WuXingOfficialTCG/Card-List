@@ -12,7 +12,7 @@
 .signup-modal {
   position: relative;
   background: #fff;
-  padding: 25px;
+  padding: 25px 25px 40px 25px;
   border-radius: 10px;
   min-width: 320px;
   max-width: 90vw;
@@ -23,17 +23,37 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.signup-closeBtn {
+/* Cerchio rosso contenitore per la X in alto a sinistra */
+.signup-closeBtn-wrapper {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 10px;
+  width: 36px;
+  height: 36px;
+  background-color: #c00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1100;
+  transition: background-color 0.3s ease;
+}
+
+.signup-closeBtn-wrapper:hover {
+  background-color: #a00;
+}
+
+.signup-closeBtn {
   background: transparent;
   border: none;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: bold;
-  color: #c00;
-  cursor: pointer;
+  color: white;
   line-height: 1;
+  padding: 0;
+  margin: 0;
+  user-select: none;
 }
 
 .signup-title {
@@ -106,10 +126,13 @@
   margin-top: -8px;
 }
 
+/* Responsive */
 @media (max-width: 600px) {
   .signup-modal {
-    padding: 20px 15px;
+    padding: 20px 15px 35px 15px;
     border-radius: 8px;
+    min-width: auto;
+    width: 90vw;
   }
 
   .signup-title {
@@ -122,5 +145,16 @@
 
   .signup-button {
     width: 100%;
+  }
+
+  .signup-closeBtn-wrapper {
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .signup-closeBtn {
+    font-size: 18px;
   }
 }
