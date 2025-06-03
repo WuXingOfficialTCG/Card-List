@@ -38,28 +38,54 @@
   border-right: none;
 }
 
-/* Specifico stile per il button SIGNUP con classe .account */
+/* --------------------------
+   Stili IDENTICI per ACCOUNT e SIGNUP (sia link che button)
+--------------------------- */
+.nav-button.account,
 button.nav-button.account {
-  background: none;
-  border: none;
+  background-color: var(--color-theme-e);
+  color: white;
+  border-radius: 6px;   /* Bordo arrotondato */
+  border: none;         /* Nessun bordo */
   padding: 0 24px;
-  font: inherit;
-  color: var(--color-text);
-  cursor: pointer;
+  height: 48px;
   line-height: 48px;
-  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
   white-space: nowrap;
-  /* Rimuovi outline di default per gestione personalizzata */
-  outline: none;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  user-select: none;
 }
 
-/* Focus outline personalizzato per accessibilità */
-button.nav-button.account:focus {
-  outline: 2px solid var(--color-theme-e);
-  outline-offset: 2px;
+/* Rimuovo bordo destro perché non serve col bordo arrotondato */
+.nav-button.account:last-child,
+button.nav-button.account:last-child {
+  border-right: none;
 }
 
-/* Hover */
+/* Hover identico */
+.nav-button.account:hover,
+button.nav-button.account:hover {
+  background-color: var(--color-theme-e-dark);
+  color: white;
+}
+
+/* Active identico */
+.nav-button.account.active,
+button.nav-button.account.active {
+  background-color: var(--color-theme-e-dark);
+  color: white;
+}
+
+/* --------------------------
+   Stile normale per gli altri bottoni/link
+--------------------------- */
 .nav-button.home:hover {
   background-color: var(--color-theme-a-dark);
 }
@@ -72,11 +98,7 @@ button.nav-button.account:focus {
 .nav-button.events:hover {
   background-color: var(--color-theme-d-dark);
 }
-.nav-button.account:hover {
-  background-color: var(--color-theme-e-dark);
-}
 
-/* Active */
 .nav-button.home.active {
   background-color: var(--color-theme-a);
 }
@@ -88,9 +110,6 @@ button.nav-button.account:focus {
 }
 .nav-button.events.active {
   background-color: var(--color-theme-d);
-}
-.nav-button.account.active {
-  background-color: var(--color-theme-e);
 }
 
 /* Admin */
@@ -116,12 +135,14 @@ button.nav-button.account:focus {
   }
 
   .navigation-bar.five-buttons .nav-button,
-  .navigation-bar.six-buttons .nav-button {
+  .navigation-bar.six-buttons .nav-button,
+  button.nav-button.account,
+  .nav-button.account {
     flex: 1 1 auto;
     min-width: 0;
     max-width: 100%;
     margin: 0;
-    border-right: 1px solid var(--color-neutral);
+    border-right: none; /* Non vogliamo bordi tra bottoni arrotondati */
     height: 40px;
     font-size: 0.75rem;
     padding: 0 6px;
@@ -135,19 +156,23 @@ button.nav-button.account:focus {
     align-items: center;
     justify-content: center;
     line-height: 1.2;
+    border-radius: 6px; /* Arrotondati anche su mobile */
   }
 
-  .navigation-bar .nav-button:last-child {
-    border-right: none;
+  /* Hover e active identici */
+  .nav-button.account:hover,
+  button.nav-button.account:hover {
+    background-color: var(--color-theme-e-dark);
+    color: white;
   }
 
-  /* Stile specifico per il button SIGNUP responsive */
-  button.nav-button.account {
-    padding: 0 6px;
-    line-height: 40px;
+  .nav-button.account.active,
+  button.nav-button.account.active {
+    background-color: var(--color-theme-e-dark);
+    color: white;
   }
 
-  /* Hover */
+  /* Hover altri bottoni */
   .navigation-bar .nav-button.home:hover {
     background-color: var(--color-theme-a-dark);
   }
@@ -160,11 +185,8 @@ button.nav-button.account:focus {
   .navigation-bar .nav-button.events:hover {
     background-color: var(--color-theme-d-dark);
   }
-  .navigation-bar .nav-button.account:hover {
-    background-color: var(--color-theme-e-dark);
-  }
 
-  /* Active */
+  /* Active altri bottoni */
   .navigation-bar .nav-button.home.active {
     background-color: var(--color-theme-a);
   }
@@ -176,9 +198,6 @@ button.nav-button.account:focus {
   }
   .navigation-bar .nav-button.events.active {
     background-color: var(--color-theme-d);
-  }
-  .navigation-bar .nav-button.account.active {
-    background-color: var(--color-theme-e);
   }
 
   /* Admin */
