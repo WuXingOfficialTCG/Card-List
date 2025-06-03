@@ -30,13 +30,12 @@ export default function App() {
   });
   const [decks, setDecks] = useState([]);
   const [allCards, setAllCards] = useState([]);
-  const [showSignup, setShowSignup] = useState(false);
 
   useEffect(() => {
     fetch('/cards.json')
       .then(res => res.json())
       .then(data => setAllCards(data))
-      .catch(err => console.error("Error loading cards.json:", err));
+      .catch(err => console.error("Errore caricamento cards.json:", err));
   }, []);
 
   useEffect(() => {
@@ -45,7 +44,6 @@ export default function App() {
       setCheckingAuth(false);
 
       if (currentUser) {
-        setShowSignup(false);
         try {
           const decksRef = collection(db, `users/${currentUser.uid}/decks`);
           const snapshot = await getDocs(decksRef);
@@ -55,11 +53,10 @@ export default function App() {
           }));
           setDecks(userDecks);
         } catch (error) {
-          console.error("Error fetching decks:", error);
+          console.error("Errore nel recupero dei mazzi:", error);
         }
       } else {
         setDecks([]);
-        setShowSignup(true);
       }
     });
 
@@ -69,23 +66,6 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
-
-  const handleSelectDeck = (cardsInDeck) => {
-    if (!allCards.length) {
-      console.warn("All cards not yet loaded");
-      return;
-    }
-
-    const fullDeck = cardsInDeck.map(({ id, count }) => {
-      const card = allCards.find(c => c.id === id);
-      if (!card) {
-        console.warn(`Card with id "${id}" not found`);
-      }
-      return card ? { card, count } : null;
-    }).filter(Boolean);
-
-    setDeck(fullDeck);
-  };
 
   const onAddCard = (card) => {
     setDeck(prevDeck => {
@@ -126,19 +106,13 @@ export default function App() {
   };
 
   if (checkingAuth) {
-    return <div>Loading authentication...</div>;
+    return <div>Caricamento autenticazione...</div>;
   }
 
   return (
     <Router>
       <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {!user && showSignup && (
-          <SignupModal
-            show={true}
-            onClose={() => setShowSignup(false)}
-            onSuccess={() => setShowSignup(false)}
-          />
-        )}
+        {!user && <SignupModal show={true} onClose={() => {}} onSuccess={() => {}} />}
         <SupportPopupManager />
 
         <Routes>
