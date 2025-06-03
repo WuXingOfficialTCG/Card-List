@@ -1,7 +1,7 @@
 .card-grid-container {
   padding: 1rem;
-  box-sizing: border-box;
-  overflow: hidden; /* <-- rimuove scrollbar */
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .card-grid {
