@@ -41,20 +41,19 @@ export default function NavigationBar() {
     return `${base} ${name}`;
   };
 
-  // Se vuoi evitare di mostrare la barra finché non sai se è admin
   if (loading) {
     return null; // oppure uno spinner leggero se preferisci
   }
 
   return (
     <nav className={`navigation-bar navigation-bar-responsive ${isAdmin ? 'six-buttons' : 'five-buttons'}`}>
-      <Link to="/" className={getClass('/', 'home')}>Home</Link>
-      <Link to="/deck-builder" className={getClass('/deck-builder', 'deck-builder')}>Card List</Link>
-      <Link to="/shop" className={getClass('/shop', 'shop')}>Shop</Link>
-      <Link to="/events" className={getClass('/events', 'events')}>Events</Link>
-      <Link to="/account" className={getClass('/account', 'account')}>Account</Link>
+      <Link to="/" className={getClass('/', 'home')}>HOME</Link>
+      <Link to="/deck-builder" className={getClass('/deck-builder', 'deck-builder')}>CARDS</Link>
+      <Link to="/shop" className={getClass('/shop', 'shop')}>SHOP</Link>
+      <Link to="/events" className={getClass('/events', 'events')}>EVENTS</Link>
+      <Link to="/account" className={getClass('/account', 'account')}>ACCOUNT</Link>
       {isAdmin && (
-        <Link to="/admin" className={getClass('/admin', 'admin')}>Admin</Link>
+        <Link to="/admin" className={getClass('/admin', 'admin')}>ADMIN</Link>
       )}
     </nav>
   );
