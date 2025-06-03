@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './NavigationBar.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import SignupModal from '../SignupModal';  // Assicurati che il path sia corretto
+import SignupModal from '../../SignupModal';  // Assicurati che il path sia corretto
 
 export default function NavigationBar() {
   const location = useLocation();
