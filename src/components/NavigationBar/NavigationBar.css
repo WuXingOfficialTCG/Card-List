@@ -38,6 +38,27 @@
   border-right: none;
 }
 
+/* Specifico stile per il button SIGNUP con classe .account */
+button.nav-button.account {
+  background: none;
+  border: none;
+  padding: 0 24px;
+  font: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  line-height: 48px;
+  text-align: center;
+  white-space: nowrap;
+  /* Rimuovi outline di default per gestione personalizzata */
+  outline: none;
+}
+
+/* Focus outline personalizzato per accessibilità */
+button.nav-button.account:focus {
+  outline: 2px solid var(--color-theme-e);
+  outline-offset: 2px;
+}
+
 /* Hover */
 .nav-button.home:hover {
   background-color: var(--color-theme-a-dark);
@@ -118,6 +139,12 @@
 
   .navigation-bar .nav-button:last-child {
     border-right: none;
+  }
+
+  /* Stile specifico per il button SIGNUP responsive */
+  button.nav-button.account {
+    padding: 0 6px;
+    line-height: 40px;
   }
 
   /* Hover */
