@@ -25,11 +25,11 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   }, []);
 
   useEffect(() => {
-    function handleKeyDown(e) {
+    const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         onClose();
       }
-    }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
