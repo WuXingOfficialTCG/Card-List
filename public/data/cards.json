@@ -69,7 +69,7 @@
   {
     "id": 6,
     "nome": "Goliath",
-    "immagine": "https://i.imgur.com/M2xuv2m.jpeg",
+    "immagine": "https://i.imgur.com/KLf9GmI.jpeg",
     "effetti": [
       { "tipo": "Haste" },
       { "tipo": "Lineage Skill", "descrizione": "Discard 1 card → This card gains 1 ATK." }
@@ -109,7 +109,7 @@
   {
     "id": 9,
     "nome": "Grave Defiler",
-    "immagine": "https://i.imgur.com/vgZBXdK.jpeg",
+    "immagine": "https://i.imgur.com/ahkYzLF.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Choose 1 Rank 2 entity in your Diyu → Sacrifice 1 Qi of its Element and invoke it overlapped on this card." }
     ],
