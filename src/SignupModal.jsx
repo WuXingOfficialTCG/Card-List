@@ -25,11 +25,11 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   }, []);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    function handleKeyDown(e) {
       if (e.key === 'Escape') {
         onClose();
       }
-    };
+    }
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
@@ -79,9 +79,16 @@ export default function SignupModal({ show, onClose, onSuccess }) {
   return (
     <div className="signup-overlay" onClick={onClose}>
       <div className="signup-modal" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} aria-label="Chiudi" className="signup-closeBtn">
-          &times;
-        </button>
+        <div
+          className="signup-closeBtn-wrapper"
+          onClick={onClose}
+          role="button"
+          tabIndex={0}
+          aria-label="Chiudi"
+          onKeyDown={(e) => { if(e.key === 'Enter' || e.key === ' ') onClose(); }}
+        >
+          <button className="signup-closeBtn" tabIndex={-1}>&times;</button>
+        </div>
 
         <h2 className="signup-title">Accedi o Registrati</h2>
 
@@ -100,23 +107,20 @@ export default function SignupModal({ show, onClose, onSuccess }) {
           className="signup-input"
         />
 
-        <p className="signup-disclaimer" style={{ fontSize: '12px', color: '#555', marginBottom: '15px' }}>
+        <p className="signup-disclaimer">
           Iscrivendoti, acconsenti al trattamento dei tuoi dati personali secondo la nostra{' '}
           <Link to="/disclaimer">Privacy Policy</Link>.
         </p>
 
-        <div className="signup-checkbox-wrapper" style={{ fontSize: '12px', color: '#555', marginBottom: '15px', cursor: 'pointer' }}>
+        <label className="signup-checkbox-wrapper" htmlFor="promosConsent">
           <input
             type="checkbox"
             id="promosConsent"
             checked={promosConsent}
             onChange={e => setPromosConsent(e.target.checked)}
-            style={{ marginRight: '8px' }}
           />
-          <label htmlFor="promosConsent">
-            Acconsento a ricevere email promozionali e offerte speciali.
-          </label>
-        </div>
+          Acconsento a ricevere email promozionali e offerte speciali.
+        </label>
 
         {error && <p className="signup-error">{error}</p>}
 
