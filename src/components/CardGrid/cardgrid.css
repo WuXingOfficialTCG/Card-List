@@ -1,7 +1,8 @@
 .card-grid-container {
   padding: 1rem;
-  min-height: 100vh;
+  box-sizing: border-box;
   overflow-y: auto;
+  min-height: 100vh;
 }
 
 .card-grid {
@@ -9,7 +10,6 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-  overflow: hidden; /* <-- rimuove scrollbar */
 }
 
 .card-image {
