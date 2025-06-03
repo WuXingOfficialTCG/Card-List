@@ -8,7 +8,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import DeckBuilder from './pages/DeckBuilder';
-import DeckManager from './pages/DeckManager';
 import Events from './pages/Events';
 import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
