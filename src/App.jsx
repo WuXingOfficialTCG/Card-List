@@ -30,12 +30,13 @@ export default function App() {
   });
   const [decks, setDecks] = useState([]);
   const [allCards, setAllCards] = useState([]);
+  const [showSignup, setShowSignup] = useState(false);
 
   useEffect(() => {
     fetch('/cards.json')
       .then(res => res.json())
       .then(data => setAllCards(data))
-      .catch(err => console.error("Errore caricamento cards.json:", err));
+      .catch(err => console.error("Error loading cards.json:", err));
   }, []);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function App() {
       setCheckingAuth(false);
 
       if (currentUser) {
+        setShowSignup(false);
         try {
           const decksRef = collection(db, `users/${currentUser.uid}/decks`);
           const snapshot = await getDocs(decksRef);
@@ -53,10 +55,11 @@ export default function App() {
           }));
           setDecks(userDecks);
         } catch (error) {
-          console.error("Errore nel recupero dei mazzi:", error);
+          console.error("Error fetching decks:", error);
         }
       } else {
         setDecks([]);
+        setShowSignup(true);
       }
     });
 
@@ -67,17 +70,16 @@ export default function App() {
     localStorage.setItem('deck', JSON.stringify(deck));
   }, [deck]);
 
-  // Cerca le carte nel deck per ID
   const handleSelectDeck = (cardsInDeck) => {
     if (!allCards.length) {
-      console.warn("All cards non ancora caricate");
+      console.warn("All cards not yet loaded");
       return;
     }
 
     const fullDeck = cardsInDeck.map(({ id, count }) => {
       const card = allCards.find(c => c.id === id);
       if (!card) {
-        console.warn(`Carta con id "${id}" non trovata`);
+        console.warn(`Card with id "${id}" not found`);
       }
       return card ? { card, count } : null;
     }).filter(Boolean);
@@ -124,13 +126,19 @@ export default function App() {
   };
 
   if (checkingAuth) {
-    return <div>Caricamento autenticazione...</div>;
+    return <div>Loading authentication...</div>;
   }
 
   return (
     <Router>
       <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        {!user && <SignupModal show={true} onClose={() => {}} onSuccess={() => {}} />}
+        {!user && showSignup && (
+          <SignupModal
+            show={true}
+            onClose={() => setShowSignup(false)}
+            onSuccess={() => setShowSignup(false)}
+          />
+        )}
         <SupportPopupManager />
 
         <Routes>
@@ -143,21 +151,6 @@ export default function App() {
                 onAddCard={onAddCard}
                 onRemoveOneFromDeck={onRemoveOneFromDeck}
                 onResetDeck={() => setDeck([])}
-              />
-            }
-          />
-          <Route
-            path="/deck-manager"
-            element={
-              <DeckManager
-                user={user}
-                decks={decks}
-                onSelectDeck={handleSelectDeck}
-                onRemoveCardFromDeck={(deckId, cardId) => {
-                  // qui puoi implementare rimozione carta da mazzo
-                  // es. chiamare Firestore o aggiornare stato
-                }}
-                allCards={allCards}
               />
             }
           />
