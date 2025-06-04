@@ -304,7 +304,7 @@ hr.divider-above-buttons {
   border: none;
   font-size: 30px;
   cursor: pointer;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   transition: color 0.3s ease, transform 0.2s ease;
