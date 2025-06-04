@@ -79,6 +79,21 @@ const styles = {
     display: 'inline-block',
     transition: 'color 0.2s ease',
   },
+  cartSection: {
+    marginTop: '40px',
+    paddingTop: '20px',
+    borderTop: '1px solid #444',
+  },
+  cartTitle: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+    color: '#fff',
+  },
+  emptyCartText: {
+    color: '#aaa',
+    fontSize: '1rem',
+  },
 };
 
 export default function AccountPage() {
@@ -181,6 +196,12 @@ export default function AccountPage() {
         >
           Privacy policy
         </a>
+
+        {/* Sezione Carrello */}
+        <div style={styles.cartSection}>
+          <h3 style={styles.cartTitle}>Carrello</h3>
+          <p style={styles.emptyCartText}>Il carrello è vuoto.</p>
+        </div>
       </div>
     </>
   );
