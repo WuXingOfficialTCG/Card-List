@@ -11,90 +11,75 @@ const styles = {
   container: {
     maxWidth: 600,
     margin: '2rem auto',
-    padding: '1rem 2rem',
-    background: 'transparent',
+    padding: '2rem',
+    background: '#1e1e1e',
     color: '#fff',
+    borderRadius: '10px',
     fontFamily: 'Arial, sans-serif',
+    boxShadow: '0 4px 10px rgba(0,0,0,0.4)',
   },
   title: {
-    color: '#fff',
-    fontSize: '1.8rem',
+    fontSize: '2rem',
     marginBottom: '1rem',
+    fontWeight: 'bold',
+    color: '#fff',
   },
   infoText: {
-    color: '#ddd',
-    marginBottom: '1rem',
+    color: '#ccc',
     fontSize: '1rem',
-    lineHeight: '1.5',
+    marginBottom: '1rem',
   },
   label: {
     display: 'block',
     marginTop: 20,
-    color: '#fff',
+    color: '#eee',
     fontWeight: 500,
-    userSelect: 'none',
+  },
+  checkbox: {
+    marginRight: '8px',
+    transform: 'scale(1.2)',
   },
   hr: {
     margin: '30px 0 20px',
     border: 'none',
     borderTop: '1px solid #444',
   },
-  buttonBase: {
-    cursor: 'pointer',
-    padding: '0.5rem 1.2rem',
-    marginTop: 10,
-    marginRight: 10,
-    fontSize: '1rem',
-    borderRadius: 5,
-    border: '2px solid #fff',
-    backgroundColor: 'transparent',
-    color: '#fff',
-    userSelect: 'none',
-    transition: 'background-color 0.2s ease, color 0.2s ease',
-  },
-  buttonRed: {
-    borderColor: '#ff4d4d',
-    color: '#ff4d4d',
-  },
   buttonGroup: {
     display: 'flex',
-    gap: '10px',
+    gap: '12px',
     flexWrap: 'wrap',
+    marginTop: '10px',
+  },
+  button: {
+    padding: '12px 20px',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+  },
+  saveBtn: {
+    backgroundColor: '#4caf50',
+    color: '#fff',
+  },
+  logoutBtn: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+  },
+  deleteBtn: {
+    backgroundColor: '#e74c3c',
+    color: '#fff',
   },
   privacyLink: {
-    color: '#ccc',
+    color: '#aaa',
     textDecoration: 'underline',
-    fontSize: '0.9rem',
-    marginTop: '1rem',
+    fontSize: '0.95rem',
+    marginTop: '30px',
     display: 'inline-block',
     transition: 'color 0.2s ease',
   },
 };
-
-function HoverButton({ onClick, children, red }) {
-  const [hover, setHover] = useState(false);
-
-  const baseStyle = { ...styles.buttonBase };
-  if (red) {
-    Object.assign(baseStyle, styles.buttonRed);
-  }
-
-  const hoverStyle = red
-    ? { backgroundColor: '#ff4d4d', color: '#fff', borderColor: '#ff4d4d' }
-    : { backgroundColor: '#fff', color: '#121212', borderColor: '#fff' };
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      style={hover ? { ...baseStyle, ...hoverStyle } : baseStyle}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      {children}
-    </button>
-  );
-}
 
 export default function AccountPage() {
   const [user, setUser] = useState(null);
@@ -156,6 +141,7 @@ export default function AccountPage() {
       <NavigationBar />
       <div style={styles.container}>
         <h2 style={styles.title}>Il tuo account</h2>
+
         <p style={styles.infoText}>
           <strong>Email:</strong> {user?.email}
         </p>
@@ -165,26 +151,33 @@ export default function AccountPage() {
             type="checkbox"
             checked={promosConsent}
             onChange={e => setPromosConsent(e.target.checked)}
-          />{' '}
+            style={styles.checkbox}
+          />
           Ricevi email promozionali
         </label>
 
-        <HoverButton onClick={updateConsent}>Salva preferenza</HoverButton>
+        <div style={styles.buttonGroup}>
+          <button onClick={updateConsent} style={{ ...styles.button, ...styles.saveBtn }}>
+            Salva preferenza
+          </button>
+        </div>
 
         <hr style={styles.hr} />
 
         <div style={styles.buttonGroup}>
-          <HoverButton onClick={handleLogout}>Logout</HoverButton>
-          <HoverButton onClick={handleDeleteAccount} red>
+          <button onClick={handleLogout} style={{ ...styles.button, ...styles.logoutBtn }}>
+            Logout
+          </button>
+          <button onClick={handleDeleteAccount} style={{ ...styles.button, ...styles.deleteBtn }}>
             Elimina account
-          </HoverButton>
+          </button>
         </div>
 
         <a
           href="/disclaimer"
           style={styles.privacyLink}
           onMouseEnter={e => (e.target.style.color = '#fff')}
-          onMouseLeave={e => (e.target.style.color = '#ccc')}
+          onMouseLeave={e => (e.target.style.color = '#aaa')}
         >
           Privacy policy
         </a>
