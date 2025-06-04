@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ProductPopup.module.css';
+import styles from './ProductPopup.module.css';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
@@ -56,24 +56,19 @@ export default function ProductPopup({ product, onClose, onBuy }) {
   };
 
   return (
-    <div className="popup-overlay" onClick={onClose}>
-      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+    <div className={styles['popup-overlay']} onClick={onClose}>
+      <div className={styles['popup-content']} onClick={(e) => e.stopPropagation()}>
         {/* Colonna immagine */}
-        <div className="popup-left" style={{ flex: 1, maxWidth: '350px' }}>
+        <div className={styles['popup-left']}>
           <img
             src={product.image}
             alt={product.name}
-            className="popup-image"
-            style={{
-              width: '100%',
-              borderRadius: '12px',
-              marginBottom: '16px',
-            }}
+            className={styles['popup-image']}
           />
         </div>
 
         {/* Colonna dettagli */}
-        <div className="popup-right" style={{ flex: 2 }}>
+        <div className={styles['popup-right']}>
           <h2>{product.name}</h2>
           <p>{product.description}</p>
           <p><strong>Prezzo:</strong> €{Number(product.price).toFixed(2)}</p>
@@ -86,10 +81,10 @@ export default function ProductPopup({ product, onClose, onBuy }) {
           </p>
 
           {product.preorder && product.stock === 0 && (
-            <p className="preorder-label">🕐 Pre-ordine disponibile</p>
+            <p className={styles['preorder-label']}>🕐 Pre-ordine disponibile</p>
           )}
 
-          <div className="popup-controls" style={{ marginTop: '16px' }}>
+          <div className={styles['popup-controls']}>
             <label>
               Quantità:
               <input
@@ -101,7 +96,7 @@ export default function ProductPopup({ product, onClose, onBuy }) {
             </label>
 
             <button
-              className="primary-button"
+              className={styles['primary-button']}
               onClick={handleActionClick}
               disabled={product.stock === 0 && !product.preorder}
             >
@@ -110,19 +105,19 @@ export default function ProductPopup({ product, onClose, onBuy }) {
           </div>
 
           {showConfirm && (
-            <div className="confirmation-box" style={{ marginTop: '20px' }}>
+            <div className={styles['confirmation-box']}>
               <p>
                 Confermi di {product.preorder && product.stock === 0 ? 'preordinare' : 'acquistare'}{' '}
                 <strong>{quantity}</strong> unità di <strong>{product.name}</strong>?
               </p>
-              <div className="confirmation-actions">
-                <button className="primary-button" onClick={handleConfirm}>Conferma</button>
-                <button className="cancel-button" onClick={handleCancelConfirm}>Annulla</button>
+              <div className={styles['confirmation-actions']}>
+                <button className={styles['primary-button']} onClick={handleConfirm}>Conferma</button>
+                <button className={styles['cancel-button']} onClick={handleCancelConfirm}>Annulla</button>
               </div>
             </div>
           )}
 
-          <button className="close-button" onClick={onClose} style={{ marginTop: '18px' }}>Chiudi</button>
+          <button className={styles['close-button']} onClick={onClose}>Chiudi</button>
         </div>
       </div>
     </div>
