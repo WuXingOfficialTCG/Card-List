@@ -1,8 +1,8 @@
 .card-grid-container {
   padding: 1rem;
   box-sizing: border-box;
-  overflow: visible; /* ✅ lascia al contenitore padre */
-  height: auto; /* ✅ no 100% o scroll interno */
+  overflow: visible !important;  /* forza visibilità, no scroll */
+  height: auto !important;       /* impedisce altezza forzata */
 }
 
 .card-grid {
@@ -10,6 +10,8 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+  overflow: visible !important;
+  max-height: none !important;
 }
 
 .card-image {
