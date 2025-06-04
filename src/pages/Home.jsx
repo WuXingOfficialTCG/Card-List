@@ -1,20 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase'; // importa il tuo db configurato
 import Header from '../components/Header/Header';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import '../components/home/home.css';
-
-// Config Firebase
-const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
-  // altri campi...
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -38,9 +27,9 @@ export default function Home() {
     fetchEvents();
   }, []);
 
-  // Autoplay ogni 4s
   useEffect(() => {
     if (events.length === 0) return;
+
     timeoutRef.current = setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
     }, 4000);
@@ -100,7 +89,7 @@ export default function Home() {
                 width: 40,
                 height: 40,
               }}
-              aria-label="Immagine precedente"
+              aria-label="Previous Image"
             >
               ‹
             </button>
@@ -120,13 +109,13 @@ export default function Home() {
                 width: 40,
                 height: 40,
               }}
-              aria-label="Immagine successiva"
+              aria-label="Next Image"
             >
               ›
             </button>
           </div>
         ) : (
-          <p>Caricamento eventi...</p>
+          <p>Loading events...</p>
         )}
       </main>
     </>
