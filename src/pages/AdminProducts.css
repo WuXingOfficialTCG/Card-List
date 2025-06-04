@@ -1,159 +1,132 @@
-import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs, doc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase'; // Importa la tua istanza Firestore
-
-// Componente per ogni singolo evento modificabile
-function EditableItem({ item, onSave }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({ ...item });
-  const [saving, setSaving] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: e.target.type === 'number' ? Number(value) : value
-    }));
-  };
-
-  // Gestione checkbox booleani
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: checked,
-    }));
-  };
-
-  const handleSave = async () => {
-    setSaving(true);
-    await onSave(formData);
-    setSaving(false);
-    setIsOpen(false);
-  };
-
-  return (
-    <div className="editable-item" style={{ border: '1px solid #ddd', borderRadius: 6, marginBottom: 12, padding: 12, background: '#fff' }}>
-      <div
-        style={{ cursor: 'pointer', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: 8 }}
-        onClick={() => setIsOpen(!isOpen)}
-        aria-expanded={isOpen}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsOpen(!isOpen); }}
-      >
-        {item.title || `Evento ID: ${item.id}`} {isOpen ? '▲' : '▼'}
-      </div>
-
-      {isOpen && (
-        <form onSubmit={e => { e.preventDefault(); handleSave(); }}>
-          {Object.entries(formData).map(([key, value]) => {
-            if (key === 'id') return null; // Non modificare l'id
-
-            if (typeof value === 'boolean') {
-              return (
-                <div key={key} style={{ marginBottom: 8 }}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name={key}
-                      checked={value}
-                      onChange={handleCheckboxChange}
-                      style={{ marginRight: 6 }}
-                    />
-                    {key}
-                  </label>
-                </div>
-              );
-            }
-
-            return (
-              <div key={key} style={{ marginBottom: 8 }}>
-                <label htmlFor={`${item.id}-${key}`} style={{ display: 'block', marginBottom: 4, fontWeight: '600' }}>
-                  {key}
-                </label>
-                <input
-                  id={`${item.id}-${key}`}
-                  name={key}
-                  type={typeof value === 'number' ? 'number' : 'text'}
-                  value={value}
-                  onChange={handleChange}
-                  style={{
-                    width: '100%',
-                    padding: '6px 8px',
-                    borderRadius: 4,
-                    border: '1px solid #ccc',
-                    fontSize: '1rem',
-                  }}
-                />
-              </div>
-            );
-          })}
-
-          <button
-            type="submit"
-            disabled={saving}
-            style={{
-              padding: '8px 16px',
-              backgroundColor: '#007bff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 4,
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              marginTop: 8,
-            }}
-          >
-            {saving ? 'Salvando...' : 'Salva'}
-          </button>
-        </form>
-      )}
-    </div>
-  );
+/* Container generale */
+.events-manager {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: system-ui, sans-serif;
+  color: #222;
 }
 
-export default function EventsManager() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+/* Titolo sezione */
+.events-manager h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #007bff;
+}
 
-  useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const eventsCol = collection(db, 'events');
-        const snapshot = await getDocs(eventsCol);
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setEvents(data);
-      } catch (error) {
-        console.error('Errore caricamento eventi:', error);
-      }
-      setLoading(false);
-    }
-    fetchEvents();
-  }, []);
+/* Card evento */
+.editable-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  padding: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.2s ease-in-out;
+}
 
-  const handleSave = async (updatedItem) => {
-    try {
-      const docRef = doc(db, 'events', updatedItem.id);
-      // Copia l'oggetto senza l'id per updateDoc
-      const { id, ...updateData } = updatedItem;
-      await updateDoc(docRef, updateData);
-      // Aggiorna lo stato locale
-      setEvents(prev => prev.map(ev => ev.id === updatedItem.id ? updatedItem : ev));
-    } catch (error) {
-      console.error('Errore salvataggio evento:', error);
-    }
-  };
+.editable-item:hover {
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  cursor: pointer;
+}
 
-  if (loading) return <p>Caricamento eventi...</p>;
+/* Titolo evento cliccabile */
+.editable-item > div[role="button"] {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  user-select: none;
+}
 
-  if (events.length === 0) return <p>Nessun evento trovato.</p>;
+/* Form interno */
+.editable-item form {
+  margin-top: 8px;
+}
 
-  return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: 20 }}>
-      <h2 style={{ marginBottom: 20 }}>Gestione Eventi</h2>
-      {events.map(event => (
-        <EditableItem key={event.id} item={event} onSave={handleSave} />
-      ))}
-    </div>
-  );
+/* Label campi */
+.editable-item label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Input testo e numeri */
+.editable-item input[type="text"],
+.editable-item input[type="number"] {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #222;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.editable-item input[type="text"]:focus,
+.editable-item input[type="number"]:focus {
+  border-color: #007bff;
+  background-color: #fff;
+  outline: none;
+}
+
+/* Checkbox */
+.editable-item input[type="checkbox"] {
+  margin-right: 6px;
+  transform: scale(1.2);
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* Bottone salva */
+.editable-item button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.editable-item button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.editable-item button:disabled {
+  background-color: #a3cdfd;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+
+/* Riduce padding e font su schermi piccoli */
+@media (max-width: 600px) {
+  .events-manager {
+    padding: 12px;
+  }
+
+  .editable-item {
+    padding: 10px;
+  }
+
+  .editable-item > div[role="button"] {
+    font-size: 1rem;
+  }
+
+  .editable-item input[type="text"],
+  .editable-item input[type="number"] {
+    font-size: 0.95rem;
+  }
+
+  .editable-item button {
+    width: 100%;
+    padding: 10px;
+  }
 }
