@@ -1,215 +1,118 @@
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-family: system-ui, sans-serif;
-  font-size: 0.95rem;
-  color: #222;
-  background-color: #fff;
-}
+import React, { useEffect, useState } from 'react';
+import Header from '../components/Header/Header';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { isUserAdmin } from '../utility/firebaseHelpers';
+import ProductsManager from '../utility/ProductsManager';
+import EventsManager from '../utility/EventsManager';
+import './AdminProducts.css';
 
-.admin-table th,
-.admin-table td {
-  padding: 6px;
-  border: 1px solid #ddd;
-  vertical-align: top;
-  text-align: left;
-}
+function EditableItem({ item, onSave }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState(item);
 
-.admin-table th {
-  background-color: #f0f4f8;
-  font-weight: bold;
-  color: #333;
-}
+  useEffect(() => {
+    setFormData(item); // aggiorna se cambia item esterno
+  }, [item]);
 
-.admin-table tr:nth-child(even) {
-  background-color: #f9fbfc;
-}
-
-.admin-table tr:hover {
-  background-color: #eef6fb;
-}
-
-.admin-table input,
-.admin-table textarea {
-  width: 100%;
-  padding: 6px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  background: #fafafa;
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  resize: vertical;
-  outline: none;
-  color: #222;
-}
-
-.admin-table input:focus,
-.admin-table textarea:focus {
-  background-color: #fff;
-  border-color: #007bff;
-}
-
-.admin-table input[type="number"]::-webkit-inner-spin-button,
-.admin-table input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.save-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.save-button:hover {
-  background-color: #0056b3;
-}
-
-button {
-  font-family: inherit;
-}
-
-button:focus {
-  outline: 2px solid #0056b3;
-  outline-offset: 2px;
-}
-
-.admin-table th:nth-child(1),
-.admin-table td:nth-child(1) {
-  width: 20%;
-}
-
-.admin-table th:nth-child(2),
-.admin-table td:nth-child(2) {
-  width: 30%;
-}
-
-.admin-table th:nth-child(3),
-.admin-table td:nth-child(3) {
-  width: 6%;
-}
-
-.admin-table th:nth-child(4),
-.admin-table td:nth-child(4) {
-  width: 14%;
-}
-
-.admin-table th:nth-child(5),
-.admin-table td:nth-child(5),
-.admin-table th:nth-child(6),
-.admin-table td:nth-child(6),
-.admin-table th:nth-child(7),
-.admin-table td:nth-child(7),
-.admin-table th:nth-child(8),
-.admin-table td:nth-child(8),
-.admin-table th:nth-child(9),
-.admin-table td:nth-child(9) {
-  width: 6%;
-}
-
-/* Per rendere la prima riga meno alta */
-.admin-table thead tr {
-  line-height: 1.2;
-}
-
-/* Wrapper per abilitare scroll orizzontale su schermi stretti */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* scroll fluido iOS */
-  box-sizing: border-box;
-
-  /* Nasconde scrollbar */
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE 10+ */
-}
-
-.table-responsive::-webkit-scrollbar {
-  display: none;              /* Chrome, Safari, Opera */
-}
-
-/* Riduce padding e font su schermi piccoli */
-@media (max-width: 768px) {
-  .table-responsive .admin-table {
-    font-size: 0.85rem;
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   }
 
-  .table-responsive .admin-table th,
-  .table-responsive .admin-table td {
-    padding: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  function handleSave() {
+    onSave(formData);
+    setIsOpen(false);
   }
+
+  return (
+    <div className="editable-item">
+      <button
+        className="editable-item-header"
+        onClick={() => setIsOpen(open => !open)}
+        aria-expanded={isOpen}
+      >
+        {item.name || item.title || 'Elemento'}
+        <span className="toggle-icon">{isOpen ? '▲' : '▼'}</span>
+      </button>
+
+      {isOpen && (
+        <div className="editable-item-body">
+          {Object.entries(formData).map(([key, value]) => (
+            key !== 'id' && (
+              <div key={key} className="form-group">
+                <label htmlFor={`${item.id}-${key}`}>{key}</label>
+                <input
+                  id={`${item.id}-${key}`}
+                  name={key}
+                  value={value}
+                  onChange={handleChange}
+                  type={typeof value === 'number' ? 'number' : 'text'}
+                />
+              </div>
+            )
+          ))}
+          <button className="save-button" onClick={handleSave}>Save</button>
+        </div>
+      )}
+    </div>
+  );
 }
 
-/* Layout a blocchi impilati su mobile stretto */
-@media (max-width: 480px) {
-  .table-responsive .admin-table {
-    display: block;
+export default function AdminProducts() {
+  const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loadingUser, setLoadingUser] = useState(true);
+
+  // Dummy data per esempio, sostituisci con dati reali o manager
+  const [products, setProducts] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (u) => {
+      if (u) {
+        setUser(u);
+        const adminCheck = await isUserAdmin(u.uid);
+        setIsAdmin(adminCheck);
+        // qui potresti caricare prodotti e eventi
+      } else {
+        setUser(null);
+        setIsAdmin(false);
+      }
+      setLoadingUser(false);
+    });
+    return unsubscribe;
+  }, []);
+
+  // Funzioni dummy save, da collegare a update DB
+  function saveProduct(updated) {
+    setProducts(prev => prev.map(p => p.id === updated.id ? updated : p));
+    // aggiorna DB...
   }
 
-  .table-responsive .admin-table thead,
-  .table-responsive .admin-table tbody,
-  .table-responsive .admin-table th,
-  .table-responsive .admin-table td,
-  .table-responsive .admin-table tr {
-    display: block;
+  function saveEvent(updated) {
+    setEvents(prev => prev.map(e => e.id === updated.id ? updated : e));
+    // aggiorna DB...
   }
 
-  .table-responsive .admin-table thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
+  if (loadingUser) return <div>Caricamento utente...</div>;
+  if (!user) return <div>Devi essere loggato per accedere a questa pagina.</div>;
+  if (!isAdmin) return <div>Accesso negato. Non sei un amministratore.</div>;
 
-  .table-responsive .admin-table tr {
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-    padding: 8px;
-  }
+  return (
+    <div style={{ padding: 20 }}>
+      <Header />
+      <h2>Manage Products</h2>
+      {products.length === 0 ? <p>Nessun prodotto</p> : products.map(p => (
+        <EditableItem key={p.id} item={p} onSave={saveProduct} />
+      ))}
 
-  .table-responsive .admin-table td {
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
-    border: none;
-    border-bottom: 1px solid #eee;
-    white-space: normal;
-  }
+      <hr style={{ margin: '2rem 0' }} />
 
-  /* Sostituisci "Col1", "Col2", ecc. con i tuoi nomi colonna */
-  .table-responsive .admin-table td:nth-of-type(1)::before { content: "Col1: "; }
-  .table-responsive .admin-table td:nth-of-type(2)::before { content: "Col2: "; }
-  .table-responsive .admin-table td:nth-of-type(3)::before { content: "Col3: "; }
-  .table-responsive .admin-table td:nth-of-type(4)::before { content: "Col4: "; }
-  .table-responsive .admin-table td:nth-of-type(5)::before { content: "Col5: "; }
-  .table-responsive .admin-table td:nth-of-type(6)::before { content: "Col6: "; }
-  .table-responsive .admin-table td:nth-of-type(7)::before { content: "Col7: "; }
-  .table-responsive .admin-table td:nth-of-type(8)::before { content: "Col8: "; }
-  .table-responsive .admin-table td:nth-of-type(9)::before { content: "Col9: "; }
-
-  .table-responsive .admin-table td::before {
-    position: absolute;
-    top: 4px;
-    left: 8px;
-    width: 45%;
-    padding-right: 8px;
-    white-space: nowrap;
-    font-weight: bold;
-    color: #333;
-  }
-
-  .table-responsive .admin-table td:last-child {
-    border-bottom: none;
-  }
+      <h2>Manage Events</h2>
+      {events.length === 0 ? <p>Nessun evento</p> : events.map(e => (
+        <EditableItem key={e.id} item={e} onSave={saveEvent} />
+      ))}
+    </div>
+  );
 }
