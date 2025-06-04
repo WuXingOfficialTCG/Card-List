@@ -1,8 +1,8 @@
 .card-grid-container {
   padding: 1rem;
   box-sizing: border-box;
-  overflow-y: auto;
-  min-height: 100vh;
+  overflow: visible; /* ✅ lascia al contenitore padre */
+  height: auto; /* ✅ no 100% o scroll interno */
 }
 
 .card-grid {
