@@ -39,14 +39,14 @@
 }
 
 /* --------------------------
-   Stili IDENTICI per ACCOUNT e SIGNUP (sia link che button)
+   Stili per ACCOUNT e SIGNUP (link e button)
 --------------------------- */
 .nav-button.account,
 button.nav-button.account {
-  background-color: var(--color-theme-e);
-  color: white;
-  border-radius: 6px;   /* Bordo arrotondato */
-  border: none;         /* Nessun bordo */
+  background-color: var(--color-neutral);
+  color: var(--color-text);
+  border-radius: 0;
+  border: none;
   padding: 0 24px;
   height: 48px;
   line-height: 48px;
@@ -63,20 +63,17 @@ button.nav-button.account {
   user-select: none;
 }
 
-/* Rimuovo bordo destro perché non serve col bordo arrotondato */
 .nav-button.account:last-child,
 button.nav-button.account:last-child {
   border-right: none;
 }
 
-/* Hover identico */
 .nav-button.account:hover,
 button.nav-button.account:hover {
   background-color: var(--color-theme-e-dark);
   color: white;
 }
 
-/* Active identico */
 .nav-button.account.active,
 button.nav-button.account.active {
   background-color: var(--color-theme-e-dark);
@@ -142,7 +139,7 @@ button.nav-button.account.active {
     min-width: 0;
     max-width: 100%;
     margin: 0;
-    border-right: none; /* Non vogliamo bordi tra bottoni arrotondati */
+    border-right: none;
     height: 40px;
     font-size: 0.75rem;
     padding: 0 6px;
@@ -156,10 +153,9 @@ button.nav-button.account.active {
     align-items: center;
     justify-content: center;
     line-height: 1.2;
-    border-radius: 6px; /* Arrotondati anche su mobile */
+    border-radius: 0;
   }
 
-  /* Hover e active identici */
   .nav-button.account:hover,
   button.nav-button.account:hover {
     background-color: var(--color-theme-e-dark);
@@ -172,7 +168,6 @@ button.nav-button.account.active {
     color: white;
   }
 
-  /* Hover altri bottoni */
   .navigation-bar .nav-button.home:hover {
     background-color: var(--color-theme-a-dark);
   }
@@ -186,7 +181,6 @@ button.nav-button.account.active {
     background-color: var(--color-theme-d-dark);
   }
 
-  /* Active altri bottoni */
   .navigation-bar .nav-button.home.active {
     background-color: var(--color-theme-a);
   }
@@ -200,7 +194,6 @@ button.nav-button.account.active {
     background-color: var(--color-theme-d);
   }
 
-  /* Admin */
   .navigation-bar .nav-button.admin {
     background-color: var(--color-admin-bg);
     color: var(--color-admin-text);
