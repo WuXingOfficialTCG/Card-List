@@ -26,6 +26,6 @@ export default function CardGrid({ cards, onCardClick }) {
           ))}
         </div>
       )}
-    </main>
+    </div>
   );
 }
