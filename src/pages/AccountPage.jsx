@@ -16,10 +16,16 @@ const styles = {
     color: '#fff',
     fontFamily: 'Arial, sans-serif',
   },
-  loadingText: {
+  title: {
     color: '#fff',
-    textAlign: 'center',
-    marginTop: '2rem',
+    fontSize: '1.8rem',
+    marginBottom: '1rem',
+  },
+  infoText: {
+    color: '#ddd',
+    marginBottom: '1rem',
+    fontSize: '1rem',
+    lineHeight: '1.5',
   },
   label: {
     display: 'block',
@@ -29,7 +35,7 @@ const styles = {
     userSelect: 'none',
   },
   hr: {
-    margin: '30px 0',
+    margin: '30px 0 20px',
     border: 'none',
     borderTop: '1px solid #444',
   },
@@ -49,6 +55,19 @@ const styles = {
   buttonRed: {
     borderColor: '#ff4d4d',
     color: '#ff4d4d',
+  },
+  buttonGroup: {
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap',
+  },
+  privacyLink: {
+    color: '#ccc',
+    textDecoration: 'underline',
+    fontSize: '0.9rem',
+    marginTop: '1rem',
+    display: 'inline-block',
+    transition: 'color 0.2s ease',
   },
 };
 
@@ -129,15 +148,15 @@ export default function AccountPage() {
     }
   };
 
-  if (loading) return <p style={styles.loadingText}>Caricamento...</p>;
+  if (loading) return <p style={{ textAlign: 'center', color: '#fff' }}>Caricamento...</p>;
 
   return (
     <>
       <Header />
       <NavigationBar />
       <div style={styles.container}>
-        <h2 style={{ color: '#fff', marginTop: 0 }}>Il tuo account</h2>
-        <p style={{ color: '#fff', margin: '0.5rem 0' }}>
+        <h2 style={styles.title}>Il tuo account</h2>
+        <p style={styles.infoText}>
           <strong>Email:</strong> {user?.email}
         </p>
 
@@ -154,10 +173,21 @@ export default function AccountPage() {
 
         <hr style={styles.hr} />
 
-        <HoverButton onClick={handleLogout}>Logout</HoverButton>
-        <HoverButton onClick={handleDeleteAccount} red>
-          Elimina account
-        </HoverButton>
+        <div style={styles.buttonGroup}>
+          <HoverButton onClick={handleLogout}>Logout</HoverButton>
+          <HoverButton onClick={handleDeleteAccount} red>
+            Elimina account
+          </HoverButton>
+        </div>
+
+        <a
+          href="/disclaimer"
+          style={styles.privacyLink}
+          onMouseEnter={e => (e.target.style.color = '#fff')}
+          onMouseLeave={e => (e.target.style.color = '#ccc')}
+        >
+          Privacy policy
+        </a>
       </div>
     </>
   );
