@@ -125,7 +125,7 @@ hr.divider-above-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -187,11 +187,6 @@ hr.divider-above-buttons {
 
 .card-image:hover {
   transform: scale(1.05);
-}
-
-/* Nasconde la X di chiusura nella sidebar desktop */
-.sidebar-close {
-  display: none;
 }
 
 /* Mobile (max-width 768px) */
@@ -258,6 +253,10 @@ hr.divider-above-buttons {
     border-radius: 6px;
   }
 
+  .deck-buttons-container {
+    gap: 8px;
+  }
+
   .deck-buttons-container button {
     max-width: 100%;
     font-size: 1rem;
@@ -310,4 +309,19 @@ hr.divider-above-buttons {
     color: #e74c3c;
     transform: rotate(90deg);
   }
-} 
+
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .sidebar-close {
+    display: flex;
+  }
+}
+
+/* Desktop only: nasconde il bottone close */
+@media (min-width: 769px) {
+  .sidebar-close {
+    display: none;
+  }
+}
