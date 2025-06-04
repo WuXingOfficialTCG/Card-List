@@ -50,6 +50,7 @@
   transition: box-shadow 0.25s ease, transform 0.25s ease;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0,0,0,0.03);
+  color: black !important;
 }
 
 .product-card:hover {
