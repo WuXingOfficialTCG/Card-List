@@ -8,7 +8,7 @@ export default function CardGrid({ cards, onCardClick }) {
   };
 
   return (
-    <main className="card-grid-container">
+    <div className="card-grid-container">
       {cards.length === 0 ? (
         <p className="no-cards-message">Nessuna carta trovata.</p>
       ) : (
