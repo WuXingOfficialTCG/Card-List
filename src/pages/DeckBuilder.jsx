@@ -55,7 +55,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
       <div
         style={{
-          backgroundColor: '#e5e5e5',  // qui imposto lo sfondo chiaro
+          backgroundColor: '#cccccc',  // qui imposto lo sfondo chiaro
           height: 'calc(100vh - 60px)', // altezza sottraendo header
           display: 'flex',
           overflow: 'hidden',
