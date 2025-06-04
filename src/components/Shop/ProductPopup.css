@@ -15,9 +15,9 @@
 /* Popup contenuto */
 .popup-content {
   background-color: #fff;
-  padding: 35px 30px;
+  padding: 24px;
   border-radius: 16px;
-  width: 95%;
+  width: 90%;
   max-width: 800px; /* aumentata la larghezza su desktop */
   max-height: 90vh; /* altezza limitata per non farlo uscire dallo schermo */
   overflow-y: auto;
@@ -27,10 +27,10 @@
   position: relative;
   animation: popupFadeIn 0.35s ease forwards;
   user-select: text;
-
   display: flex;
   flex-direction: row;
   gap: 24px;
+  border-radius: 12px;
   align-items: flex-start;
 }
 
@@ -95,4 +95,25 @@ button:hover {
 .close-button:hover {
   background-color: #565e64;
   box-shadow: 0 6px 14px rgba(86, 94, 100, 0.7);
+}
+
+.popup-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+}
+
+/* Colonna destra: testi e controlli */
+.popup-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
