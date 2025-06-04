@@ -3,6 +3,7 @@
   box-sizing: border-box;
   overflow: visible !important;  /* forza visibilità, no scroll */
   height: auto !important;       /* impedisce altezza forzata */
+  max-height: none !important;
 }
 
 .card-grid {
