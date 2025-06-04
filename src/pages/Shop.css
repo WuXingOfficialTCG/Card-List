@@ -13,7 +13,7 @@
 /* Banner con sfondo gradiente ma testo nero per leggibilità */
 .shop-banner {
   background: linear-gradient(135deg, #d9e3f0, #b0c4de); /* gradiente più chiaro */
-  color: black; /* testo nero */
+  color: black !important; /* testo nero */
   padding: 30px 20px;
   text-align: center;
   font-size: 1.7rem;
