@@ -1,117 +1,158 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header/Header';
-import { auth } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import { isUserAdmin } from '../utility/firebaseHelpers';
-import ProductsManager from '../utility/ProductsManager';
-import EventsManager from '../utility/EventsManager';
-import './AdminProducts.css';
+import { getFirestore, collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase'; // Importa la tua istanza Firestore
 
+// Componente per ogni singolo evento modificabile
 function EditableItem({ item, onSave }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState(item);
+  const [formData, setFormData] = useState({ ...item });
+  const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    setFormData(item); // aggiorna se cambia item esterno
-  }, [item]);
-
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  }
+    setFormData(prev => ({
+      ...prev,
+      [name]: e.target.type === 'number' ? Number(value) : value
+    }));
+  };
 
-  function handleSave() {
-    onSave(formData);
+  // Gestione checkbox booleani
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: checked,
+    }));
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    await onSave(formData);
+    setSaving(false);
     setIsOpen(false);
-  }
+  };
 
   return (
-    <div className="editable-item">
-      <button
-        className="editable-item-header"
-        onClick={() => setIsOpen(open => !open)}
+    <div className="editable-item" style={{ border: '1px solid #ddd', borderRadius: 6, marginBottom: 12, padding: 12, background: '#fff' }}>
+      <div
+        style={{ cursor: 'pointer', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: 8 }}
+        onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsOpen(!isOpen); }}
       >
-        {item.name || item.title || 'Elemento'}
-        <span className="toggle-icon">{isOpen ? '▲' : '▼'}</span>
-      </button>
+        {item.title || `Evento ID: ${item.id}`} {isOpen ? '▲' : '▼'}
+      </div>
 
       {isOpen && (
-        <div className="editable-item-body">
-          {Object.entries(formData).map(([key, value]) => (
-            key !== 'id' && (
-              <div key={key} className="form-group">
-                <label htmlFor={`${item.id}-${key}`}>{key}</label>
+        <form onSubmit={e => { e.preventDefault(); handleSave(); }}>
+          {Object.entries(formData).map(([key, value]) => {
+            if (key === 'id') return null; // Non modificare l'id
+
+            if (typeof value === 'boolean') {
+              return (
+                <div key={key} style={{ marginBottom: 8 }}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      name={key}
+                      checked={value}
+                      onChange={handleCheckboxChange}
+                      style={{ marginRight: 6 }}
+                    />
+                    {key}
+                  </label>
+                </div>
+              );
+            }
+
+            return (
+              <div key={key} style={{ marginBottom: 8 }}>
+                <label htmlFor={`${item.id}-${key}`} style={{ display: 'block', marginBottom: 4, fontWeight: '600' }}>
+                  {key}
+                </label>
                 <input
                   id={`${item.id}-${key}`}
                   name={key}
+                  type={typeof value === 'number' ? 'number' : 'text'}
                   value={value}
                   onChange={handleChange}
-                  type={typeof value === 'number' ? 'number' : 'text'}
+                  style={{
+                    width: '100%',
+                    padding: '6px 8px',
+                    borderRadius: 4,
+                    border: '1px solid #ccc',
+                    fontSize: '1rem',
+                  }}
                 />
               </div>
-            )
-          ))}
-          <button className="save-button" onClick={handleSave}>Save</button>
-        </div>
+            );
+          })}
+
+          <button
+            type="submit"
+            disabled={saving}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#007bff',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 4,
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              marginTop: 8,
+            }}
+          >
+            {saving ? 'Salvando...' : 'Salva'}
+          </button>
+        </form>
       )}
     </div>
   );
 }
 
-export default function AdminProducts() {
-  const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loadingUser, setLoadingUser] = useState(true);
-
-  // Dummy data per esempio, sostituisci con dati reali o manager
-  const [products, setProducts] = useState([]);
+export default function EventsManager() {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (u) => {
-      if (u) {
-        setUser(u);
-        const adminCheck = await isUserAdmin(u.uid);
-        setIsAdmin(adminCheck);
-        // qui potresti caricare prodotti e eventi
-      } else {
-        setUser(null);
-        setIsAdmin(false);
+    async function fetchEvents() {
+      try {
+        const eventsCol = collection(db, 'events');
+        const snapshot = await getDocs(eventsCol);
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setEvents(data);
+      } catch (error) {
+        console.error('Errore caricamento eventi:', error);
       }
-      setLoadingUser(false);
-    });
-    return unsubscribe;
+      setLoading(false);
+    }
+    fetchEvents();
   }, []);
 
-  // Funzioni dummy save, da collegare a update DB
-  function saveProduct(updated) {
-    setProducts(prev => prev.map(p => p.id === updated.id ? updated : p));
-    // aggiorna DB...
-  }
+  const handleSave = async (updatedItem) => {
+    try {
+      const docRef = doc(db, 'events', updatedItem.id);
+      // Copia l'oggetto senza l'id per updateDoc
+      const { id, ...updateData } = updatedItem;
+      await updateDoc(docRef, updateData);
+      // Aggiorna lo stato locale
+      setEvents(prev => prev.map(ev => ev.id === updatedItem.id ? updatedItem : ev));
+    } catch (error) {
+      console.error('Errore salvataggio evento:', error);
+    }
+  };
 
-  function saveEvent(updated) {
-    setEvents(prev => prev.map(e => e.id === updated.id ? updated : e));
-    // aggiorna DB...
-  }
+  if (loading) return <p>Caricamento eventi...</p>;
 
-  if (loadingUser) return <div>Caricamento utente...</div>;
-  if (!user) return <div>Devi essere loggato per accedere a questa pagina.</div>;
-  if (!isAdmin) return <div>Accesso negato. Non sei un amministratore.</div>;
+  if (events.length === 0) return <p>Nessun evento trovato.</p>;
 
   return (
-    <div style={{ padding: 20 }}>
-      <Header />
-      <h2>Manage Products</h2>
-      {products.length === 0 ? <p>Nessun prodotto</p> : products.map(p => (
-        <EditableItem key={p.id} item={p} onSave={saveProduct} />
-      ))}
-
-      <hr style={{ margin: '2rem 0' }} />
-
-      <h2>Manage Events</h2>
-      {events.length === 0 ? <p>Nessun evento</p> : events.map(e => (
-        <EditableItem key={e.id} item={e} onSave={saveEvent} />
+    <div style={{ maxWidth: 900, margin: '0 auto', padding: 20 }}>
+      <h2 style={{ marginBottom: 20 }}>Gestione Eventi</h2>
+      {events.map(event => (
+        <EditableItem key={event.id} item={event} onSave={handleSave} />
       ))}
     </div>
   );
