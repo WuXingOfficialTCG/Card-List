@@ -29,15 +29,29 @@ export default function Disclaimer() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', color: 'white' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        color: 'white',
+        minHeight: '100vh',
+        padding: '20px',
+        boxSizing: 'border-box',
+      }}
+    >
       {/* Sidebar or Dropdown */}
       <div
         style={{
-          width: isMobile ? '100%' : '200px',
+          width: isMobile ? '100%' : '220px',
           marginBottom: isMobile ? '20px' : 0,
           borderRight: isMobile ? 'none' : '1px solid #444',
-          padding: isMobile ? '10px 20px' : '20px 10px',
+          padding: isMobile ? '0 10px' : '0 20px 0 0',
           background: isMobile ? 'transparent' : '#1a1a1a',
+          position: isMobile ? 'static' : 'sticky',
+          top: 20,
+          alignSelf: 'flex-start',
+          height: isMobile ? 'auto' : 'calc(100vh - 40px)',
+          overflowY: isMobile ? 'visible' : 'auto',
         }}
       >
         {isMobile ? (
@@ -62,11 +76,16 @@ export default function Disclaimer() {
         ) : (
           <nav>
             <h3 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>Salta a</h3>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {sections.map((s) => (
                 <li
                   key={s.id}
-                  style={{ marginBottom: '8px', cursor: 'pointer', color: '#4caf50' }}
+                  style={{
+                    marginBottom: '8px',
+                    cursor: 'pointer',
+                    color: '#4caf50',
+                    userSelect: 'none',
+                  }}
                   onClick={() => handleJump(s.id)}
                 >
                   {s.label}
@@ -80,11 +99,9 @@ export default function Disclaimer() {
       {/* Main Content */}
       <div
         style={{
-          padding: '20px',
+          flex: 1,
           maxWidth: '900px',
-          margin: 'auto',
           lineHeight: '1.6',
-          overflowY: 'auto',
         }}
       >
         <h1>Disclaimer / Privacy Policy</h1>
