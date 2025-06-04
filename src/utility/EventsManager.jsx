@@ -28,6 +28,7 @@ export default function EventsManager() {
       date: '',
       time: '',
       featured: false,
+      home: false,  // aggiunto campo home
     };
     const added = await addEvent(newEvent);
     setEvents([...events, added]);
@@ -65,81 +66,93 @@ export default function EventsManager() {
           </button>
         )}
       </div>
-      <table className="admin-table" style={{ width: '100%' }}>
-        <thead>
-          <tr>
-            <th style={{ width: '15%' }}>Titolo</th>
-            <th style={{ width: '25%' }}>Descrizione</th>
-            <th style={{ width: '20%' }}>Immagine (URL)</th>
-            <th style={{ width: '10%' }}>Data</th>
-            <th style={{ width: '10%' }}>Ora</th>
-            <th style={{ width: '10%' }}>In evidenza</th>
-            <th style={{ width: '10%' }}>Azioni</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((e) => (
-            <tr key={e.id}>
-              <td>
-                <textarea
-                  value={e.title}
-                  onChange={(ev) => updateEventLocally(e.id, 'title', ev.target.value)}
-                  rows={2}
-                  style={{ width: '100%' }}
-                />
-              </td>
-              <td>
-                <textarea
-                  value={e.description}
-                  onChange={(ev) => updateEventLocally(e.id, 'description', ev.target.value)}
-                  rows={2}
-                  style={{ width: '100%' }}
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={e.image}
-                  onChange={(ev) => updateEventLocally(e.id, 'image', ev.target.value)}
-                  style={{ width: '100%' }}
-                />
-              </td>
-              <td>
-                <input
-                  type="date"
-                  value={e.date}
-                  onChange={(ev) => updateEventLocally(e.id, 'date', ev.target.value)}
-                  style={{ width: '90%' }}
-                />
-              </td>
-              <td>
-                <input
-                  type="time"
-                  value={e.time}
-                  onChange={(ev) => updateEventLocally(e.id, 'time', ev.target.value)}
-                  style={{ width: '90%' }}
-                />
-              </td>
-              <td style={{ textAlign: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
+        {events.map((e) => (
+          <div
+            key={e.id}
+            style={{
+              border: '1px solid #ccc',
+              borderRadius: 8,
+              padding: 16,
+              width: 320,
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 10,
+              backgroundColor: '#fff',
+            }}
+          >
+            <textarea
+              placeholder="Titolo"
+              value={e.title}
+              onChange={(ev) => updateEventLocally(e.id, 'title', ev.target.value)}
+              rows={2}
+              style={{ width: '100%', resize: 'vertical', fontWeight: 'bold', fontSize: 16 }}
+            />
+            <textarea
+              placeholder="Descrizione"
+              value={e.description}
+              onChange={(ev) => updateEventLocally(e.id, 'description', ev.target.value)}
+              rows={3}
+              style={{ width: '100%', resize: 'vertical' }}
+            />
+            <input
+              type="text"
+              placeholder="URL immagine"
+              value={e.image}
+              onChange={(ev) => updateEventLocally(e.id, 'image', ev.target.value)}
+              style={{ width: '100%' }}
+            />
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'space-between' }}>
+              <input
+                type="date"
+                value={e.date}
+                onChange={(ev) => updateEventLocally(e.id, 'date', ev.target.value)}
+                style={{ flex: 1 }}
+              />
+              <input
+                type="time"
+                value={e.time}
+                onChange={(ev) => updateEventLocally(e.id, 'time', ev.target.value)}
+                style={{ flex: 1 }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: 15, justifyContent: 'space-between', alignItems: 'center' }}>
+              <label>
                 <input
                   type="checkbox"
                   checked={e.featured}
                   onChange={(ev) => updateEventLocally(e.id, 'featured', ev.target.checked)}
-                />
-              </td>
-              <td>
-                <button
-                  onClick={() => removeEvent(e.id)}
-                  style={{ width: '100%' }}
-                  title="Elimina evento"
-                >
-                  🗑
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                />{' '}
+                In evidenza
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={e.home}
+                  onChange={(ev) => updateEventLocally(e.id, 'home', ev.target.checked)}
+                />{' '}
+                Homepage
+              </label>
+              <button
+                onClick={() => removeEvent(e.id)}
+                title="Elimina evento"
+                style={{
+                  backgroundColor: '#e74c3c',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: 4,
+                  padding: '6px 12px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                }}
+              >
+                🗑
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
