@@ -62,7 +62,7 @@ export default function Home() {
         {events.length > 0 ? (
           <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}>
             <img
-              src={events[currentIndex].imageUrl}
+              src={events[currentIndex].image}
               alt={events[currentIndex].title || 'Evento'}
               style={{ width: '100%', maxHeight: '400px', objectFit: 'cover', borderRadius: 10 }}
             />
