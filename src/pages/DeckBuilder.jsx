@@ -55,9 +55,10 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
       <div
         style={{
+          backgroundColor: '#f5f5f5',  // qui imposto lo sfondo chiaro
+          height: 'calc(100vh - 60px)', // altezza sottraendo header
           display: 'flex',
-          height: 'calc(100vh - 60px)', // header height assumed 60px
-          overflow: 'hidden',  // no scrollbars anywhere here
+          overflow: 'hidden',
           width: '100%',
         }}
       >
@@ -71,14 +72,14 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           style={{
             flexShrink: 0,
             width: '300px',
-            overflow: 'hidden' // disable sidebar scrollbar
+            overflow: 'hidden'
           }}
         />
 
         <div
           style={{
             flexGrow: 1,
-            overflowY: 'auto', // ✅ abilita lo scroll verticale solo qui
+            overflowY: 'auto',
             padding: '1rem',
           }}
         >
