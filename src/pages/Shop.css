@@ -3,83 +3,92 @@
 .shop-title {
   text-align: center;
   margin-top: 20px;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #333;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white; /* titolo bianco */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  user-select: none;
 }
 
-/* Banner con sfondo diverso e padding più grande */
+/* Banner con sfondo gradiente ma testo nero per leggibilità */
 .shop-banner {
-  background: linear-gradient(135deg, #4a90e2, #357ABD);
-  color: white;
+  background: linear-gradient(135deg, #d9e3f0, #b0c4de); /* gradiente più chiaro */
+  color: black; /* testo nero */
   padding: 30px 20px;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  border-radius: 10px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  border-radius: 12px;
   margin: 20px auto;
   max-width: 900px;
-  box-shadow: 0 4px 10px rgba(53, 122, 189, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
 }
 
 .shop-banner:hover {
-  background: linear-gradient(135deg, #357ABD, #4a90e2);
-  box-shadow: 0 6px 15px rgba(53, 122, 189, 0.6);
+  background: linear-gradient(135deg, #b0c4de, #d9e3f0);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
 }
 
+/* Griglia prodotti */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  padding: 20px;
+  gap: 20px;
+  padding: 25px 20px;
 }
 
+/* Carta prodotto */
 .product-card {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 10px;
+  padding: 20px;
   cursor: pointer;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
   background-color: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.03);
 }
 
 .product-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  transform: translateY(-6px);
 }
 
-/* Popup migliorato */
+/* Popup overlay */
 .popup-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: rgba(0,0,0,0.65);
+  background-color: rgba(0,0,0,0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1100;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
 }
 
+/* Popup contenuto */
 .popup-content {
-  background-color: #fafafa;
-  padding: 30px 25px;
-  border-radius: 12px;
-  max-width: 450px;
+  background-color: #fff;
+  padding: 35px 30px;
+  border-radius: 16px;
+  max-width: 480px;
   width: 95%;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #222;
   position: relative;
-  animation: popupFadeIn 0.3s ease forwards;
+  animation: popupFadeIn 0.35s ease forwards;
+  user-select: text;
 }
 
-/* Animazione comparsa */
+/* Animazione popup */
 @keyframes popupFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px) scale(0.95);
+    transform: translateY(-25px) scale(0.9);
   }
   to {
     opacity: 1;
@@ -87,40 +96,44 @@
   }
 }
 
+/* Label preordine */
 .preorder-label {
-  color: #FF6600; /* arancione più acceso */
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 15px;
+  color: #FF5500;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  margin-bottom: 18px;
   display: inline-block;
+  text-transform: uppercase;
 }
 
+/* Bottoni */
 button {
-  padding: 10px 16px;
+  padding: 12px 20px;
   border: none;
   background-color: #007bff;
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 15px;
-  font-size: 1.1rem;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  margin-top: 18px;
+  font-size: 1.15rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 12px rgba(0, 123, 255, 0.35);
+  user-select: none;
 }
 
 button:hover {
   background-color: #0056b3;
-  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 86, 179, 0.5);
 }
 
 .close-button {
   background-color: #6c757d;
-  margin-left: 12px;
-  box-shadow: 0 3px 6px rgba(108, 117, 125, 0.4);
-  transition: background-color 0.3s ease;
+  margin-left: 14px;
+  box-shadow: 0 4px 10px rgba(108, 117, 125, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .close-button:hover {
   background-color: #565e64;
-  box-shadow: 0 4px 8px rgba(86, 94, 100, 0.5);
+  box-shadow: 0 6px 14px rgba(86, 94, 100, 0.7);
 }
