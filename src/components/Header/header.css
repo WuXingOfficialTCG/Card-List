@@ -6,6 +6,7 @@ header {
   padding: 0 20px;
   background: #222;
   color: white;
+  background-color: black;
 }
 
 .left, .center, .right {
