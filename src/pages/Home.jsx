@@ -14,7 +14,7 @@ export default function Home() {
     async function fetchEvents() {
       try {
         const eventsCol = collection(db, 'events');
-        const q = query(eventsCol, where('Home', '==', true)); // Filtra per Home == true
+        const q = query(eventsCol, where('home', '==', true)); // Filtra per Home == true
         const eventsSnapshot = await getDocs(q);
         const eventsList = eventsSnapshot.docs.map(doc => ({
           id: doc.id,
