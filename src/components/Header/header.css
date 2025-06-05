@@ -91,6 +91,7 @@ button.donate:hover {
   background-color: #eeeeee;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-top: -10px;
 }
 
 .language-toggle button:hover {
