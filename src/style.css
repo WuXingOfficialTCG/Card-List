@@ -29,19 +29,22 @@
   --color-admin-bg-dark: #2a2a2a;
 }
 
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
   font-family: 'Lato', Arial, sans-serif;
   background-color: var(--color-bg-main);
   color: var(--color-text);
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden; /* disabilita lo scroll sul body */
+  overflow-y: auto; /* attiva lo scroll normale */
 }
 
+/* Blocca header e navbar */
 header,
-navigationbar {
+.navigation-bar {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -49,31 +52,13 @@ navigationbar {
   padding: 10px 20px;
 }
 
-main {
-  flex-grow: 1;
-  overflow-y: auto; /* scroll solo su main */
-  padding: 20px;
-}
-
-/* Optional: stile scrollbar personalizzata per compatibilità moderna */
-main::-webkit-scrollbar {
-  width: 10px;
-}
-
-main::-webkit-scrollbar-track {
-  background: var(--color-neutral-dark);
-}
-
-main::-webkit-scrollbar-thumb {
-  background: var(--color-theme-a);
-  border-radius: 5px;
-}
-
+/* Hero */
 .hero h1,
 .hero p {
   color: var(--color-text);
 }
 
+/* Bottoni base */
 button {
   cursor: pointer;
   font-family: inherit;
