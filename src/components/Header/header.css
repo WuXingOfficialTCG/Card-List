@@ -3,37 +3,24 @@ header {
   align-items: center;
   justify-content: space-between;
   height: 10vh;
-  padding: 0 32px; /* aumentato da 20px a 32px */
-  background: #222;
+  padding: 0 20px;
+  background: #000;
   color: white;
-  background-color: black;
-  position: relative; /* necessario per posizionare assolutamente il centro */
-  overflow-x: hidden; /* evita tagli orizzontali */
-}
-
-.left, .right {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-  flex-wrap: nowrap;
-}
-
-.left {
-  max-width: 30%;
+  position: relative;
   overflow: hidden;
 }
 
+.left,
 .right {
+  display: flex;
+  align-items: center;
+  flex: 1;
   gap: 12px;
-  max-width: 30%;
-  overflow: visible; /* serve per non tagliare le icone */
+  min-width: 0; /* permette di restringersi se serve */
+  overflow: hidden;
 }
 
 .center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -41,20 +28,12 @@ header {
   font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
-  pointer-events: none; /* il centro non blocca interazioni */
-}
-
-.center .logo,
-.center .title {
-  pointer-events: auto; /* ma questi possono essere cliccati */
+  margin: 0 auto; /* centra orizzontalmente */
+  white-space: nowrap;
 }
 
 .center .logo {
   height: 40px;
-}
-
-.center .title {
-  white-space: nowrap;
 }
 
 button.donate {
@@ -83,6 +62,7 @@ button.donate:hover {
   color: white;
   text-decoration: none;
   transition: background 0.3s ease;
+  flex-shrink: 0; /* impedisce che venga ridotta */
 }
 
 .social-icon:hover {
@@ -113,4 +93,3 @@ button.donate:hover {
 .language-toggle button:hover {
   background-color: #cccccc;
 }
-
