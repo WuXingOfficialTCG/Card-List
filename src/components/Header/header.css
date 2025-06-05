@@ -77,3 +77,22 @@ button.donate:hover {
   width: 24px;
   height: 24px;
 }
+
+.language-toggle {
+  margin-right: 10px;
+}
+
+.language-toggle button {
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background-color: #eeeeee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.language-toggle button:hover {
+  background-color: #cccccc;
+}
