@@ -5,13 +5,33 @@ import Popup from '../components/Popup/Popup';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 import { initialFilters, availableFilters, filterCards } from '../utility/filters';
-import './DeckBuilder.css';
 
 export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onResetDeck }) {
   const [cards, setCards] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
+
+  // Applica e rimuove gli stili del body solo in questa pagina
+  useEffect(() => {
+    const originalStyle = document.body.getAttribute('style');
+
+    document.body.style.margin = '0';
+    document.body.style.fontFamily = "'Lato', Arial, sans-serif";
+    document.body.style.backgroundColor = 'var(--color-bg-main)';
+    document.body.style.color = 'var(--color-text)';
+    document.body.style.height = '100%';
+    document.body.style.padding = '0';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      if (originalStyle) {
+        document.body.setAttribute('style', originalStyle);
+      } else {
+        document.body.removeAttribute('style');
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const lastShown = localStorage.getItem('supportPopupLastShown');
@@ -56,8 +76,8 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
       <div
         style={{
-          backgroundColor: '#cccccc',  // qui imposto lo sfondo chiaro
-          height: 'calc(100vh - 60px)', // altezza sottraendo header
+          backgroundColor: '#cccccc',  // sfondo chiaro
+          height: 'calc(100vh - 60px)',
           display: 'flex',
           overflow: 'hidden',
           width: '100%',
