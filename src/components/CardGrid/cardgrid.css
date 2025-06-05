@@ -6,6 +6,7 @@
   align-items: flex-start;
   overflow: visible;        /* evita scrollbar interne */
   max-height: none;
+  padding: 1rem 1rem 1rem 220px;
 }
 
 .card-image {
