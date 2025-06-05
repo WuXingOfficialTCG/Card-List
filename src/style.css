@@ -42,12 +42,24 @@ html, body {
   flex-direction: column;
 }
 
-/* Header e Navbar */
-header,
-.navigation-bar {
+/* Header */
+header {
   flex-shrink: 0;
+  height: 10vh;       /* 10% altezza viewport */
+  min-height: 60px;   /* altezza minima */
   background-color: var(--color-neutral-dark);
   padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+/* Navbar */
+.navigation-bar {
+  flex-shrink: 0;
+  height: 50px;       /* altezza fissa */
+  background-color: var(--color-neutral-dark);
+  padding: 10px 20px;
+  box-sizing: border-box;
+  overflow-x: hidden; /* nessuna scrollbar orizzontale */
 }
 
 /* Contenitore scrollabile */
