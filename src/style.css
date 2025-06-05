@@ -1,3 +1,5 @@
+/* globals.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -43,32 +45,30 @@ html, body {
 }
 
 /* Header fisso in cima */
+/* Altezza, padding e background gestiti in CSS specifico */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  /* altezza e padding gestiti nel CSS specifico di header */
 }
 
-/* Navbar fissa subito sotto header */
-/* NOTA: 'top' va settato nel CSS specifico della navbar uguale all'altezza header */
+/* Navbar fissa sotto header */
+/* 'top' e altre dimensioni gestite in CSS specifico */
 .navigation-bar {
   position: fixed;
   left: 0;
   width: 100%;
   z-index: 999;
-  /* top: <altezza-header> da definire nel CSS navbar */
   overflow-x: hidden;
 }
 
 /* Contenuto scrollabile */
-/* Il padding-top deve essere la somma altezza di header + navbar, gestito nel CSS specifico o via JS */
+/* padding-top da definire in CSS specifico come somma header+navbar */
 .app-scroll-container {
   flex-grow: 1;
   overflow-y: auto;
-  /* padding-top: <altezza-header + navbar> da definire */
   box-sizing: border-box;
 }
 
