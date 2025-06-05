@@ -19,6 +19,9 @@ header {
   flex-wrap: nowrap;
 }
 
+.right .social-icon:last-child {
+  margin-right: 8px;
+
 .center {
   position: absolute;
   left: 50%;
