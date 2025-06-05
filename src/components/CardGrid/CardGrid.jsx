@@ -2,21 +2,13 @@ import React from 'react';
 import './cardgrid.css';
 import './cardgridResponsive.css';
 
-export default function CardGrid({ cards, onCardClick, showItalian, setShowItalian }) {
+export default function CardGrid({ cards, onCardClick, showItalian }) {
   const handleDragStart = (e, card) => {
     e.dataTransfer.setData('application/json', JSON.stringify(card));
   };
 
-  const toggleLanguage = () => {
-    setShowItalian(prev => !prev);
-  };
-
   return (
     <div className="card-grid-container">
-      <button className="language-toggle-button" onClick={toggleLanguage}>
-        {showItalian ? 'Versione Inglese' : 'Versione Italiana'}
-      </button>
-
       {cards.length === 0 ? (
         <p className="no-cards-message">Nessuna carta trovata.</p>
       ) : (
