@@ -1,19 +1,10 @@
-.card-grid-container {
-  padding: 1rem;
-  box-sizing: border-box;
-  overflow: visible;        /* lascia visibilità naturale */
-  height: auto;
-  max-height: none;
-  min-height: 500px;        /* evita collasso verticale */
-}
-
 .card-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;             /* spazio tra le carte */
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: visible;
+  overflow: visible;        /* evita scrollbar interne */
   max-height: none;
 }
 
@@ -33,4 +24,5 @@
   text-align: center;
   margin-top: 2rem;
   font-size: 1.2rem;
+  color: white;
 }
