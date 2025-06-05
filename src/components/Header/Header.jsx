@@ -3,7 +3,7 @@ import SupportPopup from '../SupportPopup';
 import './header.css';
 import './headerResponsive.css';
 
-export default function Header() {
+export default function Header({ languageToggle }) {
   const [showSupport, setShowSupport] = useState(false);
 
   const openSupportPopup = () => setShowSupport(true);
@@ -24,6 +24,12 @@ export default function Header() {
         </div>
 
         <nav className="right" aria-label="Social media links">
+          {languageToggle && (
+            <div className="language-toggle">
+              {languageToggle}
+            </div>
+          )}
+
           <a
             href="https://discord.com"
             target="_blank"
