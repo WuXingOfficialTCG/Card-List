@@ -82,13 +82,24 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
         borderRadius: '50%',
         width: '40px',
         height: '40px',
-        fontSize: '20px',
         backgroundColor: '#eee',
         cursor: 'pointer',
+        padding: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
       title={showItalian ? 'Switch to English' : 'Passa all\'Italiano'}
-    >
-      {showItalian ? '🇮🇹' : '🇬🇧'}
+   >
+      <img
+        src={showItalian ? '/flags/it.png' : '/flags/gb.png'}
+        alt={showItalian ? 'Bandiera italiana' : 'British flag'}
+        style={{
+          width: '24px',
+          height: '24px',
+          borderRadius: '50%',
+        }}
+      />
     </button>
   );
 
