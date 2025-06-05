@@ -4,25 +4,25 @@
   overflow: visible !important;  /* forza visibilità, no scroll */
   height: auto !important;       /* impedisce altezza forzata */
   max-height: none !important;
-  min-height: 500px; /* impedisce il collasso verticale */
+  min-height: 500px;             /* impedisce il collasso verticale */
 }
 
 .card-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.75rem;                  /* leggermente meno spazio tra colonne */
+  justify-content: flex-start;  /* allinea a sinistra per evitare spazi eccessivi */
   overflow: visible !important;
   max-height: none !important;
   align-items: flex-start;
 }
 
 .card-image {
-  width: 150px;
+  width: 170px;                 /* leggermente più grande */
+  max-width: 170px;
+  flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.2s;
-  max-width: 150px;
-  flex-shrink: 0;
 }
 
 .card-image:hover {
