@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './cardgrid.css';
 import './cardgridResponsive.css';
 
-export default function CardGrid({ cards, onCardClick, showItalian, toggleLanguage }) {
+export default function CardGrid({ cards, onCardClick }) {
+  const [showItalian, setShowItalian] = useState(false);
+
   const handleDragStart = (e, card) => {
     e.dataTransfer.setData('application/json', JSON.stringify(card));
+  };
+
+  const toggleLanguage = () => {
+    setShowItalian(prev => !prev);
   };
 
   return (
