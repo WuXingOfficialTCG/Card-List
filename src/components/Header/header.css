@@ -3,20 +3,30 @@ header {
   align-items: center;
   justify-content: space-between;
   height: 10vh;
-  padding: 0 20px;
+  padding: 0 32px; /* aumentato da 20px a 32px */
   background: #222;
   color: white;
   background-color: black;
   position: relative; /* necessario per posizionare assolutamente il centro */
+  overflow-x: hidden; /* evita tagli orizzontali */
 }
 
 .left, .right {
   display: flex;
   align-items: center;
   flex: 0 0 auto;
-  max-width: 30%;
-  overflow: hidden; /* nasconde eventuali fuoriuscite */
   flex-wrap: nowrap;
+}
+
+.left {
+  max-width: 30%;
+  overflow: hidden;
+}
+
+.right {
+  gap: 12px;
+  max-width: 30%;
+  overflow: visible; /* serve per non tagliare le icone */
 }
 
 .center {
@@ -45,10 +55,6 @@ header {
 
 .center .title {
   white-space: nowrap;
-}
-
-.right {
-  gap: 12px;
 }
 
 button.donate {
@@ -107,3 +113,4 @@ button.donate:hover {
 .language-toggle button:hover {
   background-color: #cccccc;
 }
+
