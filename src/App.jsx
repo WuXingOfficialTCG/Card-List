@@ -117,32 +117,11 @@ export default function App() {
 
   return (
     <Router>
-      <div
-        className="app-container"
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      >
-        {/* Header fisso in alto */}
-        <Header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }} />
+      <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Header />
+        <NavigationBar />
 
-        {/* Navbar fissa sotto header */}
-        <NavigationBar style={{ position: 'fixed', top: '60px', left: 0, right: 0, zIndex: 1000 }} />
-
-        {/* Contenuto scrollabile sotto header + navbar */}
-        <div
-          className="app-scroll-container"
-          style={{
-            flexGrow: 1,
-            marginTop: '110px', // altezza header + navbar (60 + 50)
-            overflowY: 'auto',
-            padding: '20px',
-          }}
-        >
+        <div className="app-scroll-container">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
