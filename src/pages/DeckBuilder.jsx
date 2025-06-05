@@ -11,8 +11,8 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
   const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
-  const [showItalian, setShowItalian] = useState(false); // ✅ Nuovo stato per la lingua
 
+  // Applica e rimuove gli stili del body solo in questa pagina
   useEffect(() => {
     const originalStyle = document.body.getAttribute('style');
 
@@ -70,35 +70,13 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
     return found ? found.count : 0;
   };
 
-  const toggleLanguage = () => {
-    setShowItalian(prev => !prev);
-  };
-
   return (
     <>
       <Header />
 
-      {/* ✅ Bottone per cambiare lingua */}
-      <div style={{ padding: '1rem' }}>
-        <button
-          onClick={toggleLanguage}
-          style={{
-            padding: '0.5rem 1rem',
-            fontSize: '1rem',
-            cursor: 'pointer',
-            backgroundColor: '#333',
-            color: 'white',
-            borderRadius: '8px',
-            border: 'none'
-          }}
-        >
-          {showItalian ? 'Switch to English' : 'Passa all\'Italiano'}
-        </button>
-      </div>
-
       <div
         style={{
-          backgroundColor: '#cccccc',
+          backgroundColor: '#cccccc',  // sfondo chiaro
           height: 'calc(100vh - 60px)',
           display: 'flex',
           overflow: 'hidden',
@@ -132,7 +110,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
             onAddCard={onAddCard}
             onRemoveOne={onRemoveOneFromDeck}
             onCardClick={openPopup}
-            showItalian={showItalian} // ✅ passaggio prop
           />
         </div>
       </div>
@@ -148,7 +125,6 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOneFromDeck}
           deckCount={deckCountForCard(filteredCards[popupIndex].id)}
-          showItalian={showItalian} // ✅ passaggio prop al popup
         />
       )}
 
