@@ -1,24 +1,34 @@
 .card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;             /* spazio tra le carte */
-  justify-content: flex-start;
-  align-items: flex-start;
-  overflow: visible;        /* evita scrollbar interne */
-  max-height: none;
-  padding: 1rem 1rem 1rem 220px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr)); /* 6 carte per riga */
+  gap: 1rem; /* distanza tra carte */
+  padding: 1rem 1rem 1rem 220px; /* padding con spazio a sinistra */
+  box-sizing: border-box;
+  perspective: 1000px; /* profondità per effetto 3D */
 }
 
 .card-image {
-  width: 210px;
-  max-width: 210px;
-  flex-shrink: 0;
+  width: 180px; /* carte più grandi */
+  max-width: 180px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  /* inizializza variabili tilt a zero */
+  --tiltX: 0deg;
+  --tiltY: 0deg;
+  
+  /* applica la trasformazione 3D */
+  transform: rotateX(var(--tiltX)) rotateY(var(--tiltY)) scale(1);
 }
 
 .card-image:hover {
-  transform: scale(1.05);
+  transform: rotateX(var(--tiltX)) rotateY(var(--tiltY)) scale(1.05);
 }
 
 .no-cards-message {
