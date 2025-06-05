@@ -34,20 +34,3 @@
   margin-top: 2rem;
   font-size: 1.2rem;
 }
-
-.language-toggle-button {
-  margin: 12px auto;
-  display: block;
-  padding: 8px 16px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.language-toggle-button:hover {
-  background-color: #0056b3;
-}
