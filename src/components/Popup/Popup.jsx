@@ -12,6 +12,7 @@ export default function Popup({
   onAddCard,
   onRemoveOne,
   deckCount = 0,
+  showItalian
 }) {
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
@@ -67,7 +68,7 @@ export default function Popup({
 
         <div className={styles['popup-image-zoom-container']}>
           <img
-            src={card.immagine}
+            src={showItalian ? card.immagineIta : card.immagine}
             alt={card.nome}
             className={styles['popup-image']}
             draggable={false}
