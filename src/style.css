@@ -29,62 +29,36 @@
   --color-admin-bg-dark: #2a2a2a;
 }
 
-/* Body con scrollbar globale */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+body {
   font-family: 'Lato', Arial, sans-serif;
   background-color: var(--color-bg-main);
   color: var(--color-text);
-  overflow-y: scroll; /* scrollbar sempre visibile */
+  overflow-y: auto; /* attiva lo scroll normale */
 }
 
-/* Header fisso in alto */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px; /* regola se vuoi */
-  background-color: var(--color-neutral-dark);
-  padding: 10px 20px;
-  box-sizing: border-box;
-  z-index: 1000;
-}
-
-/* Navbar fissa sotto header */
+/* Blocca header e navbar */
+header,
 .navigation-bar {
-  position: fixed;
-  top: 60px; /* altezza header */
-  left: 0;
-  right: 0;
-  height: 50px; /* regola se vuoi */
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background-color: var(--color-neutral-dark);
   padding: 10px 20px;
-  box-sizing: border-box;
-  z-index: 1000;
 }
 
-/* Contenuto principale sotto header + navbar */
-.app-scroll-container {
-  margin-top: 110px; /* altezza header + navbar */
-  padding: 20px;
+/* Hero */
+.hero h1,
+.hero p {
+  color: var(--color-text);
 }
 
-/* Scrollbar personalizzata */
-.app-scroll-container::-webkit-scrollbar {
-  width: 10px;
-}
-.app-scroll-container::-webkit-scrollbar-track {
-  background: var(--color-neutral-dark);
-}
-.app-scroll-container::-webkit-scrollbar-thumb {
-  background: var(--color-theme-a);
-  border-radius: 5px;
-}
-
-/* Pulsanti */
+/* Bottoni base */
 button {
   cursor: pointer;
   font-family: inherit;
