@@ -16,17 +16,15 @@ export default function CardGrid({ cards, onCardClick, showItalian }) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const tiltX = ((y - centerY) / centerY) * 15;
+    const tiltX = ((y - centerY) / centerY) * 15; // max 15 gradi
     const tiltY = ((centerX - x) / centerX) * 15;
 
-    card.style.setProperty('--tiltX', `${tiltX}deg`);
-    card.style.setProperty('--tiltY', `${tiltY}deg`);
+    card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
   };
 
   const handleMouseLeave = (e) => {
     const card = e.currentTarget;
-    card.style.setProperty('--tiltX', '0deg');
-    card.style.setProperty('--tiltY', '0deg');
+    card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
   };
 
   return (
