@@ -1,34 +1,22 @@
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr)); /* 6 carte per riga */
-  gap: 1rem; /* distanza tra carte */
-  padding: 1rem 1rem 1rem 220px; /* padding con spazio a sinistra */
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;               /* spazio tra le carte */
+  padding: 1rem 1rem 1rem 220px;
   box-sizing: border-box;
-  perspective: 1000px; /* profondità per effetto 3D */
+  perspective: 1200px;       /* profondità per effetto tilt */
 }
 
 .card-image {
-  width: 180px; /* carte più grandi */
-  max-width: 180px;
+  width: 226px;              /* dimensione precisa per 6 carte */
   height: auto;
-  border-radius: 8px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   cursor: pointer;
   transition: transform 0.3s ease;
   transform-style: preserve-3d;
   will-change: transform;
-
-  /* inizializza variabili tilt a zero */
-  --tiltX: 0deg;
-  --tiltY: 0deg;
-  
-  /* applica la trasformazione 3D */
-  transform: rotateX(var(--tiltX)) rotateY(var(--tiltY)) scale(1);
-}
-
-.card-image:hover {
-  transform: rotateX(var(--tiltX)) rotateY(var(--tiltY)) scale(1.05);
 }
 
 .no-cards-message {
