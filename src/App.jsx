@@ -117,13 +117,32 @@ export default function App() {
 
   return (
     <Router>
-      <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        {/* Header e Navbar fissi sopra, ma non sticky */}
-        <Header />
-        <NavigationBar />
+      <div
+        className="app-container"
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        {/* Header fisso in alto */}
+        <Header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }} />
 
-        {/* Scroll solo nel contenuto */}
-        <div className="app-scroll-container">
+        {/* Navbar fissa sotto header */}
+        <NavigationBar style={{ position: 'fixed', top: '60px', left: 0, right: 0, zIndex: 1000 }} />
+
+        {/* Contenuto scrollabile sotto header + navbar */}
+        <div
+          className="app-scroll-container"
+          style={{
+            flexGrow: 1,
+            marginTop: '110px', // altezza header + navbar (60 + 50)
+            overflowY: 'auto',
+            padding: '20px',
+          }}
+        >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
@@ -160,9 +179,9 @@ export default function App() {
           onSuccess={() => setShowModal(false)}
         />
         <SupportPopupManager />
-      </div>
 
-      {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
+        {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
+      </div>
     </Router>
   );
 }
