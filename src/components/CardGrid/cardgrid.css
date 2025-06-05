@@ -4,6 +4,7 @@
   overflow: visible !important;  /* forza visibilità, no scroll */
   height: auto !important;       /* impedisce altezza forzata */
   max-height: none !important;
+  min-height: 500px; /* impedisce il collasso verticale */
 }
 
 .card-grid {
@@ -13,12 +14,15 @@
   justify-content: center;
   overflow: visible !important;
   max-height: none !important;
+  align-items: flex-start;
 }
 
 .card-image {
   width: 150px;
   cursor: pointer;
   transition: transform 0.2s;
+  max-width: 150px;
+  flex-shrink: 0;
 }
 
 .card-image:hover {
