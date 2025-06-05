@@ -1,25 +1,25 @@
 .card-grid-container {
   padding: 1rem;
   box-sizing: border-box;
-  overflow: visible !important;  /* forza visibilità, no scroll */
-  height: auto !important;       /* impedisce altezza forzata */
-  max-height: none !important;
-  min-height: 500px;             /* impedisce il collasso verticale */
+  overflow: visible;      /* rimuove !important per non forzare scrollbar */
+  height: auto;
+  max-height: none;
+  min-height: 500px;
 }
 
 .card-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;                  /* leggermente meno spazio tra colonne */
-  justify-content: flex-start;  /* allinea a sinistra per evitare spazi eccessivi */
-  overflow: visible !important;
-  max-height: none !important;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  overflow: visible;
+  max-height: none;
   align-items: flex-start;
 }
 
 .card-image {
-  width: 170px;                 /* leggermente più grande */
-  max-width: 170px;
+  width: 220px;       /* aumentata da 170px a 220px */
+  max-width: 220px;
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.2s;
