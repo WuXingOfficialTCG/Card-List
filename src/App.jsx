@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase';
@@ -116,10 +117,12 @@ export default function App() {
 
   return (
     <Router>
-      <div className="app-layout">
+      <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header e Navbar fissi sopra, ma non sticky */}
         <Header />
         <NavigationBar />
 
+        {/* Scroll solo nel contenuto */}
         <div className="app-scroll-container">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -158,6 +161,8 @@ export default function App() {
         />
         <SupportPopupManager />
       </div>
+
+      {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
     </Router>
   );
 }
