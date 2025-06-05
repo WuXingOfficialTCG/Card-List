@@ -8,7 +8,7 @@ export default function CardGrid({ cards, onCardClick, showItalian }) {
   };
 
   return (
-    <div className="card-grid-container">
+    <>
       {cards.length === 0 ? (
         <p className="no-cards-message">Nessuna carta trovata.</p>
       ) : (
@@ -26,6 +26,6 @@ export default function CardGrid({ cards, onCardClick, showItalian }) {
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 }
