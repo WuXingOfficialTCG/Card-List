@@ -164,7 +164,7 @@ export default function Disclaimer() {
         </p>
 
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate(-1)}
           style={{
             marginTop: '20px',
             padding: '10px 20px',
