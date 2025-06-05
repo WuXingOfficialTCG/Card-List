@@ -10,8 +10,8 @@
 }
 
 .card-image {
-  width: 170px;
-  max-width: 170px;
+  width: 210px;
+  max-width: 210px;
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
