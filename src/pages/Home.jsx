@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../firebase'; // importa il tuo db configurato
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 import Header from '../components/Header/Header';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import '../components/home/home.css';
@@ -14,7 +14,8 @@ export default function Home() {
     async function fetchEvents() {
       try {
         const eventsCol = collection(db, 'events');
-        const eventsSnapshot = await getDocs(eventsCol);
+        const q = query(eventsCol, where('Home', '==', true)); // Filtra per Home == true
+        const eventsSnapshot = await getDocs(q);
         const eventsList = eventsSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
@@ -55,9 +56,6 @@ export default function Home() {
       <NavigationBar />
       <main className="home-main" style={{ maxWidth: 800, margin: '40px auto', color: 'white' }}>
         <h2 className="home-title">Welcome to the thrilling world of Wu Xing TCG!</h2>
-        <p className="home-subtitle">
-          As a summoner, you command powerful entities to fight for you, harness chakra to enhance your abilities, and control domains to shape the battlefield.
-        </p>
 
         {events.length > 0 ? (
           <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}>
@@ -70,6 +68,11 @@ export default function Home() {
               <h3 style={{ textAlign: 'center', marginTop: 10 }}>
                 {events[currentIndex].title}
               </h3>
+            )}
+            {events[currentIndex].description && (
+              <p style={{ textAlign: 'center', marginTop: 5 }}>
+                {events[currentIndex].description}
+              </p>
             )}
 
             {/* Pulsanti */}
@@ -117,6 +120,10 @@ export default function Home() {
         ) : (
           <p>Loading events...</p>
         )}
+
+        <p className="home-subtitle" style={{ marginTop: 30 }}>
+          As a summoner, you command powerful entities to fight for you, harness chakra to enhance your abilities, and control domains to shape the battlefield.
+        </p>
       </main>
     </>
   );
