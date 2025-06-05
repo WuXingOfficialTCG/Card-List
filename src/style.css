@@ -29,35 +29,50 @@
   --color-admin-bg-dark: #2a2a2a;
 }
 
-/* Imposta layout verticale */
+/* Body con scrollbar globale */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
   font-family: 'Lato', Arial, sans-serif;
   background-color: var(--color-bg-main);
   color: var(--color-text);
-  display: flex;
-  flex-direction: column;
+  overflow-y: scroll; /* scrollbar sempre visibile */
 }
 
-/* Header e Navbar */
-header,
-.navigation-bar {
-  flex-shrink: 0;
+/* Header fisso in alto */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* regola se vuoi */
   background-color: var(--color-neutral-dark);
   padding: 10px 20px;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
-/* Contenitore scrollabile */
+/* Navbar fissa sotto header */
+.navigation-bar {
+  position: fixed;
+  top: 60px; /* altezza header */
+  left: 0;
+  right: 0;
+  height: 50px; /* regola se vuoi */
+  background-color: var(--color-neutral-dark);
+  padding: 10px 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+/* Contenuto principale sotto header + navbar */
 .app-scroll-container {
-  flex-grow: 1;
-  overflow-y: auto;
+  margin-top: 110px; /* altezza header + navbar */
   padding: 20px;
 }
 
-/* Scrollbar visibile solo nel contenuto */
+/* Scrollbar personalizzata */
 .app-scroll-container::-webkit-scrollbar {
   width: 10px;
 }
@@ -67,12 +82,6 @@ header,
 .app-scroll-container::-webkit-scrollbar-thumb {
   background: var(--color-theme-a);
   border-radius: 5px;
-}
-
-/* Testo hero */
-.hero h1,
-.hero p {
-  color: var(--color-text);
 }
 
 /* Pulsanti */
