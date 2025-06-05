@@ -54,7 +54,7 @@ header,
 
 /* Specifica che .navigation-bar deve stare subito sotto header */
 .navigation-bar {
-  top: var(--header-height, 60px);
+  top: 10vh;
 }
 
 /* Imposta margine superiore per il contenuto per evitare che venga coperto */
