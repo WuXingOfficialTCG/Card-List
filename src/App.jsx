@@ -16,8 +16,8 @@ import AdminProducts from './pages/AdminProducts';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 import SupportPopupManager from './components/SupportPopupManager';
-import NavigationBar from './components/layout/NavigationBar';
-import Header from './components/layout/Header';
+import NavigationBar from './components/NavigationBar/NavigationBar';
+import Header from './components/Header/Header';
 
 export default function App() {
   const [user, setUser] = useState(null);
