@@ -3,6 +3,7 @@
     "id": 1,
     "nome": "Abyssal Merman",
     "immagine": "https://i.imgur.com/vB0qNml.jpeg",
+    "immagineIta":"https://i.imgur.com/PRV8Qph.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "Fire → Water." }
     ],
@@ -16,6 +17,7 @@
     "id": 2,
     "nome": "Solar Worshipper",
     "immagine": "https://i.imgur.com/HIrpKlr.jpeg",
+    "immagineIta":"https://i.imgur.com/WyThG6Q.jpeg",
     "effetti": [
       { "tipo": "Ability", "descrizione": "Destroy 1 Earth entity." }
     ],
@@ -29,6 +31,7 @@
     "id": 3,
     "nome": "Lunar Shadow",
     "immagine": "https://i.imgur.com/uIV0awd.jpeg",
+    "immagineIta":"https://i.imgur.com/nrcsEEQ.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Choose an opponent's entity → Change its position." }
     ],
@@ -42,6 +45,7 @@
     "id": 4,
     "nome": "Solar Egg",
     "immagine": "https://i.imgur.com/7Bq4zpp.png",
+    "immagineIta":"https://i.imgur.com/OAtfayK.png",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Discard 1 card → Draw 1 card." },
       { "tipo": "Lineage Skill", "descrizione": "Sacrifice 1 Fire → Destroy 1 entity." }
@@ -56,6 +60,7 @@
     "id": 5,
     "nome": "Lunar Egg",
     "immagine": "https://i.imgur.com/P0Xgjl5.png",
+    "immagineIta":"https://i.imgur.com/G4kBcbq.png",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Withdraw 2 entities from your Manifestations → Draw 1 card." },
       { "tipo": "Lineage Skill", "descrizione": "Sacrifice 1 Water → Choose an opponent's card to withdraw" }
@@ -70,6 +75,7 @@
     "id": 6,
     "nome": "Goliath",
     "immagine": "https://i.imgur.com/KLf9GmI.jpeg",
+    "immagineIta":"https://i.imgur.com/NG3UfFk.jpeg",
     "effetti": [
       { "tipo": "Haste" },
       { "tipo": "Lineage Skill", "descrizione": "Discard 1 card → This card gains 1 ATK." }
@@ -84,6 +90,7 @@
     "id": 7,
     "nome": "Rising Solar Dragon",
     "immagine": "https://i.imgur.com/3d7K3Os.jpeg",
+    "immagineIta":"https://i.imgur.com/6QmpU1H.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "All of your Qi → Fire and inflict 1 damage to your opponent for each modified Qi." }
     ],
@@ -97,6 +104,7 @@
     "id": 8,
     "nome": "Falling Lunar Dragon",
     "immagine": "https://i.imgur.com/BWdCHB3.jpeg",
+    "immagineIta":"https://i.imgur.com/hRebMiZ.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "All of your Qi → Water and destroy 1 opponent's card for each modified Qi." }
     ],
@@ -110,6 +118,7 @@
     "id": 9,
     "nome": "Grave Defiler",
     "immagine": "https://i.imgur.com/ahkYzLF.jpeg",
+    "immagineIta":"https://i.imgur.com/sku4DkR.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Choose 1 Rank 2 entity in your Diyu → Sacrifice 1 Qi of its Element and invoke it overlapped on this card." }
     ],
@@ -123,6 +132,7 @@
     "id": 10,
     "nome": "Eternal Damned",
     "immagine": "https://imgur.com/DdO1z0w.jpeg",
+    "immagineIta":"https://i.imgur.com/Gpu80lp.jpeg",
     "effetti": [
       { "tipo": "Curse", "descrizione": "Choose an entity → For 5 turns it loses 1 ATK." }
     ],
@@ -136,6 +146,7 @@
     "id": 11,
     "nome": "Guardian of Time",
     "immagine": "https://imgur.com/qxiJftX.jpeg",
+    "immagineIta":"https://i.imgur.com/FBtmk4R.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Return 1 entity to the top of a stack in the deck." }
     ],
@@ -149,6 +160,7 @@
     "id": 13,
     "nome": "Yin Yang Baby Dragon",
     "immagine": "https://i.imgur.com/bYWarQ6.jpeg",
+    "immagineIta":"https://i.imgur.com/eRd1Sax.jpeg",
     "effetti": [
       { "tipo": "Trasmute", "descrizione": "Metal → Water and add 1 Water card from the Diyu to your hand." },
       { "tipo": "Trasmute", "descrizione": "Wood → Fire and add 1 Fire card from the Diyu to your hand." }
@@ -163,6 +175,7 @@
     "id": 12,
     "nome": "Armed Warrior",
     "immagine": "https://i.imgur.com/6Xv3IUn.jpeg",
+    "immagineIta":"https://i.imgur.com/k00dWuh.jpeg",
     "effetti": [
       { "tipo": "Haste" },
       { "tipo": "Skill", "descrizione": "Sacrifice 2 Metals → Add *Bone Breaker* from your deck to your hand." }
@@ -177,6 +190,7 @@
     "id": 14,
     "nome": "Terraformer",
     "immagine": "https://i.imgur.com/tIvCIhN.jpeg",
+    "immagineIta":"https://i.imgur.com/dMmUNst.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Sacrifice 2 Metals → Add *Bone Breaker* from your deck to your hand." }
     ],
@@ -190,6 +204,7 @@
     "id": 15,
     "nome": "Swapping Sorcerer",
     "immagine": "https://i.imgur.com/ZNSgeW1.jpeg",
+    "immagineIta":"https://i.imgur.com/OPDp6bg.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "Shuffle 1 card into the deck → Draw 1 card." }
     ],
@@ -203,6 +218,7 @@
     "id": 16,
     "nome": "Turtle of North",
     "immagine": "https://i.imgur.com/exsawmj.jpeg",
+    "immagineIta":"https://i.imgur.com/NgUF8IV.jpeg",
     "effetti": [
       { "tipo": "Shell"}
     ],
@@ -216,6 +232,7 @@
     "id": 17,
     "nome": "Sorcerer of North",
     "immagine": "https://i.imgur.com/cWblu86.jpeg",
+    "immagineIta":"https://i.imgur.com/isnnXEz.jpeg",
     "effetti": [
       { "tipo": "Lineage", "descrizione": "Sacrifice 1 Water → Draw 1 card from the deck but take 1 damage." }
     ],
@@ -229,6 +246,7 @@
     "id": 18,
     "nome": "Bone Breaker",
     "immagine": "https://i.imgur.com/0A6Ci0G.jpeg",
+    "immagineIta":"https://i.imgur.com/CheZk2y.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "If an opponent's entity declares an attack → Put it in defense position." }
     ],
@@ -239,6 +257,7 @@
     "id": 19,
     "nome": "Turn",
     "immagine": "https://i.imgur.com/PctyGMV.jpeg",
+    "immagineIta":"https://i.imgur.com/klKMZqU.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Withdraw a Solar entity → Invoke a Rank 1 Lunar one from your hand." },
       { "tipo": "Skill", "descrizione": "Withdraw a Lunar entity → Invoke a Rank 1 Solar one from your hand." }
@@ -250,6 +269,7 @@
     "id": 20,
     "nome": "Solar Eclipse",
     "immagine": "https://i.imgur.com/7Z3pl43.jpeg",
+    "immagineIta":"https://i.imgur.com/xUbNCip.jpeg",
     "effetti": [
       { "tipo": "Disruption", "descrizione": "If your opponent activates an effect against your Solar entity → Negate it." }
     ],
@@ -260,6 +280,7 @@
     "id": 21,
     "nome": "Lunar Flare",
     "immagine": "https://i.imgur.com/QpZwp94.jpeg",
+    "immagineIta":"https://i.imgur.com/sDjfYSt.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Sacrifice a Lunar entity in your Manifestations → Destroy all the cards on the field." }
     ],
@@ -270,6 +291,7 @@
     "id": 22,
     "nome": "Renewal",
     "immagine": "https://i.imgur.com/AvTEV1O.jpeg",
+    "immagineIta":"https://i.imgur.com/LTeXLtF.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Return the cards in your hand to your deck → Draw the same number." }
     ],
@@ -280,6 +302,7 @@
     "id": 23,
     "nome": "River of Benevolence",
     "immagine": "https://i.imgur.com/RYYZ8Ze.jpeg",
+    "immagineIta":"https://i.imgur.com/1ZwSMOU.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Gain 1 PM for each entity in your Manifestations." }
     ],
@@ -290,6 +313,7 @@
     "id": 24,
     "nome": "Ocean",
     "immagine": "https://i.imgur.com/R6wAyUP.jpeg",
+    "immagineIta":"https://i.imgur.com/arevb8n.jpeg",
     "effetti": [
       { "tipo": "Skill", "descrizione": "Gain 1 PM for each entity in your Manifestations." }
     ],
