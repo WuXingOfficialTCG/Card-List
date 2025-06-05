@@ -134,4 +134,33 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
       {showSupport && <SupportPopup onClose={() => setShowSupport(false)} />}
     </>
   );
+
+  const toggleLanguage = () => {
+    setShowItalian(prev => !prev);
+  };
+
+  const languageToggle = (
+    <button
+      onClick={toggleLanguage}
+      style={{
+        border: 'none',
+        borderRadius: '50%',
+        width: '40px',
+        height: '40px',
+        fontSize: '20px',
+        backgroundColor: '#eee',
+        cursor: 'pointer',
+      }}
+      title={showItalian ? 'Switch to English' : 'Passa all\'Italiano'}
+    >
+      {showItalian ? '🇮🇹' : '🇬🇧'}
+    </button>
+  );
+
+  return (
+    <>
+      <Header languageToggle={languageToggle} />
+      {/* resto del layout */}
+    </>
+  );
 }
