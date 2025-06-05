@@ -11,8 +11,8 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
   const [filters, setFilters] = useState(initialFilters);
   const [showSupport, setShowSupport] = useState(false);
   const [popupIndex, setPopupIndex] = useState(null);
+  const [showItalian, setShowItalian] = useState(false);
 
-  // Applica e rimuove gli stili del body solo in questa pagina
   useEffect(() => {
     const originalStyle = document.body.getAttribute('style');
 
@@ -76,7 +76,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
 
       <div
         style={{
-          backgroundColor: '#cccccc',  // sfondo chiaro
+          backgroundColor: '#cccccc',
           height: 'calc(100vh - 60px)',
           display: 'flex',
           overflow: 'hidden',
@@ -110,6 +110,8 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
             onAddCard={onAddCard}
             onRemoveOne={onRemoveOneFromDeck}
             onCardClick={openPopup}
+            showItalian={showItalian}
+            setShowItalian={setShowItalian}
           />
         </div>
       </div>
@@ -125,6 +127,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           onAddCard={onAddCard}
           onRemoveOne={onRemoveOneFromDeck}
           deckCount={deckCountForCard(filteredCards[popupIndex].id)}
+          showItalian={showItalian}
         />
       )}
 
