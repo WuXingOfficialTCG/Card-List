@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -118,9 +119,11 @@ export default function App() {
   return (
     <Router>
       <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header e Navbar fissi sopra, ma non sticky */}
         <Header />
         <NavigationBar />
 
+        {/* Scroll solo nel contenuto */}
         <div className="app-scroll-container">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -158,9 +161,9 @@ export default function App() {
           onSuccess={() => setShowModal(false)}
         />
         <SupportPopupManager />
-
-        {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
       </div>
+
+      {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
     </Router>
   );
 }
