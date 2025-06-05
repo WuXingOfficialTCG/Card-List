@@ -16,6 +16,8 @@ import AdminProducts from './pages/AdminProducts';
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
 import SupportPopupManager from './components/SupportPopupManager';
+import NavigationBar from './components/layout/NavigationBar';
+import Header from './components/layout/Header';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -115,29 +117,33 @@ export default function App() {
 
   return (
     <Router>
-      <div className="app-container" style={{ position: 'relative', zIndex: 0 }}>
-        <SignupModal show={showModal} onClose={() => setShowModal(false)} onSuccess={() => setShowModal(false)} />
-        <SupportPopupManager />
+      <div className="app-container" style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        {/* Header e Navbar fissi sopra, ma non sticky */}
+        <Header />
+        <NavigationBar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/deck-builder"
-            element={
-              <DeckBuilder
-                deck={deck}
-                onAddCard={onAddCard}
-                onRemoveOneFromDeck={onRemoveOneFromDeck}
-                onResetDeck={() => setDeck([])}
-              />
-            }
-          />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/disclaimer" element={<Disclaimer />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/admin" element={<AdminProducts />} />
-        </Routes>
+        {/* Scroll solo nel contenuto */}
+        <div className="app-scroll-container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/deck-builder"
+              element={
+                <DeckBuilder
+                  deck={deck}
+                  onAddCard={onAddCard}
+                  onRemoveOneFromDeck={onRemoveOneFromDeck}
+                  onResetDeck={() => setDeck([])}
+                />
+              }
+            />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/admin" element={<AdminProducts />} />
+          </Routes>
+        </div>
 
         {user && (
           <FloatingMenu
@@ -147,6 +153,13 @@ export default function App() {
             onImportDeck={setDeck}
           />
         )}
+
+        <SignupModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onSuccess={() => setShowModal(false)}
+        />
+        <SupportPopupManager />
       </div>
 
       {ReactDOM.createPortal(<div id="popup-root" />, document.body)}
