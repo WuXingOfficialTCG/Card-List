@@ -14,15 +14,16 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
   const [showItalian, setShowItalian] = useState(false);
 
   useEffect(() => {
+    // Imposta gli stili di base su body senza nascondere overflow
     const originalStyle = document.body.getAttribute('style');
 
     document.body.style.margin = '0';
     document.body.style.fontFamily = "'Lato', Arial, sans-serif";
     document.body.style.backgroundColor = 'var(--color-bg-main)';
     document.body.style.color = 'var(--color-text)';
-    document.body.style.height = '100%';
+    document.body.style.height = 'auto';  // lascia auto per scroll naturale
     document.body.style.padding = '0';
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'auto'; // permette scroll pagina
 
     return () => {
       if (originalStyle) {
@@ -90,7 +91,7 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
         justifyContent: 'center',
       }}
       title={showItalian ? 'Switch to English' : 'Passa all\'Italiano'}
-   >
+    >
       <img
         src={showItalian ? '/flags/it.png' : '/flags/gb.png'}
         alt={showItalian ? 'Bandiera italiana' : 'British flag'}
@@ -110,9 +111,9 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
       <div
         style={{
           backgroundColor: '#cccccc',
-          height: 'calc(100vh - 60px)',
+          minHeight: 'calc(100vh - 60px)', // altezza minima per il container
           display: 'flex',
-          overflow: 'hidden',
+          overflow: 'visible', // lascia visibilità e scroll al body
           width: '100%',
         }}
       >
@@ -126,14 +127,14 @@ export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onRe
           style={{
             flexShrink: 0,
             width: '300px',
-            overflow: 'hidden'
+            overflow: 'visible',
           }}
         />
 
         <div
           style={{
             flexGrow: 1,
-            overflowY: 'auto',
+            overflow: 'visible', // lascia visibilità e scroll al body
             padding: '1rem',
           }}
         >
