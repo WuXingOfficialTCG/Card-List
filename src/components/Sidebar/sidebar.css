@@ -157,22 +157,10 @@ hr.divider-above-buttons {
   background-color: #0056b3;
 }
 
-/* Card grid container con scrollbar naturale */
-.card-grid-container {
-  margin-left: 220px;
-  width: calc(100% - 220px);
-  height: 100vh;
-  overflow-y: auto;
-  padding: 16px;
-  box-sizing: border-box;
-  background-color: transparent;
-}
-
-/* Card grid senza overflow */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
   box-sizing: border-box;
   overflow: visible;
 }
