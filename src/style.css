@@ -62,7 +62,7 @@ header,
   flex-grow: 1;
   overflow-y: auto;
   padding: 20px;
-  margin-top: calc(var(--header-height, 60px) + var(--nav-height, 50px));
+  margin-top: calc(10vh + 49px);
 }
 
 /* Scrollbar visibile solo nel contenuto */
