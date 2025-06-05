@@ -8,7 +8,11 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
-  const [animState, setAnimState] = useState('fadeIn'); // fadeIn, fadeOut
+
+  // Per gestire animazione slide out/in
+  // direzione: 'left' o 'right'
+  const [animDirection, setAnimDirection] = useState('left'); 
+  const [animStage, setAnimStage] = useState('idle'); // idle, animatingOut, animatingIn
 
   useEffect(() => {
     async function fetchEvents() {
@@ -30,36 +34,53 @@ export default function Home() {
 
   useEffect(() => {
     if (events.length === 0) return;
-    if (isHovered) return; // ferma il timer se hover
+    if (isHovered || animStage !== 'idle') return; // ferma timer se hover o animazione in corso
 
     timeoutRef.current = setTimeout(() => {
-      // Prima fadeOut
-      setAnimState('fadeOut');
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
-        setAnimState('fadeIn');
-      }, 500); // durata animazione fadeOut
+      slideToNext();
     }, 4000);
 
     return () => clearTimeout(timeoutRef.current);
-  }, [currentIndex, events, isHovered]);
+  }, [currentIndex, events, isHovered, animStage]);
+
+  function slideToNext() {
+    setAnimDirection('left');
+    setAnimStage('animatingOut');
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+      setAnimStage('animatingIn');
+    }, 500); // durata animazione out
+    setTimeout(() => {
+      setAnimStage('idle');
+    }, 1000); // durata totale animazioni out + in
+  }
 
   function goPrev() {
-    setAnimState('fadeOut');
+    if (animStage !== 'idle') return; // blocca click se animazione in corso
+    setAnimDirection('right');
+    setAnimStage('animatingOut');
     setTimeout(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === 0 ? events.length - 1 : prevIndex - 1
       );
-      setAnimState('fadeIn');
+      setAnimStage('animatingIn');
     }, 500);
+    setTimeout(() => {
+      setAnimStage('idle');
+    }, 1000);
   }
 
   function goNext() {
-    setAnimState('fadeOut');
+    if (animStage !== 'idle') return;
+    setAnimDirection('left');
+    setAnimStage('animatingOut');
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
-      setAnimState('fadeIn');
+      setAnimStage('animatingIn');
     }, 500);
+    setTimeout(() => {
+      setAnimStage('idle');
+    }, 1000);
   }
 
   if (events.length === 0) {
@@ -68,30 +89,41 @@ export default function Home() {
 
   const currentEvent = events[currentIndex];
 
+  // Determina classi animazione per immagine
+  let imgClass = 'slider-image';
+
+  if (animStage === 'animatingOut') {
+    imgClass += animDirection === 'left' ? ' slide-out-left' : ' slide-out-right';
+  } else if (animStage === 'animatingIn') {
+    imgClass += animDirection === 'left' ? ' slide-in-right' : ' slide-in-left';
+  }
+
   return (
     <main className="home-main">
       <h2 className="home-title">Welcome to the thrilling world of Wu Xing TCG!</h2>
 
       <div
-        className={`slider-container ${animState}`}
+        className="slider-container"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
           src={currentEvent.image}
           alt={currentEvent.title || 'Evento'}
-          style={{ width: '100%', maxHeight: 400, objectFit: 'cover', borderRadius: 10, display: 'block' }}
+          className={imgClass}
+          draggable={false}
         />
 
-        <div className="overlay-text">
+        <div className="overlay-bar" aria-live="polite">
           {currentEvent.title && <h3>{currentEvent.title}</h3>}
-          <p className="overlay-description">{currentEvent.description}</p>
+          <p>{currentEvent.description}</p>
         </div>
 
         <button
           onClick={goPrev}
           aria-label="Previous Image"
           type="button"
+          disabled={animStage !== 'idle'}
         >
           ‹
         </button>
@@ -99,6 +131,7 @@ export default function Home() {
           onClick={goNext}
           aria-label="Next Image"
           type="button"
+          disabled={animStage !== 'idle'}
         >
           ›
         </button>
