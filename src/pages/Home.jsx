@@ -6,7 +6,9 @@ import '../components/home/home.css';
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
+  const [animState, setAnimState] = useState('fadeIn'); // fadeIn, fadeOut
 
   useEffect(() => {
     async function fetchEvents() {
@@ -28,92 +30,79 @@ export default function Home() {
 
   useEffect(() => {
     if (events.length === 0) return;
+    if (isHovered) return; // ferma il timer se hover
 
     timeoutRef.current = setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+      // Prima fadeOut
+      setAnimState('fadeOut');
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+        setAnimState('fadeIn');
+      }, 500); // durata animazione fadeOut
     }, 4000);
 
     return () => clearTimeout(timeoutRef.current);
-  }, [currentIndex, events]);
+  }, [currentIndex, events, isHovered]);
 
   function goPrev() {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? events.length - 1 : prevIndex - 1
-    );
+    setAnimState('fadeOut');
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? events.length - 1 : prevIndex - 1
+      );
+      setAnimState('fadeIn');
+    }, 500);
   }
 
   function goNext() {
-    setCurrentIndex((prevIndex) =>
-      (prevIndex + 1) % events.length
-    );
+    setAnimState('fadeOut');
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+      setAnimState('fadeIn');
+    }, 500);
   }
 
+  if (events.length === 0) {
+    return <p>Loading events...</p>;
+  }
+
+  const currentEvent = events[currentIndex];
+
   return (
-    <main className="home-main" style={{ maxWidth: 800, margin: '40px auto', color: 'white' }}>
+    <main className="home-main">
       <h2 className="home-title">Welcome to the thrilling world of Wu Xing TCG!</h2>
 
-      {events.length > 0 ? (
-        <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 10 }}>
-          <img
-            src={events[currentIndex].image}
-            alt={events[currentIndex].title || 'Evento'}
-            style={{ width: '100%', maxHeight: '400px', objectFit: 'cover', borderRadius: 10 }}
-          />
-          {events[currentIndex].title && (
-            <h3 style={{ textAlign: 'center', marginTop: 10 }}>
-              {events[currentIndex].title}
-            </h3>
-          )}
-          {events[currentIndex].description && (
-            <p style={{ textAlign: 'center', marginTop: 5 }}>
-              {events[currentIndex].description}
-            </p>
-          )}
+      <div
+        className={`slider-container ${animState}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img
+          src={currentEvent.image}
+          alt={currentEvent.title || 'Evento'}
+          style={{ width: '100%', maxHeight: 400, objectFit: 'cover', borderRadius: 10, display: 'block' }}
+        />
 
-          <button
-            onClick={goPrev}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: 10,
-              transform: 'translateY(-50%)',
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              border: 'none',
-              color: 'white',
-              fontSize: 24,
-              cursor: 'pointer',
-              borderRadius: '50%',
-              width: 40,
-              height: 40,
-            }}
-            aria-label="Previous Image"
-          >
-            ‹
-          </button>
-          <button
-            onClick={goNext}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              right: 10,
-              transform: 'translateY(-50%)',
-              backgroundColor: 'rgba(0,0,0,0.5)',
-              border: 'none',
-              color: 'white',
-              fontSize: 24,
-              cursor: 'pointer',
-              borderRadius: '50%',
-              width: 40,
-              height: 40,
-            }}
-            aria-label="Next Image"
-          >
-            ›
-          </button>
+        <div className="overlay-text">
+          {currentEvent.title && <h3>{currentEvent.title}</h3>}
+          <p className="overlay-description">{currentEvent.description}</p>
         </div>
-      ) : (
-        <p>Loading events...</p>
-      )}
+
+        <button
+          onClick={goPrev}
+          aria-label="Previous Image"
+          type="button"
+        >
+          ‹
+        </button>
+        <button
+          onClick={goNext}
+          aria-label="Next Image"
+          type="button"
+        >
+          ›
+        </button>
+      </div>
 
       <p className="home-subtitle" style={{ marginTop: 30 }}>
         As a summoner, you command powerful entities to fight for you, harness chakra to enhance your abilities, and control domains to shape the battlefield.
