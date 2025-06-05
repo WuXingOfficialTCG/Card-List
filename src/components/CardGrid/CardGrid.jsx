@@ -16,8 +16,8 @@ export default function CardGrid({ cards, onCardClick, showItalian }) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const tiltX = ((y - centerY) / centerY) * 10; // max 15 gradi
-    const tiltY = ((centerX - x) / centerX) * 10;
+    const tiltX = ((y - centerY) / centerY) * 5; // max 15 gradi
+    const tiltY = ((centerX - x) / centerX) * 5;
 
     card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
   };
