@@ -14,7 +14,7 @@
   color: #eee;
   display: flex;
   flex-direction: column;
-  z-index: 999; /* aggiornato */
+  z-index: 1001; /* aggiornato */
 }
 
 .filters-header h3 {
