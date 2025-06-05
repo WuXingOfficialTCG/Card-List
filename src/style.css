@@ -61,7 +61,7 @@ header,
 .app-scroll-container {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 0px;
   margin-top: calc(10vh + 49px);
 }
 
