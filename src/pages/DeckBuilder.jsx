@@ -5,6 +5,7 @@ import Popup from '../components/Popup/Popup';
 import Sidebar from '../components/Sidebar/Sidebar';
 import SupportPopup from '../components/SupportPopup';
 import { initialFilters, availableFilters, filterCards } from '../utility/filters';
+import 'DeckBuilder.css';
 
 export default function DeckBuilder({ deck, onAddCard, onRemoveOneFromDeck, onResetDeck }) {
   const [cards, setCards] = useState([]);
