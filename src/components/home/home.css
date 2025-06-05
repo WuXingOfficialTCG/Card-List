@@ -38,3 +38,93 @@
 .home-button:hover {
   background-color: #d87f0a;
 }
+
+/* Slider container animazioni */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 1;
+  transform: translateX(0);
+  max-height: 400px;
+}
+
+.slider-container.fadeOut {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.slider-container.fadeIn {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Overlay testo titolo + descrizione */
+.overlay-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  color: white;
+  pointer-events: none; /* per evitare problemi con hover */
+  text-shadow: 0 0 6px rgba(0,0,0,0.7);
+}
+
+.overlay-text h3 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+/* Descrizione: inizialmente nascosta */
+.overlay-description {
+  opacity: 0;
+  margin-top: 8px;
+  max-height: 100px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  pointer-events: auto;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+}
+
+/* Quando hover sulla slider mostra descrizione */
+.slider-container:hover .overlay-description {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Pulsanti navigazione */
+.slider-container button {
+  position: absolute;
+  top: 50%;
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.slider-container button:focus {
+  outline: 2px solid #f39c12;
+}
+
+.slider-container button:first-of-type {
+  left: 10px;
+}
+
+.slider-container button:last-of-type {
+  right: 10px;
+}
