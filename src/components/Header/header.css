@@ -36,10 +36,18 @@ header {
   padding: 0 40px; /* 🔥 spazio di sicurezza laterale */
   max-width: calc(100% - 160px); /* 🔥 margine minimo da entrambi i lati */
   box-sizing: border-box;
+  text-decoration: none;
+  color: inherit;
 }
 
 .center .logo {
   height: 40px;
+}
+
+
+.center:hover {
+  text-decoration: none;
+  color: inherit;
 }
 
 button.donate {
