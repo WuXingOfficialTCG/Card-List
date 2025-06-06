@@ -12,6 +12,7 @@ import Events from './pages/Events';
 import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
 import AdminProducts from './pages/AdminProducts';
+import AdminProducts from './pages/Rulebook';
 
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
