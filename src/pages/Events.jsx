@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header/Header';
-import NavigationBar from '../components/NavigationBar/NavigationBar';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import './Events.css';
@@ -25,7 +23,6 @@ export default function Events() {
 
   const featured = events.filter(e => e.featured);
 
-  // Cambia slide ogni 4 secondi
   useEffect(() => {
     if (featured.length > 1) {
       const interval = setInterval(() => {
@@ -35,53 +32,68 @@ export default function Events() {
     }
   }, [featured]);
 
+  const colorThemes = ['theme-a', 'theme-b', 'theme-c', 'theme-d', 'theme-e'];
+
   return (
-    <>
-      <Header />
-      <NavigationBar />
+    <div className="events-container">
 
-      <div className="events-container">
-        {/* SLIDER FATTO A MANO */}
-        {featured.length > 0 && (
-          <div className="custom-slider">
-            {featured.map((event, index) => (
-              <div
-                key={event.id}
-                className={`custom-slide ${index === currentSlide ? 'active' : ''}`}
-                style={{ backgroundImage: `url(${event.image})` }}
-              >
+      {featured.length > 0 && (
+        <div className="custom-slider">
+          {featured.map((event, index) => (
+            <div
+              key={event.id}
+              className={`custom-slide ${index === currentSlide ? 'active' : ''}`}
+              style={{ backgroundImage: `url(${event.image})` }}
+              tabIndex={0}
+              aria-hidden={index !== currentSlide}
+              aria-label={`Slide: ${event.title}`}
+            >
+              <div className="slide-info">
                 <h2>{event.title}</h2>
-              </div>
-            ))}
-            <div className="custom-dots">
-              {featured.map((_, index) => (
-                <button
-                  key={index}
-                  className={index === currentSlide ? 'active' : ''}
-                  onClick={() => setCurrentSlide(index)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* GRIGLIA EVENTI */}
-        <h2 className="events-grid-title">Tutti gli eventi</h2>
-        <div className="events-grid">
-          {events.map(event => (
-            <div className="event-card" key={event.id}>
-              <div
-                className="event-card-image"
-                style={{ backgroundImage: `url(${event.image})` }}
-              />
-              <div className="event-card-content">
-                <strong>{event.title}</strong>
-                {event.date && <p>{event.date}</p>}
+                <div className="extra-info">
+                  {event.date && <p className="event-date">{event.date}</p>}
+                  {event.description && <p className="event-description">{event.description}</p>}
+                </div>
               </div>
             </div>
           ))}
+          <div className="custom-dots" role="tablist" aria-label="Seleziona slide evento">
+            {featured.map((_, index) => (
+              <button
+                key={index}
+                className={index === currentSlide ? 'active' : ''}
+                onClick={() => setCurrentSlide(index)}
+                role="tab"
+                aria-selected={index === currentSlide}
+                aria-controls={`slide-${index}`}
+                id={`tab-${index}`}
+                tabIndex={index === currentSlide ? 0 : -1}
+              />
+            ))}
+          </div>
         </div>
+      )}
+
+      <h2 className="events-grid-title">Tutti gli eventi</h2>
+      <div className="events-grid">
+        {events.map((event, idx) => (
+          <div
+            className={`event-card ${colorThemes[idx % colorThemes.length]}`}
+            key={event.id}
+            tabIndex={0}
+            aria-label={`Evento: ${event.title}`}
+          >
+            <div
+              className="event-card-image"
+              style={{ backgroundImage: `url(${event.image})` }}
+            />
+            <div className="event-card-content">
+              <strong>{event.title}</strong>
+              {event.date && <p>{event.date}</p>}
+            </div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
