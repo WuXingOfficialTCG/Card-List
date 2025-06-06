@@ -12,7 +12,7 @@ import Events from './pages/Events';
 import Disclaimer from './pages/Disclaimer';
 import AccountPage from './pages/AccountPage';
 import AdminProducts from './pages/AdminProducts';
-import AdminProducts from './pages/Rulebook';
+import Rulebook from './pages/Rulebook';
 
 import FloatingMenu from './components/FloatingMenu';
 import SignupModal from './SignupModal';
@@ -143,6 +143,7 @@ export default function App() {
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/admin" element={<AdminProducts />} />
+            <Route path="/rulebook" element={<Rulebook />} />
           </Routes>
         </div>
 
