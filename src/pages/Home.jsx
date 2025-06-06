@@ -6,60 +6,80 @@ import '../components/home/home.css';
 export default function Home() {
   const [events, setEvents] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [animDirection, setAnimDirection] = useState('right'); // 'right' or 'left'
-  const [animating, setAnimating] = useState(false);
   const timeoutRef = useRef(null);
+
+  const [animDirection, setAnimDirection] = useState('left');
+  const [animStage, setAnimStage] = useState('idle');
 
   useEffect(() => {
     async function fetchEvents() {
       try {
         const eventsCol = collection(db, 'events');
         const q = query(eventsCol, where('home', '==', true));
-        const snapshot = await getDocs(q);
-        const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setEvents(list);
-      } catch (err) {
-        console.error('Errore caricamento eventi:', err);
+        const eventsSnapshot = await getDocs(q);
+        const eventsList = eventsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setEvents(eventsList);
+      } catch (error) {
+        console.error('Errore caricamento eventi:', error);
       }
     }
     fetchEvents();
   }, []);
 
   useEffect(() => {
-    if (events.length === 0 || isHovered || animating) return;
+    if (events.length === 0 || isHovered || animStage !== 'idle') return;
 
-    timeoutRef.current = setTimeout(() => goNext(), 4000);
+    timeoutRef.current = setTimeout(() => {
+      slideToNext();
+    }, 4000);
+
     return () => clearTimeout(timeoutRef.current);
-  }, [currentIndex, events, isHovered, animating]);
+  }, [currentIndex, events, isHovered, animStage]);
 
-  const goNext = () => {
-    if (animating) return;
-    const next = (currentIndex + 1) % events.length;
-    triggerSlide(next, 'right');
-  };
-
-  const goPrev = () => {
-    if (animating) return;
-    const next = (currentIndex - 1 + events.length) % events.length;
-    triggerSlide(next, 'left');
-  };
-
-  const triggerSlide = (next, direction) => {
-    setNextIndex(next);
-    setAnimDirection(direction);
-    setAnimating(true);
-
+  function slideToNext() {
+    if (animStage !== 'idle') return;
+    setAnimDirection('left');
+    setAnimStage('animatingOut');
     setTimeout(() => {
-      setCurrentIndex(next);
-      setNextIndex(null);
-      setAnimating(false);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+      setAnimStage('animatingIn');
     }, 500);
-  };
+    setTimeout(() => setAnimStage('idle'), 1000);
+  }
+
+  function goPrev() {
+    if (animStage !== 'idle') return;
+    setAnimDirection('right');
+    setAnimStage('animatingOut');
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? events.length - 1 : prevIndex - 1
+      );
+      setAnimStage('animatingIn');
+    }, 500);
+    setTimeout(() => setAnimStage('idle'), 1000);
+  }
+
+  function goNext() {
+    slideToNext();
+  }
+
+  if (events.length === 0) {
+    return <p>Loading events...</p>;
+  }
 
   const currentEvent = events[currentIndex];
-  const nextEvent = nextIndex !== null ? events[nextIndex] : null;
+
+  let imgClass = 'slider-image';
+  if (animStage === 'animatingOut') {
+    imgClass += animDirection === 'left' ? ' slide-out-left' : ' slide-out-right';
+  } else if (animStage === 'animatingIn') {
+    imgClass += animDirection === 'left' ? ' slide-in-right' : ' slide-in-left';
+  }
 
   return (
     <main className="home-main">
@@ -74,48 +94,40 @@ export default function Home() {
         onMouseLeave={() => setIsHovered(false)}
       >
         <img
-          key={currentEvent.id}
           src={currentEvent.image}
-          alt={currentEvent.title}
-          className={`slider-image ${
-            animating
-              ? animDirection === 'right'
-                ? 'slide-out-right'   // esce a destra
-                : 'slide-out-left'    // esce a sinistra
-              : ''
-          }`}
+          alt={currentEvent.title || 'Evento'}
+          className={imgClass}
           draggable={false}
         />
 
-        {nextEvent && (
-          <img
-            key={nextEvent.id}
-            src={nextEvent.image}
-            alt={nextEvent.title}
-            className={`slider-image ${
-              animDirection === 'right'
-                ? 'slide-in-left'     // entra da sinistra
-                : 'slide-in-right'    // entra da destra
-            }`}
-            draggable={false}
-          />
-        )}
-
         <div className="overlay-bar" aria-live="polite">
-          <h3>{currentEvent.title}</h3>
+          {currentEvent.title && <h3>{currentEvent.title}</h3>}
           <p>{currentEvent.description}</p>
         </div>
 
-        <button onClick={goPrev} disabled={animating} aria-label="Previous">
+        <button
+          onClick={goPrev}
+          aria-label="Previous Image"
+          type="button"
+          disabled={animStage !== 'idle'}
+        >
           ‹
         </button>
-        <button onClick={goNext} disabled={animating} aria-label="Next">
+        <button
+          onClick={goNext}
+          aria-label="Next Image"
+          type="button"
+          disabled={animStage !== 'idle'}
+        >
           ›
         </button>
       </div>
 
       <div className="rulebook-container">
-        <button className="rulebook-button" onClick={() => (window.location.href = '/rulebook')}>
+        <button
+          className="rulebook-button"
+          onClick={() => window.location.href = '/rulebook'}
+        >
           Rulebook
         </button>
       </div>
