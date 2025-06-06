@@ -1,45 +1,69 @@
+.home-main {
+  padding: 20px;
+  text-align: center;
+}
+
+.home-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.home-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rulebook-container {
+  margin-top: 20px;
+}
+
+.rulebook-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rulebook-button:hover {
+  background-color: #666;
+}
+
 .slider-container {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
   cursor: pointer;
+  width: 50%;
+  height: 50%;
   max-height: 400px;
-  width: 100%;
+  margin: 0 auto;
 }
 
 .slider-image {
   width: 100%;
-  max-height: 400px;
+  height: 100%;
   object-fit: cover;
   border-radius: 10px;
   display: block;
   position: relative;
   z-index: 1;
   transition: transform 0.5s ease, opacity 0.5s ease;
-  /* partiamo da visibile */
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Animazioni slide-out e slide-in */
-
+/* Animazioni coerenti con la direzione */
 .slide-out-left {
   opacity: 0;
   transform: translateX(-100%);
   transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.slide-in-left {
-  opacity: 0;
-  transform: translateX(100%);
-  animation: slideInLeft 0.5s forwards;
-}
-
-@keyframes slideInLeft {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 .slide-out-right {
@@ -48,20 +72,33 @@
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(100%);
+  animation: slideInFromRight 0.5s forwards;
+}
+
 .slide-in-right {
   opacity: 0;
   transform: translateX(-100%);
-  animation: slideInRight 0.5s forwards;
+  animation: slideInFromLeft 0.5s forwards;
 }
 
-@keyframes slideInRight {
+@keyframes slideInFromRight {
   to {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-/* Barra grigia fissa in basso */
+@keyframes slideInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Overlay descrizione */
 .overlay-bar {
   position: absolute;
   bottom: 0;
@@ -80,10 +117,9 @@
   flex-direction: column;
   justify-content: center;
   z-index: 2;
-  height: 50px; /* altezza base */
+  height: 50px;
 }
 
-/* Titolo sempre visibile, dimensione base */
 .overlay-bar h3 {
   margin: 0;
   font-size: 1.3rem;
@@ -92,7 +128,6 @@
   user-select: none;
 }
 
-/* Descrizione nascosta di base */
 .overlay-bar p {
   margin: 5px 0 0 0;
   font-size: 1rem;
@@ -103,7 +138,6 @@
   user-select: text;
 }
 
-/* Al passaggio mouse barra si alza, mostra descrizione e ingrandisce titolo */
 .slider-container:hover .overlay-bar {
   height: 120px;
   padding: 15px 20px;
@@ -117,8 +151,8 @@
   opacity: 1;
   max-height: 100px;
 }
-  
-/* Pulsanti navigazione */
+
+/* Pulsanti */
 .slider-container button {
   position: absolute;
   top: 50%;
