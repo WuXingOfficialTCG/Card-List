@@ -11,6 +11,7 @@ export default function EventsManager() {
   const [loading, setLoading] = useState(true);
   const [hasChanges, setHasChanges] = useState(false);
   const [expandedIds, setExpandedIds] = useState(new Set());
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -70,6 +71,18 @@ export default function EventsManager() {
     alert('Modifiche eventi salvate.');
   };
 
+  const handleDrop = (dropIndex) => {
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
+
+    const updated = [...events];
+    const [moved] = updated.splice(draggedIndex, 1);
+    updated.splice(dropIndex, 0, moved);
+
+    setEvents(updated);
+    setDraggedIndex(null);
+    setHasChanges(true);
+  };
+
   if (loading) return <div>Caricamento eventi...</div>;
 
   return (
@@ -89,12 +102,16 @@ export default function EventsManager() {
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20 }}>
-        {events.map((e) => {
+        {events.map((e, index) => {
           const isOpen = expandedIds.has(e.id);
 
           return (
             <div
               key={e.id}
+              draggable
+              onDragStart={() => setDraggedIndex(index)}
+              onDragOver={(ev) => ev.preventDefault()}
+              onDrop={() => handleDrop(index)}
               style={{
                 border: '1px solid #ccc',
                 borderRadius: 8,
@@ -105,9 +122,9 @@ export default function EventsManager() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 10,
+                cursor: 'grab',
               }}
             >
-              {/* HEADER */}
               <div
                 onClick={() => toggleExpand(e.id)}
                 style={{
@@ -126,7 +143,6 @@ export default function EventsManager() {
                 <span style={{ fontSize: 20 }}>{isOpen ? '▲' : '▼'}</span>
               </div>
 
-              {/* CONTENUTO */}
               {isOpen && (
                 <>
                   <textarea
