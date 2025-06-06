@@ -15,9 +15,9 @@ header {
   display: flex;
   align-items: center;
   flex: 1;
-  gap: 12px;
-  min-width: 0; /* permette di restringersi se serve */
+  min-width: 0;
   overflow: hidden;
+  gap: 12px;
 }
 
 .center {
@@ -28,8 +28,10 @@ header {
   font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
-  margin: 0 auto; /* centra orizzontalmente */
+  margin: 0 auto;
   white-space: nowrap;
+  padding: 0 40px; /* 🔥 spazio di sicurezza laterale */
+  max-width: calc(100% - 200px); /* 🔥 margine minimo da entrambi i lati */
 }
 
 .center .logo {
@@ -62,7 +64,7 @@ button.donate:hover {
   color: white;
   text-decoration: none;
   transition: background 0.3s ease;
-  flex-shrink: 0; /* impedisce che venga ridotta */
+  flex-shrink: 0;
 }
 
 .social-icon:hover {
