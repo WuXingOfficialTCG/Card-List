@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../components/rulebook/Rulebook.css';
 import RulebookSidebar from '../components/rulebook/RulebookSidebar';
 import ChapterIntroduction from '../components/rulebook/chapters/ChapterIntroduction';
 import ChapterSetup from '../components/rulebook/chapters/ChapterSetup';
