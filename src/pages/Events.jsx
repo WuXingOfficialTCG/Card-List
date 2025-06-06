@@ -17,7 +17,6 @@ export default function Events() {
         console.error('Errore nel caricamento eventi:', err);
       }
     };
-
     fetchEvents();
   }, []);
 
@@ -38,13 +37,14 @@ export default function Events() {
     <div className="events-container">
 
       {featured.length > 0 && (
-        <div className="custom-slider">
+        <div className="custom-slider" role="region" aria-label="Slider eventi in evidenza">
           {featured.map((event, index) => (
             <div
               key={event.id}
+              id={`slide-${index}`}
               className={`custom-slide ${index === currentSlide ? 'active' : ''}`}
               style={{ backgroundImage: `url(${event.image})` }}
-              tabIndex={0}
+              tabIndex={index === currentSlide ? 0 : -1}
               aria-hidden={index !== currentSlide}
               aria-label={`Slide: ${event.title}`}
             >
@@ -57,6 +57,7 @@ export default function Events() {
               </div>
             </div>
           ))}
+
           <div className="custom-dots" role="tablist" aria-label="Seleziona slide evento">
             {featured.map((_, index) => (
               <button
@@ -68,6 +69,7 @@ export default function Events() {
                 aria-controls={`slide-${index}`}
                 id={`tab-${index}`}
                 tabIndex={index === currentSlide ? 0 : -1}
+                aria-label={`Vai alla slide ${index + 1}`}
               />
             ))}
           </div>
