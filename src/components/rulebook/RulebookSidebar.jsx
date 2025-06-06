@@ -1,5 +1,4 @@
 import React from 'react';
-import './Rulebook.css';
 
 const labels = {
   ita: [
