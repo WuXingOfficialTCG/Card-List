@@ -9,10 +9,8 @@ export default function Home() {
   const [isHovered, setIsHovered] = useState(false);
   const timeoutRef = useRef(null);
 
-  // Per gestire animazione slide out/in
-  // direzione: 'left' o 'right'
-  const [animDirection, setAnimDirection] = useState('left'); 
-  const [animStage, setAnimStage] = useState('idle'); // idle, animatingOut, animatingIn
+  const [animDirection, setAnimDirection] = useState('left');
+  const [animStage, setAnimStage] = useState('idle');
 
   useEffect(() => {
     async function fetchEvents() {
@@ -33,8 +31,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (events.length === 0) return;
-    if (isHovered || animStage !== 'idle') return; // ferma timer se hover o animazione in corso
+    if (events.length === 0 || isHovered || animStage !== 'idle') return;
 
     timeoutRef.current = setTimeout(() => {
       slideToNext();
@@ -44,19 +41,18 @@ export default function Home() {
   }, [currentIndex, events, isHovered, animStage]);
 
   function slideToNext() {
+    if (animStage !== 'idle') return;
     setAnimDirection('left');
     setAnimStage('animatingOut');
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
       setAnimStage('animatingIn');
-    }, 500); // durata animazione out
-    setTimeout(() => {
-      setAnimStage('idle');
-    }, 1000); // durata totale animazioni out + in
+    }, 500);
+    setTimeout(() => setAnimStage('idle'), 1000);
   }
 
   function goPrev() {
-    if (animStage !== 'idle') return; // blocca click se animazione in corso
+    if (animStage !== 'idle') return;
     setAnimDirection('right');
     setAnimStage('animatingOut');
     setTimeout(() => {
@@ -65,22 +61,11 @@ export default function Home() {
       );
       setAnimStage('animatingIn');
     }, 500);
-    setTimeout(() => {
-      setAnimStage('idle');
-    }, 1000);
+    setTimeout(() => setAnimStage('idle'), 1000);
   }
 
   function goNext() {
-    if (animStage !== 'idle') return;
-    setAnimDirection('left');
-    setAnimStage('animatingOut');
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
-      setAnimStage('animatingIn');
-    }, 500);
-    setTimeout(() => {
-      setAnimStage('idle');
-    }, 1000);
+    slideToNext();
   }
 
   if (events.length === 0) {
@@ -89,9 +74,7 @@ export default function Home() {
 
   const currentEvent = events[currentIndex];
 
-  // Determina classi animazione per immagine
   let imgClass = 'slider-image';
-
   if (animStage === 'animatingOut') {
     imgClass += animDirection === 'left' ? ' slide-out-left' : ' slide-out-right';
   } else if (animStage === 'animatingIn') {
@@ -101,6 +84,9 @@ export default function Home() {
   return (
     <main className="home-main">
       <h2 className="home-title">Welcome to the thrilling world of Wu Xing TCG!</h2>
+      <p className="home-subtitle">
+        As a summoner, you command powerful entities to fight for you, harness chakra to enhance your abilities, and control domains to shape the battlefield.
+      </p>
 
       <div
         className="slider-container"
@@ -137,9 +123,14 @@ export default function Home() {
         </button>
       </div>
 
-      <p className="home-subtitle" style={{ marginTop: 30 }}>
-        As a summoner, you command powerful entities to fight for you, harness chakra to enhance your abilities, and control domains to shape the battlefield.
-      </p>
+      <div className="rulebook-container">
+        <button
+          className="rulebook-button"
+          onClick={() => window.location.href = '/rulebook'}
+        >
+          Rulebook
+        </button>
+      </div>
     </main>
   );
 }
