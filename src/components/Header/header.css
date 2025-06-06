@@ -8,6 +8,7 @@ header {
   color: white;
   position: relative;
   overflow: hidden;
+  padding-right: 40px;
 }
 
 .left,
