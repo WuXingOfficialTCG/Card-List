@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import './components/rulebook/Rulebook.css';
-import RulebookSidebar from './components/rulebook/RulebookSidebar';
-import ChapterIntroduction from './components/rulebook/chapters/ChapterIntroduction';
-import ChapterSetup from './components/rulebook/chapters/ChapterSetup';
-import ChapterCards from './components/rulebook/chapters/ChapterCards';
-import ChapterPlayfield from './components/rulebook/chapters/ChapterPlayfield';
-import ChapterEffects from './components/rulebook/chapters/ChapterEffects';
-import ChapterTurnPhases from './components/rulebook/chapters/ChapterTurnPhases';
-import ChapterQi from './components/rulebook/chapters/ChapterQi';
-import ChapterCombat from './components/rulebook/chapters/ChapterCombat';
-import ChapterGlossary from './components/rulebook/chapters/ChapterGlossary';
+import '../components/rulebook/Rulebook.css';
+import RulebookSidebar from '../components/rulebook/RulebookSidebar';
+import ChapterIntroduction from '../components/rulebook/chapters/ChapterIntroduction';
+import ChapterSetup from '../components/rulebook/chapters/ChapterSetup';
+import ChapterCards from '../components/rulebook/chapters/ChapterCards';
+import ChapterPlayfield from '../components/rulebook/chapters/ChapterPlayfield';
+import ChapterEffects from '../components/rulebook/chapters/ChapterEffects';
+import ChapterTurnPhases from '../components/rulebook/chapters/ChapterTurnPhases';
+import ChapterQi from '../components/rulebook/chapters/ChapterQi';
+import ChapterCombat from '../components/rulebook/chapters/ChapterCombat';
+import ChapterGlossary from '../components/rulebook/chapters/ChapterGlossary';
 
 const Rulebook = () => {
   const [language, setLanguage] = useState('ita');
