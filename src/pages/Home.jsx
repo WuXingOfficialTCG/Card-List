@@ -76,7 +76,7 @@ export default function Home() {
 
   let imgClass = 'slider-image';
   if (animStage === 'animatingOut') {
-    imgClass += animDirection === 'left' ? ' slide-out-left' : ' slide-out-right';
+    imgClass += animDirection === 'left' ? ' slide-in-right' : ' slide-out-left';
   } else if (animStage === 'animatingIn') {
     imgClass += animDirection === 'left' ? ' slide-in-right' : ' slide-in-left';
   }
