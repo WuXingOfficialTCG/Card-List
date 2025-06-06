@@ -11,7 +11,7 @@
 .custom-slider {
   width: 100%;
   max-width: 900px;
-  aspect-ratio: 5 / 7;
+  aspect-ratio: 8 / 5;
   position: relative;
   margin: 0 auto 3rem;
   overflow: hidden;
@@ -51,20 +51,27 @@
   margin-top: 1rem;
 }
 
+/* MINIATURE - thumbnails */
 .custom-dots button {
   background-color: var(--color-neutral);
   border: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+  width: 5vw;        /* circa 5% della larghezza viewport */
+  height: calc(5vw * 5 / 8);  /* mantiene proporzione 8:5 */
+  border-radius: 6px;
   margin: 0 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  border: 2px solid transparent;
 }
 
 .custom-dots button.active,
 .custom-dots button:hover {
-  background-color: var(--color-theme-a);
+  border-color: var(--color-theme-a);
+  box-shadow: 0 0 8px var(--color-theme-a);
+  background-color: transparent;
 }
 
 /* GRIGLIA EVENTI */
@@ -78,13 +85,13 @@
 
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(calc(100% / 7 * 5), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(calc(100vw / 5), 1fr));
   gap: 1.5rem;
 }
 
 /* CARD EVENTI */
 .event-card {
-  aspect-ratio: 5 / 7;
+  aspect-ratio: 8 / 5;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
