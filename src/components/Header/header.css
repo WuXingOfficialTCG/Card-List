@@ -8,20 +8,23 @@ header {
   color: white;
   position: relative;
   overflow: hidden;
-  padding-right: 40px;
+  box-sizing: border-box;
 }
 
 .left,
 .right {
   display: flex;
   align-items: center;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
+  flex: 0 0 auto;
   gap: 12px;
+  min-width: 0;
 }
 
 .center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -29,10 +32,10 @@ header {
   font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
-  margin: 0 auto;
   white-space: nowrap;
   padding: 0 40px; /* 🔥 spazio di sicurezza laterale */
-  max-width: calc(100% - 200px); /* 🔥 margine minimo da entrambi i lati */
+  max-width: calc(100% - 160px); /* 🔥 margine minimo da entrambi i lati */
+  box-sizing: border-box;
 }
 
 .center .logo {
