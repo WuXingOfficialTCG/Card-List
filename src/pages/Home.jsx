@@ -80,8 +80,8 @@ export default function Home() {
           className={`slider-image ${
             animating
               ? animDirection === 'right'
-                ? 'slide-out-left'
-                : 'slide-out-right'
+                ? 'slide-out-right'   // esce a destra
+                : 'slide-out-left'    // esce a sinistra
               : ''
           }`}
           draggable={false}
@@ -94,8 +94,8 @@ export default function Home() {
             alt={nextEvent.title}
             className={`slider-image ${
               animDirection === 'right'
-                ? 'slide-in-right'
-                : 'slide-in-left'
+                ? 'slide-in-left'     // entra da sinistra
+                : 'slide-in-right'    // entra da destra
             }`}
             draggable={false}
           />
