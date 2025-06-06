@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import SupportPopup from '../SupportPopup';
 import './header.css';
 import './headerResponsive.css';
 
 export default function Header({ languageToggle }) {
   const [showSupport, setShowSupport] = useState(false);
+  const location = useLocation();
 
   const openSupportPopup = () => setShowSupport(true);
   const closeSupportPopup = () => setShowSupport(false);
+
+  const isHome = location.pathname === '/';
 
   return (
     <>
@@ -18,10 +22,17 @@ export default function Header({ languageToggle }) {
           </button>
         </div>
 
-        <div className="center">
-          <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" className="logo" />
-          <span className="title">Wu Xing TCG</span>
-        </div>
+        {isHome ? (
+          <div className="center">
+            <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" className="logo" />
+            <span className="title">Wu Xing TCG</span>
+          </div>
+        ) : (
+          <Link to="/" className="center" aria-label="Torna alla home">
+            <img src="https://i.imgur.com/slIDTEM.png" alt="Logo" className="logo" />
+            <span className="title">Wu Xing TCG</span>
+          </Link>
+        )}
 
         <nav className="right" aria-label="Social media links">
           {languageToggle && (
