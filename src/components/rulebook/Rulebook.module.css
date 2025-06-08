@@ -1,0 +1,13 @@
+.sidebar {
+  width: 220px;
+  background-color: #f4f4f4;
+  padding: 1rem;
+}
+
+.chapter {
+  margin-bottom: 2rem;
+}
+
+.chapter h2 {
+  font-size: 1.5rem;
+}
