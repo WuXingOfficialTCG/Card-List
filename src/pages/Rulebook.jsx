@@ -9,6 +9,7 @@ import ChapterTurnPhases from '../components/rulebook/chapters/ChapterTurnPhases
 import ChapterQi from '../components/rulebook/chapters/ChapterQi';
 import ChapterCombat from '../components/rulebook/chapters/ChapterCombat';
 import ChapterGlossary from '../components/rulebook/chapters/ChapterGlossary';
+import styles from '../components/rulebook/Rulebook.module.css';
 
 const Rulebook = () => {
   const [language, setLanguage] = useState('ita');
