@@ -29,31 +29,31 @@ const Rulebook = () => {
           {language === 'ita' ? 'English' : 'Italiano'}
         </button>
 
-        <div className={styles.chapter} id="introduction">
+        <div className={styles.chapter} id="chapter-0">
           <ChapterIntroduction language={language} />
         </div>
-        <div className={styles.chapter} id="setup">
+        <div className={styles.chapter} id="chapter-1">
           <ChapterSetup language={language} />
         </div>
-        <div className={styles.chapter} id="cards">
+        <div className={styles.chapter} id="chapter-2">
           <ChapterCards language={language} />
         </div>
-        <div className={styles.chapter} id="playfield">
+        <div className={styles.chapter} id="chapter-3">
           <ChapterPlayfield language={language} />
         </div>
-        <div className={styles.chapter} id="effects">
+        <div className={styles.chapter} id="chapter-4">
           <ChapterEffects language={language} />
         </div>
-        <div className={styles.chapter} id="turn-phases">
+        <div className={styles.chapter} id="chapter-5">
           <ChapterTurnPhases language={language} />
         </div>
-        <div className={styles.chapter} id="qi">
+        <div className={styles.chapter} id="chapter-6">
           <ChapterQi language={language} />
         </div>
-        <div className={styles.chapter} id="combat">
+        <div className={styles.chapter} id="chapter-7">
           <ChapterCombat language={language} />
         </div>
-        <div className={styles.chapter} id="glossary">
+        <div className={styles.chapter} id="chapter-8">
           <ChapterGlossary language={language} />
         </div>
       </div>
