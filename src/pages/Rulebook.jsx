@@ -19,22 +19,43 @@ const Rulebook = () => {
   };
 
   return (
-    <div className="rulebook-container">
-      <RulebookSidebar language={language} />
-      <div className="rulebook-content">
-        <button className="lang-button" onClick={toggleLanguage}>
+    <div style={{ display: 'flex' }}>
+      <div className={styles.sidebar}>
+        <RulebookSidebar language={language} />
+      </div>
+
+      <div style={{ flex: 1, padding: '1rem' }}>
+        <button onClick={toggleLanguage} style={{ marginBottom: '1rem' }}>
           {language === 'ita' ? 'English' : 'Italiano'}
         </button>
 
-        <ChapterIntroduction language={language} />
-        <ChapterSetup language={language} />
-        <ChapterCards language={language} />
-        <ChapterPlayfield language={language} />
-        <ChapterEffects language={language} />
-        <ChapterTurnPhases language={language} />
-        <ChapterQi language={language} />
-        <ChapterCombat language={language} />
-        <ChapterGlossary language={language} />
+        <div className={styles.chapter} id="introduction">
+          <ChapterIntroduction language={language} />
+        </div>
+        <div className={styles.chapter} id="setup">
+          <ChapterSetup language={language} />
+        </div>
+        <div className={styles.chapter} id="cards">
+          <ChapterCards language={language} />
+        </div>
+        <div className={styles.chapter} id="playfield">
+          <ChapterPlayfield language={language} />
+        </div>
+        <div className={styles.chapter} id="effects">
+          <ChapterEffects language={language} />
+        </div>
+        <div className={styles.chapter} id="turn-phases">
+          <ChapterTurnPhases language={language} />
+        </div>
+        <div className={styles.chapter} id="qi">
+          <ChapterQi language={language} />
+        </div>
+        <div className={styles.chapter} id="combat">
+          <ChapterCombat language={language} />
+        </div>
+        <div className={styles.chapter} id="glossary">
+          <ChapterGlossary language={language} />
+        </div>
       </div>
     </div>
   );
