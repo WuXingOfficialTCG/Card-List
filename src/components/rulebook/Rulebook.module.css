@@ -1,11 +1,38 @@
 .sidebar {
   width: 220px;
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
   padding: 1rem;
   position: sticky;
   top: 0;
   height: fit-content; /* importante per sticky */
   align-self: flex-start;
+  border-right: 1px solid #ddd;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sidebar a {
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar a:hover {
+  background-color: #e6f0ff;
+  color: #0056b3;
 }
 
 .chapter {
