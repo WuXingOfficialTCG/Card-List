@@ -100,23 +100,25 @@ const ChapterInvocation = ({ language }) => {
           : `However, there are some rules to follow.`}
       </p>
 
-      <p>
-        <strong>{language === 'ita' ? 'Rango delle Entità:' : 'Entity Rank:'}</strong><br />
-        {language === 'ita'
-          ? `- Le Entità di Rango 1 possono essere invocate direttamente sul campo.` : `- Rank 1 Entities can be invoked directly onto the field.`}
-        <br />
-        {language === 'ita'
-          ? `- Le Entità di Rango superiore (Rango 2 e 3) devono essere posizionate sopra un’Entità di Rango inferiore.` : `- Higher Rank Entities (Rank 2 and 3) must be placed on top of a lower Rank Entity.`}
-        <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;– Rank 1 → Rank 2 → Rank 3
-      </p>
+<p>
+  <strong>{language === 'ita' ? 'Rango delle Entità:' : 'Entity Rank:'}</strong>
+</p>
+<ul style={{ marginTop: 0 }}>
+  <li>
+    {language === 'ita'
+      ? 'Le Entità di Rango 1 possono essere invocate direttamente sul campo.'
+      : 'Rank 1 Entities can be invoked directly onto the field.'}
+  </li>
+  <li>
+    {language === 'ita'
+      ? 'Le Entità di Rango superiore (Rango 2 e 3) devono essere posizionate sopra un’Entità di Rango inferiore.'
+      : 'Higher Rank Entities (Rank 2 and 3) must be placed on top of a lower Rank Entity.'}
+  </li>
+  <li style={{ listStyleType: '"◦ "', marginLeft: '1.2em' }}>
+    Rank 1 → Rank 2 → Rank 3
+  </li>
+</ul>
 
-      <p>
-        <strong>{language === 'ita' ? 'Posizione delle Entità:' : 'Entity Position:'}</strong><br />
-        {language === 'ita'
-          ? `- Puoi invocare Entità solo dalla tua mano. Le Entità nel mazzo o nel Diyu non possono essere invocate, a meno che non sia specificato da effetti di altre carte.` 
-          : `- You can only invoke Entities from your hand. Entities in the deck or in Diyu cannot be invoked unless through the effects of other cards.`}
-      </p>
 
       <p>
         {language === 'ita'
