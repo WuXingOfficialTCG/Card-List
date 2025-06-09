@@ -27,20 +27,16 @@ const ChapterInvocation = ({ language }) => {
     alignItems: 'flex-start',
     marginTop: '3rem',
     marginBottom: '2rem',
-    maxWidth: '600px', // centro contenuto nella pagina
-    marginLeft: 'auto',
-    marginRight: 'auto',
   }}
 >
   {/* Colonna sinistra */}
   <div style={{ textAlign: 'center' }}>
     <div
       style={{
-        width: '200px',
-        height: '260px', // stessa altezza per entrambe le immagini
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        height: '200px',
       }}
     >
       <img
@@ -50,10 +46,10 @@ const ChapterInvocation = ({ language }) => {
             : '/rulebookdata/01 - Abyssal Merman (1).png'
         }
         alt="Entity Defense"
-        style={{ width: '200px', height: '100%', objectFit: 'cover' }}
+        style={{ height: '200px', width: 'auto' }} // altezza fissa, larghezza automatica
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
@@ -62,11 +58,10 @@ const ChapterInvocation = ({ language }) => {
   <div style={{ textAlign: 'center' }}>
     <div
       style={{
-        width: '200px',
-        height: '260px', // stessa altezza anche qui
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        height: '200px',
       }}
     >
       <img
@@ -76,17 +71,14 @@ const ChapterInvocation = ({ language }) => {
             : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
         }
         alt="Entity Attack"
-        style={{ width: '200px', height: '100%', objectFit: 'cover' }}
+        style={{ height: '200px', width: 'auto' }} // stessa regola
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
 </div>
-
-
-
 
 
       <p>
