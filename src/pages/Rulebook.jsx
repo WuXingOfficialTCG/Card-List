@@ -42,6 +42,9 @@ const Rulebook = () => {
         <div className={styles.chapter} id="chapter-3">
           <ChapterPlayfield language={language} />
         </div>
+        <div className={styles.chapter} id="chapter-9">
+          <ChapterInvocation language={language} />
+        </div>
         <div className={styles.chapter} id="chapter-4">
           <ChapterEffects language={language} />
         </div>
@@ -55,9 +58,6 @@ const Rulebook = () => {
           <ChapterCombat language={language} />
         </div>
         <div className={styles.chapter} id="chapter-8">
-          <ChapterGlossary language={language} />
-        </div>
-        <div className={styles.chapter} id="chapter-9">
           <ChapterGlossary language={language} />
         </div>
       </div>
