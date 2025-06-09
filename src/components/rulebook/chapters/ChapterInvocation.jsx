@@ -42,7 +42,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
@@ -60,7 +60,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
