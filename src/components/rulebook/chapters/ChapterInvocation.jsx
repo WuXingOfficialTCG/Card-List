@@ -19,9 +19,9 @@ const ChapterInvocation = ({ language }) => {
           : `You can summon entities in two positions: attack or defense, but always face-up. Entity positions can be changed once per turn, during the Main Phase or the Recovery Phase.`}
       </p>
 
-<div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginBottom: '1rem' }}>
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '40px', marginBottom: '2rem' }}>
   {/* Colonna sinistra */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '260px', justifyContent: 'space-between' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
     <img
       src={
         language === 'ita'
@@ -31,13 +31,20 @@ const ChapterInvocation = ({ language }) => {
       alt="Entity Defense"
       style={{ width: '200px', height: 'auto' }}
     />
-    <div style={{ fontWeight: 'bold' }}>
+    <div style={{
+      fontWeight: 'bold',
+      marginTop: '0.5rem',
+      minHeight: '24px', // Altezza minima per uniformare con la colonna destra
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
 
   {/* Colonna destra */}
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '260px', justifyContent: 'space-between' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '0.7rem' }}>
     <img
       src={
         language === 'ita'
@@ -47,11 +54,19 @@ const ChapterInvocation = ({ language }) => {
       alt="Entity Attack"
       style={{ width: '200px', height: 'auto' }}
     />
-    <div style={{ fontWeight: 'bold' }}>
+    <div style={{
+      fontWeight: 'bold',
+      marginTop: '0.5rem',
+      minHeight: '24px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
 </div>
+
 
 
       <p>
