@@ -23,44 +23,64 @@ const ChapterInvocation = ({ language }) => {
   style={{
     display: 'flex',
     justifyContent: 'center',
-    gap: '80px',
+    gap: '40px',
     alignItems: 'flex-start',
     marginTop: '3rem',
     marginBottom: '2rem',
   }}
 >
   {/* Colonna sinistra - carta verticale */}
-  <div style={{ textAlign: 'center', width: '200px' }}>
-    <img
-      src={
-        language === 'ita'
-          ? '/rulebookdata/ITA - 01 - Tritone Abissale.png'
-          : '/rulebookdata/01 - Abyssal Merman (1).png'
-      }
-      alt="Entity Attack"
-      style={{ height: '200px', width: 'auto', display: 'block', margin: '0 auto' }}
-    />
+  <div style={{ textAlign: 'center' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '200px',
+      }}
+    >
+      <img
+        src={
+          language === 'ita'
+            ? '/rulebookdata/ITA - 01 - Tritone Abissale.png'
+            : '/rulebookdata/01 - Abyssal Merman (1).png'
+        }
+        alt="Entity Attack"
+        style={{ height: '200px', width: 'auto' }}
+      />
+    </div>
     <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
 
   {/* Colonna destra - carta orizzontale */}
-  <div style={{ textAlign: 'center', width: '200px' }}>
-    <img
-      src={
-        language === 'ita'
-          ? '/rulebookdata/ITA - 01 - Tritone Abissale_orizzontale.png'
-          : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
-      }
-      alt="Entity Defense"
-      style={{ width: '200px', height: 'auto', display: 'block', margin: '0 auto' }}
-    />
+  <div style={{ textAlign: 'center', paddingTop: '30px' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '200px',
+        height: 'auto',
+      }}
+    >
+      <img
+        src={
+          language === 'ita'
+            ? '/rulebookdata/ITA - 01 - Tritone Abissale_orizzontale.png'
+            : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
+        }
+        alt="Entity Defense"
+        style={{ width: '200px', height: 'auto' }}
+      />
+    </div>
     <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
 </div>
+
 
 
 
