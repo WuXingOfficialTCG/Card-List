@@ -25,13 +25,24 @@ const ChapterInvocation = ({ language }) => {
     justifyContent: 'center',
     gap: '40px',
     alignItems: 'flex-start',
-    marginTop: '3rem', // spazio sopra le immagini
+    marginTop: '3rem',
     marginBottom: '2rem',
+    maxWidth: '600px', // centro contenuto nella pagina
+    marginLeft: 'auto',
+    marginRight: 'auto',
   }}
 >
   {/* Colonna sinistra */}
   <div style={{ textAlign: 'center' }}>
-    <div style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        width: '200px',
+        height: '260px', // stessa altezza per entrambe le immagini
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <img
         src={
           language === 'ita'
@@ -39,17 +50,25 @@ const ChapterInvocation = ({ language }) => {
             : '/rulebookdata/01 - Abyssal Merman (1).png'
         }
         alt="Entity Defense"
-        style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
+        style={{ width: '200px', height: '100%', objectFit: 'cover' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '3rem' /* spazio aumentato */ }}>
+    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
 
   {/* Colonna destra */}
   <div style={{ textAlign: 'center' }}>
-    <div style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        width: '200px',
+        height: '260px', // stessa altezza anche qui
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <img
         src={
           language === 'ita'
@@ -57,14 +76,15 @@ const ChapterInvocation = ({ language }) => {
             : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
         }
         alt="Entity Attack"
-        style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
+        style={{ width: '200px', height: '100%', objectFit: 'cover' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '3rem' /* spazio aumentato */ }}>
+    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
 </div>
+
 
 
 
