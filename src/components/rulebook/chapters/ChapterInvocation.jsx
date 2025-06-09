@@ -49,7 +49,7 @@ const ChapterInvocation = ({ language }) => {
 
   {/* Colonna destra */}
   <div style={{ textAlign: 'center' }}>
-    <div style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <img
         src={
           language === 'ita'
@@ -57,7 +57,7 @@ const ChapterInvocation = ({ language }) => {
             : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
         }
         alt="Entity Attack"
-        style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
+        style={{ width: '250px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
     <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
