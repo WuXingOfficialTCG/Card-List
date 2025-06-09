@@ -136,7 +136,7 @@ const ChapterInvocation = ({ language }) => {
     ? `Tuttavia, devi pagare un costo aggiuntivo:`
     : `However, you must pay an extra cost:`}
 </p>
-<ul style={{ listStyleType: 'disc', marginLeft: '1.5rem' }}>
+<ul style={{ listStyleType: 'disc' }}>
   <li>
     {language === 'ita'
       ? `Devi sacrificare 1 Qi del suo Elemento + 1 Qi dell’Elemento dell’Entità su cui vuoi impilarla.`
