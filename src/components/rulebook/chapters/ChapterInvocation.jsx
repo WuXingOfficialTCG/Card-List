@@ -60,7 +60,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '250px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '2.5rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2.3rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
