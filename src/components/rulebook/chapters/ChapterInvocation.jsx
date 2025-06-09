@@ -29,7 +29,7 @@ const ChapterInvocation = ({ language }) => {
     marginBottom: '2rem',
   }}
 >
-  {/* Colonna sinistra */}
+  {/* Colonna sinistra - carta verticale */}
   <div style={{ textAlign: 'center' }}>
     <div
       style={{
@@ -45,8 +45,8 @@ const ChapterInvocation = ({ language }) => {
             ? '/rulebookdata/ITA - 01 - Tritone Abissale.png'
             : '/rulebookdata/01 - Abyssal Merman (1).png'
         }
-        alt="Entity Defense"
-        style={{ height: '200px', width: 'auto' }} // altezza fissa, larghezza automatica
+        alt="Entity Attack"
+        style={{ height: '200px', width: 'auto' }} // lato lungo = altezza
       />
     </div>
     <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
@@ -54,14 +54,15 @@ const ChapterInvocation = ({ language }) => {
     </div>
   </div>
 
-  {/* Colonna destra */}
+  {/* Colonna destra - carta orizzontale */}
   <div style={{ textAlign: 'center' }}>
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '200px',
+        width: '200px',
+        height: 'auto',
       }}
     >
       <img
@@ -70,8 +71,8 @@ const ChapterInvocation = ({ language }) => {
             ? '/rulebookdata/ITA - 01 - Tritone Abissale_orizzontale.png'
             : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
         }
-        alt="Entity Attack"
-        style={{ height: '200px', width: 'auto' }} // stessa regola
+        alt="Entity Defense"
+        style={{ width: '200px', height: 'auto' }} // lato lungo = larghezza
       />
     </div>
     <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
@@ -79,6 +80,7 @@ const ChapterInvocation = ({ language }) => {
     </div>
   </div>
 </div>
+
 
 
       <p>
