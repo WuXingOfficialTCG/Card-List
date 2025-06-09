@@ -25,7 +25,7 @@ const ChapterInvocation = ({ language }) => {
     justifyContent: 'center',
     gap: '40px',
     alignItems: 'flex-start',
-    marginTop: '2rem',
+    marginTop: '3rem',
     marginBottom: '2rem',
   }}
 >
@@ -42,7 +42,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '1rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
@@ -60,7 +60,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '1rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
