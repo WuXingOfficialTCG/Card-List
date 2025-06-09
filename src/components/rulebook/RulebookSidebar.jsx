@@ -2,11 +2,11 @@ import React from 'react';
 
 const labels = {
   ita: [
-    'Introduzione', 'Setup', 'Carte', 'Campo di gioco', 'Effetti',
+    'Introduzione', 'Setup', 'Carte', 'Campo di gioco', 'Invocazione', 'Effetti',
     'Fasi del turno', 'Qi', 'Combattimento', 'Glossario'
   ],
   eng: [
-    'Introduction', 'Setup', 'Cards', 'Playfield', 'Effects',
+    'Introduction', 'Setup', 'Cards', 'Playfield', 'Invocation', 'Effects',
     'Turn Phases', 'Qi', 'Combat', 'Glossary'
   ]
 };
