@@ -42,22 +42,22 @@ const Rulebook = () => {
         <div className={styles.chapter} id="chapter-3">
           <ChapterPlayfield language={language} />
         </div>
-        <div className={styles.chapter} id="chapter-9">
+        <div className={styles.chapter} id="chapter-4">
           <ChapterInvocation language={language} />
         </div>
-        <div className={styles.chapter} id="chapter-4">
+        <div className={styles.chapter} id="chapter-5">
           <ChapterEffects language={language} />
         </div>
-        <div className={styles.chapter} id="chapter-5">
+        <div className={styles.chapter} id="chapter-6">
           <ChapterTurnPhases language={language} />
         </div>
-        <div className={styles.chapter} id="chapter-6">
+        <div className={styles.chapter} id="chapter-7">
           <ChapterQi language={language} />
         </div>
-        <div className={styles.chapter} id="chapter-7">
+        <div className={styles.chapter} id="chapter-8">
           <ChapterCombat language={language} />
         </div>
-        <div className={styles.chapter} id="chapter-8">
+        <div className={styles.chapter} id="chapter-9">
           <ChapterGlossary language={language} />
         </div>
       </div>
