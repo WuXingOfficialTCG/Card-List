@@ -25,7 +25,7 @@ const ChapterInvocation = ({ language }) => {
     justifyContent: 'center',
     gap: '40px',
     alignItems: 'flex-start',
-    marginTop: '3rem',
+    marginTop: '2rem', // spazio sopra le immagini
     marginBottom: '2rem',
   }}
 >
@@ -42,14 +42,14 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '3rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '1rem' /* spazio aumentato */ }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
 
   {/* Colonna destra */}
   <div style={{ textAlign: 'center' }}>
-    <div style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '-2rem', }}>
+    <div style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <img
         src={
           language === 'ita'
@@ -57,10 +57,10 @@ const ChapterInvocation = ({ language }) => {
             : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
         }
         alt="Entity Attack"
-        style={{ width: '250px', height: 'auto', objectFit: 'contain' }}
+        style={{ width: '200px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '2.3rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '1rem' /* spazio aumentato */ }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
