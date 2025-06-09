@@ -49,7 +49,7 @@ const ChapterInvocation = ({ language }) => {
 
   {/* Colonna destra */}
   <div style={{ textAlign: 'center' }}>
-    <div style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2rem', }}>
+    <div style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '4rem', }}>
       <img
         src={
           language === 'ita'
