@@ -4,6 +4,7 @@ import ChapterIntroduction from '../components/rulebook/chapters/ChapterIntroduc
 import ChapterSetup from '../components/rulebook/chapters/ChapterSetup';
 import ChapterCards from '../components/rulebook/chapters/ChapterCards';
 import ChapterPlayfield from '../components/rulebook/chapters/ChapterPlayfield';
+import ChapterInvocation from '../components/rulebook/chapters/ChapterInvocation';
 import ChapterEffects from '../components/rulebook/chapters/ChapterEffects';
 import ChapterTurnPhases from '../components/rulebook/chapters/ChapterTurnPhases';
 import ChapterQi from '../components/rulebook/chapters/ChapterQi';
@@ -54,6 +55,9 @@ const Rulebook = () => {
           <ChapterCombat language={language} />
         </div>
         <div className={styles.chapter} id="chapter-8">
+          <ChapterGlossary language={language} />
+        </div>
+        <div className={styles.chapter} id="chapter-9">
           <ChapterGlossary language={language} />
         </div>
       </div>
