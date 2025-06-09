@@ -19,39 +19,40 @@ const ChapterInvocation = ({ language }) => {
           : `You can summon entities in two positions: attack or defense, but always face-up. Entity positions can be changed once per turn, during the Main Phase or the Recovery Phase.`}
       </p>
 
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginBottom: '1rem' }}>
-        {/* Colonna sinistra */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <img
-            src={
-              language === 'ita'
-                ? '/rulebookdata/ITA - 01 - Tritone Abissale.png'
-                : '/rulebookdata/01 - Abyssal Merman (1).png'
-            }
-            alt="Entity Defense"
-            style={{ width: '200px', height: 'auto' }}
-          />
-          <div style={{ fontWeight: 'bold', marginTop: '0.5rem' }}>
-            {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
-          </div>
-        </div>
+<div style={{ display: 'flex', justifyContent: 'center', gap: '40px', marginBottom: '1rem' }}>
+  {/* Colonna sinistra */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '260px', justifyContent: 'space-between' }}>
+    <img
+      src={
+        language === 'ita'
+          ? '/rulebookdata/ITA - 01 - Tritone Abissale.png'
+          : '/rulebookdata/01 - Abyssal Merman (1).png'
+      }
+      alt="Entity Defense"
+      style={{ width: '200px', height: 'auto' }}
+    />
+    <div style={{ fontWeight: 'bold' }}>
+      {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
+    </div>
+  </div>
 
-        {/* Colonna destra */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <img
-            src={
-              language === 'ita'
-                ? '/rulebookdata/ITA - 01 - Tritone Abissale_orizzontale.png'
-                : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
-            }
-            alt="Entity Attack"
-            style={{ width: '200px', height: 'auto' }}
-          />
-          <div style={{ fontWeight: 'bold', marginTop: '0.5rem' }}>
-            {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
-          </div>
-        </div>
-      </div>
+  {/* Colonna destra */}
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '260px', justifyContent: 'space-between' }}>
+    <img
+      src={
+        language === 'ita'
+          ? '/rulebookdata/ITA - 01 - Tritone Abissale_orizzontale.png'
+          : '/rulebookdata/01 - Abyssal Merman (1)_orizzontale.png'
+      }
+      alt="Entity Attack"
+      style={{ width: '200px', height: 'auto' }}
+    />
+    <div style={{ fontWeight: 'bold' }}>
+      {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
+    </div>
+  </div>
+</div>
+
 
       <p>
         {language === 'ita'
