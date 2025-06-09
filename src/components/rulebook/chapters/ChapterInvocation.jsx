@@ -31,7 +31,7 @@ const ChapterInvocation = ({ language }) => {
             style={{ maxWidth: '200px', height: 'auto' }}
           />
           <div style={{ fontWeight: 'bold', marginTop: '0.5rem' }}>
-            {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
+            {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
           </div>
         </div>
 
@@ -46,7 +46,7 @@ const ChapterInvocation = ({ language }) => {
             style={{ maxWidth: '200px', height: 'auto' }}
           />
           <div style={{ fontWeight: 'bold', marginTop: '0.5rem' }}>
-            {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
+            {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
           </div>
         </div>
       </div>
