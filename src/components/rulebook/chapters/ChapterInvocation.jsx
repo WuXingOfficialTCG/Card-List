@@ -49,7 +49,7 @@ const ChapterInvocation = ({ language }) => {
 
   {/* Colonna destra */}
   <div style={{ textAlign: 'center' }}>
-    <div style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '4rem', }}>
+    <div style={{ height: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '-2rem', }}>
       <img
         src={
           language === 'ita'
@@ -60,7 +60,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '250px', height: 'auto', objectFit: 'contain' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '3.5rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2.5rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
