@@ -75,7 +75,7 @@ const ChapterInvocation = ({ language }) => {
       />
     </div>
     {/* MATCH the marginTop to the left caption */}
-    <div style={{ fontWeight: 'bold', marginTop: '2.5rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '3.5rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
