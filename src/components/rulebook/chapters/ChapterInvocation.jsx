@@ -49,7 +49,7 @@ const ChapterInvocation = ({ language }) => {
         style={{ height: '200px', width: 'auto' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
+    <div style={{ fontWeight: 'bold', marginTop: '2.5rem' }}>
       {language === 'ita' ? 'ATTACCO' : 'ATTACK'}
     </div>
   </div>
@@ -62,7 +62,6 @@ const ChapterInvocation = ({ language }) => {
         alignItems: 'center',
         justifyContent: 'center',
         width: '200px',
-        height: 'auto',
       }}
     >
       <img
@@ -75,11 +74,13 @@ const ChapterInvocation = ({ language }) => {
         style={{ width: '200px', height: 'auto' }}
       />
     </div>
-    <div style={{ fontWeight: 'bold', marginTop: '2rem' }}>
+    {/* MATCH the marginTop to the left caption */}
+    <div style={{ fontWeight: 'bold', marginTop: '2.5rem' }}>
       {language === 'ita' ? 'DIFESA' : 'DEFENSE'}
     </div>
   </div>
 </div>
+
 
 
 
