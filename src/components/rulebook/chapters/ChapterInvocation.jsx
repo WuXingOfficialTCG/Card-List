@@ -127,21 +127,28 @@ const ChapterInvocation = ({ language }) => {
       </p>
 
       <p>
-        {language === 'ita'
-          ? `Questa ti permette di invocare un’Entità dalla mano anche in fasi in cui normalmente non potresti (come durante la Battle Phase o il turno dell’avversario).`
-          : `This allows you to Invoke an Entity from your hand during phases when you normally wouldn't be able to (such as the battle phase or your opponent's turn).`}
-        <br />
-        {language === 'ita'
-          ? `Tuttavia, devi pagare un costo aggiuntivo:` : `However, you must pay an extra cost:`}
-        <br />
-        {language === 'ita'
-          ? `- Devi sacrificare 1 Qi del suo Elemento + 1 Qi dell’Elemento dell’Entità su cui vuoi impilarla.` 
-          : `- You must sacrifice 1 Qi of its own element + 1 Qi of the element of the Entity you want to stack it on.`}
-        <br />
-        {language === 'ita'
-          ? `- Se vuoi impilarla su un’Entità già impilata, devi sacrificare 1 Qi del suo Elemento + 1 Qi per ciascuna Entità sottostante.` 
-          : `- If you want to stack your Entity on an already stacked Entity, you must sacrifice 1 Qi of its own element + 1 Qi of the element of each underlying Entity.`}
-      </p>
+  {language === 'ita'
+    ? `Questa ti permette di invocare un’Entità dalla mano anche in fasi in cui normalmente non potresti (come durante la Battle Phase o il turno dell’avversario).`
+    : `This allows you to Invoke an Entity from your hand during phases when you normally wouldn't be able to (such as the battle phase or your opponent's turn).`}
+</p>
+<p>
+  {language === 'ita'
+    ? `Tuttavia, devi pagare un costo aggiuntivo:`
+    : `However, you must pay an extra cost:`}
+</p>
+<ul style={{ listStyleType: 'disc', marginLeft: '1.5rem' }}>
+  <li>
+    {language === 'ita'
+      ? `Devi sacrificare 1 Qi del suo Elemento + 1 Qi dell’Elemento dell’Entità su cui vuoi impilarla.`
+      : `You must sacrifice 1 Qi of its own element + 1 Qi of the element of the Entity you want to stack it on.`}
+  </li>
+  <li>
+    {language === 'ita'
+      ? `Se vuoi impilarla su un’Entità già impilata, devi sacrificare 1 Qi del suo Elemento + 1 Qi per ciascuna Entità sottostante.`
+      : `If you want to stack your Entity on an already stacked Entity, you must sacrifice 1 Qi of its own element + 1 Qi of the element of each underlying Entity.`}
+  </li>
+</ul>
+
 
       <p>
         {language === 'ita'
