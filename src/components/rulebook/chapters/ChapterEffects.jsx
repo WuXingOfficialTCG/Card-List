@@ -116,6 +116,7 @@ const ChapterEffects = ({ language }) => {
           ? 'Nel caso di un effetto Interruption: se la carta è posizionata, si applica la regola precedente; se invece è in mano, l’avversario può scegliere di annullare l’attacco.'
           : 'In the case of an Interrupt: if the card is placed, the situation described above applies; however, if the card is in the hand, the opponent can choose to cancel the attack.'}
       </p>
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
