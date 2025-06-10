@@ -51,6 +51,7 @@ const ChapterQi = ({ language }) => {
           ? `Entità impilate: se stai smantellando un'Entità impilata, ricevi 1 Qi solo per l'Entità più in alto nella pila, mentre le Entità sottostanti rimangono nelle Manifestazioni.`
           : `Stacked Entities: If you are dismantling a stacked Entity, you receive 1 Qi only for the topmost Entity in the stack, and the Entities below remain in the Manifestations.`}
       </p>
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
