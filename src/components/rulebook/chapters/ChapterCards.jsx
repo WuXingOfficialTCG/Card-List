@@ -54,6 +54,7 @@ const ChapterCards = ({ language }) => {
           </p>
         </div>
       </div>
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
