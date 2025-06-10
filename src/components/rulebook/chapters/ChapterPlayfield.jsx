@@ -62,7 +62,7 @@ const ChapterPlayfield = ({ language }) => {
             : 'Side Deck: used in tournaments, this is where you keep your reserve deck.'}
         </li>
       </ol>
-      <hr style={{ width: '40%', margin: '2rem auto', border: '1px solid #ccc' }} />
+      <hr style={{ width: '60%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
