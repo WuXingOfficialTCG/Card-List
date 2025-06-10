@@ -23,12 +23,6 @@ const ChapterIntroduction = ({ language }) => {
           <p>
             Only the most cunning and powerful will ascend among the Masters of Invoking. Are you ready to challenge your destiny?
           </p>
-          <p>
-            To play Wu Xing, all you need is a deck of cards entirely chosen by you and a few tokens to keep track of your Qi.
-          </p>
-          <p>
-            You can freely build your deck using any cards you want, whether from Starter Decks (perfect for beginners) or Expansion Packs for even more advanced strategies!
-          </p>
         </>
       )}
     </div>
