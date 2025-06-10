@@ -9,6 +9,7 @@ const ChapterTurnPhases = ({ language }) => {
           ? `Sempre caro mi fu quest’ermo colle, e questa siepe...`
           : `In the middle of the journey of our life I found myself in a dark wood...`}
       </p>
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
