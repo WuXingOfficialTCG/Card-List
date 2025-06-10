@@ -123,6 +123,7 @@ const ChapterInvocation = ({ language }) => {
           : `Remember: if a stacked Entity is destroyed, all underlying Entities are also sent to Diyu. This doesn’t apply to “Return” or “Withdraw” effects: in those cases only the topmost Entity is affected.
  `}
       </p>
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
