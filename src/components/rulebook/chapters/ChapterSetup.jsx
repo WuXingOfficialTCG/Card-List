@@ -6,6 +6,12 @@ const ChapterSetup = ({ language }) => {
       <h2>{language === 'ita' ? 'Setup' : 'Setup'}</h2>
       {language === 'ita' ? (
         <>
+          <p>
+            Per giocare a Wu Xing, tutto ciò di cui hai bisogno è un mazzo di carte interamente scelto da te e qualche segnalino per tenere traccia del tuo Qi.
+          </p>
+          <p>
+            Puoi costruire liberamente il tuo mazzo usando qualsiasi carta tu voglia, sia dal Mazzo Alpha che da future espansioni, per strategie ancora più avanzate!
+          </p>
           <p>Per iniziare una partita a Wu Xing, avrai bisogno di:</p>
           <ul>
             <li>Deck: Deve contenere almeno 30 carte, fino a un massimo di 40.</li>
@@ -26,6 +32,12 @@ const ChapterSetup = ({ language }) => {
         </>
       ) : (
         <>
+          <p>
+            To play Wu Xing, all you need is a deck of cards entirely chosen by YOU and a few tokens to keep track of your Qi.
+          </p>
+          <p>
+            You can freely build your deck using any cards you want, whether from Alpha Set or future Expansions,  for even more advanced strategies!
+          </p>
           <p>To start a Wu Xing match, you will need:</p>
           <ul>
             <li>Deck: Must contain at least 30 cards, up to a maximum of 40.</li>
