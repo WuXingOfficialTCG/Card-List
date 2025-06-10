@@ -57,6 +57,7 @@ const ChapterSetup = ({ language }) => {
           <p>Now you're ready to play!</p>
         </>
       )}
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
