@@ -20,7 +20,7 @@ const ChapterSetup = ({ language }) => {
           <p>Per un'esperienza più immersiva, puoi anche usare:</p>
           <ul>
             <li>Playmat: Per organizzare meglio il campo di gioco.</li>
-            <li>Dado PM: Utile per tenere traccia dei tuoi Punti Marma.</li>
+            <li>Dado PM (d12): Utile per tenere traccia dei tuoi Punti Marma.</li>
           </ul>
           <p>
             Una volta che entrambi i giocatori hanno completato il setup, la partita può cominciare! Ogni giocatore inizia con 12 Punti Marma (PM), che rappresentano la loro vita.
