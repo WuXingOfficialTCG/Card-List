@@ -55,6 +55,7 @@ const ChapterCombat = ({ language }) => {
           ? `Se il tuo avversario ti attacca direttamente, puoi attivare la meccanica del Blocco Potente. Per farlo, devi sacrificare 1 Qi dello stesso Elemento dell’Entità attaccante. Questo ti permette di annullare completamente l’attacco dell’avversario, proteggendo i tuoi Punti Vita e mantenendo il controllo della situazione.`
           : `If your opponent attacks you directly, you can activate the Heavy Block mechanic. To do this, you must sacrifice 1 Qi of the same Element as the attacking Entity. This allows you to completely negate the opponent's attack, protecting your life and maintaining control of the situation.`}
       </p>
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
