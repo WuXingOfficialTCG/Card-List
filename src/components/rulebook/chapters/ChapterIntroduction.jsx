@@ -25,6 +25,7 @@ const ChapterIntroduction = ({ language }) => {
           </p>
         </>
       )}
+      <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
   );
 };
