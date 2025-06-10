@@ -11,7 +11,7 @@ const ChapterPlayfield = ({ language }) => {
       <img
         src={`${imgPath}${playmatImg}`}
         alt="playfield"
-        style={{ display: 'block', maxWidth: '100%', margin: '1rem auto' }}
+        style={{ display: 'block', maxWidth: '80%', margin: '1rem auto' }}
       />
 
       <p>
