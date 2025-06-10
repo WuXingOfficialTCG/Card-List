@@ -13,12 +13,6 @@ const ChapterIntroduction = ({ language }) => {
           <p>
             Solo i più astuti e potenti ascenderanno tra i Maestri dell’Evocazione. Sei pronto a sfidare il tuo destino?
           </p>
-          <p>
-            Per giocare a Wu Xing, tutto ciò di cui hai bisogno è un mazzo di carte interamente scelto da te e qualche segnalino per tenere traccia del tuo Qi.
-          </p>
-          <p>
-            Puoi costruire liberamente il tuo mazzo usando qualsiasi carta tu voglia, sia dai Mazzi Introduttivi (perfetti per i principianti) che dai Pacchetti Espansione, per strategie ancora più avanzate!
-          </p>
         </>
       ) : (
         <>
