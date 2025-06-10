@@ -46,7 +46,7 @@ const ChapterSetup = ({ language }) => {
           <p>For a more immersive experience, you can also use:</p>
           <ul>
             <li>Playmat: To better organize the playing field.</li>
-            <li>PM Die: Useful for tracking your Marma Points.</li>
+            <li>MP Die (d12): Useful for tracking your Marma Points.</li>
           </ul>
           <p>
             Once both players have completed their setup, the match can begin! Each player starts with 12 Marma Points (MP), representing their life.
