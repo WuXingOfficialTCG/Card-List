@@ -89,20 +89,26 @@ const ChapterEffects = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? 'Inoltre, i Chakra posizionati possono essere attivati in qualsiasi fase del turno di entrambi i giocatori. Eccezione: i Chakra con l’effetto Interruption possono essere attivati direttamente dalla tua mano, anche durante il turno dell’avversario!'
-          : 'Additionally, placed Chakras can be activated during any phase of either player\'s turn. Exception: Chakras with the Interruption effect can be activated directly from your hand, even during the opponent’s turn!'}
+          ? 'Inoltre, i Chakra posizionati possono essere attivati in qualsiasi fase del turno di entrambi i giocatori.'
+          : 'Additionally, placed Chakras can be activated during any phase of either player\'s turn.'}
+      </p>
+
+      <p>
+        {language === 'ita'
+          ? 'Eccezione: i Chakra con l’effetto Interruption possono essere attivati direttamente dalla tua mano, anche durante il turno dell’avversario!'
+          : 'Exception: Chakras with the Interruption effect can be activated directly from your hand, even during the opponent’s turn!'}
       </p>
 
       <p>
         {language === 'ita'
           ? 'Ricorda: se tutti gli slot Nexus sono occupati, non puoi attivare altri Chakra!'
-          : 'Additionally, remember: if all Nexus slots are occupied, you cannot activate any more Chakras!'}
+          : 'Remember: if all Nexus slots are occupied, you cannot activate any more Chakras!'}
       </p>
 
       <p>
         {language === 'ita'
-          ? 'Gli effetti possono essere attivati solo durante la Main Phase o la Recovery Phase, con l’eccezione degli effetti Interruption, che come detto possono essere attivati anche nel turno dell’avversario.'
-          : 'Effects can only be activated during the Main Phase or the Recovery Phase, with the exception of Interruptions, which, as mentioned earlier, can be activated even during the opponent\'s turn.'}
+          ? 'Gli effetti possono essere attivati solo durante la Main Phase o la Recovery Phase, con l’eccezione degli effetti Distruzione, che come detto possono essere attivati anche nel turno dell’avversario.'
+          : 'Effects can only be activated during the Main Phase or the Recovery Phase, with the exception of Disruption, which, as mentioned earlier, can be activated even during the opponent\'s turn.'}
       </p>
 
       <p>
@@ -113,8 +119,8 @@ const ChapterEffects = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? 'Nel caso di un effetto Interruption: se la carta è posizionata, si applica la regola precedente; se invece è in mano, l’avversario può scegliere di annullare l’attacco.'
-          : 'In the case of an Interrupt: if the card is placed, the situation described above applies; however, if the card is in the hand, the opponent can choose to cancel the attack.'}
+          ? 'Nel caso di un effetto Distruzione: se la carta è posizionata, si applica la regola precedente; se invece è in mano, l’avversario può scegliere di annullare l’attacco.'
+          : 'In the case of an Disruption: if the card is placed, the situation described above applies; however, if the card is in the hand, the opponent can choose to cancel the attack.'}
       </p>
       <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
     </div>
