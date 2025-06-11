@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../rulebook/Rulebook.module.css';
+import styles from '../Rulebook.module.css';
 
 const ChapterSetup = ({ language }) => {
   return (
