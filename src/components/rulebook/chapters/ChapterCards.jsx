@@ -14,8 +14,8 @@ const ChapterCards = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? <>In Wu Xing, ci sono <strong>tre tipi di carte</strong> (<strong>three types of cards</strong>) che puoi usare per costruire il tuo mazzo: <strong>Entità</strong> (<strong>Entities</strong>), <strong>Chakra</strong> (<strong>Chakras</strong>) e <strong>Domini</strong> (<strong>Domains</strong>). Puoi distinguerli grazie al simbolo e al testo in alto a sinistra.</>
-          : <>In Wu Xing, there are <strong>three types of cards</strong> (<strong>tre tipi di carte</strong>) that you can use to build your deck: <strong>Entities</strong> (<strong>Entità</strong>), <strong>Chakras</strong> (<strong>Chakra</strong>) and <strong>Domains</strong> (<strong>Domini</strong>). You can distinguish these by their symbol and text in the top left corner.</>
+          ? <>In Wu Xing, ci sono <strong>tre tipi di carte</strong> che puoi usare per costruire il tuo mazzo: <strong>Entità</strong>, <strong>Chakra</strong> e <strong>Domini</strong>. Puoi distinguerli grazie al simbolo e al testo in alto a sinistra.</>
+          : <>In Wu Xing, there are <strong>three types of cards</strong> that you can use to build your deck: <strong>Entities</strong>, <strong>Chakras</strong> and <strong>Domains</strong>. You can distinguish these by their symbol and text in the top left corner.</>
         }
       </p>
 
@@ -27,8 +27,8 @@ const ChapterCards = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? <>Tutte le carte sono associate a <strong>uno dei cinque Elementi</strong> (<strong>one of the five Elements</strong>). Questa è una caratteristica importante per la costruzione del mazzo, perché i mazzi a elemento singolo non sono sempre i migliori!</>
-          : <>All cards are associated with <strong>one of the five Elements</strong> (<strong>uno dei cinque Elementi</strong>). This is an important feature for deck building, as single-Element decks are not always the best!</>
+          ? <>Tutte le carte sono associate a <strong>uno dei cinque Elementi</strong>. Questa è una caratteristica importante per la costruzione del mazzo, perché i mazzi a elemento singolo non sono sempre i migliori!</>
+          : <>All cards are associated with <strong>one of the five Elements</strong>. This is an important feature for deck building, as single-Element decks are not always the best!</>
         }
       </p>
 
@@ -42,17 +42,17 @@ const ChapterCards = ({ language }) => {
               : 'On each card, you can distinguish:'}
           </p>
           <ol>
-            <li>{language === 'ita' ? <><strong>Nome</strong> (<strong>Name</strong>).</> : <><strong>Name</strong> (<strong>Nome</strong>).</>}</li>
-            <li>{language === 'ita' ? <> <strong>Tipo di carta</strong> (<strong>Card type</strong>): per le Entità, è il rango.</> : <> <strong>Card type</strong> (<strong>Tipo di carta</strong>): for Entities, this is the rank.</>}</li>
-            <li>{language === 'ita' ? <> <strong>Elemento</strong> (<strong>Element</strong>): nel gioco ce ne sono 5.</> : <> <strong>Element</strong> (<strong>Elemento</strong>): in the game there are 5.</>}</li>
+            <li>{language === 'ita' ? <><strong>Nome</strong>.</> : <><strong>Name</strong>.</>}</li>
+            <li>{language === 'ita' ? <><strong>Tipo di carta</strong>: per le Entità, è il rango.</> : <><strong>Card type</strong>: for Entities, this is the rank.</>}</li>
+            <li>{language === 'ita' ? <><strong>Elemento</strong>: nel gioco ce ne sono 5.</> : <><strong>Element</strong>: in the game there are 5.</>}</li>
             <li>{language === 'ita' ? <><strong>ATK</strong> e <strong>RES</strong>: solo per le Entità.</> : <><strong>ATK</strong> and <strong>RES</strong>: only for Entities.</>}</li>
-            <li>{language === 'ita' ? <><strong>Effetto</strong> (<strong>Effect</strong>).</> : <><strong>Effect</strong> (<strong>Effetto</strong>).</>}</li>
-            <li>{language === 'ita' ? <><strong>Informazioni aggiuntive</strong> (<strong>Additional information</strong>).</> : <><strong>Additional information</strong> (<strong>Informazioni aggiuntive</strong>).</>}</li>
+            <li>{language === 'ita' ? <><strong>Effetto</strong>.</> : <><strong>Effect</strong>.</>}</li>
+            <li>{language === 'ita' ? <><strong>Informazioni aggiuntive</strong>.</> : <><strong>Additional information</strong>.</>}</li>
           </ol>
           <p style={{ marginTop: '1rem' }}>
             {language === 'ita'
-              ? <>Puoi facilmente capire il rango dell'entità semplicemente guardando il numero romano in alto a sinistra della carta: <strong>I</strong> (<strong>I</strong>) indica Rango 1, <strong>II</strong> (<strong>II</strong>) Rango 2 e <strong>III</strong> (<strong>III</strong>) Rango 3.</>
-              : <>You can easily tell the rank of the entity just by looking at the Roman numeral on the top left of the card: <strong>I</strong> (<strong>I</strong>) stands for Rank 1, <strong>II</strong> (<strong>II</strong>) stands for Rank 2 and <strong>III</strong> (<strong>III</strong>) for Rank 3.</>}
+              ? <>Puoi facilmente capire il rango dell'entità semplicemente guardando il numero romano in alto a sinistra della carta: <strong>I</strong> indica Rango 1, <strong>II</strong> Rango 2 e <strong>III</strong> Rango 3.</>
+              : <>You can easily tell the rank of the entity just by looking at the Roman numeral on the top left of the card: <strong>I</strong> stands for Rank 1, <strong>II</strong> stands for Rank 2 and <strong>III</strong> for Rank 3.</>}
           </p>
         </div>
       </div>
