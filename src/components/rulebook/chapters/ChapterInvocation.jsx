@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../Rulebook.module.css';
 
 const ChapterInvocation = ({ language }) => {
   return (
@@ -7,16 +8,26 @@ const ChapterInvocation = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? `Per schierare un’Entità dalla tua mano sul campo, devi prima invocarla. Invocare è semplice: per invocare un’Entità devi sacrificare 1 Qi del suo Elemento corrispondente. 
-          Ad esempio: per invocare un’Entità di Terra, devi sacrificare 1 Qi di Terra.`
-          : `To deploy an Entity from your hand onto the field, you must first invoke it. Invocation is simple: to invoke an Entity, you must sacrifice 1 Qi of its corresponding Element.
-          For example: to invoke an Earth Element Entity, you must sacrifice 1 Earth Qi.`}
+          ? `Per schierare un’Entità dalla tua mano sul campo, devi prima invocarla. Invocare è semplice: per invocare un’Entità devi sacrificare 1 Qi del suo Elemento corrispondente.`
+          : `To deploy an Entity from your hand onto the field, you must first invoke it. Invocation is simple: to invoke an Entity, you must sacrifice 1 Qi of its corresponding Element.`}
       </p>
 
       <p>
         {language === 'ita'
-          ? `Puoi evocare Entità in due posizioni: attacco o difesa, ma sempre a faccia scoperta. La posizione delle Entità può essere cambiata una volta per turno, durante o la Main Phase o la Recovery Phase.`
-          : `You can summon entities in two positions: attack or defense, but always face-up. Entity positions can be changed once per turn, during either the Main Phase or the Recovery Phase.`}
+          ? `<em>Ad esempio: per invocare un’Entità di Terra, devi sacrificare 1 Qi di Terra.</em>`
+          : `<em>Example: to invoke an Earth Element Entity, you must sacrifice 1 Earth Qi.</em>`}
+      </p>
+
+      <p>
+        {language === 'ita'
+          ? `Puoi evocare Entità in due posizioni: attacco o difesa, ma sempre a faccia scoperta.`
+          : `You can summon entities in two positions: attack or defense, but always face-up.`}
+      </p>
+
+      <p>
+        {language === 'ita'
+          ? `La posizione delle Entità può essere cambiata una volta per turno, durante o la Main Phase o la Recovery Phase.`
+          : `Entity positions can be changed once per turn, during either the Main Phase or the Recovery Phase.`}
       </p>
 
 <div
@@ -88,10 +99,20 @@ const ChapterInvocation = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? `La caratteristica unica di un’Entità è la possibilità di essere impilata: un’Entità di rango superiore può essere posizionata sopra una di rango inferiore. 
-          L’Entità in cima può guadagnare effetti da quelle sottostanti e ne determina la posizione. Ad esempio, se l’Entità in cima è in Posizione di Attacco, anche quelle sotto saranno considerate in Attacco.`
-          : `An Entity’s unique trait is its ability to be stacked: a higher-rank Entity can be stacked on top of 1 lower-rank Entity. 
-          The Entity at the top can gain effects from those beneath it and also determines the position of the entire stack. For example, if the top Entity is in Attack Position, all Entities beneath it will share the same position.`}
+          ? `La caratteristica unica di un’Entità è la possibilità di essere impilata: un’Entità di rango superiore può essere posizionata sopra una di rango inferiore.`
+          : `An Entity’s unique trait is its ability to be stacked: a higher-rank Entity can be stacked on top of 1 lower-rank Entity.`}
+      </p>
+
+      <p>
+        {language === 'ita'
+          ? `L’Entità in cima può guadagnare effetti da quelle sottostanti e ne determina la posizione.`
+          : `The Entity at the top can gain effects from those beneath it and also determines the position of the entire stack.`}
+      </p>
+
+      <p>
+        {language === 'ita'
+          ? `<em>Ad esempio, se l’Entità in cima è in Posizione di Attacco, anche quelle sotto saranno considerate in Attacco.</em>`
+          : `<em>For example, if the top Entity is in Attack Position, all Entities beneath it will share the same position.</em>`}
       </p>
 
       <p>
@@ -116,7 +137,8 @@ const ChapterInvocation = ({ language }) => {
   </li>
 </ul>
 
-
+<div className={styles.dotDivider}>•</div>
+      
       <p>
         {language === 'ita'
           ? `Ricorda: se un'Entità sovrapposta viene distrutta, anche tutte le Entità sottostanti vengono inviate a Diyu. Questo non si applica agli effetti di “Ritorno” o “Ritiro”: in questi casi viene colpita solo l'Entità più in alto.` 
