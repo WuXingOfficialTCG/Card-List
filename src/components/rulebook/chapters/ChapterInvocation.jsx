@@ -13,10 +13,13 @@ const ChapterInvocation = ({ language }) => {
       </p>
 
       <p>
-        {language === 'ita'
-          ? (`<em>Ad esempio: per invocare un’Entità di Terra, devi sacrificare 1 Qi di Terra.</em>)`
-          : (`<em>Example: to invoke an Earth Element Entity, you must sacrifice 1 Earth Qi.</em>`)}
+        {language === 'ita' ? (
+          <em>Ad esempio: per invocare un’Entità di Terra, devi sacrificare 1 Qi di Terra.</em>
+        ) : (
+          <em>Example: to invoke an Earth Element Entity, you must sacrifice 1 Earth Qi.</em>
+        )}
       </p>
+
 
       <p>
         {language === 'ita'
@@ -110,10 +113,13 @@ const ChapterInvocation = ({ language }) => {
       </p>
 
       <p>
-        {language === 'ita'
-          ? (`<em>Ad esempio, se l’Entità in cima è in Posizione di Attacco, anche quelle sotto saranno considerate in Attacco.</em>`)
-          : (`<em>For example, if the top Entity is in Attack Position, all Entities beneath it will share the same position.</em>`)}
-      </p>
+        {language === 'ita' ? (
+          <em>Ad esempio, se l’Entità in cima è in Posizione di Attacco, anche quelle sotto saranno considerate in Attacco.</em>
+       ) : (
+          <em>For example, if the top Entity is in Attack Position, all Entities beneath it will share the same position.</em>
+       )}
+     </p>
+
 
       <p>
         {language === 'ita'
