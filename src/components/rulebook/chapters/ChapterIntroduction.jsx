@@ -6,22 +6,22 @@ const ChapterIntroduction = ({ language }) => {
       <h2>{language === 'ita' ? 'Introduzione' : 'Introduction'}</h2>
       {language === 'ita' ? (
         <>
-          <p>Nel mondo degli Evocatori, il potere è nelle tue mani!</p>
+          <p>Nel mondo degli <strong>Evocatori</strong>, il potere è nelle tue mani!</p>
           <p>
-            Evoca creature leggendarie, scatena magie arcane e domina il campo di battaglia con strategie uniche. Ogni carta è un frammento di energia antica, pronto a rispondere al tuo comando.
+            Evoca creature leggendarie, scatena magie arcane e domina il campo di battaglia con strategie uniche. Ogni carta è un <strong>frammento di energia antica</strong>, pronto a rispondere al tuo comando.
           </p>
           <p>
-            Solo i più astuti e potenti ascenderanno tra i Maestri dell’Evocazione. Sei pronto a sfidare il tuo destino?
+            Solo i più astuti e potenti ascenderanno tra i Maestri dell’Evocazione. <strong>Sei pronto a sfidare il tuo destino?</strong>
           </p>
         </>
       ) : (
         <>
-          <p>In the world of Invokers, power is in your hands!</p>
+          <p>In the world of <strong>Invokers</strong>, power is in your hands!</p>
           <p>
-            Invoke legendary creatures, unleash arcane magic, and dominate the battlefield with unique strategies. Each card is a fragment of ancient energy, ready to respond to your command.
+            Invoke legendary creatures, unleash arcane magic, and dominate the battlefield with unique strategies. Each card is a <strong>fragment of ancient energy</strong>, ready to respond to your command.
           </p>
           <p>
-            Only the most cunning and powerful will ascend among the Masters of Invoking. Are you ready to challenge your destiny?
+            Only the most cunning and powerful will ascend among the Masters of Invoking. <strong>Are you ready to challenge your destiny?</strong>
           </p>
         </>
       )}
