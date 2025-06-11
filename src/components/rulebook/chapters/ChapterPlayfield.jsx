@@ -20,46 +20,46 @@ const ChapterPlayfield = ({ language }) => {
           : 'The game field is made up of different zones, each designed to hold specific components:'}
       </p>
 
-      <ol>
+      <ol style={{ lineHeight: 1.6 }}>
         <li>
           {language === 'ita'
-            ? 'Mazzo principale: l’area dove si trova il tuo mazzo.'
-            : 'Main Deck: the area where you place your deck.'}
+            ? <> <strong>Main Deck</strong>: l’area dove si trova il tuo mazzo.</>
+            : <> <strong>Main Deck</strong>: the area where you place your deck.</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Diyu: la zona dove vengono mandate le carte scartate, distrutte o sacrificate.'
-            : 'Diyu: the zone where your discarded, destroyed, or sacrificed cards are sent.'}
+            ? <> <strong>Diyu</strong>: la zona dove vengono mandate le carte scartate, distrutte o sacrificate.</>
+            : <> <strong>Diyu</strong>: the zone where your discarded, destroyed, or sacrificed cards are sent.</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Nexus: l’area dove puoi collocare i Chakra.'
-            : 'Nexus: the area where you can place Chakras.'}
+            ? <> <strong>Nexus</strong>: l’area dove puoi collocare i Chakra.</>
+            : <> <strong>Nexus</strong>: the area where you can place Chakras.</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Manifestazioni: la zona in cui evochi le tue entità.'
-            : 'Manifestations: the zone where you invoke your entities.'}
+            ? <> <strong>Manifestazioni</strong>: la zona in cui evochi le tue entità.</>
+            : <> <strong>Manifestations</strong>: the zone where you invoke your entities.</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Release: l’area dove i Domini vengono inizialmente messi in verticale e poi, una volta attivati, ruotati in orizzontale.'
-            : 'Release: the area where domains are initially placed vertically, and once activated, moved to a horizontal position.'}
+            ? <> <strong>Release</strong>: l’area dove i Domini vengono inizialmente messi in verticale e poi, una volta attivati, ruotati in orizzontale.</>
+            : <> <strong>Release</strong>: the area where domains are initially placed vertically, and once activated, moved to a horizontal position.</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Serbatoio: l’area dove si collocano i Qi utilizzati o non generati.'
-            : 'Reservoir: the area where you place used Qi or Qi that has not been generated.'}
+            ? <> <strong>Serbatoio</strong>: l’area dove si collocano i Qi utilizzati o non generati.</>
+            : <> <strong>Reservoir</strong>: the area where you place used Qi or Qi that has not been generated.</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Generati: la zona dove si mettono i Qi generati (direttamente dal Serbatoio).'
-            : 'Generated: the zone where you place Qi that you choose to generate (directly from the Reservoir).'}
+            ? <> <strong>Generati</strong>: la zona dove si mettono i Qi generati (direttamente dal Serbatoio).</>
+            : <> <strong>Generated</strong>: the zone where you place Qi that you choose to generate (directly from the Reservoir).</>}
         </li>
         <li>
           {language === 'ita'
-            ? 'Mazzo laterale: utilizzato nei tornei, contiene il tuo mazzo di riserva.'
-            : 'Side Deck: used in tournaments, this is where you keep your reserve deck.'}
+            ? <> <strong>Mazzo laterale</strong>: utilizzato nei tornei, contiene il tuo mazzo di riserva.</>
+            : <> <strong>Side Deck</strong>: used in tournaments, this is where you keep your reserve deck.</>}
         </li>
       </ol>
       <hr style={{ width: '80%', margin: '2rem auto', border: '1px solid #ccc' }} />
