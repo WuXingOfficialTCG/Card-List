@@ -12,6 +12,9 @@ const ChapterSetup = ({ language }) => {
           <p>
             Puoi costruire liberamente il tuo mazzo usando qualsiasi carta tu voglia, sia dal Mazzo Alpha che da future espansioni, per strategie ancora più avanzate!
           </p>
+          
+          <div className={styles.dotDivider}>•</div>
+          
           <p>Per iniziare una partita a Wu Xing, avrai bisogno di:</p>
           <ul>
             <li>Deck: Deve contenere almeno 30 carte, fino a un massimo di 40.</li>
@@ -38,6 +41,9 @@ const ChapterSetup = ({ language }) => {
           <p>
             You can freely build your deck using any cards you want, whether from Alpha Set or future Expansions,  for even more advanced strategies!
           </p>
+
+          <div className={styles.dotDivider}>•</div>
+          
           <p>To start a Wu Xing match, you will need:</p>
           <ul>
             <li>Deck: Must contain at least 30 cards, up to a maximum of 40.</li>
