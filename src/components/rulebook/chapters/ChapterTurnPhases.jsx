@@ -82,10 +82,12 @@ const ChapterTurnPhases = ({ language }) => {
             • <strong>Resonance Step</strong>: ◦ all the effects activated in the previous turn resolve here. <br />
             • <strong>Drawing Step</strong>: ◦ start the turn by drawing a card from the top of your deck. <br />
             • <strong>Generation Step</strong>: ◦ you can generate 1 Qi of an element of your choice, essential for using your cards.
+            <br />
+            You may not activate any effect during the Initial Phase.
 
             <div className={styles.dotDivider}>•</div>
             
-            <strong>MAIN PHASE</strong><br />
+            <strong>AWAKENING PHASE</strong><br />
             It’s the most important phase in the turn, where you can set up your strategy and it's divided in 2 steps:
             <br />
             • <strong>Intent Step</strong>: ◦ in this step you or your opponent can activate effects before entering the main step. Here you may not activate active effects, except for positioned Chakra and Disruption. <br />
@@ -94,7 +96,7 @@ const ChapterTurnPhases = ({ language }) => {
             ◦ Place Chakra and Domains. <br />
             ◦ Activate various effects. <br />
             ◦ Deconstruct cards. <br />
-            After this phase, you can choose to move to the Battle Phase, the Recovery Phase, or end the turn.
+            After this phase, you can choose to move to the Battle Phase, the Fading Phase, or end the turn.
 
             <br />
             <strong>Remember</strong>: the main step is one of the two moments in which you can activate active effects.
@@ -111,27 +113,30 @@ const ChapterTurnPhases = ({ language }) => {
 
             <div className={styles.dotDivider}>•</div>
             
-            <strong>RECOVERY PHASE</strong><br />
-            This phase allows you to make final strategic moves before ending the turn. You can:
+            <strong>FADING PHASE</strong><br />
+            This phase allows you to make final strategic moves before ending the turn. It’s divided in 2 subesteps:
             <br />
-            • Invoke Entities if you have enough Qi. <br />
-            • Place Chakras or Domains. <br />
-            • Activate various effects. <br />
-            • Prepare the field for the next turn. <br />
+            • Recovery Steps: where each player gains back Qi for each of its destroyed entities.<br />
+            • Main Step: similar to the one in the Awakening Phase you can:
+            ◦ Invoke Entities if you have enough Qi. <br />
+            ◦ Place Chakras or Domains. <br />
+            ◦ Activate various effects. <br />
+            ◦ Prepare the field for the next turn. <br />
             Effects activated during this phase are resolved before moving on to the Final Phase.
 
             <div className={styles.dotDivider}>•</div>
             
             <strong>ENDING PHASE</strong><br />
-            This phase marks the end of the turn. Any effects active until the end of the turn are exhausted, and the turn passes to the opponent. <br />
+            This phase marks the end of the turn, and it passes to the opponent. <br />
             Furthermore, if you have more than 5 cards in your hand, you must discard the exceeding cards.
+            Here can be activated positioned Chakras and Disruption effects.
 
             <div className={styles.dotDivider}>•</div>
             
             The first player of the game faces a slightly different turn:
             <br />
-            • They cannot draw in the Draw Phase. <br />
-            • They cannot declare attacks in the Battle Phase. <br />
+            • Cannot draw in the Draw Phase. <br />
+            • Cannot declare attacks in the Battle Phase. <br />
             This rule ensures balance between players and prevents excessive advantages for the player going first.
           </>
         )}
