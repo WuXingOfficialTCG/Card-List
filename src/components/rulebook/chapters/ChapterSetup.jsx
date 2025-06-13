@@ -11,14 +11,14 @@ const ChapterSetup = ({ language }) => {
             Per giocare a Wu Xing, tutto ciò di cui hai bisogno è <strong>un mazzo di carte</strong> interamente scelto da te e <strong>qualche segnalino</strong> per tenere traccia del tuo Qi.
           </p>
           <p>
-            Puoi costruire liberamente il tuo mazzo usando qualsiasi carta tu voglia, sia dal <strong>Mazzo Alpha</strong> che da <strong>future espansioni</strong>, per strategie ancora più avanzate!
+            Puoi costruire liberamente il tuo mazzo usando qualsiasi carta tu voglia, sia dal <strong>Mazzo Alpha</strong> che delle <strong>future espansioni</strong>, per strategie ancora più avanzate!
           </p>
 
           <div className={styles.dotDivider}>•</div>
 
           <p>Per iniziare una partita a Wu Xing, avrai bisogno di:</p>
           <ul>
-            <li><strong>Deck</strong>: Deve contenere almeno <strong>30 carte</strong>, fino a un massimo di <strong>40</strong>.</li>
+            <li><strong>Mazzo</strong>: Deve contenere almeno <strong>30 carte</strong>, fino a un massimo di <strong>40</strong>.</li>
             <li><strong>Dadi</strong>: Ogni giocatore deve avere 5 dadi Qi.</li>
           </ul>
           <p>Per un'esperienza più immersiva, puoi anche usare:</p>
@@ -27,7 +27,7 @@ const ChapterSetup = ({ language }) => {
             <li><strong>Dado PM (d12)</strong>: Utile per tenere traccia dei tuoi Punti Marma.</li>
           </ul>
           <p>
-            Una volta che entrambi i giocatori hanno completato il setup, la partita può cominciare! Ogni giocatore inizia con <strong>12 Punti Marma (PM)</strong>, che rappresentano la loro vita.
+            Una volta che entrambi i giocatori hanno completato il setup, la partita può cominciare! Ogni giocatore inizia con <strong>12 Punti Marma (PM)</strong>, che rappresentano la propria vita.
           </p>
           <p>
             Se i PM arrivano a zero, il giocatore perde. Dopo aver mescolato il proprio mazzo, ogni giocatore <strong>pesca 4 carte</strong>.
