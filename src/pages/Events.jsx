@@ -35,7 +35,6 @@ export default function Events() {
 
   return (
     <div className="events-container">
-
       {featured.length > 0 && (
         <div className="custom-slider" role="region" aria-label="Slider eventi in evidenza">
           {featured.map((event, index) => (
@@ -59,7 +58,7 @@ export default function Events() {
           ))}
 
           <div className="custom-dots" role="tablist" aria-label="Seleziona slide evento">
-            {featured.map((_, index) => (
+            {featured.map((event, index) => (
               <button
                 key={index}
                 className={index === currentSlide ? 'active' : ''}
@@ -70,6 +69,7 @@ export default function Events() {
                 id={`tab-${index}`}
                 tabIndex={index === currentSlide ? 0 : -1}
                 aria-label={`Vai alla slide ${index + 1}`}
+                style={{ backgroundImage: `url(${event.image})` }}
               />
             ))}
           </div>
