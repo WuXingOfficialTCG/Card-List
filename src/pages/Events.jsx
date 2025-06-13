@@ -25,7 +25,7 @@ export default function Events() {
   useEffect(() => {
     if (featured.length > 1) {
       const interval = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % featured.length);
+        setCurrentSlide(prev => (prev + 1) % featured.length);
       }, 4000);
       return () => clearInterval(interval);
     }
@@ -57,19 +57,18 @@ export default function Events() {
             </div>
           ))}
 
-          <div className="custom-dots" role="tablist" aria-label="Seleziona slide evento">
+          <div className="custom-thumbnails" role="tablist" aria-label="Seleziona slide evento">
             {featured.map((event, index) => (
               <button
                 key={index}
-                className={index === currentSlide ? 'active' : ''}
+                className={`thumbnail-btn ${index === currentSlide ? 'active' : ''}`}
                 onClick={() => setCurrentSlide(index)}
                 role="tab"
                 aria-selected={index === currentSlide}
                 aria-controls={`slide-${index}`}
                 id={`tab-${index}`}
-                tabIndex={index === currentSlide ? 0 : -1}
-                aria-label={`Vai alla slide ${index + 1}`}
                 style={{ backgroundImage: `url(${event.image})` }}
+                aria-label={`Vai alla slide ${index + 1}`}
               />
             ))}
           </div>
