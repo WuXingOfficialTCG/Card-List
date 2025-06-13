@@ -55,6 +55,7 @@ export default function NavigationBar() {
       <nav className={`navigation-bar navigation-bar-responsive ${isAdmin ? 'six-buttons' : 'five-buttons'}`}>
         <Link to="/" className={getClass('/', 'home')}>HOME</Link>
         <Link to="/deck-builder" className={getClass('/deck-builder', 'deck-builder')}>CARDS</Link>
+        <Link to="/rulebook" className={getClass('/rulebook', 'rulebook')}>RULEBOOK</Link>
         {user ? (
           <Link to="/account" className={getClass('/account', 'account')}>ACCOUNT</Link>
         ) : (
@@ -66,7 +67,6 @@ export default function NavigationBar() {
             SIGNUP
           </button>
         )}
-
         {isAdmin && (
           <Link to="/admin" className={getClass('/admin', 'admin')}>ADMIN</Link>
         )}
