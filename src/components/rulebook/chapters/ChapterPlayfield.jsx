@@ -23,7 +23,7 @@ const ChapterPlayfield = ({ language }) => {
       <ol style={{ lineHeight: 1.6 }}>
         <li>
           {language === 'ita'
-            ? <> <strong>Main Deck</strong>: l’area dove si trova il tuo mazzo.</>
+            ? <> <strong>Mazzo principale</strong>: l’area dove si trova il tuo mazzo.</>
             : <> <strong>Main Deck</strong>: the area where you place your deck.</>}
         </li>
         <li>
@@ -58,7 +58,7 @@ const ChapterPlayfield = ({ language }) => {
         </li>
         <li>
           {language === 'ita'
-            ? <> <strong>Mazzo laterale</strong>: utilizzato nei tornei, contiene il tuo mazzo di riserva.</>
+            ? <> <strong>Mazzo Extra</strong>: utilizzato nei tornei, contiene il tuo mazzo di riserva.</>
             : <> <strong>Side Deck</strong>: used in tournaments, this is where you keep your reserve deck.</>}
         </li>
       </ol>
