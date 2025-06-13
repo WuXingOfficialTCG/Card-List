@@ -14,8 +14,14 @@ const ChapterEffects = ({ language }) => {
 
       <p>
         {language === 'ita'
-          ? <>Gli effetti sono gratuiti da attivare e ciascuno ha una <strong>parola chiave</strong> specifica per il suo tipo:</>
-          : <>Effects are free to activate and they all have a <strong>keyword</strong> specific for their type:</>}
+          ? <>Gli effetti si dividono in attivi e passivi. Gli effetti attivi si possono usare solo durante le fasi principali. Gli effetti passivi non richiedono attivazione (come Haste e Shell) o si attivano automaticamente ogni volta che sono innescati (come Disruption, Entrance e Unseal).</>
+          : <>Effects are divided into active or passive types. The active ones can be used only during the main steps while the passive ones, doesn't need to be activated (Haste and Shell) or they can be used in almost each moment as long as they're triggered (Disruption, Entrance and Unseal).</>}
+      </p>
+
+      <p>
+        {language === 'ita'
+          ? <>Gli effetti si attivano gratuitamente e ognuno ha una parola chiave specifica per il proprio tipo:</>
+          : <>Effects are free to activate and they all have a keyword specific for their type: </>}
       </p>
 
       <ul style={{ listStyleType: 'disc', marginLeft: '1.2rem', paddingLeft: 0 }}>
