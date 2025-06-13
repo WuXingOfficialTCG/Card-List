@@ -26,53 +26,70 @@ const ChapterEffects = ({ language }) => {
 
       <ul style={{ listStyleType: 'disc', marginLeft: '1.2rem', paddingLeft: 0 }}>
         <li>
-          <strong>Skill:</strong>{' '}
-          {language === 'ita'
-            ? <><strong>effetto attivo</strong> che può essere attivato solo durante il tuo turno.</>
-            : <><strong>active type of effects</strong> that can be activated only <strong>during your turn</strong>.</>}
-        </li>
-        <li>
-          <strong>Transmutation:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto attivo che ruota intorno alla trasmutazione di un elemento in un altro e talvolta include effetti secondari. <strong>Attivabile solo durante il tuo turno</strong>.</>
-            : <>active type of effects that revolve around transmuting an element to another and, sometimes, with secondary effects. <strong>Activable only during your turn</strong>.</>}
-        </li>
-        <li>
-          <strong>Disruption:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto rapido che può essere attivato in risposta a un’altra azione, <strong>in qualsiasi momento</strong>, e se è un Chakra, direttamente dalla tua mano.</>
-            : <>rapid effect that can be activated <strong>in response to another action</strong>, <strong>whenever you want</strong> and, if it’s a Chakra, directly from your hand.</>}
-        </li>
-        <li>
-          <strong>Shell:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto passivo che protegge l’entità da altri effetti e può avere effetti secondari.</>
-            : <>passive type of effects that protects the entity against other effects and may have some secondary effects.</>}
-        </li>
-        <li>
-          <strong>Haste:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto passivo che consente all’entità di attaccare tutte le entità avversarie durante la fase di battaglia, talvolta con effetti secondari.</>
-            : <>passive type of effects that grant the entity the ability to attack all of your opponents entities during your battle phase, sometimes with secondary effects.</>}
-        </li>
-        <li>
-          <strong>Unseal:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto passivo utilizzabile solo quando il Chakra si trova nel Diyu. Una volta usato, il Chakra torna direttamente nel mazzo.</>
-            : <>passive type of effects that is usable only when the Chakra is in the Diyu. Once you use it, the Chakra goes straight into the deck.</>}
-        </li>
-        <li>
-          <strong>Entrance:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto passivo che si attiva quando una carta entra nel Dominio.</>
-            : <>passive type of effects that triggers when a card enters the Domain.</>}
-        </li>
-        <li>
-          <strong>Lineage:</strong>{' '}
-          {language === 'ita'
-            ? <>effetto speciale che viene ereditato dalle entità impilate sull’entità che lo possiede. Una volta ereditato, agisce come uno <strong>"Skill"</strong>.</>
-            : <>special type of effects that it’s inherited to the entities stacked on the entity that carries it. Once it’s inherited, it acts as a <strong>“Skill”</strong>.</>}
-        </li>
+  <strong>{language === 'ita' ? 'Abilità' : 'Skill'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetti <strong>attivi</strong> che puoi attivare solo durante il tuo turno.</>
+  ) : (
+    <>an <strong>active type of effect</strong> that can be activated only <strong>during your turn</strong>.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Trasmutazione' : 'Transmutation'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto attivo che ruota intorno alla trasmutazione di un elemento in un altro e talvolta include effetti secondari. <strong>Attivabile solo durante il tuo turno</strong>.</>
+  ) : (
+    <>active type of effects that revolve around transmuting an element to another and, sometimes, with secondary effects. <strong>Activable only during your turn</strong>.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Distruzione' : 'Disruption'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto rapido che può essere attivato in risposta a un’altra azione, <strong>in qualsiasi momento</strong>, e se è un Chakra, direttamente dalla tua mano.</>
+  ) : (
+    <>rapid effect that can be activated <strong>in response to another action</strong>, <strong>whenever you want</strong> and, if it’s a Chakra, directly from your hand.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Barriera' : 'Shell'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto passivo che protegge l’entità da altri effetti e può avere effetti secondari.</>
+  ) : (
+    <>passive type of effects that protects the entity against other effects and may have some secondary effects.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Furia' : 'Haste'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto passivo che consente all’entità di attaccare tutte le entità avversarie durante la fase di battaglia, talvolta con effetti secondari.</>
+  ) : (
+    <>passive type of effects that grant the entity the ability to attack all of your opponents entities during your battle phase, sometimes with secondary effects.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Libera' : 'Unseal'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto passivo utilizzabile solo quando il Chakra si trova nel Diyu. Una volta usato, il Chakra torna direttamente nel mazzo.</>
+  ) : (
+    <>passive type of effects that is usable only when the Chakra is in the Diyu. Once you use it, the Chakra goes straight into the deck.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Ingresso' : 'Entrance'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto passivo che si attiva quando una carta entra nel Dominio.</>
+  ) : (
+    <>passive type of effects that triggers when a card enters the Domain.</>
+  )}
+</li>
+<li>
+  <strong>{language === 'ita' ? 'Lignaggio' : 'Lineage'}:</strong>{' '}
+  {language === 'ita' ? (
+    <>effetto speciale che viene ereditato dalle entità impilate sull’entità che lo possiede. Una volta ereditato, agisce come uno <strong>"Abilità"</strong>.</>
+  ) : (
+    <>special type of effects that is inherited to the entities stacked on the entity that carries it. Once it’s inherited, it acts as a <strong>“Skill”</strong>.</>
+  )}
+</li>
+
       </ul>
 
       <div className={styles.dotDivider}>•</div>
