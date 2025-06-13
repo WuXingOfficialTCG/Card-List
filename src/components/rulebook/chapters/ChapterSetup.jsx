@@ -1,4 +1,4 @@
-leimport React from 'react';
+import React from 'react';
 import styles from '../Rulebook.module.css';
 
 const ChapterSetup = ({ language }) => {
