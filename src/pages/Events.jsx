@@ -25,7 +25,7 @@ export default function Events() {
   useEffect(() => {
     if (featured.length > 1) {
       const interval = setInterval(() => {
-        setCurrentSlide(prev => (prev + 1) % featured.length);
+        setCurrentSlide((prev) => (prev + 1) % featured.length);
       }, 4000);
       return () => clearInterval(interval);
     }
@@ -67,8 +67,9 @@ export default function Events() {
                 aria-selected={index === currentSlide}
                 aria-controls={`slide-${index}`}
                 id={`tab-${index}`}
-                style={{ backgroundImage: `url(${event.image})` }}
+                tabIndex={index === currentSlide ? 0 : -1}
                 aria-label={`Vai alla slide ${index + 1}`}
+                style={{ backgroundImage: `url(${event.image})` }}
               />
             ))}
           </div>
