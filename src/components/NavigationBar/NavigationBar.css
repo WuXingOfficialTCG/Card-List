@@ -39,9 +39,7 @@
   border-right: none;
 }
 
-/* --------------------------
-   Stili per ACCOUNT e SIGNUP (link e button)
---------------------------- */
+/* ACCOUNT / SIGNUP */
 .nav-button.account,
 button.nav-button.account {
   background-color: var(--color-neutral);
@@ -81,36 +79,31 @@ button.nav-button.account.active {
   color: white;
 }
 
-/* --------------------------
-   Stile normale per gli altri bottoni/link
---------------------------- */
+/* HOME */
 .nav-button.home:hover {
   background-color: var(--color-theme-a-dark);
 }
-.nav-button.deck-builder:hover {
-  background-color: var(--color-theme-b-dark);
-}
-.nav-button.shop:hover {
-  background-color: var(--color-theme-c-dark);
-}
-.nav-button.events:hover {
-  background-color: var(--color-theme-d-dark);
-}
-
 .nav-button.home.active {
   background-color: var(--color-theme-a);
+}
+
+/* DECK BUILDER */
+.nav-button.deck-builder:hover {
+  background-color: var(--color-theme-b-dark);
 }
 .nav-button.deck-builder.active {
   background-color: var(--color-theme-b);
 }
-.nav-button.shop.active {
+
+/* RULEBOOK */
+.nav-button.rulebook:hover {
+  background-color: var(--color-theme-c-dark);
+}
+.nav-button.rulebook.active {
   background-color: var(--color-theme-c);
 }
-.nav-button.events.active {
-  background-color: var(--color-theme-d);
-}
 
-/* Admin */
+/* ADMIN */
 .nav-button.admin {
   background-color: var(--color-admin-bg);
   color: var(--color-admin-text);
@@ -172,27 +165,22 @@ button.nav-button.account.active {
   .navigation-bar .nav-button.home:hover {
     background-color: var(--color-theme-a-dark);
   }
-  .navigation-bar .nav-button.deck-builder:hover {
-    background-color: var(--color-theme-b-dark);
-  }
-  .navigation-bar .nav-button.shop:hover {
-    background-color: var(--color-theme-c-dark);
-  }
-  .navigation-bar .nav-button.events:hover {
-    background-color: var(--color-theme-d-dark);
-  }
-
   .navigation-bar .nav-button.home.active {
     background-color: var(--color-theme-a);
+  }
+
+  .navigation-bar .nav-button.deck-builder:hover {
+    background-color: var(--color-theme-b-dark);
   }
   .navigation-bar .nav-button.deck-builder.active {
     background-color: var(--color-theme-b);
   }
-  .navigation-bar .nav-button.shop.active {
-    background-color: var(--color-theme-c);
+
+  .navigation-bar .nav-button.rulebook:hover {
+    background-color: var(--color-theme-c-dark);
   }
-  .navigation-bar .nav-button.events.active {
-    background-color: var(--color-theme-d);
+  .navigation-bar .nav-button.rulebook.active {
+    background-color: var(--color-theme-c);
   }
 
   .navigation-bar .nav-button.admin {
