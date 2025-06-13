@@ -8,7 +8,7 @@ const ChapterIntroduction = ({ language }) => {
         <>
           <p>Nel mondo degli <strong>Evocatori</strong>, il potere è nelle tue mani!</p>
           <p>
-            Evoca creature leggendarie, scatena magie arcane e domina il campo di battaglia con strategie uniche. Ogni carta è un <strong>frammento di energia antica</strong>, pronto a rispondere al tuo comando.
+            Evoca creature leggendarie, scatena magie arcane e domina il campo di battaglia con strategie uniche. Ogni carta è un <strong>frammento di energia ancestrale</strong>, pronta a rispondere al tuo comando.
           </p>
           <p>
             Solo i più astuti e potenti ascenderanno tra i Maestri dell’Evocazione. <strong>Sei pronto a sfidare il tuo destino?</strong>
