@@ -20,7 +20,7 @@ const ChapterInvocation = ({ language }) => {
 
       <p>
         {language === 'ita' ? (
-          <em>Ad esempio: per invocare un’Entità di Terra, devi sacrificare 1 Qi di Terra.</em>
+          <em>Esempio: per invocare un’Entità di Terra, devi sacrificare 1 Qi di Terra.</em>
         ) : (
           <em>Example: to invoke an Earth Element Entity, you must sacrifice 1 Earth Qi.</em>
         )}
@@ -36,7 +36,7 @@ const ChapterInvocation = ({ language }) => {
 
       <p>
         {language === 'ita' ? (
-          <>La posizione delle Entità <strong>può essere cambiata una volta per turno</strong>, durante o la Main Phase o la Recovery Phase.</>
+          <>La posizione delle Entità <strong>può essere cambiata una volta per turno</strong>, durante la Fase Principale o la Fase di Recupero.</>
         ) : (
           <>Entity positions <strong>can be changed once per turn</strong>, during either the Main Phase or the Recovery Phase.</>
         )}
@@ -119,7 +119,7 @@ const ChapterInvocation = ({ language }) => {
       <p>
         {language === 'ita' ? (
           <>
-            L’Entità in cima <strong>può guadagnare effetti</strong> da quelle sottostanti e ne determina la posizione.
+            L’Entità in cima alla pila <strong>può guadagnare gli effetti</strong> di quelle sottostanti e determina anche la posizione dell’intera pila.
           </>
         ) : (
           <>
@@ -130,16 +130,16 @@ const ChapterInvocation = ({ language }) => {
 
       <p>
         {language === 'ita' ? (
-          <em>Ad esempio, se l’Entità in cima è in Posizione di Attacco, anche quelle sotto saranno considerate in Attacco.</em>
+          <em>Esempio, se l’Entità in cima è in Posizione di Attacco, tutte le Entità sotto di essa condivideranno la stessa posizione.</em>
         ) : (
-          <em>For example, if the top Entity is in Attack Position, all Entities beneath it will share the same position.</em>
+          <em>Example, if the top Entity is in Attack Position, all Entities beneath it will share the same position.</em>
         )}
       </p>
 
       <p>
         {language === 'ita' ? (
           <>
-            Tuttavia, ci sono <strong>delle regole da seguire</strong>, basato sul rango dell'entità:
+            Tuttavia, ci sono <strong>delle regole da seguire</strong>, in base al Rango dell’Entità:
           </>
         ) : (
           <>
@@ -171,8 +171,16 @@ const ChapterInvocation = ({ language }) => {
             </>
           )}
         </li>
-        <li style={{ listStyleType: '"◦ "', marginLeft: '1.2em' }}>
-          Rank 3 → Rank 2 → Rank 1
+        <li>
+          {language === 'ita' ? (
+            <>
+              L’ordine è: Rango 3 → Rango 2 → Rango 1.
+            </>
+          ) : (
+            <>
+              Rank 3 → Rank 2 → Rank 1
+            </>
+          )}
         </li>
       </ul>
 
@@ -181,7 +189,7 @@ const ChapterInvocation = ({ language }) => {
       <p>
         {language === 'ita' ? (
           <>
-            <strong>Ricorda</strong>: se un'Entità sovrapposta viene distrutta, anche tutte le Entità sottostanti vengono inviate a Diyu. Questo non si applica agli effetti di “Ritorno” o “Ritiro”: in questi casi viene colpita solo l'Entità più in alto.
+            <strong>Ricorda</strong>: se un'Entità sovrapposta viene distrutta, anche tutte le Entità sottostanti vengono inviate al Diyu. Questo non si applica agli effetti di “Ritorno” o “Ritiro”: in questi casi viene colpita solo l'Entità più in alto.
           </>
         ) : (
           <>
